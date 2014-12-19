@@ -56,3 +56,4 @@ target/
 
 *.iml
 .idea/
+db.sqlite3
