@@ -54,7 +54,7 @@ class SalgsvarePris(models.Model):
 class Salgskalkyle(models.Model):
     navn = models.CharField(max_length=30)
     kommentar = models.TextField()
-    dato = models.DateField
+    dato = models.DateField()
 
 class SalgskalkyleVare(models.Model):
     kalkyle = models.ForeignKey(Salgskalkyle, related_name='varer')
@@ -73,4 +73,4 @@ class VaretellingVare(models.Model):
     råvare = models.ForeignKey(Råvare)
     sted = models.CharField(max_length=50)
     antall = models.FloatField()
-    kommentar = models.CharField()
+    kommentar = models.CharField(max_length=150)
