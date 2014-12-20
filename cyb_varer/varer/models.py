@@ -1,5 +1,21 @@
 from django.db import models
 
+class Konto(models.Model):
+    innkjøpskonto = models.PositiveSmallIntegerField()
+    varelagerkonto = models.PositiveSmallIntegerField()
+    beholdningsendringskonto = models.PositiveSmallIntegerField()
+    salgskonto = models.PositiveSmallIntegerField()
+    navn = models.CharField(max_length=30)
+    gruppe = models.CharField(max_length=20)
+    kommentar = models.TextField(null=True, blank=True)
+
+    class Meta:
+        ordering = ['gruppe', 'innkjøpskonto']
+        verbose_name_plural = 'kontoer'
+
+    def __str__(self):
+        return '%s: %s' % (self.gruppe, self.navn)
+
 class Råvare(models.Model):
     STATUS_CHOICES = (
         ('OK', 'I bruk'),
@@ -9,9 +25,9 @@ class Råvare(models.Model):
     kategori = models.CharField(max_length=50, null=True, blank=True)
     navn = models.CharField(max_length=100)
     mengde = models.FloatField()
-    mengde_svinn = models.FloatField(default=0)
     enhet = models.CharField(max_length=20)
-    innkjøpskonto = models.PositiveSmallIntegerField()
+    mengde_svinn = models.FloatField(default=0)
+    innkjøpskonto = models.ForeignKey(Konto, related_name='råvarer')
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='OK')
 
     class Meta:
@@ -49,7 +65,7 @@ class Råvarepris(models.Model):
 class Salgsvare(models.Model):
     kategori = models.CharField(max_length=50, null=True, blank=True)
     navn = models.CharField(max_length=100)
-    salgskonto = models.PositiveSmallIntegerField()
+    salgskonto = models.ForeignKey(Konto, related_name='salgsvarer')
     status = models.CharField(max_length=10, choices=Råvare.STATUS_CHOICES, default='OK')
     råvarer = models.ManyToManyField(Råvare, through='varer.SalgsvareRåvare', related_name='salgsvarer')
 
