@@ -1,7 +1,9 @@
 from django.conf.urls import url, include
 from rest_framework import routers
 from django.contrib import admin
-from cyb_varer.varer.rest import *
+
+from varer.rest import *
+
 
 router = routers.DefaultRouter()
 router.register(r'api/kontoer', KontoViewSet)

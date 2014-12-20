@@ -1,6 +1,8 @@
-from rest_framework import viewsets, filters
-from cyb_varer.varer.serializers import *
-from cyb_varer.varer.models import *
+from rest_framework import viewsets
+
+from varer.serializers import *
+from varer.models import *
+
 
 class KontoViewSet(viewsets.ModelViewSet):
     queryset = Konto.objects.all()

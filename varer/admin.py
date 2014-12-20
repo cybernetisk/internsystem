@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from cyb_varer.varer.models import *
+from varer.models import *
 
 class RåvareInline(admin.TabularInline):
     model = Råvare

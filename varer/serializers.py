@@ -1,5 +1,7 @@
-from cyb_varer.varer.models import *
 from rest_framework import serializers
+
+from varer.models import *
+
 
 class KontoSerializer(serializers.ModelSerializer):
     class Meta:

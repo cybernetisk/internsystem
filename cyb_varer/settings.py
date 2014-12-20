@@ -37,7 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'cyb_varer.varer'
+    'varer'
 )
 
 MIDDLEWARE_CLASSES = (
