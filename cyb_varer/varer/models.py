@@ -53,6 +53,7 @@ class Råvarepris(models.Model):
     leverandør = models.ForeignKey(Leverandør, related_name='priser')
     bestillingskode = models.CharField(max_length=30, null=True, blank=True)
     pris = models.FloatField(help_text="Pris eks mva")
+    pant = models.FloatField(help_text="Pant per stk", default=0)
     dato = models.DateField()
 
     class Meta:
