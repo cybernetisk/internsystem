@@ -30,6 +30,9 @@ var js_files = [
     'varer/frontend/app.js',
     'varer/frontend/**/module.js',
     'varer/frontend/**/*.js',
+    'z/frontend/app.js',
+    'z/frontend/**/module.js',
+    'z/frontend/**/*.js',
     'siteroot/frontend/app.js',
     'siteroot/frontend/**/module.js',
     'siteroot/frontend/**/*.js'
@@ -109,9 +112,9 @@ gulp.task('rev-concat', function() {
 });
 
 gulp.task('watch', function() {
-    gulp.watch('varer/frontend/**/*.scss').on('change', function () { runSequence('styles', 'rev-concat'); });
+    gulp.watch('*/frontend/**/*.scss').on('change', function () { runSequence('styles', 'rev-concat'); });
     gulp.watch(js_files).on('change', function () { runSequence('scripts', 'rev-concat'); });
-    gulp.watch('varer/frontend/**/*.html').on('change', function () { runSequence('templates', 'rev-concat'); });
+    gulp.watch('*/frontend/**/*.html').on('change', function () { runSequence('templates', 'rev-concat'); });
 });
 
 gulp.task('production', function(cb) {
