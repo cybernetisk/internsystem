@@ -6,7 +6,7 @@
     module.config(function ($stateProvider) {
         $stateProvider.state('varetellinger', {
             url: '/varer/varetellinger',
-            templateUrl: 'views/varetellinger/index.html',
+            templateUrl: 'views/varer/varetellinger/index.html',
             controller: 'VaretellingerController'
         })
     });

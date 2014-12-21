@@ -6,7 +6,7 @@
     module.config(function ($stateProvider) {
         $stateProvider.state('varer', {
             url: '/varer',
-            templateUrl: 'views/index/index.html',
+            templateUrl: 'views/varer/index/index.html',
             controller: 'VarerIndexController'
         });
     });

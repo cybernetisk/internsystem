@@ -7,7 +7,7 @@ register = template.Library()
 @register.filter
 @stringfilter
 def revision(value):
-    with open('varer/static_build/rev-manifest.json') as f:
+    with open('siteroot/static_build/rev-manifest.json') as f:
         json_data = json.load(f)
 
     if value not in json_data:

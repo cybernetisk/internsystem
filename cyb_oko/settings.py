@@ -1,5 +1,5 @@
 """
-Django settings for cyb_varer project.
+Django settings for cyb_oko project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'siteroot',
     'varer'
 )
 
@@ -55,9 +56,9 @@ TEMPLATE_LOADERS = (
     'django.template.loaders.app_directories.Loader',
 )
 
-ROOT_URLCONF = 'cyb_varer.urls'
+ROOT_URLCONF = 'cyb_oko.urls'
 
-WSGI_APPLICATION = 'cyb_varer.wsgi.application'
+WSGI_APPLICATION = 'cyb_oko.wsgi.application'
 
 
 # Database
@@ -90,7 +91,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "varer/build"),
+    os.path.join(BASE_DIR, "siteroot/static_build"),
 )
 
 REST_FRAMEWORK = {

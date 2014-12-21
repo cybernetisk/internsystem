@@ -6,7 +6,7 @@
     module.config(function ($stateProvider) {
         $stateProvider.state('kontoer', {
             url: '/varer/kontoer',
-            templateUrl: 'views/kontoer/index.html',
+            templateUrl: 'views/varer/kontoer/index.html',
             controller: 'KontoerController'
         })
     });

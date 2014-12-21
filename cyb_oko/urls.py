@@ -3,7 +3,7 @@ from rest_framework import routers
 from django.contrib import admin
 
 from varer.rest import *
-from varer.views import angular_frontend
+from siteroot.views import angular_frontend
 
 
 router = routers.DefaultRouter()

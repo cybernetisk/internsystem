@@ -59,4 +59,4 @@ target/
 db.sqlite3
 bower_components/
 node_modules/
-varer/static_build/
+siteroot/static_build/

@@ -29,11 +29,14 @@ var js_files_library = [
 var js_files = [
     'varer/frontend/app.js',
     'varer/frontend/**/module.js',
-    'varer/frontend/**/*.js'
+    'varer/frontend/**/*.js',
+    'siteroot/frontend/app.js',
+    'siteroot/frontend/**/module.js',
+    'siteroot/frontend/**/*.js'
 ];
 
 var css_files = [
-    'varer/frontend/app.scss'
+    '*/frontend/app.scss'
 ];
 
 var processScripts = function (files, name) {
@@ -45,9 +48,9 @@ var processScripts = function (files, name) {
         .pipe(buffer())
         .pipe(rev())
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('varer/static_build'))
+        .pipe(gulp.dest('siteroot/static_build'))
         .pipe(rev.manifest({path: 'rev-manifest-scripts-' + name + '.json'}))
-        .pipe(gulp.dest('varer/static_build'));
+        .pipe(gulp.dest('siteroot/static_build'));
 };
 
 gulp.task('styles', function() {
@@ -59,9 +62,9 @@ gulp.task('styles', function() {
         .pipe(buffer())
         .pipe(rev())
         .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest('varer/static_build'))
+        .pipe(gulp.dest('siteroot/static_build'))
         .pipe(rev.manifest({path: 'rev-manifest-styles.json'}))
-        .pipe(gulp.dest('varer/static_build'));
+        .pipe(gulp.dest('siteroot/static_build'));
 });
 
 gulp.task('scripts-library', function () {
@@ -73,36 +76,36 @@ gulp.task('scripts', function() {
 });
 
 gulp.task('templates', ['templates-normal'], function() {
-    return gulp.src('varer/frontend/**/*.html')
-        .pipe(gulp.dest('varer/static_build/views'));
+    return gulp.src('*/frontend/**/*.html')
+        .pipe(gulp.dest('siteroot/static_build/views'));
 });
 
 gulp.task('templates', function() {
-    return gulp.src(['varer/frontend/**/*.html'])
+    return gulp.src(['*/frontend/**/*.html'])
         .pipe(rename(function(path) {
-            path.dirname = "views/" + path.dirname;
+            path.dirname = "views/" + path.dirname.replace('frontend/', '');
         }))
         .pipe(minifyHTML({
             quotes: true,
             empty: true
         }))
-        .pipe(templates('templates.js', {module: 'cyb.varer'}))
+        .pipe(templates('templates.js', {module: 'cyb.oko'}))
         .pipe(buffer())
         .pipe(rev())
-        .pipe(gulp.dest('varer/static_build'))
+        .pipe(gulp.dest('siteroot/static_build'))
         .pipe(rev.manifest({path: 'rev-manifest-templates.json'}))
-        .pipe(gulp.dest('varer/static_build'));
+        .pipe(gulp.dest('siteroot/static_build'));
 });
 
 gulp.task('fonts', function() {
     return gulp.src('./bower_components/bootstrap-sass-official/assets/fonts/**')
-        .pipe(gulp.dest('varer/static_build/fonts'));
+        .pipe(gulp.dest('siteroot/static_build/fonts'));
 });
 
 gulp.task('rev-concat', function() {
-    return gulp.src('varer/static_build/rev-manifest-*.json')
+    return gulp.src('siteroot/static_build/rev-manifest-*.json')
         .pipe(extend('rev-manifest.json'))
-        .pipe(gulp.dest('varer/static_build'));
+        .pipe(gulp.dest('siteroot/static_build'));
 });
 
 gulp.task('watch', function() {
