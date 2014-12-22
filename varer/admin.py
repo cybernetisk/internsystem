@@ -7,13 +7,13 @@ class RåvareInline(admin.TabularInline):
     verbose_name_plural = 'Råvarer'
 
 class KontoAdmin(admin.ModelAdmin):
-    list_display = ('navn', 'gruppe', 'innkjøpskonto', 'salgskonto', 'count_råvarer')
+    list_display = ('navn', 'gruppe', 'innkjopskonto', 'salgskonto', 'count_raavarer')
     list_filter = ('gruppe',)
     inlines = [RåvareInline]
 
-    def count_råvarer(self, obj):
-        return str(obj.råvarer.count())
-    count_råvarer.short_description = 'Antall råvarer'
+    def count_raavarer(self, obj):
+        return str(obj.raavarer.count())
+    count_raavarer.short_description = 'Antall råvarer'
 
 class RåvareprisInline(admin.TabularInline):
     model = Råvarepris
@@ -21,15 +21,15 @@ class RåvareprisInline(admin.TabularInline):
 
 class RåvareAdmin(admin.ModelAdmin):
     inlines = [RåvareprisInline]
-    search_fields = ['kategori', 'navn', 'innkjøpskonto']
-    list_display = ('__str__', 'innkjøpskonto')
-    list_filter = ('innkjøpskonto__gruppe',)
+    search_fields = ['kategori', 'navn', 'innkjopskonto']
+    list_display = ('__str__', 'innkjopskonto')
+    list_filter = ('innkjopskonto__gruppe',)
 
 class LeverandørAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'kommentar')
 
 class SalgsvareRåvareInline(admin.TabularInline):
-    model = Salgsvare.råvarer.through
+    model = Salgsvare.raavarer.through
     extra = 1
     min_num = 1
 

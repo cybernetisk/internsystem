@@ -1,7 +1,7 @@
 from django.db import models
 
 class Konto(models.Model):
-    innkjøpskonto = models.PositiveSmallIntegerField()
+    innkjopskonto = models.PositiveSmallIntegerField()
     varelagerkonto = models.PositiveSmallIntegerField()
     beholdningsendringskonto = models.PositiveSmallIntegerField()
     salgskonto = models.PositiveSmallIntegerField()
@@ -10,7 +10,7 @@ class Konto(models.Model):
     kommentar = models.TextField(null=True, blank=True)
 
     class Meta:
-        ordering = ['gruppe', 'innkjøpskonto']
+        ordering = ['gruppe', 'innkjopskonto']
         verbose_name_plural = 'kontoer'
 
     def __str__(self):
@@ -27,8 +27,10 @@ class Råvare(models.Model):
     mengde = models.FloatField()
     enhet = models.CharField(max_length=20)
     mengde_svinn = models.FloatField(default=0)
-    innkjøpskonto = models.ForeignKey(Konto, related_name='råvarer')
+    innkjopskonto = models.ForeignKey(Konto, related_name='raavarer')
+
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='OK')
+    lenket_salgsvare = models.ForeignKey('Råvarepris', related_name='lenkede_raavarer', null=True, blank=True)
 
     class Meta:
         ordering = ['kategori', 'navn']
@@ -43,14 +45,14 @@ class Leverandør(models.Model):
 
     class Meta:
         ordering = ['navn']
-        verbose_name_plural = 'leverandører'
+        verbose_name_plural = 'leverandorer'
 
     def __str__(self):
         return self.navn
 
 class Råvarepris(models.Model):
-    råvare = models.ForeignKey(Råvare, related_name='priser')
-    leverandør = models.ForeignKey(Leverandør, related_name='priser')
+    raavare = models.ForeignKey(Råvare, related_name='priser')
+    leverandor = models.ForeignKey(Leverandør, related_name='priser')
     bestillingskode = models.CharField(max_length=30, null=True, blank=True)
     pris = models.FloatField(help_text="Pris eks mva")
     pant = models.FloatField(help_text="Pant per stk", default=0)
@@ -61,14 +63,14 @@ class Råvarepris(models.Model):
         verbose_name_plural = 'råvarepriser'
 
     def __str__(self):
-        return self.råvare.navn + ' (' + self.dato.isoformat() + '): kr ' + str(self.pris)
+        return self.raavare.navn + ' (' + self.dato.isoformat() + '): kr ' + str(self.pris)
 
 class Salgsvare(models.Model):
     kategori = models.CharField(max_length=50, null=True, blank=True)
     navn = models.CharField(max_length=100)
     salgskonto = models.ForeignKey(Konto, related_name='salgsvarer')
     status = models.CharField(max_length=10, choices=Råvare.STATUS_CHOICES, default='OK')
-    råvarer = models.ManyToManyField(Råvare, through='varer.SalgsvareRåvare', related_name='salgsvarer')
+    raavarer = models.ManyToManyField(Råvare, through='varer.SalgsvareRåvare', related_name='salgsvarer')
 
     class Meta:
         ordering = ['kategori', 'navn']
@@ -79,7 +81,7 @@ class Salgsvare(models.Model):
 
 class SalgsvareRåvare(models.Model):
     salgsvare = models.ForeignKey(Salgsvare)
-    råvare = models.ForeignKey(Råvare)
+    raavare = models.ForeignKey(Råvare)
     mengde = models.FloatField()
 
 class SalgsvarePris(models.Model):
@@ -140,10 +142,10 @@ class Varetelling(models.Model):
 
 class VaretellingVare(models.Model):
     varetelling = models.ForeignKey(Varetelling)
-    råvare = models.ForeignKey(Råvare)
+    raavare = models.ForeignKey(Råvare)
     sted = models.CharField(max_length=50)
     antall = models.FloatField()
     kommentar = models.CharField(max_length=150, null=True, blank=True)
 
     class Meta:
-        ordering = ['varetelling', 'råvare']
+        ordering = ['varetelling', 'raavare']
