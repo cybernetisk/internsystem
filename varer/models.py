@@ -30,7 +30,7 @@ class Råvare(models.Model):
     innkjopskonto = models.ForeignKey(Konto, related_name='raavarer')
 
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='OK')
-    lenket_salgsvare = models.ForeignKey('Råvarepris', related_name='lenkede_raavarer', null=True, blank=True)
+    lenket_salgsvare = models.ForeignKey('Salgsvare', related_name='lenkede_raavarer', null=True, blank=True)
 
     class Meta:
         ordering = ['kategori', 'navn']
@@ -70,6 +70,7 @@ class Salgsvare(models.Model):
     navn = models.CharField(max_length=100)
     salgskonto = models.ForeignKey(Konto, related_name='salgsvarer')
     status = models.CharField(max_length=10, choices=Råvare.STATUS_CHOICES, default='OK')
+    kassenr = models.PositiveSmallIntegerField(help_text="Nr i varekatalog i kassa", null=True, blank=True)
     raavarer = models.ManyToManyField(Råvare, through='varer.SalgsvareRåvare', related_name='salgsvarer')
 
     class Meta:
@@ -91,11 +92,10 @@ class SalgsvarePris(models.Model):
         ('KAS', 'Registrert i kasse')
     )
 
-    salgsvare = models.ForeignKey(Salgsvare)
+    salgsvare = models.ForeignKey(Salgsvare, related_name='priser')
     status = models.CharField(max_length=3, choices=STATUS_CHOICES, default='FOR')
     dato = models.DateField()
     mva = models.PositiveSmallIntegerField(default='25')
-    kassenr = models.PositiveSmallIntegerField(help_text="Nr i varekatalog i kassa", null=True, blank=True)
     pris_intern = models.PositiveSmallIntegerField(help_text="Internpris INK mva", null=True, blank=True)
     pris_ekstern = models.PositiveSmallIntegerField(help_text="Eksternpris INK mva", null=True, blank=True)
 
