@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from rest_framework import filters
 
 from varer.serializers import *
 from varer.models import *
@@ -10,7 +11,14 @@ class KontoViewSet(viewsets.ModelViewSet):
 
 class RåvareViewSet(viewsets.ModelViewSet):
     queryset = Råvare.objects.all()
-    serializer_class = RåvareSerializer
+    filter_fields = ('navn', 'kategori', 'status', 'innkjopskonto__innkjopskonto')
+    search_fields = ['kategori', 'navn', 'innkjopskonto__innkjopskonto']
+
+    def get_serializer_class(self):
+        if self.action in ['create', 'update']:
+            return RåvareWriteSerializer
+        return RåvareReadSerializer
+
 
 class LeverandørViewSet(viewsets.ModelViewSet):
     queryset = Leverandør.objects.all()
@@ -22,7 +30,11 @@ class RåvareprisViewSet(viewsets.ModelViewSet):
 
 class SalgsvareViewSet(viewsets.ModelViewSet):
     queryset = Salgsvare.objects.all()
-    serializer_class = SalgsvareSerializer
+
+    def get_serializer_class(self):
+        if self.action in ['create', 'update']:
+            return SalgsvareWriteSerializer
+        return SalgsvareReadSerializer
 
 class SalgsvareRåvareViewSet(viewsets.ModelViewSet):
     queryset = SalgsvareRåvare.objects.all()

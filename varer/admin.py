@@ -30,11 +30,15 @@ class LeverandørAdmin(admin.ModelAdmin):
 
 class SalgsvareRåvareInline(admin.TabularInline):
     model = Salgsvare.raavarer.through
-    extra = 1
+    extra = 0
     min_num = 1
 
+class SalgsvarePrisInline(admin.TabularInline):
+    model = SalgsvarePris
+    extra = 0
+
 class SalgsvareAdmin(admin.ModelAdmin):
-    inlines = [SalgsvareRåvareInline]
+    inlines = [SalgsvareRåvareInline, SalgsvarePrisInline]
     search_fields = ['kategori', 'navn', 'salgskonto']
 
 class SalgskalkyleVareInline(admin.TabularInline):
