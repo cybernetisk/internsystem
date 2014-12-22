@@ -23,7 +23,8 @@ var js_files_library = [
     'bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js',
     'bower_components/angular/angular.js',
     'bower_components/angular-ui-router/release/angular-ui-router.min.js',
-    'bower_components/angular-animate/angular-animate.js'
+    'bower_components/angular-animate/angular-animate.js',
+    'bower_components/angular-resource/angular-resource.js'
 ];
 
 var js_files = [
