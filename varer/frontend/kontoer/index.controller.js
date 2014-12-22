@@ -7,11 +7,15 @@
         $stateProvider.state('kontoer', {
             url: '/varer/kontoer',
             templateUrl: 'views/varer/kontoer/index.html',
-            controller: 'KontoerController'
+            controller: 'KontoerController as kontoer'
         })
     });
 
-    module.controller('KontoerController', function () {
-        console.log("KontoerController");
+    module.controller('KontoerController', function (KontoerService) {
+        var self = this;
+
+        KontoerService.query(function(res) {
+            self.items = res.results;
+        });
     });
 })();
