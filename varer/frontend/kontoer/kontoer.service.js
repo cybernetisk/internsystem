@@ -3,7 +3,8 @@ angular.module('cyb.varer').factory('KontoerService', function ($resource) {
         id: '@id'
     }, {
         query: {
-            isArray: false
+            // no pagination
+            isArray: true
         }
     });
 });

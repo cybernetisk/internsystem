@@ -1,2 +1,16 @@
 <h1>Salgsvarer</h1>
-<p>Liste over salgsvarer!</p>
+
+<loader var="salgsvarer.items">
+    <p>Ingen salgsvarer eksisterer.</p>
+</loader>
+
+<div ng-if="salgsvarer.items.length > 0">
+    <ul>
+        <li ng-repeat="item in salgsvarer.items">
+            <span ng-show="::item.kategori">{{::item.kategori}}: </span>
+            <a ui-sref="salgsvare({id:item.id})">{{::item.navn}}</a>
+        </li>
+    </ul>
+</div>
+
+<pagination data="salgsvarer.pagination"></pagination>

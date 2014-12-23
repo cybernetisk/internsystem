@@ -7,11 +7,14 @@
         $stateProvider.state('leverandører', {
             url: '/varer/leverandører',
             templateUrl: 'views/varer/leverandører/index.html',
-            controller: 'LeverandørerController'
+            controller: 'LeverandørerController as leverandorer'
         })
     });
 
-    module.controller('LeverandørerController', function () {
-        console.log("LeverandørerController");
+    module.controller('LeverandørerController', function (LeverandørerService) {
+        var self = this;
+        LeverandørerService.query(function (res) {
+            self.items = res;
+        });
     });
 })();

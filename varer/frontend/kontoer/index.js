@@ -15,7 +15,7 @@
         var self = this;
 
         KontoerService.query(function(res) {
-            self.items = res.results;
+            self.items = res;
         });
     });
 })();

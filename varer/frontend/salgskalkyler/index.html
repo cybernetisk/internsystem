@@ -1,2 +1,15 @@
 <h1>Salgskalkyler</h1>
-<p>Liste over salgskalkyler!</p>
+
+<loader var="salgskalkyler.items">
+    <p>Ingen salgskalkyler eksisterer.</p>
+</loader>
+
+<div ng-if="salgskalkyler.items.length > 0">
+    <ul>
+        <li ng-repeat="item in salgskalkyler.items">
+            <a ui-sref="salgskalkyle({id:item.id})">{{::item.navn}}</a> ({{::item.dato}})
+        </li>
+    </ul>
+</div>
+
+<pagination data="salgskalkyler.pagination"></pagination>

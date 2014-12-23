@@ -1,2 +1,15 @@
 <h1>Varetellinger</h1>
-<p>Liste over varetellinger!</p>
+
+<loader var="varetellinger.items">
+    <p>Ingen varetellinger eksisterer.</p>
+</loader>
+
+<div ng-if="varetellinger.items.length > 0">
+    <ul>
+        <li ng-repeat="item in varetellinger.items">
+            <a ui-sref="varetelling({id:item.id})">{{::item.tittel}}</a> ({{::item.tid}} av {{::item.ansvarlig}})
+        </li>
+    </ul>
+</div>
+
+<pagination data="varetellinger.pagination"></pagination>

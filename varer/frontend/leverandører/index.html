@@ -1,2 +1,24 @@
 <h1>Leverandører</h1>
-<p>Liste over leverandører!</p>
+
+<loader var="leverandorer.items">
+    <p>Ingen leverandører eksisterer.</p>
+</loader>
+
+<div ng-if="leverandorer.items.length > 0">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Leverandør</th>
+                <th>Kommentar</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in leverandorer.items">
+                <td>{{::item.id}}</td>
+                <td>{{::item.navn}}</td>
+                <td>{{::item.kommentar}}</td> <!-- TODO: formattere med markdown? -->
+            </tr>
+        </tbody>
+    </table>
+</div>
