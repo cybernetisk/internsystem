@@ -52,12 +52,20 @@ class Leverandør(models.Model):
         return self.navn
 
 class Råvarepris(models.Model):
+    TYPE_CHOICES = (
+        ('FAKTURA', 'Fakturapris'),
+        ('LISTE', 'Listepris'),
+        ('UKJENT', 'Ukjent opprinnelse')
+    )
+
     raavare = models.ForeignKey(Råvare, related_name='priser')
     leverandor = models.ForeignKey(Leverandør, related_name='priser', null=True, blank=True)
     bestillingskode = models.CharField(max_length=30, null=True, blank=True)
     pris = models.FloatField(help_text="Pris eks mva")
     pant = models.FloatField(help_text="Pant per stk", default=0)
     dato = models.DateField()
+    type = models.CharField(max_length=10, choices=TYPE_CHOICES, default='UKJENT')
+    aktiv = models.BooleanField(default=True, help_text='Hvorvidt dette er/har vært en reell råvarepris for oss')
 
     class Meta:
         ordering = ['-dato']
