@@ -12,7 +12,7 @@ class KontoSerializer(serializers.ModelSerializer):
 class RåvareWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Råvare
-        fields = ('kategori', 'navn', 'mengde', 'enhet', 'mengde_svinn', 'innkjopskonto', 'status', 'lenket_salgsvare')
+        fields = ('kategori', 'navn', 'mengde', 'enhet', 'mengde_svinn', 'antall', 'innkjopskonto', 'status', 'lenket_salgsvare')
         depth = 0
 
 
@@ -40,7 +40,7 @@ class RåvareReadSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Råvare
-        fields = ('id', 'kategori', 'navn', 'mengde', 'enhet', 'mengde_svinn', 'innkjopskonto', 'status', 'priser', 'lenket_salgsvare')
+        fields = ('id', 'kategori', 'navn', 'mengde', 'enhet', 'mengde_svinn', 'antall', 'innkjopskonto', 'status', 'priser', 'lenket_salgsvare')
         depth = 1
 
 
@@ -71,7 +71,7 @@ class SalgsvareReadSerializer(serializers.ModelSerializer):
 
         class Meta:
             model = Råvare
-            fields = ('id', 'kategori', 'navn', 'mengde', 'enhet', 'mengde_svinn', 'innkjopskonto', 'status', 'priser')
+            fields = ('id', 'kategori', 'navn', 'mengde', 'enhet', 'mengde_svinn', 'antall', 'innkjopskonto', 'status', 'priser')
             depth = 1
 
     raavarer = Råvarer(many=True)
