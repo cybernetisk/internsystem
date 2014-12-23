@@ -6,7 +6,7 @@
 
 <div ng-if="raavarer.items.length > 0">
 
-    Søk: <input class="form-control" type="textbox" ng-model="varefilter">
+    Søk: <input class="form-control" type="textbox" ng-model="raavarer.varefilter">
 
     <table class="table table-condensed table-striped">
         <thead>
@@ -22,7 +22,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr ng-repeat="item in raavarer.items|filter:varefilter">
+            <tr ng-repeat="item in raavarer.items|filter:raavarer.varefilter">
                 <td>{{::item.id}}</td>
                 <td>
                     <span ng-show="::item.kategori">{{::item.kategori}}: </span>
@@ -60,5 +60,5 @@
         </tbody>
     </table>
 
-    TODO: pagination
+    <pagination data="raavarer.pagination"></pagination>
 </div>
