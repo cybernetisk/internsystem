@@ -27,6 +27,7 @@ class Råvare(models.Model):
     mengde = models.FloatField()
     enhet = models.CharField(max_length=20)
     mengde_svinn = models.FloatField(default=0)
+    antall = models.FloatField(default=1, help_text='Antall salgsbare enheter 1 stk gir')
     innkjopskonto = models.ForeignKey(Konto, related_name='raavarer')
 
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='OK')
@@ -52,7 +53,7 @@ class Leverandør(models.Model):
 
 class Råvarepris(models.Model):
     raavare = models.ForeignKey(Råvare, related_name='priser')
-    leverandor = models.ForeignKey(Leverandør, related_name='priser')
+    leverandor = models.ForeignKey(Leverandør, related_name='priser', null=True, blank=True)
     bestillingskode = models.CharField(max_length=30, null=True, blank=True)
     pris = models.FloatField(help_text="Pris eks mva")
     pant = models.FloatField(help_text="Pant per stk", default=0)
