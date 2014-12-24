@@ -1,0 +1,53 @@
+.prisdato {
+  font-size: 90%;
+
+  &.prisdato-age1,
+  &.prisdato-static {
+    color: #93c47d;
+  }
+  &.prisdato-age2 {
+    color: $gray-light;
+  }
+  &.prisdato-age3 {
+    color: #cda869;
+  }
+  &.prisdato-age4 {
+    color: orange;
+  }
+  &.prisdato-age5 {
+    color: red;
+  }
+  &.prisdato-age6,
+  &.prisdato-error {
+    background-color: red;
+    color: white;
+  }
+}
+
+.prismargin {
+  font-size: 90%;
+  padding: 1px 3px;
+
+  &.prismargin-veryhigh {
+    background-color: #008000;
+  }
+  &.prismargin-higher {
+    background-color: #8dbc77;
+  }
+  &.prismargin-high {
+    background-color: #ade793;
+  }
+  &.prismargin-ok {
+    background-color: #d9ead3;
+  }
+  &.prismargin-low {
+    background-color: #ffd966;
+  }
+  &.prismargin-verylow {
+    background-color: #ea9999;
+  }
+  &.prismargin-subzero {
+    background-color: red;
+    color: white;
+  }
+}

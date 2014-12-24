@@ -40,7 +40,7 @@ var js_files = [
 ];
 
 var css_files = [
-    '*/frontend/app.scss'
+    'siteroot/frontend/app.scss'
 ];
 
 var processScripts = function (files, name) {
