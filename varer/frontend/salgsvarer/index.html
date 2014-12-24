@@ -1,3 +1,5 @@
+<div class="salgsvarer-index">
+
 <h1>Salgsvarer</h1>
 
 <loader var="salgsvarer.items">
@@ -5,12 +7,73 @@
 </loader>
 
 <div ng-if="salgsvarer.items.length > 0">
-    <ul>
-        <li ng-repeat="item in salgsvarer.items">
-            <span ng-show="::item.kategori">{{::item.kategori}}: </span>
-            <a ui-sref="salgsvare({id:item.id})">{{::item.navn}}</a>
-        </li>
-    </ul>
+    <table class="table table-striped table-condensed">
+        <thead>
+            <tr>
+                <th>Navn</th>
+                <th>Status</th>
+                <th>Kasse#</th>
+                <th>Intern</th>
+                <th>Ekstern</th>
+                <th>Råvarer (priser eks mva)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in salgsvarer.items">
+                <td>
+                    <span ng-show="::item.kategori">{{::item.kategori}}:&nbsp;</span>
+                    <!--<a ui-sref="salgsvare({id:item.id})">{{::item.navn}}</a>-->
+                    <a ng-href="admin/varer/salgsvare/{{::item.id}}/" target="_self">{{::item.navn}}</a>
+                    <br>
+                    <a class="gruppe-link" ui-sref="konto({id:item.salgskonto.id})" title="{{::item.salgskonto.navn}}">{{::item.salgskonto.navn}}</a>
+                </td>
+                <td>{{::item.status}}</td>
+                <td>{{::item.kassenr}}</td>
+                <td>
+                    <span ng-show="::item.salgspris.pris_intern">
+                        {{::item.salgspris.pris_intern}}
+                        <span ng-show="::item.innpris">
+                            <br>
+                            <prismargin inn-pris="item.innpris" ut-pris="item.salgspris.pris_intern" ut-mva="item.salgspris.mva"></prismargin>
+                        </span>
+                    </span>
+                    <span ng-show="::!item.salgspris.pris_intern">
+                        Se ekstern
+                    </span>
+                </td>
+                <td>
+                    <span ng-show="::item.salgspris.pris_ekstern">
+                        {{::item.salgspris.pris_ekstern}}
+                        <span ng-show="::item.innpris">
+                            <br>
+                            <prismargin inn-pris="item.innpris" ut-pris="item.salgspris.pris_ekstern" ut-mva="item.salgspris.mva"></prismargin>
+                        </span>
+                    </span>
+                    <span ng-show="::!item.salgspris.pris_ekstern">
+                        Ikke salg
+                    </span>
+                </td>
+
+                <td>
+                    <ul>
+                        <li ng-repeat="meta in item.raavarer">
+                            <!--<span ng-show="::meta.raavare.kategori">{{::meta.raavare.kategori}}: </span>-->
+                            <!--<span ng-if="meta.mengde == meta.raavare.mengde">1 stk</span>-->
+                            <span ng-if="meta.mengde != meta.raavare.mengde">{{::meta.mengde}} {{::meta.raavare.enhet}}</span>
+                            <a ui-sref="råvare({id:meta.raavare.id})">{{::meta.raavare.navn}}</a>
+
+                            <!-- TODO: fargelegge gamle priser -->
+                            <span ng-show="::meta.innpris">
+                                &nbsp;({{::meta.innpris_accurate|price:2}}&nbsp;<prisdato dato="::meta.innpris.dato"></prisdato></span>)
+                            </span>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <pagination data="salgsvarer.pagination"></pagination>
 </div>
 
-<pagination data="salgsvarer.pagination"></pagination>
+</div>

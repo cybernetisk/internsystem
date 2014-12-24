@@ -16,7 +16,7 @@
         <tbody>
             <tr ng-repeat="item in leverandorer.items">
                 <td>{{::item.id}}</td>
-                <td>{{::item.navn}}</td>
+                <td><a ng-href="admin/varer/leverandør/{{::item.id}}/" target="_self">{{::item.navn}}</a></td>
                 <td>{{::item.kommentar}}</td> <!-- TODO: formattere med markdown? -->
             </tr>
         </tbody>

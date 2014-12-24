@@ -7,9 +7,9 @@
 <div ng-if="salgskalkyler.items.length > 0">
     <ul>
         <li ng-repeat="item in salgskalkyler.items">
-            <a ui-sref="salgskalkyle({id:item.id})">{{::item.navn}}</a> ({{::item.dato}})
+            <a ng-href="admin/varer/salgskalkyle/{{::item.id}}/" target="_self">{{::item.navn}}</a> ({{::item.dato}})
         </li>
     </ul>
-</div>
 
-<pagination data="salgskalkyler.pagination"></pagination>
+    <pagination data="salgskalkyler.pagination"></pagination>
+</div>

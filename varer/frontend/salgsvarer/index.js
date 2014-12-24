@@ -11,11 +11,22 @@
         })
     });
 
-    module.controller('SalgsvarerController', function (SalgsvarerService) {
+    module.controller('SalgsvarerController', function (ParamsHelper, SalgsvarerService, $scope) {
         var self = this;
-        SalgsvarerService.query(function(res) {
-            self.items = res.results;
-            self.pagination = res.pagination;
-        });
+
+        var helper = ParamsHelper.track($scope,
+            ['page'],
+            {'salgsvarer.pagination.page': 'page'},
+            function (params) {
+                self.items = null;
+
+                SalgsvarerService.getList(params).then(function (res) {
+                    self.items = res.results;
+                    self.pagination = res.pagination;
+                });
+            }
+        );
+
+        helper.run();
     });
 })();

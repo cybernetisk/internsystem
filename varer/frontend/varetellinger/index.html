@@ -7,9 +7,9 @@
 <div ng-if="varetellinger.items.length > 0">
     <ul>
         <li ng-repeat="item in varetellinger.items">
-            <a ui-sref="varetelling({id:item.id})">{{::item.tittel}}</a> ({{::item.tid}} av {{::item.ansvarlig}})
+            <a ng-href="admin/varer/varetelling/{{::item.id}}/" target="_self">{{::item.tittel}}</a> ({{::item.tid}} av {{::item.ansvarlig}})
         </li>
     </ul>
-</div>
 
-<pagination data="varetellinger.pagination"></pagination>
+    <pagination data="varetellinger.pagination"></pagination>
+</div>

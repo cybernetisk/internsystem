@@ -18,7 +18,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="item in kontoer.items">
-            <td>{{::item.id}}</td>
+            <td><a ng-href="admin/varer/konto/{{::item.id}}/" target="_self">{{::item.id}}</a></td>
             <td><a ui-sref="konto({id:item.id})">{{::item.navn}}</a></td>
             <td>{{::item.gruppe}}</td>
             <td>{{::item.innkjopskonto}}</td>

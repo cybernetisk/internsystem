@@ -11,7 +11,7 @@
             restrict: 'A',
             link: function (scope, element) {
                 scope.$on('$stateChangeSuccess', function () {
-                    element.find('.active').removeClass();
+                    element.find('.active').removeClass("active");
                 });
                 element.find('a[ui-sref]').each(function () {
                     var state = $(this).attr('ui-sref');

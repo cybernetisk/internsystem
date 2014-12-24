@@ -10,7 +10,7 @@
             query: {
                 isArray: false,
                 params: {
-                    limit: 30
+                    limit: 300
                 }
             }
         });
@@ -29,7 +29,7 @@
                     item.salgspris = null;
                     if (item.lenket_salgsvare) {
                         item.lenket_salgsvare.priser.forEach(function (pris) {
-                            if (!item.salgspris || pris.dato >= item.salgspris.dato)
+                            if (pris.status != 'FOR' && (!item.salgspris || pris.dato >= item.salgspris.dato))
                                 item.salgspris = pris;
                         });
                     }

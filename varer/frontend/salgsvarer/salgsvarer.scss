@@ -1,0 +1,23 @@
+.salgsvarer-index {
+  table {
+    font-size: 95%;
+    tr > :nth-child(2),
+    tr > :nth-child(3),
+    tr > :nth-child(4),
+    tr > :nth-child(5) {
+      white-space: nowrap;
+      text-align: center;
+    }
+    td:nth-child(6) {
+      font-size: 95%;
+    }
+  }
+
+  .gruppe-link {
+    font-size: 90%;
+    color: $gray-light;
+    &:hover {
+      color: $link-color;
+    }
+  }
+}
