@@ -21,7 +21,7 @@ class RåvareprisInline(admin.TabularInline):
 
 class RåvareAdmin(admin.ModelAdmin):
     inlines = [RåvareprisInline]
-    search_fields = ['kategori', 'navn', 'innkjopskonto']
+    search_fields = ['kategori', 'navn', 'innkjopskonto__id']
     list_display = ('__str__', 'innkjopskonto')
     list_filter = ('innkjopskonto__gruppe',)
 

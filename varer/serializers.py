@@ -20,7 +20,7 @@ class RåvareReadSerializer(serializers.ModelSerializer):
     class Priser(serializers.ModelSerializer):
         class Meta:
             model = Råvarepris
-            fields = ('id', 'bestillingskode', 'pris', 'pant', 'dato', 'leverandor')
+            fields = ('id', 'bestillingskode', 'pris', 'pant', 'dato', 'leverandor', 'type', 'aktiv')
             depth = 1
 
     class Salgsvare(serializers.ModelSerializer):
@@ -64,7 +64,7 @@ class SalgsvareReadSerializer(serializers.ModelSerializer):
         class Priser(serializers.ModelSerializer):
             class Meta:
                 model = Råvarepris
-                fields = ('id', 'bestillingskode', 'pris', 'pant', 'dato', 'leverandor')
+                fields = ('id', 'bestillingskode', 'pris', 'pant', 'dato', 'leverandor', 'type', 'aktiv')
                 depth = 1
 
         priser = Priser(many=True)
