@@ -22,11 +22,11 @@ class RåvareprisInline(admin.TabularInline):
 class RåvareAdmin(admin.ModelAdmin):
     inlines = [RåvareprisInline]
     search_fields = ['kategori', 'navn', 'innkjopskonto__id']
-    list_display = ('__str__', 'innkjopskonto')
+    list_display = ('__str__', 'status', 'mengde', 'enhet', 'antall', 'innkjopskonto')
     list_filter = ('innkjopskonto__gruppe',)
 
 class LeverandørAdmin(admin.ModelAdmin):
-    list_display = ('__str__', 'kommentar')
+    list_display = ('navn', 'kommentar')
 
 class SalgsvareRåvareInline(admin.TabularInline):
     model = Salgsvare.raavarer.through
@@ -39,7 +39,9 @@ class SalgsvarePrisInline(admin.TabularInline):
 
 class SalgsvareAdmin(admin.ModelAdmin):
     inlines = [SalgsvareRåvareInline, SalgsvarePrisInline]
-    search_fields = ['kategori', 'navn', 'salgskonto']
+    search_fields = ['kategori', 'navn', 'salgskonto__salgskonto']
+    list_display = ('__str__', 'salgskonto')
+    list_filter = ('salgskonto__gruppe',)
 
 class SalgskalkyleVareInline(admin.TabularInline):
     model = Salgskalkyle.varer.through
@@ -47,6 +49,7 @@ class SalgskalkyleVareInline(admin.TabularInline):
 class SalgskalkyleAdmin(admin.ModelAdmin):
     inlines = [SalgskalkyleVareInline]
     search_fields = ['navn']
+    list_display = ('navn', 'dato')
 
 class VaretellingVareInline(admin.TabularInline):
     model = Varetelling.varer.through
