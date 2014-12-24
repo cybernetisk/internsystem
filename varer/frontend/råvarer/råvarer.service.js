@@ -21,7 +21,7 @@
                     // finn aktiv innkjøpspris
                     item.innpris = null;
                     item.priser.forEach(function (pris) {
-                        if (!item.innpris || pris.dato >= item.innpris.dato)
+                        if (pris.aktiv && (!item.innpris || pris.dato >= item.innpris.dato))
                             item.innpris = pris;
                     });
 
