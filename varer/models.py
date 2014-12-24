@@ -72,7 +72,7 @@ class Råvarepris(models.Model):
         verbose_name_plural = 'råvarepriser'
 
     def __str__(self):
-        return self.raavare.navn + ' (' + self.dato.isoformat() + '): kr ' + str(self.pris)
+        return '%s (%s - %s): kr %g' % (self.raavare, self.dato.isoformat(), self.leverandor, self.pris)
 
 class Salgsvare(models.Model):
     kategori = models.CharField(max_length=50, null=True, blank=True)
@@ -94,6 +94,9 @@ class SalgsvareRåvare(models.Model):
     raavare = models.ForeignKey(Råvare)
     mengde = models.FloatField()
 
+    def __str__(self):
+        return '%g %s av %s' % (self.mengde, self.raavare.enhet, self.raavare)
+
 class SalgsvarePris(models.Model):
     STATUS_CHOICES = (
         ('FOR', 'Forslag'),
@@ -111,6 +114,11 @@ class SalgsvarePris(models.Model):
     class Meta:
         ordering = ['-dato']
         verbose_name_plural = 'salgsvarepriser'
+
+    def __str__(self):
+        return '%s (%s - %s) %s / %s' % (self.salgsvare, self.dato.isoformat(), self.status,
+                                         ('kr %g' % self.pris_intern) if self.pris_intern != None else 'se ekstern',
+                                         ('kr %g' % self.pris_ekstern) if self.pris_ekstern != None else 'ikke salg')
 
 class Salgskalkyle(models.Model):
     navn = models.CharField(max_length=30)
@@ -135,6 +143,9 @@ class SalgskalkyleVare(models.Model):
         ordering = ['salgsvare']
         verbose_name_plural = 'salgskalkylevarer'
 
+    def __str__(self):
+        return '%s (%d stk)' % (self.salgsvare, self.antall)
+
 class Varetelling(models.Model):
     tittel = models.CharField(max_length=50)
     kommentar = models.TextField(null=True, blank=True)
@@ -158,3 +169,6 @@ class VaretellingVare(models.Model):
 
     class Meta:
         ordering = ['varetelling', 'raavare']
+
+    def __str__(self):
+        return '%s (sted: %s) %d stk' % (self.raavare, self.sted, self.antall)
