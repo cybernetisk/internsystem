@@ -60,21 +60,36 @@ class SalgsvareWriteSerializer(serializers.ModelSerializer):
 
 
 class SalgsvareReadSerializer(serializers.ModelSerializer):
-    class Råvarer(serializers.ModelSerializer):
-        class Priser(serializers.ModelSerializer):
+    class SalgsvareRåvarer(serializers.ModelSerializer):
+        class RåvareItem(serializers.ModelSerializer):
+            class Priser(serializers.ModelSerializer):
+                class Meta:
+                    model = Råvarepris
+                    fields = ('id', 'bestillingskode', 'pris', 'pant', 'dato', 'leverandor', 'type', 'aktiv')
+                    depth = 1
+
+            priser = Priser(many=True)
+
             class Meta:
-                model = Råvarepris
-                fields = ('id', 'bestillingskode', 'pris', 'pant', 'dato', 'leverandor', 'type', 'aktiv')
+                model = Råvare
+                fields = ('id', 'kategori', 'navn', 'mengde', 'enhet', 'mengde_svinn', 'antall', 'innkjopskonto', 'status', 'priser')
                 depth = 1
 
-        priser = Priser(many=True)
+        raavare = RåvareItem()
 
         class Meta:
-            model = Råvare
-            fields = ('id', 'kategori', 'navn', 'mengde', 'enhet', 'mengde_svinn', 'antall', 'innkjopskonto', 'status', 'priser')
+            model = SalgsvareRåvare
+            fields = ('id', 'mengde', 'raavare')
             depth = 1
 
-    raavarer = Råvarer(many=True)
+    class SalgPriser(serializers.ModelSerializer):
+        class Meta:
+            model = SalgsvarePris
+            fields = ('id', 'status', 'dato', 'mva', 'pris_intern', 'pris_ekstern')
+            depth = 0
+
+    raavarer = SalgsvareRåvarer(many=True, source='salgsvareråvare_set')
+    priser = SalgPriser(many=True)
 
     class Meta:
         model = Salgsvare

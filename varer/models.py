@@ -37,7 +37,7 @@ class Råvare(models.Model):
     objects = RåvareManager()
 
     class Meta:
-        ordering = ['kategori', 'navn']
+        ordering = ['innkjopskonto__gruppe', 'kategori', 'navn']
         verbose_name_plural = 'råvarer'
 
     def __str__(self):
@@ -86,7 +86,7 @@ class Salgsvare(models.Model):
     raavarer = models.ManyToManyField(Råvare, through='varer.SalgsvareRåvare', related_name='salgsvarer')
 
     class Meta:
-        ordering = ['kategori', 'navn']
+        ordering = ['salgskonto__gruppe', 'kategori', 'navn']
         verbose_name_plural = 'salgsvarer'
 
     def __str__(self):

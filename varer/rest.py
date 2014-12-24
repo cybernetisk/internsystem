@@ -36,8 +36,9 @@ class RåvareprisViewSet(viewsets.ModelViewSet):
 class SalgsvareViewSet(viewsets.ModelViewSet):
     queryset = Salgsvare.objects\
         .select_related('salgskonto')\
-        .prefetch_related('raavarer__innkjopskonto')\
-        .prefetch_related('raavarer__priser__leverandor')\
+        .prefetch_related('priser')\
+        .prefetch_related('salgsvareråvare_set__raavare__innkjopskonto')\
+        .prefetch_related('salgsvareråvare_set__raavare__priser__leverandor')\
         .all()
 
     def get_serializer_class(self):
