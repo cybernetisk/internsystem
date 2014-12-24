@@ -10,7 +10,12 @@ class KontoViewSet(viewsets.ModelViewSet):
     serializer_class = KontoSerializer
 
 class RåvareViewSet(viewsets.ModelViewSet):
-    queryset = Råvare.objects.all()
+    queryset = Råvare.objects\
+        .prefetch_related('priser__leverandor')\
+        .prefetch_related('lenket_salgsvare__priser')\
+        .prefetch_related('lenket_salgsvare__raavarer')\
+        .all()
+
     filter_fields = ('navn', 'kategori', 'status', 'innkjopskonto__innkjopskonto')
     search_fields = ['kategori', 'navn', 'innkjopskonto__innkjopskonto']
 
@@ -29,7 +34,11 @@ class RåvareprisViewSet(viewsets.ModelViewSet):
     serializer_class = RåvareprisSerializer
 
 class SalgsvareViewSet(viewsets.ModelViewSet):
-    queryset = Salgsvare.objects.all()
+    queryset = Salgsvare.objects\
+        .select_related('salgskonto')\
+        .prefetch_related('raavarer__innkjopskonto')\
+        .prefetch_related('raavarer__priser__leverandor')\
+        .all()
 
     def get_serializer_class(self):
         if self.action in ['create', 'update']:
@@ -45,7 +54,7 @@ class SalgsvarePrisViewSet(viewsets.ModelViewSet):
     serializer_class = SalgsvarePrisSerializer
 
 class SalgskalkyleViewSet(viewsets.ModelViewSet):
-    queryset = Salgskalkyle.objects.all()
+    queryset = Salgskalkyle.objects.prefetch_related('varer').all()
     serializer_class = SalgskalkyleSerializer
 
 class SalgskalkyleVareViewSet(viewsets.ModelViewSet):
@@ -53,7 +62,7 @@ class SalgskalkyleVareViewSet(viewsets.ModelViewSet):
     serializer_class = SalgskalkyleVareSerializer
 
 class VaretellingViewSet(viewsets.ModelViewSet):
-    queryset = Varetelling.objects.all()
+    queryset = Varetelling.objects.prefetch_related('varer').all()
     serializer_class = VaretellingSerializer
 
 class VaretellingVareViewSet(viewsets.ModelViewSet):

@@ -1,4 +1,5 @@
 from django.db import models
+from varer.managers import RåvareManager
 
 class Konto(models.Model):
     innkjopskonto = models.PositiveSmallIntegerField()
@@ -32,6 +33,8 @@ class Råvare(models.Model):
 
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='OK')
     lenket_salgsvare = models.ForeignKey('Salgsvare', related_name='lenkede_raavarer', null=True, blank=True)
+
+    objects = RåvareManager()
 
     class Meta:
         ordering = ['kategori', 'navn']
