@@ -6,59 +6,9 @@
 
 <div ng-if="raavarer.items.length > 0">
 
-    Søk: <input class="form-control" type="textbox" ng-model="raavarer.varefilter">
+    <!--Søk: <input class="form-control" type="textbox" ng-model="raavarer.varefilter">-->
 
-    <table class="table table-condensed table-striped">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Betegnelse</th>
-                <th>Mengde</th>
-                <th>Svinn</th>
-                <th>Status</th>
-                <th>Gruppe</th>
-                <th class="text-right">Pris ex mva</th>
-                <th class="text-center">Pris intern/ekstern</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr ng-repeat="item in raavarer.items|filter:raavarer.varefilter">
-                <td>{{::item.id}}</td>
-                <td>
-                    <span ng-show="::item.kategori">{{::item.kategori}}: </span>
-                    <a ui-sref="råvare({id:item.id})">{{::item.navn}}</a>
-                </td>
-                <td>{{::item.mengde}} {{::item.enhet}}</td>
-                <td>
-                    <span ng-show="::item.mengde_svinn">
-                        {{::item.mengde_svinn}} {{::item.enhet}}
-                    </span>
-                </td>
-                <td>{{::item.status}}</td>
-                <td>
-                    <a ui-sref="konto({id:item.innkjopskonto.id})">{{::item.innkjopskonto.navn}}</a><br>
-                    {{::item.innkjopskonto.gruppe}}
-                </td>
-                <td class="text-right">
-                    <!-- TODO: fargelegge gamle priser -->
-                    <span ng-show="::item.innpris">
-                        {{::item.innpris.pris|price:2}} ({{::item.innpris.dato}})
-                    </span>
-                </td>
-                <td class="text-center">
-                    <span ng-show="::item.salgspris">
-                        {{::item.salgspris.pris_intern}} / {{::item.salgspris.pris_ekstern}}
-                        <span ng-show="::item.innpris">
-                            <br>
-                            (<prismargin inn-pris="item.innpris.pris" ut-pris="item.salgspris.pris_intern" ut-mva="item.salgspris.mva"></prismargin>
-                            &nbsp;/&nbsp;
-                            <prismargin inn-pris="item.innpris.pris" ut-pris="item.salgspris.pris_ekstern" ut-mva="item.salgspris.mva"></prismargin>)
-                        </span>
-                    </span>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <react-component name="RåvarerIndexListView" props="raavarer"></react-component>
 
     <pagination data="raavarer.pagination"></pagination>
 </div>

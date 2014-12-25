@@ -3,7 +3,8 @@
 
     var module = angular.module('cyb.varer', [
         'ui.router',
-        'ngResource'
+        'ngResource',
+        'react'
     ]);
 
     module.config(function ($resourceProvider) {

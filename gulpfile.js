@@ -13,7 +13,8 @@ var gulp = require('gulp'),
     buffer = require('gulp-buffer'),
     extend = require('gulp-extend'),
     runSequence = require('run-sequence'),
-    minifyCSS = require('gulp-minify-css');
+    minifyCSS = require('gulp-minify-css'),
+    react = require('gulp-react');
 
 // run with --production to do more compressing etc
 var isProd = !!args.production;
@@ -24,7 +25,9 @@ var js_files_library = [
     'bower_components/angular/angular.js',
     'bower_components/angular-ui-router/release/angular-ui-router.min.js',
     'bower_components/angular-animate/angular-animate.js',
-    'bower_components/angular-resource/angular-resource.js'
+    'bower_components/angular-resource/angular-resource.js',
+    'bower_components/react/react.js',
+    'bower_components/ngReact/ngReact.js'
 ];
 
 var js_files = [
@@ -39,14 +42,19 @@ var js_files = [
     'siteroot/frontend/**/*.js'
 ];
 
+var jsx_files = [
+    'varer/frontend/**/*.jsx'
+];
+
 var css_files = [
     'siteroot/frontend/app.scss'
 ];
 
-var processScripts = function (files, name) {
+var processScripts = function (files, name, isJsx) {
     return gulp.src(files)
         .pipe(sourcemaps.init())
         .pipe(concat(name + '.js'))
+        .pipe(gulpif(isJsx, react()))
         .pipe(gulpif(isProd, ngAnnotate()))
         .pipe(gulpif(isProd, uglify()))
         .pipe(buffer())
@@ -77,6 +85,10 @@ gulp.task('scripts-library', function () {
 
 gulp.task('scripts', function() {
     return processScripts(js_files, 'frontend');
+});
+
+gulp.task('scripts-jsx', function () {
+    return processScripts(jsx_files, 'frontend-jsx', true);
 });
 
 gulp.task('templates', ['templates-normal'], function() {
@@ -115,20 +127,21 @@ gulp.task('rev-concat', function() {
 gulp.task('watch', function() {
     gulp.watch('*/frontend/**/*.scss').on('change', function () { runSequence('styles', 'rev-concat'); });
     gulp.watch(js_files).on('change', function () { runSequence('scripts', 'rev-concat'); });
+    gulp.watch(jsx_files).on('change', function () { runSequence('scripts-jsx', 'rev-concat'); });
     gulp.watch('*/frontend/**/*.html').on('change', function () { runSequence('templates', 'rev-concat'); });
 });
 
 gulp.task('production', function(cb) {
     isProd = true;
     runSequence(
-        ['styles', 'scripts-library', 'scripts', 'fonts', 'templates'],
+        ['styles', 'scripts-library', 'scripts', 'scripts-jsx', 'fonts', 'templates'],
         'rev-concat',
         cb);
 });
 
 gulp.task('default', function(cb) {
     runSequence(
-        ['styles', 'scripts-library', 'scripts', 'templates'],
+        ['styles', 'scripts-library', 'scripts', 'scripts-jsx', 'templates'],
         'rev-concat',
         cb);
 });
