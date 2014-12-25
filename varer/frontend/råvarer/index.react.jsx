@@ -1,3 +1,4 @@
+/** @jsx React.DOM */
 angular.module('cyb.varer').factory('RåvarerIndexListView', function ($filter, PrisDato, PrisMargin) {
     return React.createClass({
         render: function () {

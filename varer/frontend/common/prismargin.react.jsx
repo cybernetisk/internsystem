@@ -1,3 +1,4 @@
+/** @jsx React.DOM */
 angular.module('cyb.varer').factory('PrisMargin', function () {
     return React.createClass({
         propTypes: {
