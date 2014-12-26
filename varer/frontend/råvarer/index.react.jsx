@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-angular.module('cyb.varer').factory('RåvarerIndexListView', function ($compile, $filter, $rootScope, PrisDato, PrisMargin) {
+angular.module('cyb.varer').factory('RåvarerIndexListView', function ($compile, $filter, PrisDato, PrisMargin) {
     return React.createClass({
         render: function () {
             // TODO: filter: ng-repeat="item in raavarer.items|filter:raavarer.varefilter"
@@ -24,7 +24,7 @@ angular.module('cyb.varer').factory('RåvarerIndexListView', function ($compile,
                                     <td>{item.id}</td>
                                     <td>
                                         {item.kategori ? item.kategori + ': ' : ''}
-                                        <a data-ui-sref={'råvare({id:'+item.id+'})'}>{item.navn}</a>
+                                        <a href={'varer/råvarer/'+item.id}>{item.navn}</a>
                                     </td>
                                     <td>{item.mengde} {item.enhet}</td>
                                     <td>
@@ -34,7 +34,7 @@ angular.module('cyb.varer').factory('RåvarerIndexListView', function ($compile,
                                     </td>
                                     <td>{item.status}</td>
                                     <td>
-                                        <a data-ui-sref={'konto({id:' + item.innkjopskonto.id + '})'}>{item.innkjopskonto.navn}</a><br/>
+                                        <a href={'varer/kontoer/'+item.innkjopskonto.id}>{item.innkjopskonto.navn}</a><br/>
                                         {item.innkjopskonto.gruppe}
                                     </td>
                                     <td className="text-right">
@@ -60,14 +60,6 @@ angular.module('cyb.varer').factory('RåvarerIndexListView', function ($compile,
                         })}
                     </tbody>
                 </table>);
-        },
-
-        componentDidMount: function () {
-            $compile(this.getDOMNode())($rootScope);
-        },
-
-        componentDidUpdate: function () {
-            $compile(this.getDOMNode())($rootScope);
         }
     });
 });

@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-angular.module('cyb.varer').factory('SalgsvarerIndexListView', function ($compile, $filter, $rootScope, PrisDato, PrisMargin) {
+angular.module('cyb.varer').factory('SalgsvarerIndexListView', function ($compile, $filter, PrisDato, PrisMargin) {
     return React.createClass({
         render: function () {
             return (
@@ -23,14 +23,14 @@ angular.module('cyb.varer').factory('SalgsvarerIndexListView', function ($compil
                                         {/*<a ui-sref="salgsvare({id:item.id})">{item.navn}</a>*/}
                                         <a href={'admin/varer/salgsvare/' + item.id + '/'} target="_self">{item.navn}</a>
                                         <br/>
-                                        <a className="gruppe-link" data-ui-sref={'konto({id:' + item.salgskonto.id + '})'} title={item.salgskonto.navn}>{item.salgskonto.navn}</a>
+                                        <a className="gruppe-link" href={'admin/kontoer/'+item.salgskonto.id} title={item.salgskonto.navn}>{item.salgskonto.navn}</a>
                                     </td>
                                     <td>{item.status}</td>
                                     <td>{item.kassenr}</td>
                                     <td>
                                         {item.salgspris.pris_intern ?
                                             <span>
-                                                {item.salgspris.pris_intern}
+                                                {$filter('price')(item.salgspris.pris_intern, 0)}
                                                 {item.innpris ?
                                                     <span>
                                                         <br/>
@@ -41,7 +41,7 @@ angular.module('cyb.varer').factory('SalgsvarerIndexListView', function ($compil
                                     <td>
                                         {item.salgspris.pris_ekstern ?
                                             <span>
-                                                {item.salgspris.pris_ekstern}
+                                                {$filter('price')(item.salgspris.pris_ekstern, 0)}
                                                 {item.innpris ?
                                                     <span>
                                                         <br/>
@@ -57,7 +57,7 @@ angular.module('cyb.varer').factory('SalgsvarerIndexListView', function ($compil
                                                         {/*<span ng-show="::meta.raavare.kategori">{meta.raavare.kategori}: </span>*/}
                                                         {/*<span ng-if="meta.mengde == meta.raavare.mengde">1 stk</span>*/}
                                                         {meta.mengde != meta.raavare.mengde ? meta.mengde + ' ' + meta.raavare.enhet + ' ' : ''}
-                                                        <a data-ui-sref={'råvare({id:' + meta.raavare.id + '})'}>{meta.raavare.navn}</a>
+                                                        <a href={'varer/råvarer/'+meta.raavare.id}>{meta.raavare.navn}</a>
 
                                                         {meta.innpris ? <span>
                                                             &nbsp;({$filter('price')(meta.innpris_accurate, 2)} <PrisDato dato={meta.innpris.dato} />)
@@ -71,14 +71,6 @@ angular.module('cyb.varer').factory('SalgsvarerIndexListView', function ($compil
                     </tbody>
                 </table>
             );
-        },
-
-        componentDidMount: function () {
-            $compile(this.getDOMNode())($rootScope);
-        },
-
-        componentDidUpdate: function () {
-            $compile(this.getDOMNode())($rootScope);
         }
     });
 });
