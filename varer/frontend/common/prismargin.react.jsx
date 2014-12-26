@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-angular.module('cyb.varer').factory('PrisMargin', function () {
+angular.module('cyb.varer').factory('PrisMargin', function ($filter) {
     return React.createClass({
         propTypes: {
             requiredInnpris: React.PropTypes.number,
@@ -26,9 +26,19 @@ angular.module('cyb.varer').factory('PrisMargin', function () {
             else
                 theClass = 'prismargin-verylow';
 
+            var difftext;
+            if (margin < 0) {
+                difftext = 'Tap: ' + (eksmva - this.props.innPris);
+            } else {
+                difftext = 'Fortjeneste: ' + (eksmva - this.props.innPris);
+            }
+
             margin = margin.toFixed(1).toString().replace('.', ',');
 
-            return <span className={'prismargin ' + theClass}>{margin} %</span>;
+            return (
+                <span className={'prismargin ' + theClass} title={difftext}>{margin} %
+                    <span className="prismargin-kr"> ({$filter('price')(eksmva - this.props.innPris, 2)})</span>
+                </span>);
         }
     });
 });

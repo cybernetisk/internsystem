@@ -28,6 +28,11 @@
   font-size: 90%;
   padding: 1px 3px;
 
+  .prismargin-kr {
+    font-size: 80%;
+    color: #555;
+  }
+
   &.prismargin-veryhigh {
     background-color: #008000;
   }
@@ -49,5 +54,9 @@
   &.prismargin-subzero {
     background-color: red;
     color: white;
+
+    .prismargin-kr {
+      color: white;
+    }
   }
 }
