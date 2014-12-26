@@ -5,6 +5,12 @@ angular.module('cyb.oko').filter('price', function() {
             decimals = 0;
         }
 
+        decimals = decimals || 0;
+
+        if (decimals == 0 && amount.toFixed(0) != amount) {
+            decimals = 2;
+        }
+
         var formatNumber = function(number, decimals)
         {
             number = number.toFixed(decimals) + '';
