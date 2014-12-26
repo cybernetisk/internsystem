@@ -1,14 +1,16 @@
-<h1>Råvarer</h1>
+<div class="råvarer-index">
+    <h1>Råvarer</h1>
 
-<loader var="raavarer.items">
-    <p>Ingen råvarer eksisterer.</p>
-</loader>
+    <loader var="raavarer.items">
+        <p>Ingen råvarer eksisterer.</p>
+    </loader>
 
-<div ng-if="raavarer.items.length > 0">
+    <div ng-if="raavarer.items.length > 0">
 
-    <!--Søk: <input class="form-control" type="textbox" ng-model="raavarer.varefilter">-->
+        <!--Søk: <input class="form-control" type="textbox" ng-model="raavarer.varefilter">-->
 
-    <react-component name="RåvarerIndexListView" props="raavarer"></react-component>
+        <react-component name="RåvarerIndexListView" props="raavarer"></react-component>
 
-    <pagination data="raavarer.pagination"></pagination>
+        <pagination data="raavarer.pagination"></pagination>
+    </div>
 </div>

@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-angular.module('cyb.varer').factory('RåvarerIndexListView', function ($compile, $filter, PrisDato, PrisMargin) {
+angular.module('cyb.varer').factory('RåvarerIndexListView', function ($compile, $filter, PrisDato, PrisMargin, VareMengde) {
     return React.createClass({
         render: function () {
             // TODO: filter: ng-repeat="item in raavarer.items|filter:raavarer.varefilter"
@@ -7,54 +7,62 @@ angular.module('cyb.varer').factory('RåvarerIndexListView', function ($compile,
                 <table className="table table-condensed table-striped">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Betegnelse</th>
                             <th>Mengde</th>
-                            <th>Svinn</th>
-                            <th>Status</th>
-                            <th>Gruppe</th>
-                            <th className="text-right">Pris ex mva</th>
-                            <th className="text-center">Pris intern/ekstern</th>
+                            <th>Pris eks mva</th>
+                            <th>Internpris</th>
+                            <th>Eksternpris</th>
                         </tr>
                     </thead>
                     <tbody>
                         {this.props.items.map(function (item) {
                             return (
                                 <tr key={item.id}>
-                                    <td>{item.id}</td>
                                     <td>
                                         {item.kategori ? item.kategori + ': ' : ''}
                                         <a href={'varer/råvarer/'+item.id}>{item.navn}</a>
+                                        {item.status != 'OK' ? <span> <span className="status-text">{item.status}</span></span> : ''}
+                                        <br/>
+                                        <a className="gruppe-link" href={'varer/kontoer/'+item.innkjopskonto.id}>{item.innkjopskonto.gruppe}: {item.innkjopskonto.navn}</a>
                                     </td>
-                                    <td>{item.mengde} {item.enhet}</td>
                                     <td>
-                                        {item.mengde_svinn ? <span>
-                                            {item.mengde_svinn} {item.enhet}
+                                        <VareMengde verdi={item.mengde} enhet={item.enhet} />
+                                        {item.mengde_svinn ? <span className="svinn-info"><br/>
+                                            ca. <VareMengde verdi={item.mengde_svinn} enhet={item.enhet} /> = svinn
                                         </span> : ''}
                                     </td>
-                                    <td>{item.status}</td>
                                     <td>
-                                        <a href={'varer/kontoer/'+item.innkjopskonto.id}>{item.innkjopskonto.navn}</a><br/>
-                                        {item.innkjopskonto.gruppe}
-                                    </td>
-                                    <td className="text-right">
                                         {item.innpris ?
                                             <span>
-                                                {$filter('price')(item.innpris.pris, 2)}<br/>
+                                                {$filter('price')(item.innpris.pris)}<br/>
                                                 <PrisDato dato={item.innpris.dato} />
                                             </span> : ''}
                                     </td>
-                                    <td className="text-center">
+                                    <td>
                                         {item.salgspris ?
-                                            <span>
-                                                {item.salgspris.pris_intern} / {item.salgspris.pris_ekstern}
-                                                <span ng-show="item.innpris">
-                                                    <br/>
-                                                    <PrisMargin innPris={item.innpris.pris} utPris={item.salgspris.pris_intern} utMva={item.salgspris.mva} />
-                                                    &nbsp;/&nbsp;
-                                                    <PrisMargin innPris={item.innpris.pris} utPris={item.salgspris.pris_ekstern} utMva={item.salgspris.mva} />
-                                                </span>
-                                            </span> : ''}
+                                            (item.salgspris.pris_intern ?
+                                                <span>
+                                                    <a href={'admin/varer/salgsvare/'+item.salgspris.id+'/'} target="_self">{$filter('price')(item.salgspris.pris_intern, 0)}</a>
+                                                    {item.innpris ?
+                                                        <span>
+                                                            <br/>
+                                                            <PrisMargin innPris={item.innpris.pris} utPris={item.salgspris.pris_intern} utMva={item.salgspris.mva} />
+                                                        </span> : ''}
+                                                </span> : 'Se ekstern')
+                                            : ''}
+                                    </td>
+                                    <td>
+                                        {item.salgspris ?
+                                            (item.salgspris.pris_ekstern ?
+                                                <span>
+                                                    <a href={'admin/varer/salgsvare/'+item.salgspris.id+'/'} target="_self">{$filter('price')(item.salgspris.pris_ekstern, 0)}</a>
+                                                    {item.innpris ?
+                                                        <span>
+                                                            <br/>
+                                                            <PrisMargin innPris={item.innpris.pris} utPris={item.salgspris.pris_ekstern} utMva={item.salgspris.mva} />
+                                                        </span> : ''}
+                                                </span> : 'Ikke salg')
+                                            : ''}
                                     </td>
                                 </tr>);
                         })}

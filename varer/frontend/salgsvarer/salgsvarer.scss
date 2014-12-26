@@ -3,14 +3,25 @@
     font-size: 95%;
     tr > :nth-child(2),
     tr > :nth-child(3),
-    tr > :nth-child(4),
-    tr > :nth-child(5) {
+    tr > :nth-child(4) {
       white-space: nowrap;
       text-align: center;
     }
-    td:nth-child(6) {
+    td:nth-child(5) {
       font-size: 95%;
     }
+    ul {
+      margin: 0;
+    }
+    td {
+      vertical-align: middle !important;
+    }
+  }
+
+  .status-text {
+    background: #222;
+    color: #FFF;
+    padding: 1px;
   }
 
   .gruppe-link {
