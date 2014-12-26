@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-angular.module('cyb.varer').factory('RåvarerIndexListView', function ($filter, PrisDato, PrisMargin) {
+angular.module('cyb.varer').factory('RåvarerIndexListView', function ($compile, $filter, $rootScope, PrisDato, PrisMargin) {
     return React.createClass({
         render: function () {
             // TODO: filter: ng-repeat="item in raavarer.items|filter:raavarer.varefilter"
@@ -23,8 +23,8 @@ angular.module('cyb.varer').factory('RåvarerIndexListView', function ($filter, 
                                 <tr key={item.id}>
                                     <td>{item.id}</td>
                                     <td>
-                                        {item.kategori ? item.kategori + ' ' : ''}
-                                        <a ui-sref={'råvare({id:'+item.id+'})'}>{item.navn}</a>
+                                        {item.kategori ? item.kategori + ': ' : ''}
+                                        <a data-ui-sref={'råvare({id:'+item.id+'})'}>{item.navn}</a>
                                     </td>
                                     <td>{item.mengde} {item.enhet}</td>
                                     <td>
@@ -34,13 +34,14 @@ angular.module('cyb.varer').factory('RåvarerIndexListView', function ($filter, 
                                     </td>
                                     <td>{item.status}</td>
                                     <td>
-                                        <a ui-sref="konto(\{id:{item.innkjopskonto.id}\})">{item.innkjopskonto.navn}</a><br/>
+                                        <a data-ui-sref={'konto({id:' + item.innkjopskonto.id + '})'}>{item.innkjopskonto.navn}</a><br/>
                                         {item.innkjopskonto.gruppe}
                                     </td>
                                     <td className="text-right">
                                         {item.innpris ?
                                             <span>
-                                                {$filter('price')(item.innpris.pris, 2)} (<PrisDato dato={item.innpris.dato} />)
+                                                {$filter('price')(item.innpris.pris, 2)}<br/>
+                                                <PrisDato dato={item.innpris.dato} />
                                             </span> : ''}
                                     </td>
                                     <td className="text-center">
@@ -49,8 +50,8 @@ angular.module('cyb.varer').factory('RåvarerIndexListView', function ($filter, 
                                                 {item.salgspris.pris_intern} / {item.salgspris.pris_ekstern}
                                                 <span ng-show="item.innpris">
                                                     <br/>
-                                                    (<PrisMargin innPris={item.innpris.pris} utPris={item.salgspris.pris_intern} utMva={item.salgspris.mva} />
-                                                &nbsp;/&nbsp;
+                                                    <PrisMargin innPris={item.innpris.pris} utPris={item.salgspris.pris_intern} utMva={item.salgspris.mva} />
+                                                    &nbsp;/&nbsp;
                                                     <PrisMargin innPris={item.innpris.pris} utPris={item.salgspris.pris_ekstern} utMva={item.salgspris.mva} />
                                                 </span>
                                             </span> : ''}
@@ -59,6 +60,14 @@ angular.module('cyb.varer').factory('RåvarerIndexListView', function ($filter, 
                         })}
                     </tbody>
                 </table>);
+        },
+
+        componentDidMount: function () {
+            $compile(this.getDOMNode())($rootScope);
+        },
+
+        componentDidUpdate: function () {
+            $compile(this.getDOMNode())($rootScope);
         }
     });
 });

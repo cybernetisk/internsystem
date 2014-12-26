@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-angular.module('cyb.varer').factory('SalgsvarerIndexListView', function ($filter, PrisDato, PrisMargin) {
+angular.module('cyb.varer').factory('SalgsvarerIndexListView', function ($compile, $filter, $rootScope, PrisDato, PrisMargin) {
     return React.createClass({
         render: function () {
             return (
@@ -71,6 +71,14 @@ angular.module('cyb.varer').factory('SalgsvarerIndexListView', function ($filter
                     </tbody>
                 </table>
             );
+        },
+
+        componentDidMount: function () {
+            $compile(this.getDOMNode())($rootScope);
+        },
+
+        componentDidUpdate: function () {
+            $compile(this.getDOMNode())($rootScope);
         }
     });
 });
