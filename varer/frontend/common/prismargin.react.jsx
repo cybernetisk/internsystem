@@ -26,17 +26,10 @@ angular.module('cyb.varer').factory('PrisMargin', function ($filter) {
             else
                 theClass = 'prismargin-verylow';
 
-            var difftext;
-            if (margin < 0) {
-                difftext = 'Tap: ' + (eksmva - this.props.innPris);
-            } else {
-                difftext = 'Fortjeneste: ' + (eksmva - this.props.innPris);
-            }
-
             margin = margin.toFixed(1).toString().replace('.', ',');
 
             return (
-                <span className={'prismargin ' + theClass} title={difftext}>{margin} %
+                <span className={'prismargin ' + theClass}>{margin} %
                     <span className="prismargin-kr"> ({$filter('price')(eksmva - this.props.innPris, 2)})</span>
                 </span>);
         }
