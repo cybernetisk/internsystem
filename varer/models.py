@@ -168,6 +168,7 @@ class VaretellingVare(models.Model):
     raavare = models.ForeignKey(Råvare)
     sted = models.CharField(max_length=50)
     antall = models.FloatField()
+    antallpant = models.FloatField(help_text="Antall hele forpakninger det skal telles pant for, brukes vanlig antall (avrundet opp) hvis ikke spesifisert", null=True, blank=True)
     kommentar = models.CharField(max_length=150, null=True, blank=True)
 
     class Meta:
