@@ -11,6 +11,9 @@
     td {
       vertical-align: middle !important;
     }
+    tr > :nth-child(3) {
+      line-height: 1.2;
+    }
     tr > :nth-child(4),
     tr > :nth-child(5) {
       a {
@@ -19,6 +22,11 @@
           color: $link-color;
         }
       }
+    }
+    tr.group-row th {
+      padding-top: 20px;
+      background-color: #FFF;
+      font-size: 120%;
     }
   }
 
@@ -37,6 +45,11 @@
   }
 
   .svinn-info {
+    font-size: 80%;
+    color: $gray-light;
+  }
+
+  .pris-pant {
     font-size: 80%;
     color: $gray-light;
   }

@@ -3,6 +3,7 @@ angular.module('cyb.varer').factory('RåvarerIndexListView', function ($compile,
     return React.createClass({
         render: function () {
             // TODO: filter: ng-repeat="item in raavarer.items|filter:raavarer.varefilter"
+            var lastGroup = null;
             return (
                 <table className="table table-condensed table-striped">
                     <thead>
@@ -15,15 +16,24 @@ angular.module('cyb.varer').factory('RåvarerIndexListView', function ($compile,
                         </tr>
                     </thead>
                     <tbody>
-                        {this.props.itemsfiltered.map(function (item) {
-                            return (
+                        {this.props.itemsfiltered.reduce(function (prev, item) {
+                            if (lastGroup != item.innkjopskonto.gruppe) {
+                                lastGroup = item.innkjopskonto.gruppe;
+                                prev.push((
+                                    <tr className="group-row" key={item.innkjopskonto.gruppe}>
+                                        <th colSpan="5">{item.innkjopskonto.gruppe}</th>
+                                    </tr>
+                                ));
+                            }
+
+                            prev.push((
                                 <tr key={item.id}>
                                     <td>
                                         {item.kategori ? item.kategori + ': ' : ''}
                                         <a href={'varer/råvarer/'+item.id}>{item.navn}</a>
                                         {item.status != 'OK' ? <span> <span className="status-text">{item.status}</span></span> : ''}
                                         <br/>
-                                        <a className="gruppe-link" href={'varer/kontoer/'+item.innkjopskonto.id}>{item.innkjopskonto.gruppe}: {item.innkjopskonto.navn}</a>
+                                        <a className="gruppe-link" href={'varer/kontoer/'+item.innkjopskonto.id}>{item.innkjopskonto.navn}</a>
                                     </td>
                                     <td>
                                         <VareMengde verdi={item.mengde} enhet={item.enhet} />
@@ -37,7 +47,10 @@ angular.module('cyb.varer').factory('RåvarerIndexListView', function ($compile,
                                     <td>
                                         {item.innpris ?
                                             <span>
-                                                {$filter('price')(item.innpris.pris)}<br/>
+                                                {$filter('price')(item.innpris.pris)}
+                                                {item.innpris.pant ? <span className="pris-pant"><br/>
+                                                    + {$filter('price')(item.innpris.pant)} i pant
+                                                </span> : ''}<br />
                                                 <PrisDato dato={item.innpris.dato} />
                                             </span> : ''}
                                     </td>
@@ -67,8 +80,9 @@ angular.module('cyb.varer').factory('RåvarerIndexListView', function ($compile,
                                                 </span> : 'Ikke salg')
                                             : ''}
                                     </td>
-                                </tr>);
-                        })}
+                                </tr>));
+                            return prev;
+                        }, [])}
                     </tbody>
                 </table>);
         }

@@ -33,7 +33,16 @@
                 self.items = null;
 
                 RåvarerService.getList(params).then(function (res) {
-                    self.items = res.results;
+                    self.items = res.results.sort(function (left, right) {
+                        return left.innkjopskonto.gruppe == right.innkjopskonto.gruppe
+                            ? (/*left.innkjopskonto.navn == right.innkjopskonto.navn
+                                ? (*/left.kategori == right.kategori || left.kategori == null || right.kategori == null
+                                    ? left.navn.localeCompare(right.navn)
+                                    : left.kategori.localeCompare(right.kategori))
+                                /*: left.innkjopskonto.navn.localeCompare(right.innkjopskonto.navn))*/
+                            : left.innkjopskonto.gruppe.localeCompare(right.innkjopskonto.gruppe);
+                    });
+
                     self.pagination = res.pagination;
 
                     self.groups = VarerHelper.extractGroups(self.items, 'innkjopskonto');
