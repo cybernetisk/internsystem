@@ -15,7 +15,7 @@ angular.module('cyb.varer').factory('RåvarerIndexListView', function ($compile,
                         </tr>
                     </thead>
                     <tbody>
-                        {this.props.items.map(function (item) {
+                        {this.props.itemsfiltered.map(function (item) {
                             return (
                                 <tr key={item.id}>
                                     <td>
@@ -27,6 +27,9 @@ angular.module('cyb.varer').factory('RåvarerIndexListView', function ($compile,
                                     </td>
                                     <td>
                                         <VareMengde verdi={item.mengde} enhet={item.enhet} />
+                                        {item.antall != 1 ? <span className="vare-antall"><br />
+                                            ({item.antall} stk)
+                                        </span> : ''}
                                         {item.mengde_svinn ? <span className="svinn-info"><br/>
                                             ca. <VareMengde verdi={item.mengde_svinn} enhet={item.enhet} /> = svinn
                                         </span> : ''}

@@ -7,9 +7,20 @@
 
     <div ng-if="raavarer.items.length > 0">
 
-        <!--Søk: <input class="form-control" type="textbox" ng-model="raavarer.varefilter">-->
+        <div class="row">
+            <div class="form-group col-md-4">
+                <label>Frisøk</label>
+                <input class="form-control" type="textbox" ng-model="raavarer.varefilter.text">
+            </div>
+            <div class="form-group col-md-4">
+                <label>Gruppe</label>
+                <select class="form-control" ng-options="item.navn group by item.gruppe for item in raavarer.groups" ng-model="raavarer.varefilter.group">
+                    <option value="">-- ikke valgt --</option>
+                </select>
+            </div>
+        </div>
 
-        <react-component name="RåvarerIndexListView" props="raavarer"></react-component>
+        <react-component ng-if="raavarer.itemsfiltered && raavarer.itemsfiltered.length > 0" name="RåvarerIndexListView" props="raavarer"></react-component>
 
         <pagination data="raavarer.pagination"></pagination>
     </div>

@@ -12,8 +12,19 @@
         })
     });
 
-    module.controller('RåvarerController', function ($location, $scope, $stateParams, ParamsHelper, RåvarerService) {
+    module.controller('RåvarerController', function ($filter, $location, $scope, $stateParams, ParamsHelper, RåvarerService, VarerHelper) {
         var self = this;
+
+        this.varefilter = {};
+        var filter = function () {
+            self.itemsfiltered = $filter('filter')(self.items, self.varefilter.text);
+            if (self.varefilter.group) {
+                self.itemsfiltered = self.itemsfiltered.filter(function (obj) {
+                    return obj.innkjopskonto[self.varefilter.group.compare] == self.varefilter.group.compareValue;
+                });
+            }
+        };
+        $scope.$watchCollection('raavarer.varefilter', filter);
 
         var helper = ParamsHelper.track($scope,
             ['page'],
@@ -24,6 +35,10 @@
                 RåvarerService.getList(params).then(function (res) {
                     self.items = res.results;
                     self.pagination = res.pagination;
+
+                    self.groups = VarerHelper.extractGroups(self.items, 'innkjopskonto');
+
+                    filter();
                 });
             }
         );
