@@ -12,20 +12,9 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '0a8dn4mx(6#xfaz5n)a7yga^9ciur4967#*#(j(+p@24r+eby#'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-TEMPLATE_DEBUG = True
-
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    '*'
+]
 
 # Application definition
 
@@ -126,3 +115,16 @@ LOGGING = {
         }
     }
 }
+
+DEBUG = False
+
+# Local settings should be defined in the file `settings_local.py`
+# It must at least contain `SECRET_KEY`
+if not os.path.isfile(os.path.dirname(__file__) + '/settings_local.py'):
+    raise Exception("Missing local settingsfile. See settings.py")
+
+from cyb_oko.settings_local import *
+if not 'SECRET_KEY' in locals():
+    raise Exception("Missing SECRET_KEY in local settings. See settings.py");
+
+TEMPLATE_DEBUG = DEBUG
