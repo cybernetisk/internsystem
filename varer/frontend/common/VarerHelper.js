@@ -21,6 +21,7 @@ angular.module('cyb.varer').factory('VarerHelper', function () {
             }).reduce(function (prev, cur) {
                 if ((prev.length == 0 || prev[prev.length-1].gruppe != cur.gruppe) && groupCount[cur.gruppe] > 1) {
                     prev.push({
+                        id: cur.gruppe,
                         compare: 'gruppe',
                         compareValue: cur.gruppe,
                         gruppe: cur.gruppe,
@@ -28,6 +29,7 @@ angular.module('cyb.varer').factory('VarerHelper', function () {
                     });
                 }
                 prev.push({
+                    id: cur.id,
                     compare: 'id',
                     compareValue: cur.id,
                     gruppe: cur.gruppe,

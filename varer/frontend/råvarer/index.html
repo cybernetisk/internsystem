@@ -14,7 +14,7 @@
             </div>
             <div class="form-group col-md-4">
                 <label>Gruppe</label>
-                <select class="form-control" ng-options="item.navn group by item.gruppe for item in raavarer.groups" ng-model="raavarer.varefilter.group">
+                <select class="form-control" ng-options="item.id as item.navn group by item.gruppe for item in raavarer.groups" ng-model="raavarer.varefilter.group">
                     <option value="">-- ikke valgt --</option>
                 </select>
             </div>
