@@ -2,7 +2,6 @@
 angular.module('cyb.varer').factory('RåvarerIndexListView', function ($compile, $filter, PrisDato, PrisMargin, VareMengde) {
     return React.createClass({
         render: function () {
-            // TODO: filter: ng-repeat="item in raavarer.items|filter:raavarer.varefilter"
             var lastGroup = null;
             return (
                 <table className="table table-condensed table-striped">

@@ -1,15 +1,28 @@
 <div class="salgsvarer-index">
 
-<h1>Salgsvarer</h1>
+    <h1>Salgsvarer</h1>
 
-<loader var="salgsvarer.items">
-    <p>Ingen salgsvarer eksisterer.</p>
-</loader>
+    <loader var="salgsvarer.items">
+        <p>Ingen salgsvarer eksisterer.</p>
+    </loader>
 
-<div ng-if="salgsvarer.items.length > 0">
-    <react-component name="SalgsvarerIndexListView" props="salgsvarer"></react-component>
+    <div ng-if="salgsvarer.items.length > 0">
+        <div class="row">
+            <div class="form-group col-md-8">
+                <label>Frisøk</label>
+                <input class="form-control" type="textbox" ng-model="salgsvarer.varefilter.text">
+            </div>
+            <div class="form-group col-md-4">
+                <label>Gruppe</label>
+                <select class="form-control" ng-options="item.navn group by item.gruppe for item in salgsvarer.groups" ng-model="salgsvarer.varefilter.group">
+                    <option value="">-- ikke valgt --</option>
+                </select>
+            </div>
+        </div>
 
-    <pagination data="salgsvarer.pagination"></pagination>
-</div>
+        <react-component ng-if="salgsvarer.itemsfiltered && salgsvarer.itemsfiltered.length > 0" name="SalgsvarerIndexListView" props="salgsvarer"></react-component>
+
+        <pagination data="salgsvarer.pagination"></pagination>
+    </div>
 
 </div>

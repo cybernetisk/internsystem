@@ -2,6 +2,7 @@
 angular.module('cyb.varer').factory('SalgsvarerIndexListView', function ($compile, $filter, PrisDato, PrisMargin, VareMengde) {
     return React.createClass({
         render: function () {
+            var lastGroup = null;
             return (
                 <table className="table table-striped table-condensed">
                     <thead>
@@ -14,8 +15,17 @@ angular.module('cyb.varer').factory('SalgsvarerIndexListView', function ($compil
                         </tr>
                     </thead>
                     <tbody>
-                        {this.props.items.map(function (item) {
-                            return (
+                        {this.props.itemsfiltered.reduce(function (prev, item) {
+                            if (lastGroup != item.salgskonto.gruppe) {
+                                lastGroup = item.salgskonto.gruppe;
+                                prev.push((
+                                    <tr className="group-row" key={item.salgskonto.gruppe}>
+                                        <th colSpan="5">{item.salgskonto.gruppe}</th>
+                                    </tr>
+                                ));
+                            }
+
+                            prev.push((
                                 <tr key={item.id}>
                                     <td>
                                         {item.kategori ? item.kategori + ': ' : ''}
@@ -65,8 +75,10 @@ angular.module('cyb.varer').factory('SalgsvarerIndexListView', function ($compil
                                             })}
                                         </ul>
                                     </td>
-                                </tr>);
-                            })}
+                                </tr>));
+
+                            return prev;
+                        }, [])}
                     </tbody>
                 </table>
             );
