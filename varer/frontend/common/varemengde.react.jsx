@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-angular.module('cyb.varer').factory('VareMengde', function () {
+angular.module('cyb.varer').factory('VareMengde', function ($filter) {
     return React.createClass({
         propTypes: {
             verdi: React.PropTypes.number.isRequired,
@@ -10,7 +10,7 @@ angular.module('cyb.varer').factory('VareMengde', function () {
             var verdi = this.props.verdi;
             var enhet = this.props.enhet;
 
-            verdi = (verdi + "").replace(".", ",");
+            verdi = $filter('antall')(verdi);
 
             return (
                 <span>{verdi}{enhet ? ' ' + enhet : ''}</span>
