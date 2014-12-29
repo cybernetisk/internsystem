@@ -23,34 +23,5 @@
         }
       }
     }
-    tr.group-row th {
-      padding-top: 20px;
-      background-color: #FFF;
-      font-size: 120%;
-    }
-  }
-
-  .gruppe-link {
-    font-size: 90%;
-    color: $gray-light;
-    &:hover {
-      color: $link-color;
-    }
-  }
-
-  .status-text {
-    background: #222;
-    color: #FFF;
-    padding: 1px;
-  }
-
-  .svinn-info {
-    font-size: 80%;
-    color: $gray-light;
-  }
-
-  .pris-pant {
-    font-size: 80%;
-    color: $gray-light;
   }
 }

@@ -4,7 +4,7 @@ angular.module('cyb.varer').factory('SalgsvarerIndexListView', function ($compil
         render: function () {
             var lastGroup = null;
             return (
-                <table className="table table-striped table-condensed">
+                <table className="table table-striped table-condensed varer-table">
                     <thead>
                         <tr>
                             <th>Navn</th>

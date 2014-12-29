@@ -10,30 +10,8 @@
     td:nth-child(5) {
       font-size: 95%;
     }
-    ul {
-      margin: 0;
-    }
     td {
       vertical-align: middle !important;
-    }
-    tr.group-row th {
-      padding-top: 20px;
-      background-color: #FFF;
-      font-size: 120%;
-    }
-  }
-
-  .status-text {
-    background: #222;
-    color: #FFF;
-    padding: 1px;
-  }
-
-  .gruppe-link {
-    font-size: 90%;
-    color: $gray-light;
-    &:hover {
-      color: $link-color;
     }
   }
 }
