@@ -3,8 +3,8 @@
 
     var module = angular.module('cyb.varer');
 
-    module.factory('VaretellingerService', function ($resource) {
-        return $resource('api/varetellinger/:id/', {
+    module.factory('VaretellingVareService', function ($resource) {
+        var obj = $resource('api/varetellingvarer/:id/', {
             id: '@id'
         }, {
             query: {
@@ -14,5 +14,7 @@
                 }
             }
         });
+
+        return obj;
     });
 })();

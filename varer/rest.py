@@ -63,8 +63,13 @@ class SalgskalkyleVareViewSet(viewsets.ModelViewSet):
     serializer_class = SalgskalkyleVareSerializer
 
 class VaretellingViewSet(viewsets.ModelViewSet):
-    queryset = Varetelling.objects.prefetch_related('varer').all()
-    serializer_class = VaretellingSerializer
+    queryset = Varetelling.objects.prefetch_related('varetellingvare_set__raavare__innkjopskonto').all()
+    queryset = Varetelling.objects.prefetch_related('varetellingvare_set__raavare__priser__leverandor').all()
+
+    def get_serializer_class(self):
+        if self.action in ['create', 'update']:
+            return VaretellingWriteSerializer
+        return VaretellingReadSerializer
 
 class VaretellingVareViewSet(viewsets.ModelViewSet):
     queryset = VaretellingVare.objects.all()

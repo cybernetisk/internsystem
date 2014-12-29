@@ -5,11 +5,24 @@
 </loader>
 
 <div ng-if="varetellinger.items.length > 0">
-    <ul>
-        <li ng-repeat="item in varetellinger.items">
-            <a ng-href="admin/varer/varetelling/{{::item.id}}/" target="_self">{{::item.tittel}}</a> ({{::item.tid}} av {{::item.ansvarlig}})
-        </li>
-    </ul>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Tittel</th>
+                <th>Tid</th>
+                <th>Kommentar</th>
+                <th>Ansvarlig</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="item in varetellinger.items">
+                <td><a ui-sref="varetelling({id:item.id})">{{::item.tittel}}</a></td>
+                <td>{{::item.tid|date:'yyyy-MM-dd HH:mm'}}</td>
+                <td>{{::item.kommentar}}</td>
+                <td>{{::item.ansvarlig}}</td>
+            </tr>
+        </tbody>
+    </table>
 
     <pagination data="varetellinger.pagination"></pagination>
 </div>

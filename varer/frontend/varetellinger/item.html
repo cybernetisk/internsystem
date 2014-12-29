@@ -1,0 +1,42 @@
+<loader var="ctrl.data"></loader>
+<div class="varetellinger-item" ng-if="ctrl.data">
+    <h1>Varetelling</h1>
+    <a ng-href="admin/varer/varetelling/{{ctrl.data.id}}/" target="_self">Rediger</a>
+    <dl class="dl-horizontal">
+        <dt>Tittel</dt>
+        <dd>{{ctrl.data.tittel}}</dd>
+        <dt>Tid</dt>
+        <dd>{{ctrl.data.tid|date:'yyyy-MM-dd HH:mm'}}</dd>
+        <dt>Kommentar</dt>
+        <dd>{{ctrl.data.kommentar}}</dd>
+        <dt>Ansvarlig</dt>
+        <dd>{{ctrl.data.ansvarlig}}</dd>
+        <dt ng-if="ctrl.summer">Total verdi</dt>
+        <dd ng-if="ctrl.summer">{{ctrl.summer.sum+ctrl.summer.pant|price}} (hvorav {{ctrl.summer.pant|price}} i pant)</dd>
+    </dl>
+
+    <h2>Varer</h2>
+
+    <div class="row">
+        <div class="form-group col-md-3">
+            <label>Frisøk</label>
+            <input class="form-control" type="textbox" ng-model="ctrl.varefilter.text" id="frisok">
+        </div>
+        <div class="form-group col-md-3">
+            <label>Gruppe</label>
+            <select class="form-control" ng-options="item.id as item.navn group by item.gruppe for item in ctrl.groups" ng-model="ctrl.varefilter.group">
+                <option value="">-- ikke valgt --</option>
+            </select>
+        </div>
+        <div class="form-group col-md-3">
+            <label>Visning</label>
+            <select class="form-control" ng-options="key as lbl for (key, lbl) in ctrl.vis_options" ng-model="ctrl.vis_varer"></select>
+        </div>
+        <div class="form-group col-md-3">
+            <label>Standard registreringssted</label>
+            <input class="form-control" type="text" ng-model="ctrl.newitem_place" />
+        </div>
+    </div>
+
+    <react-component ng-if="ctrl.raavarerfiltered.length > 0" name="VaretellingerItemListView" props="ctrl"></react-component>
+</div>

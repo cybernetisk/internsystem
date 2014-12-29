@@ -1,0 +1,66 @@
+.varetellinger-item {
+  table {
+    font-size: 95%;
+    thead tr > :nth-child(2),
+    tr > td:nth-child(2),
+    thead tr > :nth-child(3),
+    tr > td:nth-child(3) {
+      white-space: nowrap;
+      text-align: center;
+    }
+    th, td {
+      vertical-align: middle !important;
+    }
+    .group-row > th:nth-child(2) {
+      font-size: 95%;
+    }
+
+    .nytelling {
+      display: none;
+      position: absolute;
+      right: -10px;
+      top: 50%;
+      a {
+        display: block;
+        cursor: pointer;
+        padding: 3px;
+        position: relative;
+        top: -10px;
+      }
+    }
+
+    tr:hover .nytelling {
+      display: block;
+    }
+  }
+
+  .tellinger {
+    position: relative;
+    ul li + li {
+      margin-top: 4px;
+      padding-top: 4px;
+      border-top: 1px solid $hr-border;
+    }
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    input {
+      width: 80px;
+      &.telling-kommentar {
+        width: 180px;
+      }
+    }
+    input[type=submit] {
+      position: absolute;
+      visibility: hidden;
+    }
+    p {
+      margin: 8px 0;
+    }
+    p + p {
+      margin-top: 12px;
+    }
+  }
+}
