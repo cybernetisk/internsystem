@@ -1,5 +1,5 @@
-angular.module('cyb.varer').factory('VarerHelper', function () {
-    return {
+angular.module('cyb.varer').factory('VarerHelper', function ($filter) {
+    var VarerHelper = {
         /**
          * Hent ut liste over grupper beregnet for <select>
          */
@@ -37,6 +37,51 @@ angular.module('cyb.varer').factory('VarerHelper', function () {
                 });
                 return prev;
             }, []);
+        },
+
+        /**
+         * Filtrering av varer
+         */
+        createFilter: function (scope, filters, filtergroup, kontonavn, input, output) {
+            var run = function () {
+                var items = input();
+                if (!items) return;
+                var g = VarerHelper.extractGroups(items, kontonavn);
+
+                var res = $filter('filter')(items, filters.text);
+                if (filters.group) {
+                    var group = g.filter(function (test) { return test.id == filters.group; })[0];
+                    res = res.filter(function (obj) {
+                        return obj[kontonavn][group.compare] == group.compareValue;
+                    });
+                }
+
+                output(res);
+            };
+
+            scope.$watchCollection(filtergroup, run);
+
+            return run;
+        },
+
+        /**
+         * Sortering av råvarer/salgsvarer
+         */
+        getSorter: function (kontoname, subGroup) {
+            return function (left, right) {
+                if (left[kontoname].gruppe != right[kontoname].gruppe)
+                    return left[kontoname].gruppe.localeCompare(right[kontoname].gruppe);
+
+                if (subGroup && left[kontoname].navn != right[kontoname].navn)
+                    return left[kontoname].navn.localeCompare(right[kontoname].navn);
+
+                if (left.kategori != right.kategori && left.kategori != null && right.kategori != null)
+                    return left.kategori.localeCompare(right.kategori);
+
+                return left.navn.localeCompare(right.navn);
+            };
         }
-    }
+    };
+
+    return VarerHelper;
 });

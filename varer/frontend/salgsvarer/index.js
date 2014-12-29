@@ -19,17 +19,15 @@
             'text': $stateParams['q'],
             'group': $stateParams['group']
         };
-        var filter = function () {
-            if (!self.items) return;
-            self.itemsfiltered = $filter('filter')(self.items, self.varefilter.text);
-            if (self.varefilter.group) {
-                var group = self.groups.filter(function (test) { return test.id == self.varefilter.group; })[0];
-                self.itemsfiltered = self.itemsfiltered.filter(function (obj) {
-                    return obj.salgskonto[group.compare] == group.compareValue;
-                });
-            }
-        };
-        $scope.$watchCollection('salgsvarer.varefilter', filter);
+
+        var filter = VarerHelper.createFilter(
+            $scope,
+            this.varefilter,
+            'salgsvarer.varefilter',
+            'salgskonto',
+            function () { return self.items; },
+            function (res) { self.itemsfiltered = res; }
+        );
 
         var lastPage = -1;
         var helper = ParamsHelper.track($scope,
@@ -45,14 +43,7 @@
                     self.items = null;
 
                     SalgsvarerService.getList({'page': params['page']}).then(function (res) {
-                        self.items = res.results.sort(function (left, right) {
-                            return left.salgskonto.gruppe == right.salgskonto.gruppe
-                                ? (left.kategori == right.kategori || left.kategori == null || right.kategori == null
-                                    ? left.navn.localeCompare(right.navn)
-                                    : left.kategori.localeCompare(right.kategori))
-                                : left.salgskonto.gruppe.localeCompare(right.salgskonto.gruppe);
-                        });
-
+                        self.items = res.results.sort(VarerHelper.getSorter('salgskonto'));
                         self.pagination = res.pagination;
                         self.groups = VarerHelper.extractGroups(self.items, 'salgskonto');
 
