@@ -9,6 +9,10 @@
  */
 angular.module('cyb.varer').factory('CompileDirective', function ($compile, $rootScope) {
     return React.createClass({
+        propTypes: {
+            elm: React.PropTypes.node.isRequired
+        },
+
         render: function () {
             return this.props.elm;
         },

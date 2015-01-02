@@ -1,6 +1,10 @@
 /** @jsx React.DOM */
 angular.module('cyb.varer').factory('VaretellingerItemNewVare', function () {
     return React.createClass({
+        propTypes: {
+            item: React.PropTypes.object.isRequired,
+            ctrl: React.PropTypes.object.isRequired
+        },
         removeMe: function () {
             this.props.item.remove();
         },

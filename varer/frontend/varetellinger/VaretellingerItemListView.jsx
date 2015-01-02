@@ -1,6 +1,12 @@
 /** @jsx React.DOM */
 angular.module('cyb.varer').factory('VaretellingerItemListView', function ($filter, PrisDato, VareMengde, VaretellingerItemNewVare) {
   return React.createClass({
+    propTypes: {
+      raavarerfiltered: React.PropTypes.array.isRequired,
+      vis_varer: React.PropTypes.string.isRequired,
+      newItem: React.PropTypes.func.isRequired,
+      newitems: React.PropTypes.object.isRequired
+    },
     render: function () {
       var self = this;
       var gruppe = null;

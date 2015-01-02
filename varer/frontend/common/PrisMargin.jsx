@@ -2,9 +2,9 @@
 angular.module('cyb.varer').factory('PrisMargin', function ($filter) {
     return React.createClass({
         propTypes: {
-            requiredInnpris: React.PropTypes.number,
-            requiredUtpris: React.PropTypes.number,
-            requiredUtMva: React.PropTypes.number
+            innPris: React.PropTypes.number.isRequired,
+            utPris: React.PropTypes.number.isRequired,
+            utMva: React.PropTypes.number.isRequired
         },
         render: function () {
             var eksmva = this.props.utPris / (1 + this.props.utMva/100);

@@ -1,6 +1,9 @@
 /** @jsx React.DOM */
 angular.module('cyb.varer').factory('SalgsvarerIndexListView', function ($compile, $filter, PrisDato, PrisMargin, VareMengde) {
     return React.createClass({
+        propTypes: {
+            itemsfiltered: React.PropTypes.array.isRequired
+        },
         render: function () {
             var lastGroup = null;
             return (

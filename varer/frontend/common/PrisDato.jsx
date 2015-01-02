@@ -2,7 +2,7 @@
 angular.module('cyb.varer').factory('PrisDato', function () {
     return React.createClass({
         propTypes: {
-            requiredDato: React.PropTypes.string
+            dato: React.PropTypes.string.isRequired
         },
         render: function () {
             var days = ((new Date)-(new Date(this.props.dato)))/86400000;
