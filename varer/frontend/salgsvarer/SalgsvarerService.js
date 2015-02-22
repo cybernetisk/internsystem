@@ -24,7 +24,7 @@
                         meta.innpris = null;
                         meta.innpris_accurate = 0;
                         meta.raavare.priser.forEach(function (pris) {
-                            if (pris.aktiv && (!meta.raavare.innpris || pris.dato >= meta.raavare.innpris.dato)) {
+                            if (pris.aktiv && (!meta.innpris || pris.dato >= meta.innpris.dato)) {
                                 // beregn kun svinn dersom enheten "brytes"
                                 var mengdeEtterSvinn = meta.mengde != meta.raavare.mengde
                                     ? meta.raavare.mengde - meta.raavare.mengde_svinn
