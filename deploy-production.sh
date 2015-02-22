@@ -16,7 +16,7 @@ git pull
 gulp --production
 
 # neste linje er kun nødvendig i produksjon pga. gunicorn og nginx
-./manage.py collectstatic
+./manage.py collectstatic --noinput
 
 # hvis neste ikke funker, sjekk /etc/sudoers
 # bør inneholde: django ALL=(root) NOPASSWD:/usr/sbin/service gunicorn reload
