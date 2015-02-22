@@ -11,7 +11,10 @@
         });
     });
 
-    module.controller('RåvarerItemController', function ($scope, $stateParams, RåvarerService) {
+    module.controller('RåvarerItemController', function ($scope, $stateParams, $window, RåvarerService) {
+        $window.location.href = '/admin/varer/råvare/' + parseInt($stateParams['id']) + '/';
+        return;
+
         console.log("RåvarerItemController", $stateParams);
         var self = this;
 
