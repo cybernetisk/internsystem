@@ -57,7 +57,7 @@ Her er eksempel på prosess:
 ```bash
 su django # om nødvendig
 cd ~/django_project
-./deploy.sh
+./deploy-production.sh
 ```
 
-Se `deploy.sh` for mer info. Gunicorn blir restartet når dette kjøres. Dette gjøres med `sudo` og `django`-brukeren har rettighet til å gjøre det uten passord iht. `/etc/sudoers`.
+Se `deploy-production.sh` for mer info. Gunicorn blir restartet når dette kjøres. Dette gjøres med `sudo` og `django`-brukeren har rettighet til å gjøre det uten passord iht. `/etc/sudoers`.
