@@ -26,10 +26,37 @@
 
                 res.results = res.results.map(function (item) {
                     // finn aktiv innkjøpspris
+                    // velg siste prisen før prisdato, evt. første pris tilgjengelig etter
+                    var existing_date = null;
+                    var existing_date_valid = null;
                     item.innpris = null;
                     item.priser.forEach(function (pris) {
-                        if (pris.aktiv && (!item.innpris || pris.dato >= item.innpris.dato))
-                            item.innpris = pris;
+                        if (!pris.aktiv) return;
+
+                        // ingen pris: legg til uansett
+                        // eksisterende egentlig ugyldig, ny er tidligere => erstatt
+                        // begge er gyldige, ny har senere dato => erstatt
+
+                        var current_date = new Date(pris.dato);
+                        var current_date_valid = !priceDate ? true : current_date <= priceDate;
+
+                        // hopp kun over pris dersom det allerede eksisterer en
+                        if (item.innpris) {
+                            // hvis eksisterende pris er før ønsket dato, ikke tillatt ugyldig dato eller eldre dato
+                            if (existing_date_valid) {
+                                if (!current_date_valid) return;
+                                if (current_date <= existing_date) return;
+                            }
+
+                            // hvis eksisterende pris er etter ønsket dato, ikke tillatt enda nyere dato
+                            else {
+                                if (current_date >= existing_date) return;
+                            }
+                        }
+
+                        item.innpris = pris;
+                        existing_date = current_date;
+                        existing_date_valid = current_date_valid;
                     });
 
                     // finn aktiv salgspris
