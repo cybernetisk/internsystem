@@ -20,7 +20,7 @@ Sørg for at du er i mappen du ønsker å ha prosjektet, bør være tom!
 ```bash
 git clone git@github.com:cybrairai/okonomi.git .
 virtualenv -p python3 env        # virtualenv sørger for at Python-pakker er lokale for prosjektet
-source env/bin/activiate         # for å "bruke" virtualenv må dette skrives
+source env/bin/activate          # for å "bruke" virtualenv må dette skrives
 pip install -r requirements.txt  # installerer Python-pakker
 npm install                      # installer NodeJS-moduler (hjelpeverktøy) fra package.json
 ```
