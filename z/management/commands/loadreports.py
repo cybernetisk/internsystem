@@ -14,7 +14,7 @@ class Command(BaseCommand):
 
     def parse_files(self, path):
         if isdir(path):
-            for root, dirs, files in os.walk(path):
+            for root, dirs, files in walk(path):
                 for file in files:
                     self.parse_file(join(root, file))
         elif isfile(path):
