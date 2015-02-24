@@ -7,7 +7,7 @@ from django.db import models, migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('varer', '0010_råvare_lenket_salgsvare'),
+        ('varer', '0010_raavare_lenket_salgsvare'),
     ]
 
     operations = [
