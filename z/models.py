@@ -14,6 +14,7 @@ class Kvittering(models.Model):
     u"""
     En kvittering, tilhører en Z-rapport og inneholder flere varetransaksjoner
     """
+    zrapport = models.ForeignKey(Zrapport, related_name='kvitteringer', null=False, blank=False)
     nummer = models.PositiveIntegerField('Kvitteringsnummer', null=False)
     tidspunkt = models.DateTimeField('Tidspunkt', null=False)
     #varetransaksjoner = models.ForeignKey('Kassetransaksjon', null=False, blank=False)

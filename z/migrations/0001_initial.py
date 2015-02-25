@@ -12,9 +12,21 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
+            name='KassenavnMapping',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('nummer', models.PositiveSmallIntegerField(verbose_name='Nummer i kassa')),
+                ('navn', models.CharField(verbose_name='Navn i kassa', max_length=15)),
+                ('salgsvare', models.ForeignKey(related_name='kassenavn_mappinger', to='varer.Salgsvare')),
+            ],
+            options={
+            },
+            bases=(models.Model,),
+        ),
+        migrations.CreateModel(
             name='Kvittering',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('nummer', models.PositiveIntegerField(verbose_name='Kvitteringsnummer')),
                 ('tidspunkt', models.DateTimeField(verbose_name='Tidspunkt')),
             ],
@@ -25,7 +37,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Varetransaksjon',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('antall', models.IntegerField(verbose_name='Antall varer')),
                 ('tidspunkt', models.DateTimeField(verbose_name='Tidspunkt for transaksjon')),
             ],
@@ -36,8 +48,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Kassetransaksjon',
             fields=[
-                ('varetransaksjon_ptr', models.OneToOneField(to='z.Varetransaksjon', primary_key=True, auto_created=True, serialize=False, parent_link=True)),
-                ('kvittering', models.ForeignKey(to='z.Kvittering', related_name='transaksjoner')),
+                ('varetransaksjon_ptr', models.OneToOneField(to='z.Varetransaksjon', auto_created=True, serialize=False, primary_key=True, parent_link=True)),
             ],
             options={
             },
@@ -46,7 +57,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Varetuttaktransaksjon',
             fields=[
-                ('varetransaksjon_ptr', models.OneToOneField(to='z.Varetransaksjon', primary_key=True, auto_created=True, serialize=False, parent_link=True)),
+                ('varetransaksjon_ptr', models.OneToOneField(to='z.Varetransaksjon', auto_created=True, serialize=False, primary_key=True, parent_link=True)),
             ],
             options={
             },
@@ -55,7 +66,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Vareuttak',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('tidspunk', models.DateTimeField(verbose_name='Tidspunkt for uttak')),
                 ('beskrivelse', models.TextField(verbose_name='Beskrivelse av uttak')),
             ],
@@ -66,7 +77,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Zrapport',
             fields=[
-                ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True, serialize=False)),
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('nummer', models.PositiveIntegerField(verbose_name='Zrapport-nummer')),
                 ('tidspunkt', models.DateTimeField(verbose_name='Tidspunkt')),
             ],
@@ -77,13 +88,25 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='varetuttaktransaksjon',
             name='vareuttak',
-            field=models.ForeignKey(to='z.Vareuttak', related_name='transaksjoner'),
+            field=models.ForeignKey(related_name='transaksjoner', to='z.Vareuttak'),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='varetransaksjon',
             name='salgsvare',
-            field=models.ForeignKey(to='varer.Salgsvare', related_name='transaksjoner'),
+            field=models.ForeignKey(related_name='transaksjoner', to='varer.Salgsvare'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='kvittering',
+            name='zrapport',
+            field=models.ForeignKey(related_name='kvitteringer', to='z.Zrapport'),
+            preserve_default=True,
+        ),
+        migrations.AddField(
+            model_name='kassetransaksjon',
+            name='kvittering',
+            field=models.ForeignKey(related_name='transaksjoner', to='z.Kvittering'),
             preserve_default=True,
         ),
     ]
