@@ -40,7 +40,7 @@ angular.module('cyb.varer').factory('SalgsvarerIndexListView', function ($compil
                                     </td>
                                     <td>{item.kassenr}</td>
                                     <td>
-                                        {item.salgspris.pris_intern ?
+                                        {item.salgspris && item.salgspris.pris_intern ?
                                             <span>
                                                 {$filter('price')(item.salgspris.pris_intern, 0)}
                                                 {item.innpris ?
@@ -51,7 +51,7 @@ angular.module('cyb.varer').factory('SalgsvarerIndexListView', function ($compil
                                             </span> : 'Se ekstern'}
                                     </td>
                                     <td>
-                                        {item.salgspris.pris_ekstern ?
+                                        {item.salgspris && item.salgspris.pris_ekstern ?
                                             <span>
                                                 {$filter('price')(item.salgspris.pris_ekstern, 0)}
                                                 {item.innpris ?
