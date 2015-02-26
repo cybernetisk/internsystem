@@ -9,10 +9,11 @@ import re
 import pytz
 
 from django.core.management.base import BaseCommand, CommandError
+from django.core.exceptions import ObjectDoesNotExist
 from django.utils import timezone as tz
 
 from cyb_oko.settings import TIME_ZONE
-from z.models import Zrapport, Kvittering, Kassetransaksjon, KassenavnMapping
+from z.models import Zrapport, Kvittering, Kassetransaksjon, KassenavnMapping, Salgsvare
 
 class Command(BaseCommand):
     args = '<file or directories ...>'
@@ -87,7 +88,12 @@ class Command(BaseCommand):
     def save_z(self):
         self.z.save()
         self.z.kvitteringer = self.kvitteringer
-        #[l.save() for k in self.kvitteringer for l in k]
+
+        for k in self.kvitteringer:
+            if len(k.linjer) > 0:
+                for l in k.linjer:
+                    l.tidspunkt = k.tidspunkt
+                    k.transaksjoner.add(l)
 
     def parse_line(self, line):
         if self.skip_lines.search(line):
@@ -117,8 +123,8 @@ class Command(BaseCommand):
         m = self.receipt_transaction.search(line)
         if m:
             try:
-                self.kvittering.linjer.append(
-                        self.to_line(m.group(1), m.group(2), m.group(3), m.group(4), m.group(5)))
+                self.kvittering.linjer.append(self.to_line(
+                    m.group(1), m.group(2), m.group(3), m.group(4), m.group(5)))
             except IgnoredLineException:
                 pass
             return True
@@ -145,14 +151,18 @@ class Command(BaseCommand):
 
     def to_line(self, code, number, name, count, sum):
         t = self.type(code)
+        nummer = int(number, base=10)
 
-        return {
-                'type': self.type(code),
-                'number': int(number),
-                'name': name.strip(),
-                'count': int(count),
-                'sum': float(sum)
-                }
+        print('Kassenr: %d', nummer)
+
+        try:
+            vare = Salgsvare.objects.get(kassenr=nummer)
+            return Kassetransaksjon(
+                    kvittering=self.kvittering,
+                    salgsvare=vare,
+                    antall=int(count, base=10))
+        except ObjectDoesNotExist:
+            raise IgnoredLineException()
 
     def type(self, code):
         if code == 'A':
