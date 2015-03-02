@@ -5,3 +5,36 @@ body {
 .nav li.dropdown:hover > .dropdown-menu {
   display: block;
 }
+
+@media print {
+  html, body {
+    padding: 0;
+    margin: 0;
+    min-width: 900px;
+  }
+  a[href]:after {
+    content: "";
+  }
+  .container {
+    width: 100%;
+    padding: 0;
+  }
+
+  th, td {
+    page-break-inside: avoid;
+  }
+}
+
+@page {
+  // ved å sette dette til A3, har det til hensikt å få
+  // mer innhold inn på siden, samtidig som media-queries
+  // som bruker min-width forstår at nettsiden skal ha
+  // stor bredde
+  //
+  // (min-width: xx) inntreffer ikke selv om width på body
+  // settes høyere enn xx!
+  //
+  // siden må manuelt skaleres til A4 ved utskrift
+  size: A3;
+  margin: 1.3cm 2cm;
+}
