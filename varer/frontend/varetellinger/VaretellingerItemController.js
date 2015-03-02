@@ -81,6 +81,7 @@
             telling.summer = raavare.innkjopskonto.summer.new();
             if (raavare.innpris) {
                 telling.summer.add(
+                    telling.antall,
                     raavare.innpris.pris * telling.antall,
                     raavare.innpris.pant * (telling.antallpant || Math.ceil(telling.antall))
                 );

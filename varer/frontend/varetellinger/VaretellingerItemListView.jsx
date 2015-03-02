@@ -24,14 +24,18 @@ angular.module('cyb.varer').factory('VaretellingerItemListView', function ($filt
             {this.props.raavarerfiltered.reduce(function (prev, raavare) {
               if (gruppe != raavare.innkjopskonto) {
                 gruppe = raavare.innkjopskonto;
-                prev.push((
-                  <tr className="group-row" key={'gruppe-' + gruppe.id}>
-                    <th colSpan="3">{gruppe.gruppe}: <a className="gruppe-link" href={'varer/kontoer/'+gruppe.id}>{gruppe.navn}</a></th>
-                    <th>
-                      {$filter('price')(gruppe.summer.sum, 2)} + {$filter('price')(gruppe.summer.pant, 2)} i pant
-                    </th>
-                  </tr>
-                ));
+
+                var showGroupLabel = self.props.vis_varer != 'TELLING' || gruppe.summer.count > 0;
+                if (showGroupLabel) {
+                  prev.push((
+                    <tr className="group-row" key={'gruppe-' + gruppe.id}>
+                      <th colSpan="3">{gruppe.gruppe}: <a className="gruppe-link" href={'varer/kontoer/'+gruppe.id}>{gruppe.navn}</a></th>
+                      <th>
+                        {$filter('price')(gruppe.summer.sum, 2)} + {$filter('price')(gruppe.summer.pant, 2)} i pant
+                      </th>
+                    </tr>
+                  ));
+                }
               }
 
               if (self.props.vis_varer != 'GRUPPER') {
