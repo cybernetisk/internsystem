@@ -69,28 +69,30 @@ angular.module('cyb.varer').factory('VaretellingerItemListView', function ($filt
                           <PrisDato dato={raavare.innpris.dato} />
                         </span> : ''}
                       </td>
-                      <td className="tellinger">
-                        <ul>
-                          {raavare.tellinger.map(function (telling) {
-                            return (
-                              <li key={'telling-'+telling.id}>
-                                <a href={'admin/varer/varetellingvare/' + telling.id + '/'} target="_self">
-                                  {$filter('antall')(telling.antall)}{' '}
-                                  ({$filter('price')(telling.summer.sum)}{telling.summer.pant != 0 ? <span> + {$filter('price')(telling.summer.pant)} {telling.antallpant ? <span>({telling.antallpant})</span> : ''} i pant</span> : ''}){' '}
-                                  {telling.kommentar} ({telling.sted})
-                                </a>
-                              </li>
-                            );
-                          })}
-                          {(self.props.newitems[raavare.id]||[]).map(function (item) {
-                            return (
-                                <li>
-                                  <VaretellingerItemNewVare item={item} ctrl={self.props} />
+                      <td>
+                        <div className="tellinger">
+                          <ul>
+                            {raavare.tellinger.map(function (telling) {
+                              return (
+                                <li key={'telling-'+telling.id}>
+                                  <a href={'admin/varer/varetellingvare/' + telling.id + '/'} target="_self">
+                                    {$filter('antall')(telling.antall)}{' '}
+                                    ({$filter('price')(telling.summer.sum)}{telling.summer.pant != 0 ? <span> + {$filter('price')(telling.summer.pant)} {telling.antallpant ? <span>({telling.antallpant})</span> : ''} i pant</span> : ''}){' '}
+                                    {telling.kommentar} ({telling.sted})
+                                  </a>
                                 </li>
-                            );
-                          })}
-                        </ul>
-                        <span className="nytelling"><a onClick={newItemEvent}><i className="glyphicon glyphicon-plus" /></a></span>
+                              );
+                            })}
+                            {(self.props.newitems[raavare.id]||[]).map(function (item) {
+                              return (
+                                  <li>
+                                    <VaretellingerItemNewVare item={item} ctrl={self.props} />
+                                  </li>
+                              );
+                            })}
+                          </ul>
+                          <span className="nytelling"><a onClick={newItemEvent}><i className="glyphicon glyphicon-plus" /></a></span>
+                        </div>
                       </td>
                     </tr>));
               }

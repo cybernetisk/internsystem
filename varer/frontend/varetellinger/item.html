@@ -1,14 +1,14 @@
 <loader var="ctrl.data"></loader>
 <div class="varetellinger-item" ng-if="ctrl.data">
     <h1>Varetelling</h1>
-    <a ng-href="admin/varer/varetelling/{{ctrl.data.id}}/" target="_self">Rediger</a>
+    <a class="hidden-print" ng-href="admin/varer/varetelling/{{ctrl.data.id}}/" target="_self">Rediger</a>
     <dl class="dl-horizontal">
         <dt>Tittel</dt>
         <dd>{{ctrl.data.tittel}}</dd>
         <dt>Tid</dt>
         <dd>{{ctrl.data.tid|date:'yyyy-MM-dd HH:mm'}}</dd>
-        <dt>Kommentar</dt>
-        <dd>{{ctrl.data.kommentar}}</dd>
+        <dt ng-if="ctrl.data.kommentar">Kommentar</dt>
+        <dd ng-if="ctrl.data.kommentar">{{ctrl.data.kommentar}}</dd>
         <dt>Ansvarlig</dt>
         <dd>{{ctrl.data.ansvarlig}}</dd>
         <dt ng-if="ctrl.summer">Total verdi</dt>
@@ -17,7 +17,7 @@
 
     <h2>Varer</h2>
 
-    <div class="row">
+    <div class="row hidden-print">
         <div class="form-group col-md-3">
             <label>Frisøk</label>
             <input class="form-control" type="textbox" ng-model="ctrl.varefilter.text" id="frisok">
