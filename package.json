@@ -4,7 +4,7 @@
   "description": "CYB varer",
   "devDependencies": {
     "bower": "^1.3.12",
-    "gulp": "^3.8.10",
+    "gulp": "^3.8.11",
     "gulp-angular-templatecache": "^1.5.0",
     "gulp-buffer": "0.0.2",
     "gulp-concat": "^2.4.2",

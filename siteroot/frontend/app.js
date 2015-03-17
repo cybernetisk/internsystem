@@ -3,6 +3,7 @@
 
     var module = angular.module('cyb.oko', [
         'ui.router',
+        'cyb.bong',
         'cyb.varer',
         'cyb.z'
     ]);

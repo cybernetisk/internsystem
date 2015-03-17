@@ -32,15 +32,17 @@ var js_files_library = [
 ];
 
 var js_files = [
+    'siteroot/frontend/app.js',
+    'siteroot/frontend/**/module.js',
+    'siteroot/frontend/**/*.js',
     'varer/frontend/app.js',
     'varer/frontend/**/module.js',
     'varer/frontend/**/*.js',
     'z/frontend/app.js',
     'z/frontend/**/module.js',
     'z/frontend/**/*.js',
-    'siteroot/frontend/app.js',
-    'siteroot/frontend/**/module.js',
-    'siteroot/frontend/**/*.js'
+    'bong/**/module.js',
+    'bong/**/*.js'
 ];
 
 var jsx_files = [
