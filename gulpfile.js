@@ -40,11 +40,15 @@ var js_files = [
     'z/frontend/**/*.js',
     'siteroot/frontend/app.js',
     'siteroot/frontend/**/module.js',
-    'siteroot/frontend/**/*.js'
+    'siteroot/frontend/**/*.js',
+    'skitur/frontend/app.js',
+    'skitur/frontend/**/module.js',
+    'skitur/frontend/**/*.js'
 ];
 
 var jsx_files = [
-    'varer/frontend/**/*.jsx'
+    'varer/frontend/**/*.jsx',
+    'skitur/frontend/**/*.jsx'
 ];
 
 var css_files = [

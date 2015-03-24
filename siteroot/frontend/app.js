@@ -4,7 +4,8 @@
     var module = angular.module('cyb.oko', [
         'ui.router',
         'cyb.varer',
-        'cyb.z'
+        'cyb.z',
+        'cyb.skitur'
     ]);
 
     module.config(function ($locationProvider, $urlRouterProvider, $httpProvider) {
@@ -17,5 +18,5 @@
 
         $httpProvider.defaults.xsrfCookieName = 'csrftoken';
         $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-    })
+    });
 })();
