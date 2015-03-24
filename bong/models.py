@@ -1,33 +1,38 @@
 from django.db import models, transaction
-from django.contrib.auth.models import User
 from datetime import datetime
-from core.models import Semester
+from core.models import CybUser, InternGroup, Semester
 
 # Create your models here.
-class BongLog(models.Model):
-    # BongWallet
-
-    # action issued / spendt
-    # date issued
-    # user issuer, how do we handle automatic issue by taking shift?
-
-    # hours worked
-    # bongs derived from hours
-    # group, internal group identifier stuff?
-
-    # comment
-
-    # Revoke stuff
-    #
-    # is_revoked
-    # user_revoked revoking user
-    # date_revoked
-
-    pass
-
 class BongWallet(models.Model):
     semester = models.ForeignKey(Semester)
 
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(CybUser)
     balance = models.DecimalField(default=0, max_digits=8, decimal_places=2)
     total_assigned = models.DecimalField(default=0, max_digits=8, decimal_places=2)
+
+class BongLog(models.Model):
+    ISSUED = 'i';
+    SPENDT = 's';
+
+    BONG_ACTION_CHOICES = (
+        (ISSUED, 'issued'),
+        (SPENDT, 'spendt')
+    )
+
+    wallet = models.ForeignKey(BongWallet)
+
+    action = models.CharField(max_length=1, choices=BONG_ACTION_CHOICES, default=ISSUED)
+    date_issued = models.DateTimeField(default=datetime.now, blank=True)
+    issuing_user = models.ForeignKey(CybUser, related_name='issuing_user')
+    comment = models.TextField(blank=True)
+
+    # bong details
+    group = models.ForeignKey(InternGroup)
+    hours = models.DecimalField(default=0, max_digits=2, decimal_places=2)
+    bongs = models.DecimalField(default=0, max_digits=8, decimal_places=2)
+
+
+    # Revoke stuff
+    is_revoked = models.BooleanField(default=False)
+    date_revoked = models.DateTimeField(blank=True)
+    revoking_user = models.ForeignKey(CybUser, related_name='revoking_user')
