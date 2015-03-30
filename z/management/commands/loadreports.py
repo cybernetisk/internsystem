@@ -74,7 +74,7 @@ class Command(BaseCommand):
             for line in f:
                 self.parse_line(line)
 
-            self.save_z()
+            #self.save_z()
 
     def new_receipt(self):
         # Store the previous receipt, if needed
@@ -124,7 +124,7 @@ class Command(BaseCommand):
         if m:
             try:
                 self.kvittering.linjer.append(self.to_line(
-                    m.group(1), m.group(2), m.group(3), m.group(4), m.group(5)))
+                    m.group(1), m.group(2), m.group(3).strip(), m.group(4), m.group(5)))
             except IgnoredLineException:
                 pass
             return True
@@ -153,16 +153,27 @@ class Command(BaseCommand):
         t = self.type(code)
         nummer = int(number, base=10)
 
-        print('Kassenr: %d', nummer)
-
-        try:
-            vare = Salgsvare.objects.get(kassenr=nummer)
-            return Kassetransaksjon(
-                    kvittering=self.kvittering,
-                    salgsvare=vare,
-                    antall=int(count, base=10))
-        except ObjectDoesNotExist:
-            raise IgnoredLineException()
+        if t == 'sale' or t == 'refund':
+            try:
+                vare = Salgsvare.objects.get(kassenr=nummer)
+                if vare.kassenavn == name:
+                    return Kassetransaksjon(
+                            kvittering=self.kvittering,
+                            salgsvare=vare,
+                            antall=int(count, base=10))
+                else:
+                    self.name_mismatch(vare, name)
+            except ObjectDoesNotExist:
+                print('Fant ingen match for: %s %d %s' % (t, nummer, name))
+                print('Hva vil du gjøre?')
+                print('Lag ny salgsvare [1]')
+                print('Lag ny mapping til eksisterende salgsvare [2]')
+                action = int(input('Velg kommando: '))
+                if action == 1:
+                    self.create_salgsvare(number)
+                elif action == 2:
+                    self.create_mapping(number, name)
+        raise IgnoredLineException()
 
     def type(self, code):
         if code == 'A':
@@ -181,6 +192,51 @@ class Command(BaseCommand):
             raise IgnoredLineException()
         else:
             raise UnknownLineException('Unknown line code: %s' % code)
+
+    def name_mismatch(self, vare, name):
+        """
+        Handler for mismatch between the name stored in the database and the
+        name stored in the pos system.
+        """
+        print('Kassenavn for vare #%d ("%s") matcher ikke ("%s" != "%s")' % (vare.kassenr, vare.navn, vare.kassenavn, name))
+        print('Oppdater navn på salgsvare [1]')
+        print('Map til annen vare [2]')
+        action = int(input('Velg kommando: '))
+        if action == 1:
+            print('Doing stuff')
+        elif action == 2:
+            self.find_salgsvare()
+            #self.create_mapping(vare.kassenr, name)
+
+    def create_salgsvare(self, number):
+        category = input('Kategori: ')
+        name = input('Navn: ')
+        account = input('Salgskonto: ')
+        status = input('Status: ')
+        print('%s %s %s %s %s' % (category, name, account, status, number))
+
+    def create_mapping(self, num, name):
+        target = int(input('Kassenummer: '))
+        vare = Salgsvare.objects.get(kassenr=target)
+        print('Ny map fra %d:%s til %d:%s' % (num, name, vare.kassenr, vare.navn))
+
+    def find_salgsvare(self):
+        while True:
+            name = input('Søk etter vare: ')
+            varer = Salgsvare.objects.filter(navn__icontains=name)[:10]
+            if len(varer) == 0:
+                print('Fant ingen varer som matcher')
+            else:
+                for vare in varer:
+                    print('#%d %s' % (vare.pk, vare.navn))
+                try:
+                    action = int(input('Velg en vare (ctrl-c for å søke på nytt): '))
+                    return True
+                except KeyboardInterrupt:
+                    print('')
+
+
+
 
 class UnknownLineException(Exception):
     """
