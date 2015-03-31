@@ -96,25 +96,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_SERIALIZER_CLASS': 'cyb_oko.pagination.CybPaginationSerializer'
 }
 
-LOGGING = {
-    'version': 1,
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler'
-        }
-    },
-    'loggers': {
-        'cyb_oko.querydebug': {
-            'handlers': ['console'],
-            'level': 'DEBUG'
-        },
-        'django.db.backends': {
-            'level': 'DEBUG',
-            'handlers': ['console']
-        }
-    }
-}
 
 DEBUG = False
 
