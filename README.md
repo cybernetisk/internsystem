@@ -97,6 +97,7 @@ For å sette opp en annen database (f.eks. Postgres), må dette settes opp i `cy
 gulp                  # frontend "build"
 ./manage.py migrate   # migrer database (trenger kun kjøres hvis det er gjort endringer i databaseskjemaer)
 ./manage.py runserver
+#./manage.py runserver 0.0.0.0:8000 # example for allowing connections from others than local
 ```
 
 ### Utviklingstips
