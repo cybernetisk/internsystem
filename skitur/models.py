@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import RegexValidator
 
+from skitur.fields import PhoneField
+
 class Trip(models.Model):
     """
     """
@@ -44,7 +46,7 @@ class Participant(models.Model):
     )
 
     # Validators
-    phone_validator = RegexValidator(regex='^\+?[1-9]\d{1,14}$', message='Must be a valid E.164 phone number.')
+    #phone_validator = RegexValidator(regex='^\+?[1-9]\d{1,14}$', message='Must be a valid E.164 phone number.')
 
     # Model fields
     trip = models.ForeignKey(Trip, related_name='participants', null=False, blank=False)
@@ -53,7 +55,7 @@ class Participant(models.Model):
     has_payed = models.BooleanField('Payment has been received.', default=False, null=False)
     has_cancelled = models.BooleanField('Participant has cancelled the registration', default=False, null=False)
     notes = models.TextField(default='', null=False, blank=True)
-    phone = models.CharField('Phone number', max_length=16, null=False, blank=False, validators=[phone_validator])
+    phone = PhoneField('Phone number', null=False, blank=False)#, validators=[phone_validator])
     registration_time = models.DateTimeField('Registration time', auto_now_add=True, null=False, blank=False)
     affiliation = models.CharField('Ifi affiliation', max_length=2, choices=AFFILIATION_CHOICES, default=NONE, null=False, blank=False)
 
