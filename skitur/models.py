@@ -77,3 +77,4 @@ class Wish(models.Model):
 
     def __str__(self):
         return '%s – %s -> %s' % (self.participant.trip, self.participant.user, self.wish.user)
+

@@ -23,6 +23,13 @@ class PhoneField(models.Field):
         except NumberParseException:
             raise ValidationError('Please enter a valid phone number.')
 
+    def get_prep_value(self, value):
+        try:
+            num = phonenumbers.parse(value, 'NO')
+            return phonenumbers.format_number(num, phonenumbers.PhoneNumberFormat.E164)
+        except NumberParseException:
+            raise ValidationError('Please enter a valid phone number.')
+
     def value_from_object(self, obj):
         num = phonenumbers.parse(getattr(obj, self.attname), None)
         return phonenumbers.format_number(num, phonenumbers.PhoneNumberFormat.INTERNATIONAL)
