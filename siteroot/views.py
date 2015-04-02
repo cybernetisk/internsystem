@@ -1,4 +1,4 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 
 def angular_frontend(request):
-    return render_to_response('frontend.html')
+    return render(request, 'frontend.html')
