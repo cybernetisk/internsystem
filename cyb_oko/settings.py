@@ -27,7 +27,8 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'rest_framework',
     'siteroot',
-    'varer'
+    'varer',
+    'samlauth'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -39,6 +40,10 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+AUTHENTICATION_BACKENDS = (
+    'samlauth.auth_backend.SAMLServiceProviderBackend',
 )
 
 TEMPLATE_LOADERS = (
@@ -83,6 +88,9 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "siteroot/static_build"),
 )
+
+# where settings.json is located for SAML-package
+SAML_FOLDER = os.path.join(BASE_DIR, 'samlauth')
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticatedOrReadOnly',),

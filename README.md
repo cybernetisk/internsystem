@@ -15,6 +15,11 @@ Det brukes en del hjelpeprogrammer/verktøy, se resten av README for mer info.
 ### Forutsetninger
 `npm` og `virtualenv` må være tilgjengelig på systemet, i tillegg til Python 3. (F.eks. `sudo apt-get install npm virtualenv python3`)
 
+For å kunne koble seg opp mot SAML, må i tillegg følgende pakker være installert på systemet:
+```bash
+sudo apt-get install python3.4-dev libxslt1-dev libxml2-dev libxmlsec1-dev
+```
+
 ### Grunnoppsett
 Sørg for at du er i mappen du ønsker å ha prosjektet, bør være tom!
 ```bash

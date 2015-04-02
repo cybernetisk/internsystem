@@ -5,6 +5,7 @@ from django.contrib import admin
 from varer.rest import *
 from siteroot.views import angular_frontend
 
+from samlauth import urls as samlauth_urls
 
 router = routers.DefaultRouter()
 router.register(r'kontoer', KontoViewSet)
@@ -19,9 +20,13 @@ router.register(r'salgskalkylevarer', SalgskalkyleVareViewSet)
 router.register(r'varetellinger', VaretellingViewSet)
 router.register(r'varetellingvarer', VaretellingVareViewSet)
 
+
 urlpatterns = [
     url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^admin/', include(admin.site.urls)),
+
+    url(r'^saml/', include(samlauth_urls.urlpatterns)),
+
     url(r'^.*', angular_frontend)
 ]

@@ -1,0 +1,30 @@
+{
+  "strict": true,
+  "debug": true,
+  "sp": {
+    "entityId": "http://vx.hsw.no:8000/saml/metadata/",
+    "assertionConsumerService": {
+      "url": "http://vx.hsw.no:8000/saml/acs/",
+      "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+    },
+    "singleLogoutService": {
+      "url": "https://vx.hsw.no:8000/saml/sls/",
+      "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+    },
+    "NameIDFormat": "urn:oasis:names:tc:SAML:2.0:nameid-format:unspecified",
+    "x509cert": "",
+    "privateKey": ""
+  },
+  "idp": {
+    "entityId": "https://foreningenbs.no/simplesaml/saml2/idp/metadata.php",
+    "singleSignOnService": {
+      "url": "https://foreningenbs.no/simplesaml/saml2/idp/SSOService.php",
+      "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+    },
+    "singleLogoutService": {
+      "url": "https://foreningenbs.no/simplesaml/saml2/idp/SingleLogoutService.php",
+      "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+    },
+    "certFingerprint": "84ea5dc06c77eb88e31014d52c45ca8522a8f88a"
+  }
+}
