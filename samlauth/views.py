@@ -1,5 +1,5 @@
 from django.conf import settings
-#from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse
 from django.http import (HttpResponse, HttpResponseRedirect,
                          HttpResponseServerError)
 from django.shortcuts import render_to_response
@@ -35,7 +35,6 @@ def acs(request):
     auth.process_response()
 
     data = {
-        'success_slo': False,
         'errors': auth.get_errors(),
         'not_auth_warn': not auth.is_authenticated()
     }
@@ -54,6 +53,7 @@ def acs(request):
             login(request, user)
             if 'RelayState' in req['post_data'] and OneLogin_Saml2_Utils.get_self_url(req) != req['post_data']['RelayState']:
                 return HttpResponseRedirect(auth.redirect_to(req['post_data']['RelayState']))
+            return HttpResponseRedirect(OneLogin_Saml2_Utils.get_self_url(req) + reverse('profile'))
 
     return draw_page(request, data)
 
@@ -68,7 +68,6 @@ def sls(request):
 
     data = {
         'not_auth_warn': False,
-        'success_slo': False,
         'errors': auth.get_errors()
     }
 
@@ -77,7 +76,7 @@ def sls(request):
         if url is not None:
             return HttpResponseRedirect(url)
         else:
-            data['success_slo'] = True
+            return HttpResponseRedirect(OneLogin_Saml2_Utils.get_self_url(req))
 
     return draw_page(request, data)
 
@@ -88,12 +87,11 @@ def index(request):
 
     data = {
         'errors':  [],
-        'not_auth_warn': False,
-        'success_slo': False
+        'not_auth_warn': False
     }
 
     if 'sso' in req['get_data']:
-        return HttpResponseRedirect(auth.login())
+        return HttpResponseRedirect(auth.login(OneLogin_Saml2_Utils.get_self_url(req) + reverse('profile')))
     #elif 'sso2' in req['get_data']:
     #    return_to = OneLogin_Saml2_Utils.get_self_url(req) + reverse('saml_attrs')
     #    return HttpResponseRedirect(auth.login(return_to))
@@ -121,7 +119,6 @@ def draw_page(request, data):
     return render_to_response('index.html',
                               {'errors': data['errors'],
                                'not_auth_warn': data['not_auth_warn'],
-                               'success_slo': data['success_slo'],
                                'attributes': attributes,
                                'paint_logout': paint_logout},
                               context_instance=RequestContext(request))

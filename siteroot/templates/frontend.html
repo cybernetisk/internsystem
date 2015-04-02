@@ -18,12 +18,14 @@
     <script>
         var logged_in = {{ user.is_authenticated|jsonify }};
         {% if user.is_authenticated %}
-        var user = {
-            username: {{user.username|jsonify}};
-            realname: {{user.last_name|jsonify}};
-        };
+            var user = {
+                username: {{user.username|jsonify}},
+                realname: {{user.last_name|jsonify}}
+            };
+            var user_metadata = {{saml_attributes|jsonify}};
         {% else %}
-        var user = null;
+            var user = null;
+            var user_metadata = null;
         {% endif %}
     </script>
 
@@ -69,6 +71,19 @@
                             <li><a ui-sref="zstats">Statistikk</a></li>
                         </ul>
                     </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_authenticated %}
+                        <li class="dropdown">
+                            <a href class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{ user.username }} <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><a ui-sref="profile">Profile</a></li>
+                                <li><a ui-sref="logout">Log out</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li><a ui-sref="login">Log in</a></li>
+                    {% endif %}
                 </ul>
             </div><!--/.nav-collapse -->
         </div>

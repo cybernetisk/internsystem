@@ -27,6 +27,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
     url(r'^saml/', include(samlauth_urls.urlpatterns)),
+    url(r'^profile$', angular_frontend, name='profile'),
 
     url(r'^.*', angular_frontend)
 ]
