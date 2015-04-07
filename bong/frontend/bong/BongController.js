@@ -1,18 +1,12 @@
-(function() {
+(function () {
     'use strict';
 
-    var module = angular.module('cyb.bong');
+    angular.module('cyb.bong')
+        .controller('Bong', Bong);
 
-    module.config(function ($stateProvider) {
-        $stateProvider.state('bong', {
-            url: '/bong/:id',
-            templateUrl: 'views/bong/bong/index.html',
-            controller: 'BongController'
-        });
-    });
-
-    module.controller('BongController', function () {
-        console.log("BongController");
-    });
-
+    function Bong() {
+        var vm = this;
+        vm.test = 'bongolongo';
+        console.log('titt tei');
+    }
 })();

@@ -41,8 +41,9 @@ var js_files = [
     'z/frontend/app.js',
     'z/frontend/**/module.js',
     'z/frontend/**/*.js',
-    'bong/**/module.js',
-    'bong/**/*.js'
+    'bong/frontend/**/*.module.js',
+    'bong/frontend/**/*.config',
+    'bong/frontend/**/*.js'
 ];
 
 var jsx_files = [
