@@ -6,7 +6,7 @@
             $stateProvider.state('bong', {
                 url: '/bong/:id',
                 templateUrl: 'views/bong/bong/index.html',
-                controller: 'Bong',
+                controller: 'BongController',
                 controllerAs: 'bong'
             });
         });

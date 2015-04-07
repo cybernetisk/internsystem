@@ -2,7 +2,7 @@
     'use strict';
 
     angular.module('cyb.bong')
-        .controller('Bong', Bong);
+        .controller('BongController', Bong);
 
     function Bong() {
         var vm = this;
