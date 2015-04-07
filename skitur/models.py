@@ -61,6 +61,7 @@ class Participant(models.Model):
 
     class Meta:
         ordering = ['trip', 'user']
+        unique_together = ('trip', 'user')
 
     def __str__(self):
         return '%s – %s' % (self.trip, self.user)
@@ -74,7 +75,11 @@ class Wish(models.Model):
     class Meta:
         ordering = ['participant', 'wish']
         verbose_name_plural = 'wishes'
+        unique_together = ('participant', 'wish')
 
     def __str__(self):
         return '%s – %s -> %s' % (self.participant.trip, self.participant.user, self.wish.user)
+
+    def has_reverse(self):
+        return Wish.objects.filter(wish=self.participant, participant=self.wish).exists()
 

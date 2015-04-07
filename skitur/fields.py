@@ -17,6 +17,8 @@ class PhoneField(models.Field):
         return 'CharField'
 
     def to_python(self, value):
+        if value == None:
+            return None
         try:
             num = phonenumbers.parse(value, 'NO')
             return phonenumbers.format_number(num, phonenumbers.PhoneNumberFormat.E164)
@@ -24,6 +26,8 @@ class PhoneField(models.Field):
             raise ValidationError('Please enter a valid phone number.')
 
     def get_prep_value(self, value):
+        if value == None:
+            return None
         try:
             num = phonenumbers.parse(value, 'NO')
             return phonenumbers.format_number(num, phonenumbers.PhoneNumberFormat.E164)
