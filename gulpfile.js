@@ -41,9 +41,12 @@ var js_files = [
     'samlauth/frontend/app.js',
     'samlauth/frontend/**/module.js',
     'samlauth/frontend/**/*.js',
+    'cal/frontend/app.js',
+    'cal/frontend/**/module.js',
+    'cal/frontend/**/*.js',
     'siteroot/frontend/app.js',
     'siteroot/frontend/**/module.js',
-    'siteroot/frontend/**/*.js'
+    'siteroot/frontend/**/*.js',
 ];
 
 var jsx_files = [

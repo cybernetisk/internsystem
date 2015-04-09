@@ -3,6 +3,8 @@ from rest_framework import routers
 from django.contrib import admin
 from django.conf import settings
 
+from cal import urls as cal_urls
+from cal.rest import *
 from varer.rest import *
 from siteroot.views import angular_frontend
 
@@ -25,6 +27,7 @@ router.register(r'varetellinger', VaretellingViewSet)
 router.register(r'varetellingvarer', VaretellingVareViewSet)
 
 urlpatterns = []
+router.register(r'events', EventViewSet)
 
 if settings.ENABLE_SAML:
     urlpatterns += [url(r'^saml/', include(samlauth_urls.urlpatterns)),]
@@ -32,6 +35,7 @@ if settings.ENABLE_SAML:
 urlpatterns += [
     url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^cal/', include(cal_urls)),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^profile$', angular_frontend, name='profile'),
 ]
