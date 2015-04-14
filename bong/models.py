@@ -1,4 +1,5 @@
 from django.db import models, transaction
+from django.utils.timezone import utc
 from datetime import datetime
 from core.models import CybUser, Semester
 from decimal import Decimal
@@ -28,24 +29,24 @@ class BongLog(models.Model):
         with transaction.atomic():
             super(BongLog, self).save(*args, **kwargs)
 
-            self.wallet.balance += self.bongs()
-            self.wallet.total_assigned += self.bongs()
+            self.wallet.balance = Decimal(self.wallet.balance) + Decimal(self.bongs)
+            self.wallet.total_assigned = Decimal(self.wallet.total_assigned) + Decimal(self.bongs)
             self.wallet.save()
 
     wallet = models.ForeignKey(BongWallet)
 
     action = models.CharField(max_length=1, choices=BONG_ACTION_CHOICES, default=ISSUED)
-    date_issued = models.DateTimeField(default=datetime.now, blank=True)
+    date_issued = models.DateTimeField(default=datetime.utcnow().replace(tzinfo=utc), blank=True)
     issuing_user = models.ForeignKey(CybUser, related_name='issuing_user')
     comment = models.TextField(default='')
 
     # bong details
     group = models.TextField(default='')
-    hours = models.DecimalField(default='0', max_digits=4, decimal_places=2)
-    bongs = models.DecimalField(default='0', max_digits=8, decimal_places=2)
+    hours = models.DecimalField(default=Decimal(0), max_digits=4, decimal_places=2)
+    bongs = models.DecimalField(default=Decimal(0), max_digits=8, decimal_places=2)
 
 
     # Revoke stuff
     is_revoked = models.BooleanField(default=False)
-    date_revoked = models.DateTimeField(default=False, blank=True)
-    revoking_user = models.ForeignKey(CybUser, related_name='revoking_user', blank=True, null=True)
+    date_revoked = models.DateTimeField(default=None, null=True, blank=True)
+    revoking_user = models.ForeignKey(CybUser, related_name='revoking_user', default=None, blank=True, null=True)
