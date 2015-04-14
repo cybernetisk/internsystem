@@ -42,7 +42,7 @@ var js_files = [
     'z/frontend/**/module.js',
     'z/frontend/**/*.js',
     'bong/frontend/**/*.module.js',
-    'bong/frontend/**/*.config',
+    'bong/frontend/**/*.config.js',
     'bong/frontend/**/*.js'
 ];
 

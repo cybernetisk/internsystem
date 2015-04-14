@@ -1,14 +1,19 @@
 from django.db import models, transaction
 from datetime import datetime
 from core.models import CybUser, Semester
+from decimal import Decimal
 
 # Create your models here.
 class BongWallet(models.Model):
-    semester = models.ForeignKey(Semester)
+    def save(self, *args, **kwargs):
+        with transaction.atomic():
+            super(BongWallet, self).save(*args, **kwargs)
 
+    semester = models.ForeignKey(Semester)
     user = models.OneToOneField(CybUser)
     balance = models.DecimalField(default=0, max_digits=8, decimal_places=2)
     total_assigned = models.DecimalField(default=0, max_digits=8, decimal_places=2)
+
 
 class BongLog(models.Model):
     ISSUED = 'i'
@@ -19,6 +24,14 @@ class BongLog(models.Model):
         (SPENDT, 'spendt')
     )
 
+    def save(self, *args, **kwargs):
+        with transaction.atomic():
+            super(BongLog, self).save(*args, **kwargs)
+
+            self.wallet.balance += self.bongs()
+            self.wallet.total_assigned += self.bongs()
+            self.wallet.save()
+
     wallet = models.ForeignKey(BongWallet)
 
     action = models.CharField(max_length=1, choices=BONG_ACTION_CHOICES, default=ISSUED)
@@ -28,8 +41,8 @@ class BongLog(models.Model):
 
     # bong details
     group = models.TextField(default='')
-    hours = models.DecimalField(default=0, max_digits=2, decimal_places=2)
-    bongs = models.DecimalField(default=0, max_digits=8, decimal_places=2)
+    hours = models.DecimalField(default='0', max_digits=4, decimal_places=2)
+    bongs = models.DecimalField(default='0', max_digits=8, decimal_places=2)
 
 
     # Revoke stuff
