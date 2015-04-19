@@ -1,4 +1,4 @@
-from django.contrib.auth.models import User
+from core.models import User
 
 class SAMLServiceProviderBackend(object):
 
@@ -16,14 +16,11 @@ class SAMLServiceProviderBackend(object):
                 user.set_unusable_password()
                 user.username = attributes['username'][0]
 
-            if user.first_name != '':
-                user.first_name = ''
-                user_changed = True
-
             map_fields = {
-                'last_name': 'realname',
+                'realname': 'realname',
                 'email': 'email'
             }
+
             for field, samlfield in map_fields.items():
                 if getattr(user, field) != attributes[samlfield][0]:
                     setattr(user, field, attributes[samlfield][0])

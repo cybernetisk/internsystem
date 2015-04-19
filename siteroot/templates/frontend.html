@@ -20,7 +20,7 @@
         {% if user.is_authenticated %}
             var user = {
                 username: {{user.username|jsonify}},
-                realname: {{user.last_name|jsonify}}
+                realname: {{user.realname|jsonify}}
             };
             var user_metadata = {{saml_attributes|jsonify}};
         {% else %}

@@ -26,6 +26,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'core',
     'siteroot',
     'varer',
     'samlauth'
@@ -55,6 +56,9 @@ TEMPLATE_LOADERS = (
 ROOT_URLCONF = 'cyb_oko.urls'
 
 WSGI_APPLICATION = 'cyb_oko.wsgi.application'
+
+# custom User model
+AUTH_USER_MODEL = 'core.User'
 
 
 # Database
