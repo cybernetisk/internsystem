@@ -109,6 +109,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_SERIALIZER_CLASS': 'cyb_oko.pagination.CybPaginationSerializer'
 }
 
+# see https://docs.djangoproject.com/en/1.8/ref/settings/#secure-proxy-ssl-header
+# if using nginx, make sure to have 'proxy_set_header X-Forwarded-Proto $scheme;' in config
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 DEBUG = False
 

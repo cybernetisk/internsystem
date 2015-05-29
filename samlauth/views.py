@@ -20,7 +20,8 @@ def prepare_django_request(request):
     result = {
         'http_host': request.META['HTTP_HOST'],
         'script_name': request.META['PATH_INFO'],
-        'server_port': request.META['SERVER_PORT'],
+        # as we run behind proxy, we fake the ports
+        'server_port': 443 if request.is_secure() else request.META['SERVER_PORT'],
         'get_data': request.GET.copy(),
         'post_data': request.POST.copy()
     }
