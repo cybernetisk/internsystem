@@ -4,7 +4,8 @@
     var module = angular.module('cyb.oko', [
         'ui.router',
         'cyb.varer',
-        'cyb.z'
+        'cyb.z',
+        'cyb.auth'
     ]);
 
     module.config(function ($locationProvider, $urlRouterProvider, $httpProvider) {

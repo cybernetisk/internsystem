@@ -26,8 +26,10 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'core',
     'siteroot',
-    'varer'
+    'varer',
+    'samlauth'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -41,6 +43,11 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'samlauth.auth_backend.SAMLServiceProviderBackend',
+)
+
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
@@ -49,6 +56,9 @@ TEMPLATE_LOADERS = (
 ROOT_URLCONF = 'cyb_oko.urls'
 
 WSGI_APPLICATION = 'cyb_oko.wsgi.application'
+
+# custom User model
+AUTH_USER_MODEL = 'core.User'
 
 
 # Database
@@ -84,6 +94,9 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "siteroot/static_build"),
 )
 
+# where settings.json is located for SAML-package
+SAML_FOLDER = os.path.join(BASE_DIR, 'samlauth')
+
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticatedOrReadOnly',),
     #'PAGINATE_BY': 10,
@@ -96,6 +109,9 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_SERIALIZER_CLASS': 'cyb_oko.pagination.CybPaginationSerializer'
 }
 
+# see https://docs.djangoproject.com/en/1.8/ref/settings/#secure-proxy-ssl-header
+# if using nginx, make sure to have 'proxy_set_header X-Forwarded-Proto $scheme;' in config
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 DEBUG = False
 

@@ -1,0 +1,23 @@
+<div ng-if="ctrl.is_authed">
+    <h1>Profile: {{ctrl.user.username}}</h1>
+    <p>Stored data in CYBs system:</p>
+    <dl class="dl-horizontal">
+        <dt ng-repeat-start="(key, val) in ctrl.user">{{key}}</dt>
+        <dd ng-repeat-end>{{val}}</dd>
+    </dl>
+    <div ng-if="ctrl.metadata">
+        <p>Data from remote authentication system:</p>
+        <dl class="dl-horizontal">
+            <dt ng-repeat-start="(key, val) in ctrl.metadata">{{key}}</dt>
+            <dd ng-repeat-end>
+                <ul>
+                    <li ng-repeat="subval in val">{{subval}}</li>
+                </ul>
+            </dd>
+        </dl>
+    </div>
+</div>
+<div ng-if="!ctrl.is_authed">
+    <h1>Profile</h1>
+    <p>You need to be signed in to see this page. It will show details about you, but who are you?</p>
+</div>

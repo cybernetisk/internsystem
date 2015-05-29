@@ -1,4 +1,9 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 
 def angular_frontend(request):
-    return render_to_response('frontend.html')
+    # prepare data from SAML
+    attributes = None
+    if 'samlUserdata' in request.session and len(request.session['samlUserdata']) > 0:
+        attributes = request.session['samlUserdata']
+
+    return render(request, 'frontend.html', {'saml_attributes': attributes})

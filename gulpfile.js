@@ -38,6 +38,9 @@ var js_files = [
     'z/frontend/app.js',
     'z/frontend/**/module.js',
     'z/frontend/**/*.js',
+    'samlauth/frontend/app.js',
+    'samlauth/frontend/**/module.js',
+    'samlauth/frontend/**/*.js',
     'siteroot/frontend/app.js',
     'siteroot/frontend/**/module.js',
     'siteroot/frontend/**/*.js'
