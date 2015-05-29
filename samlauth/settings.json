@@ -2,29 +2,29 @@
   "strict": true,
   "debug": true,
   "sp": {
-    "entityId": "http://dev.internt.cyb.no:8000/saml/metadata/",
+    "entityId": "https://internt.cyb.no/saml/metadata/",
     "assertionConsumerService": {
-      "url": "http://dev.internt.cyb.no:8000/saml/acs/",
+      "url": "https://internt.cyb.no/saml/acs/",
       "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
     },
     "singleLogoutService": {
-      "url": "http://dev.internt.cyb.no:8000/saml/sls/",
+      "url": "https://internt.cyb.no/saml/sls/",
       "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
     },
-    "NameIDFormat": "urn:oasis:names:tc:SAML:2.0:nameid-format:unspecified",
+    "NameIDFormat": "urn:oasis:names:tc:SAML:2.0:nameid-format:transient",
     "x509cert": "",
     "privateKey": ""
   },
   "idp": {
-    "entityId": "https://foreningenbs.no/simplesaml/saml2/idp/metadata.php",
+    "entityId": "https://weblogin-test.uio.no",
     "singleSignOnService": {
-      "url": "https://foreningenbs.no/simplesaml/saml2/idp/SSOService.php",
+      "url": "https://weblogin-test.uio.no/simplesaml/saml2/idp/SSOService.php",
       "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
     },
     "singleLogoutService": {
-      "url": "https://foreningenbs.no/simplesaml/saml2/idp/SingleLogoutService.php",
+      "url": "https://weblogin-test.uio.no/simplesaml/saml2/idp/SingleLogoutService.php",
       "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
     },
-    "certFingerprint": "84ea5dc06c77eb88e31014d52c45ca8522a8f88a"
+    "certFingerprint": "0463eddf47e2736a3b681fca61aa23d327f5ed52"
   }
 }

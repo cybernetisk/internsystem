@@ -10,15 +10,15 @@ class SAMLServiceProviderBackend(object):
             attributes = saml_authentication.get_attributes()
             user_changed = False
             try:
-                user = User.objects.get(username=saml_authentication.get_attributes()['username'][0])
+                user = User.objects.get(username=saml_authentication.get_attributes()['uid'][0])
             except User.DoesNotExist:
-                user = User(username=saml_authentication.get_attributes()['username'][0])
+                user = User(username=saml_authentication.get_attributes()['uid'][0])
                 user.set_unusable_password()
-                user.username = attributes['username'][0]
+                user.username = attributes['uid'][0]
 
             map_fields = {
-                'realname': 'realname',
-                'email': 'email'
+                'realname': 'cn',
+                'email': 'mail'
             }
 
             for field, samlfield in map_fields.items():
