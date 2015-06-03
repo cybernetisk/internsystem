@@ -1,12 +1,26 @@
-# CYB-økonomi
-Tidligere har vi benyttet diverse regneark for å holde oversikt over prisfastsetting m.v. I 2014 ble dette utvidet til å være en komplett varekatalog over alle varene vi har, deres innkjøpspris og salgspris m.v.
+# CYBs internsystem
+Dette prosjektet tilbyr en rekke tjenester til hjelp for Cybernetisk Selskab.
 
-Målet med dette prosjektet er å lage et bedre tilpasset system, slik at man kan ha historikk over priser, kanskje knytte det mot kassesystemet/Z-rapporter, mulighet for enklere vareopptelling med rapport til regnskap m.v.
+Tjenester prosjektet tilbyr i dag:
+* Påloggingsløsning mot Universitet i Oslo med weblogin
+* Vare- og priskatalog for Escape, med varetellingsfunksjon, marginoversikt m.v.
+
+Tjenester det jobbes med/planlegges:
+* Ta over for [eksisterende medlemssystem](https://github.com/vegarang/medlemssystem_django)
+* Elektronisk bongsystem (i stedet for Google Spreadsheets)
+* Internliste (i stedet for tabeller i wikien)
+* Z-rapport-statistikk
+* Sentral brukerdatabase for CYB (kunne koble andre tjenester som wiki m.v. mot dette systemet, med pålogging videresendt mot UiO)
 
 ## Kort teknisk oversikt
-Django (Python 3) er backend for systemet, mens AngularJS i kombinasjon med ReactJS brukes i frontend. Kommunikasjon mellom backend og frontend er REST-basert. Django tilbyr også en innebygget admin-modul vi bruker en del.
+* Django (Python 3) er backend for systemet
+** Django tilbyr også en innebygget admin-modul vi bruker en del.
+* AngularJS i kombinasjon med ReactJS brukes i frontend
+* Kommunikasjon mellom backend og frontend er REST-basert
 
 Hvert "underprosjekt" har sin egen mappe, og "frontend-wrapper" er et eget prosjekt i mappen `siteroot` som er template og fellesting for frontend.
+
+Et spesialprosjekt `core` har felles modeller som brukes av flere prosjekter.
 
 Det brukes en del hjelpeprogrammer/verktøy, se resten av README for mer info.
 
@@ -98,7 +112,9 @@ For å sette opp en annen database (f.eks. Postgres), må dette settes opp i `cy
 ./manage.py migrate # initialiserer databasen
 ```
 
-### Kjøre testserver
+### Utvikling
+
+#### Kjøre testserver
 ```bash
 gulp                  # frontend "build"
 ./manage.py migrate   # migrer database (trenger kun kjøres hvis det er gjort endringer i databaseskjemaer)
@@ -106,13 +122,18 @@ gulp                  # frontend "build"
 #./manage.py runserver 0.0.0.0:8000 # example for allowing connections from others than local
 ```
 
-### Utviklingstips
+#### Pålogging mot UiO-weblogin
+Hvis man ikke vil knote med weblogin, kan man også logge inn i Django-admin (`/admin/`). Da blir man logget inn på resten av siden.
+
+Alterantivt har vi også weblogin-adresse på `https://dev.internt.cyb.no`. Dette kan brukes på testserver ved å aktivere SSL samt sette dev.internt.cyb.no til 127.0.0.1 i hosts-filen. Filen `samlauth/settings.json` må i så fall endres.
+
+#### Utviklingstips
 Hver gang noe i frontend endres, må som regel `gulp` kjøres. For å forenkle dette kan man la `gulp watch` kjøre i bakgrunnen.
 
 ## Produksjonsserver
-Vi har en droplet hos Digital Ocean som kjører systemet i produksjon. Den kjører `gunicorn` i kombinasjon med `nginx` for å kjøre Django-applikasjonen over port 80.
+Vi har en [droplet hos Digital Ocean](https://confluence.cyb.no/display/AKTIV/Servere) som kjører systemet i produksjon. Den kjører `gunicorn` i kombinasjon med `nginx` for å kjøre Django-applikasjonen over port 80.
 
-http://cyb.hsw.no/
+https://internt.cyb.no/
 
 Prosjektet ligger i `~django/django_project`. For å komme inn på serveren brukes SSH-nøkler, så har du ikke tilgang ta kontakt med en som har. Dersom det logges inn med root, husk å bytte til django-brukeren: `su django`.
 
