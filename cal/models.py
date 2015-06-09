@@ -3,8 +3,8 @@ from datetime import datetime
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils import timezone
-
 from cyb_oko.settings import TIME_ZONE
+from core.models import User
 
 
 class Event(models.Model):
@@ -13,18 +13,23 @@ class Event(models.Model):
     event with a from and to timestamp.
     """
 
-    start=models.DateTimeField('Start time of the event', null=False, blank=False)
-    end=models.DateTimeField('End time of the event', null=False, blank=False)
+    start = models.DateTimeField('Start time of the event', blank=False)
+    end = models.DateTimeField('End time of the event', blank=False)
 
-    is_allday=models.BooleanField('Is this an all-day event?', null=False, default=False)
+    is_allday = models.BooleanField('Is this an all-day event?', default=False)
 
-    title=models.CharField(max_length=128, null=False, blank=False)
-    description=models.TextField(null=False, blank=True)
+    title = models.CharField(max_length=128)
+    description = models.TextField(blank=True)
+    comment = models.TextField('Non-public comment', blank=True)
+    link = models.CharField(max_length=256, null=True, blank=True)
 
-    is_public=models.BooleanField('Public (event will be visible on cyb.no)', null=False, default=False)
-    is_rented=models.BooleanField('Rental', null=False, default=False)
-    in_escape=models.BooleanField('In Escape', null=False, default=True)
-    is_cancelled=models.BooleanField('Event has been cancelled', null=False, default=False)
+    organizer = models.ForeignKey(User, null=True, blank=True)
+
+    is_published = models.BooleanField('Event is published (specially shown on intern, never public)', default=False)
+    is_public = models.BooleanField('Public (event will be visible on cyb.no)', default=False)
+    is_external = models.BooleanField('External event, not associated with CYB', default=False)
+    in_escape = models.BooleanField('Occupies Escape', default=True)
+    is_cancelled = models.BooleanField('Event has been cancelled', default=False)
 
     def clean(self):
         """
