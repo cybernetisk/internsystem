@@ -60,3 +60,22 @@ class User(AbstractBaseUser, PermissionsMixin):
         Sends an email to this User.
         """
         send_mail(subject, message, from_email, [self.email], **kwargs)
+
+
+class Semester(models.Model):
+    SPRING = '1-SPRING' # number prefixed for easier sorting
+    FALL = '2-FALL'
+    SEM_CHOICES = (
+        (SPRING, 'Vår'),
+        (FALL, 'Høst')
+    )
+
+    semester = models.CharField(max_length=8, choices=SEM_CHOICES)
+    year = models.SmallIntegerField()
+
+    def __str__(self):
+        return self.get_semester_display() + " " + str(self.year)
+
+    class Meta:
+        ordering = ['-year', '-semester']
+        unique_together = ("semester", "year")
