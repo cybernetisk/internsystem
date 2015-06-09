@@ -7,7 +7,6 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render_to_response
 
 from cal.models import Event
-from cyb_oko.settings import TIME_ZONE
 
 def to_ics(events):
     cal = Calendar()
