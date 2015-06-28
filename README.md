@@ -25,48 +25,58 @@ Et spesialprosjekt `core` har felles modeller som brukes av flere prosjekter.
 Det brukes en del hjelpeprogrammer/verktøy, se resten av README for mer info.
 
 ## Sette opp systemet
+For å forenkle oppsett er det laget et eget script som gjør alle nødvendige operasjoner. Man må først hente ned filene fra Git.
 
-### Forutsetninger
-`npm` og `virtualenv` må være tilgjengelig på systemet, i tillegg til Python 3. (F.eks. `sudo apt-get install npm virtualenv python3`)
-
-For å kunne koble seg opp mot SAML, må i tillegg følgende pakker være installert på systemet:
 ```bash
-sudo apt-get install python3-dev libxslt1-dev libxml2-dev libxmlsec1-dev pkg-config
-```
-
-### Grunnoppsett
-Sørg for at du er i mappen du ønsker å ha prosjektet, bør være tom!
-```bash
+mkdir internsystem && cd internsystem # endre mappe om ønskelig
 git clone git@github.com:cybrairai/okonomi.git .
-virtualenv -p python3 env        # virtualenv sørger for at Python-pakker er lokale for prosjektet
-source env/bin/activate          # for å "bruke" virtualenv må dette skrives
-pip install -r requirements.txt  # installerer Python-pakker
-pip install git+https://github.com/bgaifullin/python3-saml.git # python3-saml ligger ikke i pip
-npm install                      # installer NodeJS-moduler (hjelpeverktøy) fra package.json
+./setup_dev.sh
 ```
 
-For å kunne kjøre NodeJS-modulene, åpne `env/bin/activiate` og rediger linjen med `PATH=` til:
-`PATH="$VIRTUAL_ENV/bin:$VIRTUAL_ENV/../node_modules/.bin:$PATH"`
+Scriptet gjør følgende:
+* Installerer systempakker (npm, virtualenv, python, m.v.) - derfor den spør om sudo passord
+* Setter opp virtualenv ved hjelp av virtuelenvwrapper
+* Installerer Python-pakker
+* Installerer NodeJS-pakker
+* Installerer Bower-pakker
+* Setter opp lokale innstillinger for applikasjonen
+* Migrerer databasen (standard vil bruke lokal sqqlite-database)
+* Genererer frontend med `gulp`
+* Starter utviklerserveren (Ctrl+C for å avslutte)
+
+Man bør også lage en superbruker for å kunne logge inn:
 
 ```bash
-bower install   # installerer angular, jquery m.v.
+./manage.py createsuperuser # husk at du må ha aktivert virtualenv!
 ```
 
-Vi må sette opp litt lokal konfigurasjon før vi fortsetter. Kopier filen `cyb_oko/settings_local_example.py` til
-`cyb_oko/settings_local.py` og rediger innholdet. Det som settes opp her overstyrer `cyb_oko/settings.py`.
-
-Nå skal vi sette opp databasen. Django kjører alle databasemigrasjoner for å få til dette.
-Som standard bruker Django en SQLite-database som lagres sammen med prosjektet.
-For å sette opp en annen database (f.eks. Postgres), må dette settes opp i `cyb_oko/settings_local.py`.
+Det kan også hentes inn demodata for at applikasjonen blir litt mer praktisk å teste lokalt:
 
 ```bash
-./manage.py migrate # initialiserer databasen
+./manage.py loaddata semester varer
 ```
+
+### Bruke virtualenv
+Pakken `virtualenvwrapper` installeres globalt, noe som gjør bruk av virtualenv veldig enkelt.
+Som standard settes det opp et miljø som heter `internsystem`.
+
+For å aktivere virtualenv og få tilgang til Python-pakkene for internsystemet skrives følgende:
+
+```bash
+workon internsystem
+```
+
+Det skal da stå `(internsystem)` i terminalen. Oppsettet vi bruker gjør også slik at node
+sin `bin`-mappe havner i PATH.
+
+### Avanserte innstillinger
+For å f.eks. sette opp en annen database (f.eks. Postgres), må dette settes opp i `cyb_oko/settings_local.py`.
 
 ### Utvikling
 
 #### Kjøre testserver
 ```bash
+workon internsystem
 gulp                  # frontend "build"
 ./manage.py migrate   # migrer database (trenger kun kjøres hvis det er gjort endringer i databaseskjemaer)
 ./manage.py runserver
