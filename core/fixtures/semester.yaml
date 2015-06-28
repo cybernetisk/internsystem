@@ -1,0 +1,12 @@
+- fields: {semester: 1-SPRING, year: 2014}
+  model: core.semester
+  pk: 1
+- fields: {semester: 2-FALL, year: 2014}
+  model: core.semester
+  pk: 2
+- fields: {semester: 1-SPRING, year: 2015}
+  model: core.semester
+  pk: 3
+- fields: {semester: 2-FALL, year: 2015}
+  model: core.semester
+  pk: 4
