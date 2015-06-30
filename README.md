@@ -107,3 +107,24 @@ cd ~/django_project
 ```
 
 Se `deploy-production.sh` for mer info. Gunicorn blir restartet når dette kjøres. Dette gjøres med `sudo` og `django`-brukeren har rettighet til å gjøre det uten passord iht. `/etc/sudoers`.
+
+### Dependencies on Mac OS X
+
+```bash
+# Install libxml and libxmlsec
+brew install libxml2 libxmlsec1
+```
+
+Fix virtualenv (somehow) …
+
+```bash
+# Set include path to include libxmlsec
+export C_INCLUDE_PATH=/usr/local/Cellar/libxmlsec1/1.2.20/include/xmlsec1/
+
+# Install manual dependency not in pip
+pip install git+https://github.com/bgaifullin/python3-saml.git
+
+# Install Python dependencies from pip
+pip install -r requirements.txt
+```
+Do other stuff …
