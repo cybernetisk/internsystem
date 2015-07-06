@@ -12,8 +12,7 @@ deativate 2>/dev/null || true
 
 # Install needed packages for the system
 # (the second line is for packages used by python3-saml:)
-sudo apt-get install npm virtualenv virtualenvwrapper python3 \
-             python3-dev libxslt1-dev libxml2-dev libxmlsec1-dev pkg-config
+sudo apt-get install npm virtualenv virtualenvwrapper python3
 
 # Set up virtualenv for Python
 # This will let us install Python-packages for this project only
@@ -41,9 +40,6 @@ fi
 
 # Activate the virtual environment
 workon $VIRTUALENV
-
-# Install manual dependency not in pip
-pip install git+https://github.com/bgaifullin/python3-saml.git
 
 # Install Python dependencies from pip
 pip install -r requirements.txt

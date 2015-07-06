@@ -28,8 +28,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'core',
     'siteroot',
-    'varer',
-    'samlauth'
+    'varer'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -115,6 +114,10 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 DEBUG = False
 
+# Use the SAML-module? Requires compiling of more requirements
+# turn off in local settings if needed
+ENABLE_SAML = True
+
 # Local settings should be defined in the file `settings_local.py`
 # It must at least contain `SECRET_KEY`
 settings_local_name = os.getenv("LOCAL_SETTINGS", "settings_local")
@@ -126,3 +129,6 @@ if not 'SECRET_KEY' in locals():
     raise Exception("Missing SECRET_KEY in local settings. See settings.py");
 
 TEMPLATE_DEBUG = DEBUG
+
+if ENABLE_SAML:
+    INSTALLED_APPS += ('samlauth',)

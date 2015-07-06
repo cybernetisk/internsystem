@@ -4,6 +4,10 @@ SECRET_KEY = 'edit-me'
 # see https://docs.djangoproject.com/en/1.7/ref/settings/#std:setting-DEBUG
 DEBUG = True
 
+# enable SAML if wanted
+# see setup_saml.sh
+ENABLE_SAML = False
+
 # see https://docs.djangoproject.com/en/1.7/ref/settings/#std:setting-ALLOWED_HOSTS
 #ALLOWED_HOSTS = [
 #    'something',
