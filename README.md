@@ -88,6 +88,8 @@ Hvis man ikke vil knote med weblogin, kan man også logge inn i Django-admin (`/
 
 Alterantivt har vi også weblogin-adresse på `https://dev.internt.cyb.no`. Dette kan brukes på testserver ved å aktivere SSL samt sette dev.internt.cyb.no til 127.0.0.1 i hosts-filen. Filen `samlauth/settings.json` må i så fall endres.
 
+Som standard er ikke weblogin aktivert i internsystemet. Dette aktiveres ved å kjøre `setup_saml.sh`-scriptet og aktivere SAML-støtte i den lokale innstilingsfilen (`settings_local.py`).
+
 #### Utviklingstips
 Hver gang noe i frontend endres, må som regel `gulp` kjøres. For å forenkle dette kan man la `gulp watch` kjøre i bakgrunnen.
 
