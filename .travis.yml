@@ -3,8 +3,6 @@ python: "3.4"
 env:
   - LOCAL_SETTINGS=settings_local_travis
 install:
-  - "sudo apt-get update"
-  - "sudo apt-get install libxslt1-dev libxml2-dev libxmlsec1-dev pkg-config"
   - "pip install git+https://github.com/bgaifullin/python3-saml.git"
   - "pip install -r requirements.txt"
 script:
