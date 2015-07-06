@@ -20,3 +20,4 @@ pip install git+https://github.com/bgaifullin/python3-saml.git
 pip install -r requirements_saml.txt
 
 echo "SAML-support is set up. Activate by changing local configuration."
+
