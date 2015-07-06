@@ -3,7 +3,6 @@ python: "3.4"
 env:
   - LOCAL_SETTINGS=settings_local_travis
 install:
-  - "pip install git+https://github.com/bgaifullin/python3-saml.git"
   - "pip install -r requirements.txt"
 script:
   - "python manage.py test"
