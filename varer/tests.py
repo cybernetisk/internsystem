@@ -18,9 +18,3 @@ class KontoTestCase(TestCase):
     def test_name(self):
         konto = Konto.objects.first()
         self.assertEqual(str(konto), "DIV: Varesalg", "Correct string representation")
-
-    def test_more(self):
-        self.assertEqual(10, 20, "Ten equals twenty")
-
-    def test_should_fail(self):
-        self.assertEqual("one", "two", "One equals two")
