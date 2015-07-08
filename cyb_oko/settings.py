@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+import os, importlib
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 ALLOWED_HOSTS = [
@@ -28,8 +28,7 @@ INSTALLED_APPS = (
     'rest_framework',
     'core',
     'siteroot',
-    'varer',
-    'samlauth'
+    'varer'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -115,13 +114,21 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 DEBUG = False
 
+# Use the SAML-module? Requires compiling of more requirements
+# turn off in local settings if needed
+ENABLE_SAML = True
+
 # Local settings should be defined in the file `settings_local.py`
 # It must at least contain `SECRET_KEY`
-if not os.path.isfile(os.path.dirname(__file__) + '/settings_local.py'):
+settings_local_name = os.getenv("LOCAL_SETTINGS", "settings_local")
+if not os.path.isfile(os.path.dirname(__file__) + '/' + settings_local_name + '.py'):
     raise Exception("Missing local settingsfile. See settings.py")
 
-from cyb_oko.settings_local import *
+locals().update(importlib.import_module('cyb_oko.' + settings_local_name).__dict__)
 if not 'SECRET_KEY' in locals():
     raise Exception("Missing SECRET_KEY in local settings. See settings.py");
 
 TEMPLATE_DEBUG = DEBUG
+
+if ENABLE_SAML:
+    INSTALLED_APPS += ('samlauth',)
