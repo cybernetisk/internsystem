@@ -4,7 +4,6 @@ from icalendar import Event as iCalEvent
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, Http404
-from django.shortcuts import render_to_response
 
 from cal.models import Event
 
@@ -45,7 +44,3 @@ def event_ics(request, pk):
         return to_ics([Event.objects.get(pk=pk)])
     except ObjectDoesNotExist:
         raise Http404('No event with id=%s' % pk)
-
-def events(request):
-    events = Event.objects.all()
-    return render_to_response('events.html', {'events': events})
