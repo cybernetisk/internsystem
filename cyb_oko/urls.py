@@ -9,6 +9,8 @@ from siteroot.views import angular_frontend
 if settings.ENABLE_SAML:
     from samlauth import urls as samlauth_urls
 
+from core.urls import urlpatterns as core_urlpatterns
+
 router = routers.DefaultRouter()
 router.register(r'kontoer', KontoViewSet)
 router.register(r'råvarer', RåvareViewSet)
@@ -31,8 +33,11 @@ urlpatterns += [
     url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^admin/', include(admin.site.urls)),
-
     url(r'^profile$', angular_frontend, name='profile'),
+]
 
-    url(r'^.*', angular_frontend)
+urlpatterns += core_urlpatterns
+
+urlpatterns += [
+    url(r'^.*', angular_frontend),
 ]
