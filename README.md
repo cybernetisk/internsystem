@@ -53,7 +53,7 @@ Man bør også lage en superbruker for å kunne logge inn:
 Det kan også hentes inn demodata for at applikasjonen blir litt mer praktisk å teste lokalt:
 
 ```bash
-./manage.py loaddata semester varer
+./manage.py loaddata semester varer events
 ```
 
 ### Bruke virtualenv

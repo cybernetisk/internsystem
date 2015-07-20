@@ -1,5 +1,6 @@
 from core.models import Semester
 from datetime import datetime
+from rest_framework.routers import SimpleRouter, DefaultRouter
 import math
 
 """Get the Semester-object relative to this semester. Create it if needed."""
@@ -20,3 +21,12 @@ def get_semester(semester_offset=0):
     obj, created = Semester.objects.get_or_create(year=year, semester=sem)
 
     return obj
+
+
+"""Shared API-router to maintain a shared DefaultRouter for application urls"""
+class SharedAPIRootRouter(SimpleRouter):
+    shared_router = DefaultRouter()
+
+    def register(self, *args, **kwargs):
+        self.shared_router.register(*args, **kwargs)
+        super().register(*args, **kwargs)

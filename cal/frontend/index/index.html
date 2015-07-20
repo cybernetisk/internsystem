@@ -1,0 +1,28 @@
+<h1>Calendar</h1>
+
+<loader var="cal.items">
+    <p>No events.</p>
+</loader>
+
+<table class="table table-striped" ng-if="cal.items.length > 0">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Start</th>
+            <th>End</th>
+            <th>.ics</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in cal.items">
+            <td><a ng-href="admin/cal/event/{{::item.id}}/" target="_self">{{::item.id}}</a></td>
+            <td>{{::item.title}}</td>
+            <td ng-if="item.is_allday == true">{{::item.start | date:'yyyy-MM-dd'}}</td>
+            <td ng-if="item.is_allday == false">{{::item.start | date:'yyyy-MM-dd HH:mm'}}</td>
+            <td ng-if="item.is_allday == true">{{::item.end | date:'yyyy-MM-dd'}}</td>
+            <td ng-if="item.is_allday == false">{{::item.end | date:'yyyy-MM-dd HH:mm'}}</td>
+            <td><a target="_self" href="/cal/events/{{::item.id}}.ics">.ics</a></td>
+        </tr>
+    </tbody>
+</table>

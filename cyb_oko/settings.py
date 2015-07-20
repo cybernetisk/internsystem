@@ -28,7 +28,8 @@ INSTALLED_APPS = (
     'rest_framework',
     'core',
     'siteroot',
-    'varer'
+    'varer',
+    'cal',
 )
 
 MIDDLEWARE_CLASSES = (

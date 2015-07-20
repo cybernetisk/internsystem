@@ -5,7 +5,8 @@
         'ui.router',
         'cyb.varer',
         'cyb.z',
-        'cyb.auth'
+        'cyb.auth',
+        'cyb.cal'
     ]);
 
     module.config(function ($locationProvider, $urlRouterProvider, $httpProvider) {
@@ -18,5 +19,5 @@
 
         $httpProvider.defaults.xsrfCookieName = 'csrftoken';
         $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
-    })
+    });
 })();

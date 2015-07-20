@@ -1,5 +1,4 @@
 from django.conf.urls import url, include
-from rest_framework import routers
 from django.contrib import admin
 from django.conf import settings
 
@@ -10,8 +9,13 @@ if settings.ENABLE_SAML:
     from samlauth import urls as samlauth_urls
 
 from core.urls import urlpatterns as core_urlpatterns
+from cal import urls as cal_urls
 
-router = routers.DefaultRouter()
+from core.utils import SharedAPIRootRouter
+
+router = SharedAPIRootRouter()
+
+# TODO: namespace these API-endpoints and move it to the application urls-file
 router.register(r'kontoer', KontoViewSet)
 router.register(r'råvarer', RåvareViewSet)
 router.register(r'leverandører', LeverandørViewSet)
@@ -30,10 +34,11 @@ if settings.ENABLE_SAML:
     urlpatterns += [url(r'^saml/', include(samlauth_urls.urlpatterns)),]
 
 urlpatterns += [
-    url(r'^api/', include(router.urls)),
+    url(r'^api/', include(router.shared_router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^profile$', angular_frontend, name='profile'),
+    url(r'^cal/', include(cal_urls)),
 ]
 
 urlpatterns += core_urlpatterns
