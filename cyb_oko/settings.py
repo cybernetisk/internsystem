@@ -96,10 +96,10 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "siteroot/static_build"),
 )
 
-#WEBPACK_LOADER = {
-#    'BUNDLE_DIR_NAME': 'siteroot/static_build/',
-#    'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
-#}
+WEBPACK_LOADER = {
+    'BUNDLE_DIR_NAME': 'siteroot/static_build/',
+    'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+}
 
 # where settings.json is located for SAML-package
 SAML_FOLDER = os.path.join(BASE_DIR, 'samlauth')
