@@ -6,7 +6,7 @@
     module.config(function ($stateProvider) {
         $stateProvider.state('leverandører', {
             url: '/varer/leverandører',
-            templateUrl: 'views/varer/leverandører/index.html',
+            templateUrl: require('./index.html'),
             controller: 'LeverandørerController as leverandorer'
         })
     });

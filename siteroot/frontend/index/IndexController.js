@@ -1,12 +1,14 @@
 (function() {
     'use strict';
 
+    const indexTemplate = require('./index.html');
+
     var module = angular.module('cyb.oko');
 
     module.config(function ($stateProvider) {
         $stateProvider.state('index', {
             url: '/',
-            templateUrl: 'views/siteroot/index/index.html',
+            templateUrl: indexTemplate,
             controller: 'IndexController'
         });
     });

@@ -3,7 +3,7 @@ var module = angular.module('cyb.varer');
 module.config(function ($stateProvider) {
     $stateProvider.state('konto', {
         url: '/varer/kontoer/:id',
-        templateUrl: 'views/varer/kontoer/item.html',
+        templateUrl: require('./item.html'),
         controller: 'KontoerItemController as item'
     });
 });

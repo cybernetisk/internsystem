@@ -1,3 +1,5 @@
+const loaderTemplate = require('./loader.html');
+
 /**
  * Set loading message if variables is null
  */
@@ -7,7 +9,7 @@ var module = angular.module('cyb.oko').directive('loader', function () {
         scope: {
             var: '='
         },
-        templateUrl: 'views/siteroot/common/loader.html',
+        templateUrl: loaderTemplate,
         transclude: true
     };
 });

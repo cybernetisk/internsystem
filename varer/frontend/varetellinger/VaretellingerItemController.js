@@ -6,7 +6,7 @@
     module.config(function ($stateProvider) {
         $stateProvider.state('varetelling', {
             url: '/varer/varetellinger/:id',
-            templateUrl: 'views/varer/varetellinger/item.html',
+            templateUrl: require('./item.html'),
             controller: 'VaretellingerItemController as ctrl'
         });
     });

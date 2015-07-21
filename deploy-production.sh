@@ -13,7 +13,7 @@ if [ -z "$VIRTUAL_ENV" ]; then
 fi
 
 git pull
-gulp --production
+gulp build
 
 # neste linje er kun nødvendig i produksjon pga. gunicorn og nginx
 ./manage.py collectstatic --noinput

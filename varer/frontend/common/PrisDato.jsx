@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 angular.module('cyb.varer').factory('PrisDato', function () {
     return React.createClass({
         propTypes: {

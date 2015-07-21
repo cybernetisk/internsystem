@@ -47,14 +47,11 @@ pip install -r requirements.txt
 # Install nodejs modules (reads from package.json)
 npm install
 
-# Install bower components (reads from bower.json)
-bower install
-
 # Migrate Django's database
 ./manage.py migrate
 
 # Generate frontend files
-gulp
+gulp build-dev
 
 # Run development server
 ./manage.py runserver

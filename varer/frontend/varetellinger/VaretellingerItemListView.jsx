@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 angular.module('cyb.varer').factory('VaretellingerItemListView', function ($filter, PrisDato, VareMengde, VaretellingerItemNewVare) {
   return React.createClass({
     propTypes: {

@@ -2,11 +2,12 @@
     'use strict';
 
     var module = angular.module('cyb.cal');
+    const CalService = require('./CalService');
 
     module.config(function ($stateProvider) {
         $stateProvider.state('cal', {
             url: '/cal',
-            templateUrl: 'views/cal/index/index.html',
+            templateUrl: require('./index.html'),
             controller: 'CalIndexController as cal'
         });
     });

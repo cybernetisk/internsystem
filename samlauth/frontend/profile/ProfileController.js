@@ -1,12 +1,14 @@
 (function() {
     'use strict';
 
+    const angular = require('angular');
+
     var module = angular.module('cyb.auth');
 
     module.config(function ($stateProvider) {
         $stateProvider.state('profile', {
             url: '/profile',
-            templateUrl: 'views/samlauth/profile/index.html',
+            templateUrl: require('./index.html'),
             controller: 'AuthProfileController as ctrl'
         });
     });

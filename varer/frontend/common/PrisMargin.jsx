@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 angular.module('cyb.varer').factory('PrisMargin', function ($filter) {
     return React.createClass({
         propTypes: {

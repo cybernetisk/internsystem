@@ -6,7 +6,7 @@
     module.config(function ($stateProvider) {
         $stateProvider.state('råvare', {
             url: '/varer/råvarer/:id',
-            templateUrl: 'views/varer/råvarer/item.html',
+            templateUrl: require('./item.html'),
             controller: 'RåvarerItemController as item'
         });
     });

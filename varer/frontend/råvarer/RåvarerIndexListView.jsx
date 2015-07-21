@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 angular.module('cyb.varer').factory('RåvarerIndexListView', function ($compile, $filter, PrisDato, PrisMargin, VareMengde) {
     return React.createClass({
         propTypes: {

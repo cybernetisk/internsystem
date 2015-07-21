@@ -6,7 +6,7 @@
     module.config(function ($stateProvider) {
         $stateProvider.state('råvare.edit', {
             url: '/edit',
-            templateUrl: 'views/varer/råvarer/edit.html',
+            templateUrl: require('./edit.html'),
             controller: 'RåvarerEditController as edit'
         });
     });

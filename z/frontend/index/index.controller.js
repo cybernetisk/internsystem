@@ -6,7 +6,7 @@
     module.config(function ($stateProvider) {
         $stateProvider.state('z', {
             url: '/z',
-            templateUrl: 'views/z/index/index.html',
+            templateUrl: require('./index.html'),
             controller: 'ZIndexController'
         });
     });

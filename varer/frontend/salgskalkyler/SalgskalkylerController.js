@@ -6,7 +6,7 @@
     module.config(function ($stateProvider) {
         $stateProvider.state('salgskalkyler', {
             url: '/varer/salgskalkyler',
-            templateUrl: 'views/varer/salgskalkyler/index.html',
+            templateUrl: require('./index.html'),
             controller: 'SalgskalkylerController as salgskalkyler'
         })
     });

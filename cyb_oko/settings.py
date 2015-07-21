@@ -26,6 +26,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'webpack_loader',
     'core',
     'siteroot',
     'varer',
@@ -40,7 +41,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -60,6 +61,7 @@ WSGI_APPLICATION = 'cyb_oko.wsgi.application'
 # custom User model
 AUTH_USER_MODEL = 'core.User'
 
+CSP_DEFAULT_SRC = ("'self'", "'unsafe-inline'")
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
@@ -93,6 +95,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "siteroot/static_build"),
 )
+
+#WEBPACK_LOADER = {
+#    'BUNDLE_DIR_NAME': 'siteroot/static_build/',
+#    'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+#}
 
 # where settings.json is located for SAML-package
 SAML_FOLDER = os.path.join(BASE_DIR, 'samlauth')

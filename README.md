@@ -17,6 +17,7 @@ Tjenester det jobbes med/planlegges:
 ** Django tilbyr også en innebygget admin-modul vi bruker en del.
 * AngularJS i kombinasjon med ReactJS brukes i frontend
 * Kommunikasjon mellom backend og frontend er REST-basert
+* Frontend bygges med Webpack
 
 Hvert "underprosjekt" har sin egen mappe, og "frontend-wrapper" er et eget prosjekt i mappen `siteroot` som er template og fellesting for frontend.
 
@@ -29,7 +30,7 @@ For å forenkle oppsett er det laget et eget script som gjør alle nødvendige o
 
 ```bash
 mkdir internsystem && cd internsystem # endre mappe om ønskelig
-git clone git@github.com:cybrairai/okonomi.git .
+git clone git@github.com:cybrairai/internsystem.git .
 ./setup_dev.sh
 ```
 
@@ -41,8 +42,8 @@ Scriptet gjør følgende:
 * Installerer Bower-pakker
 * Setter opp lokale innstillinger for applikasjonen
 * Migrerer databasen (standard vil bruke lokal sqqlite-database)
-* Genererer frontend med `gulp`
-* Starter utviklerserveren (Ctrl+C for å avslutte)
+* Genererer frontend med `gulp build-dev`
+* Starter utviklerserveren for backend (Ctrl+C for å avslutte)
 
 Man bør også lage en superbruker for å kunne logge inn:
 
@@ -77,7 +78,7 @@ For å f.eks. sette opp en annen database (f.eks. Postgres), må dette settes op
 #### Kjøre testserver
 ```bash
 workon internsystem
-gulp                  # frontend "build"
+gulp build-dev        # frontend "build"
 ./manage.py migrate   # migrer database (trenger kun kjøres hvis det er gjort endringer i databaseskjemaer)
 ./manage.py runserver
 #./manage.py runserver 0.0.0.0:8000 # example for allowing connections from others than local
@@ -91,7 +92,11 @@ Alterantivt har vi også weblogin-adresse på `https://dev.internt.cyb.no`. Dett
 Som standard er ikke weblogin aktivert i internsystemet. Dette aktiveres ved å kjøre `setup_saml.sh`-scriptet og aktivere SAML-støtte i den lokale innstilingsfilen (`settings_local.py`).
 
 #### Utviklingstips
-Hver gang noe i frontend endres, må som regel `gulp` kjøres. For å forenkle dette kan man la `gulp watch` kjøre i bakgrunnen.
+Ved å kjøre kun `gulp`, vil Webpack kjøre webpack-dev-server som automatisk reloader ved endringer.
+
+Dette påvirker bare frontend, så backend må fremdeles kjøres med `./manage.py runserver` samtidig.
+
+Åpne http://localhost:3000/webpack-dev-server/ i stedet for den vanlige Django-adressen for dette.
 
 ## Produksjonsserver
 Vi har en [droplet hos Digital Ocean](https://confluence.cyb.no/display/AKTIV/Servere) som kjører systemet i produksjon. Den kjører `gunicorn` i kombinasjon med `nginx` for å kjøre Django-applikasjonen over port 80.

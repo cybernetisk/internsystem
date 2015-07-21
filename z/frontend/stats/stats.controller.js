@@ -6,7 +6,7 @@
     module.config(function ($stateProvider) {
         $stateProvider.state('zstats', {
             url: '/z/stats',
-            templateUrl: 'views/z/stats/index.html',
+            templateUrl: require('./index.html'),
             controller: 'ZStatsController'
         });
     });

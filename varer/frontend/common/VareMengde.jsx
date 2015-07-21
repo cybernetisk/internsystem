@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 angular.module('cyb.varer').factory('VareMengde', function ($filter) {
     return React.createClass({
         propTypes: {

@@ -6,7 +6,7 @@
     module.config(function ($stateProvider) {
         $stateProvider.state('salgsvarer', {
             url: '/varer/salgsvarer?q&group',
-            templateUrl: 'views/varer/salgsvarer/index.html',
+            templateUrl: require('./index.html'),
             controller: 'SalgsvarerController as salgsvarer',
             reloadOnSearch: false
         })

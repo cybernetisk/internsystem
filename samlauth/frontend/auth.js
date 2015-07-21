@@ -1,7 +1,15 @@
+const angular = require('angular');
+
+module.exports = 'cyb.auth';
+
 (function() {
     'use strict';
 
-    var module = angular.module('cyb.auth');
+    var module = angular.module('cyb.auth', [
+        require('ui.router')
+    ]);
+
+    require('./profile/ProfileController');
 
     module.config(function($stateProvider) {
         $stateProvider.state('login', {
