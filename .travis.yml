@@ -1,5 +1,6 @@
 language: python
 python: '3.4'
+sudo: false
 env:
 - LOCAL_SETTINGS=settings_local_travis
 install:
