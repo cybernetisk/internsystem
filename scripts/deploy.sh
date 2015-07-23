@@ -16,7 +16,7 @@ if [ ! -z "$TRAVIS" ]; then
 fi
 
 echo "Running remote SSH-script"
-ssh django@internt.cyb.no /bin/bash << EOF
+ssh -o StrictHostKeyChecking=no django@internt.cyb.no /bin/bash << EOF
   set -e
   cd ~/django_project
   ./test.sh
