@@ -1,9 +1,30 @@
-var gulp = require('gulp'),
+var concat = require('gulp-concat'),
+    gulp = require('gulp'),
     gutil = require("gulp-util"),
+    uglify = require('gulp-uglify'),
     webpack = require('webpack'),
     WebpackDevServer = require('webpack-dev-server'),
     webpackConfigDev = require('./webpack.config.js'),
     webpackConfigDist = require('./webpack.dist.config.js');
+
+var js_files_library = [
+    'node_modules/jquery/dist/jquery.min.js',
+    'node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js',
+    'node_modules/angular/angular.js',
+    'node_modules/angular-ui-router/release/angular-ui-router.min.js',
+    'node_modules/angular-animate/angular-animate.min.js',
+    'node_modules/angular-resource/angular-resource.min.js',
+    'node_modules/react/dist/react.min.js',
+    'node_modules/ngreact/ngReact.min.js',
+    'node_modules/mathjs/dist/math.min.js'
+];
+
+gulp.task('scripts-library', function() {
+    return gulp.src(js_files_library)
+        .pipe(concat('library.js'))
+        //.pipe(uglify())
+        .pipe(gulp.dest('siteroot/static_build'));
+});
 
 var webpackBuild = function(callback, config, name) {
     webpack(config, function(err, stats) {
@@ -37,6 +58,6 @@ gulp.task("webpack-dev-server", function(callback) {
     });
 });
 
-gulp.task('build', ['webpack:build']);
-gulp.task('build-dev', ['webpack:build-dev']);
-gulp.task('default', ['webpack-dev-server']);
+gulp.task('build', ['webpack:build', 'scripts-library']);
+gulp.task('build-dev', ['webpack:build-dev', 'scripts-library']);
+gulp.task('default', ['webpack-dev-server', 'scripts-library']);

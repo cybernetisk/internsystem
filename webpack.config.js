@@ -32,13 +32,20 @@ module.exports = {
       {test: /\.html$/, loader: "ngtemplate?module=cyb.oko&relativeTo=" + (path.resolve(__dirname, './')) + "/!html"}
     ]
   },
+  externals: {
+    angular: 'angular',
+    'bootstrap-sass': '"bootstrap-sass"',
+    'ui.router': '"ui.router"',
+    'angular-resource': '"ngResource"',
+    'angular-animate': '"ngAnimate"',
+    jquery: 'jQuery',
+    mathjs: 'mathjs',
+    ngReact: 'ngReact',
+    react: 'React',
+  },
   resolve: {
     modulesDirectories: ['node_modules'],
     extensions: ['', '.js', '.jsx'],
-    alias: {
-      //jquery: "jquery/src/jquery.js",
-      mathjs: 'mathjs/dist/math.js',
-    }
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
