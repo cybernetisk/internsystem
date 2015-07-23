@@ -140,3 +140,6 @@ TEMPLATE_DEBUG = DEBUG
 
 if ENABLE_SAML:
     INSTALLED_APPS += ('samlauth',)
+
+if DEBUG:
+    CSP_DEFAULT_SRC += ("'unsafe-eval'",)
