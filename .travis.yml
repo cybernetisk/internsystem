@@ -9,3 +9,8 @@ script:
 notifications:
   slack:
     secure: qThWSSDhhcLDyYXmGuHYR/5P7eHNsU/xAumx85U4JoiTBP2+KcAVfhdziO0SWg18+3odXrhMQEEmj2inONj7+Ug12HGJEpNO7GdgJCnvlTI5/QnsH6vlqDjVEapRPCZpenW3oxqsBLl/wjaez1NvHtfJIUIPVNivvbjvWVvFGyk=
+deploy:
+  provider: script
+  script: scripts/deploy.sh
+  on:
+    branch: master
