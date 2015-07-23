@@ -106,14 +106,7 @@ https://internt.cyb.no/
 Prosjektet ligger i `~django/django_project`. For å komme inn på serveren brukes SSH-nøkler, så har du ikke tilgang ta kontakt med en som har. Dersom det logges inn med root, husk å bytte til django-brukeren: `su django`.
 
 ### Oppdatere produksjonsserver
-Her er eksempel på prosess:
-```bash
-su django # om nødvendig
-cd ~/django_project
-./deploy-production.sh
-```
-
-Se `deploy-production.sh` for mer info. Gunicorn blir restartet når dette kjøres. Dette gjøres med `sudo` og `django`-brukeren har rettighet til å gjøre det uten passord iht. `/etc/sudoers`.
+Dette skjer automatisk ved push til master. Se `.travis.yml` og `scripts/deploy.sh` for detaljer.
 
 ### Dependencies on Mac OS X
 
