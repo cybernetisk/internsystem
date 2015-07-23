@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# set working directory to the directory if this script
+cd "$(dirname "$0")"
+
+# exit on errors
 set -e
 
 if [ ! -z "$TRAVIS" ]; then
