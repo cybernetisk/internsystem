@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd "$(dirname "$0")"/..
+
 # the project must be up and running before using this script!
 
 # Make the bash script abort on error

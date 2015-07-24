@@ -2,10 +2,13 @@
 
 VIRTUALENV=internsystem
 VIRTUALENVACT=~/.virtualenvs/$VIRTUALENV/bin/activate
-NODEBIN=`pwd`/node_modules/.bin
 
 # Make the bash script abort on error
 set -e
+
+cd "$(dirname "$0")"/..
+
+NODEBIN=`pwd`/node_modules/.bin
 
 # Make sure we don't have any active environment
 deativate 2>/dev/null || true
