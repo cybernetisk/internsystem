@@ -108,7 +108,7 @@ Prosjektet ligger i `~django/django_project`. For å komme inn på serveren bruk
 ### Oppdatere produksjonsserver
 Dette skjer automatisk ved push til master. Se `.travis.yml` og `scripts/deploy.sh` for detaljer.
 
-### Dependencies on Mac OS X
+## Dependencies on Mac OS X
 
 ```bash
 # Install libxml and libxmlsec
