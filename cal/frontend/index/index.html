@@ -7,7 +7,6 @@
 <table class="table table-striped" ng-if="cal.items.length > 0">
     <thead>
         <tr>
-            <th>ID</th>
             <th>Title</th>
             <th>Start</th>
             <th>End</th>
@@ -16,8 +15,7 @@
     </thead>
     <tbody>
         <tr ng-repeat="item in cal.items">
-            <td><a ng-href="admin/cal/event/{{::item.id}}/" target="_self">{{::item.id}}</a></td>
-            <td>{{::item.title}}</td>
+            <td><a ui-sref="cal/event({id:item.id})">{{::item.title}}</a></td>
             <td ng-if="item.is_allday == true">{{::item.start | date:'yyyy-MM-dd'}}</td>
             <td ng-if="item.is_allday == false">{{::item.start | date:'yyyy-MM-dd HH:mm'}}</td>
             <td ng-if="item.is_allday == true">{{::item.end | date:'yyyy-MM-dd'}}</td>

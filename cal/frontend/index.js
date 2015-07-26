@@ -16,5 +16,6 @@ module.exports = 'cyb.cal';
     });
 
     require('./index/CalIndexController');
+    require('./index/CalEventController');
 
 })();

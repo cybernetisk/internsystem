@@ -1,0 +1,15 @@
+<h1 ng-if="cal.item">Arrangement: {{cal.item.title}}</h1>
+<h1 ng-if="!cal.item">Arrangement ikke funnet</h1>
+
+<p><a href="cal">Tilbake</a></p>
+
+<loader var="cal.item">
+    <p>Arrangement ble ikke funnet.</p>
+</loader>
+
+<div ng-if="cal.item">
+    <p ng-if="cal.item.is_allday == true">{{::cal.item.start | date:'yyyy-MM-dd'}} til {{::cal.item.end | date:'yyyy-MM-dd'}}</p>
+    <p ng-if="cal.item.is_allday == false">{{::cal.item.start | date:'yyyy-MM-dd HH:mm'}} til {{::cal.item.end | date:'yyyy-MM-dd HH:mm'}}</p>
+    <p ng-if="cal.item.description">{{cal.item.description}}</p>
+    <p><a target="_self" href="cal/events/{{::cal.item.id}}.ics">.ics</a></p>
+</div>
