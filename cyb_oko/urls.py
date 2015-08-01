@@ -4,6 +4,7 @@ from django.conf import settings
 
 from varer.rest import *
 from siteroot.views import angular_frontend
+from siteroot.views import react_frontend
 
 if settings.ENABLE_SAML:
     from samlauth import urls as samlauth_urls
@@ -44,5 +45,7 @@ urlpatterns += [
 urlpatterns += core_urlpatterns
 
 urlpatterns += [
+    url(r'^$', react_frontend),
+    url(r'^cal', react_frontend),
     url(r'^.*', angular_frontend),
 ]

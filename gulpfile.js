@@ -14,7 +14,7 @@ var js_files_library = [
     'node_modules/angular-ui-router/release/angular-ui-router.min.js',
     'node_modules/angular-animate/angular-animate.min.js',
     'node_modules/angular-resource/angular-resource.min.js',
-    'node_modules/react/dist/react.min.js',
+    'node_modules/react/dist/react.js',
     'node_modules/ngreact/ngReact.min.js',
     'node_modules/mathjs/dist/math.min.js'
 ];
@@ -49,8 +49,12 @@ gulp.task("webpack-dev-server", function(callback) {
     var webpackHost = 'localhost:' + webpackPort;
     var djangoHost = 'localhost:8000';
 
+    webpackConfigDev.output.publicPath = 'http://localhost:3000/siteroot/static_build/';
+
     new WebpackDevServer(webpack(webpackConfigDev), {
-        publicPath: 'http://' + webpackHost,
+        hot: true,
+        inline: true,
+        publicPath: webpackConfigDev.output.publicPath,
         contentBase: 'http://' + djangoHost
     }).listen(webpackPort, "localhost", function(err) {
         if (err) throw new gutil.PluginError("webpack-dev-server", err);

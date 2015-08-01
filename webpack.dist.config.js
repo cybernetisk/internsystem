@@ -13,22 +13,28 @@ module.exports = {
     reasons: false
   },
 
-  entry: [
-    './siteroot/frontend/app.js'
-  ],
+  entry: {
+    'app': [
+      './siteroot/frontend/app.js',
+    ],
+    'app_react': [
+      './siteroot/frontend_react/app_react.js',
+    ],
+  },
   output: {
     path: __dirname + '/siteroot/static_build/',
-    filename: 'bundle.js',
-    publicPath: '/static/' // Tell django to use this URL to load packages and not use STATIC_URL + bundle_name
+    filename: '[name].js',
+    publicPath: '/static/'
   },
   module: {
     loaders: [
-      {test: /\.jsx?$/, exclude: /node_modules/, loaders: ['babel']},
+      {test: /\.jsx?$/, exclude: /node_modules/, loaders: ['babel?stage=0']},
       {test: /\.css$/, loader: 'style!css'},
       {test: /\.scss$/, loader: 'style!css!sass'},
       {test: /\.woff2?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&minetype=application/font-woff"},
       {test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader"},
-      {test: /\.html$/, loader: "ngtemplate?module=cyb.oko&relativeTo=" + (path.resolve(__dirname, './')) + "/!html"}
+      {test: /\.html$/, loader: "ngtemplate?module=cyb.oko&relativeTo=" + (path.resolve(__dirname, './')) + "/!html"},
+      {test: /\.json$/, loader: 'json'},
     ]
   },
   externals: {
@@ -64,5 +70,11 @@ module.exports = {
       'process.env': {
         'NODE_ENV': JSON.stringify('production')
       }}),
+
+    new webpack.optimize.CommonsChunkPlugin("common.js"),
+
+    new webpack.DefinePlugin({
+      DEBUG: false,
+    }),
   ]
 };

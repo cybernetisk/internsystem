@@ -7,3 +7,6 @@ def angular_frontend(request):
         attributes = request.session['samlUserdata']
 
     return render(request, 'frontend.html', {'saml_attributes': attributes})
+
+def react_frontend(request):
+    return render(request, 'frontend_react.html')

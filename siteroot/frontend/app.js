@@ -14,7 +14,6 @@
         require('../../varer/frontend/'),
         require('../../z/frontend/'),
         require('../../samlauth/frontend/'),
-        require('../../cal/frontend/'),
     ]);
 
     module.config(function ($locationProvider, $urlRouterProvider, $httpProvider) {
