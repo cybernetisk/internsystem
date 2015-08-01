@@ -28,8 +28,6 @@
         $httpProvider.defaults.xsrfHeaderName = 'X-CSRFToken';
     });
 
-    require('./index/IndexController');
-
     require('./common/antall.filter');
     require('./common/directives');
     require('./common/loader.directive');

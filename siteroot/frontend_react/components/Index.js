@@ -1,4 +1,5 @@
-import React from 'react';
+import React from 'react'
+import { Link } from 'react-router'
 
 export default class Index extends React.Component {
 
@@ -10,9 +11,9 @@ export default class Index extends React.Component {
           <ul>
             <li><a href="varer">Varesystem</a></li>
             <li><a href="z">Z-rapporter</a></li>
-            <li><a href="cal">Cal</a></li>
+            <li><Link to='cal/list'>Calendar</Link></li>
           </ul>
       </div>
-    );
+    )
   }
 }
