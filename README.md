@@ -1,3 +1,5 @@
+README må oppdateres ettersom frontend er skilt ut fra dette systemet!!
+
 # CYBs internsystem
 Dette prosjektet tilbyr en rekke tjenester til hjelp for Cybernetisk Selskab.
 

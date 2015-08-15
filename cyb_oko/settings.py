@@ -29,7 +29,6 @@ INSTALLED_APPS = (
     'rest_framework',
     'webpack_loader',
     'core',
-    'siteroot',
     'varer',
     'cal',
 )
@@ -100,15 +99,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "siteroot/static_build"),
-)
-
-WEBPACK_LOADER = {
-    'BUNDLE_DIR_NAME': 'siteroot/static_build/',
-    'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
-}
 
 # where settings.json is located for SAML-package
 SAML_FOLDER = os.path.join(BASE_DIR, 'samlauth')
