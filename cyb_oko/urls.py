@@ -1,6 +1,7 @@
 from django.conf.urls import url, include
 from django.contrib import admin
 from django.conf import settings
+from django.views.generic.base import RedirectView
 
 from varer.rest import *
 
@@ -31,6 +32,8 @@ urlpatterns = []
 
 if settings.ENABLE_SAML:
     urlpatterns += [url(r'^saml/', include(samlauth_urls.urlpatterns)),]
+else:
+    urlpatterns += [url(r'^saml/', RedirectView.as_view(url='/admin', permanent=False)),]
 
 urlpatterns += [
     url(r'^api/', include(router.shared_router.urls)),
