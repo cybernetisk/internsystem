@@ -1,10 +1,8 @@
-README må oppdateres ettersom frontend er skilt ut fra dette systemet!!
-
-# CYBs internsystem
-Dette prosjektet tilbyr en rekke tjenester til hjelp for Cybernetisk Selskab.
+# CYBs internsystem (backend)
+Dette prosjektet tilbyr en rekke tjenester til hjelp for Cybernetisk Selskab. I hovedsak tilbyr dette prosjektet kun et API, som brukes av blant annet https://github.com/cybrairai/internsystem-frontend.
 
 Tjenester prosjektet tilbyr i dag:
-* Påloggingsløsning mot Universitet i Oslo med weblogin
+* Påloggingsløsning mot Universitet i Oslo med Weblogin
 * Vare- og priskatalog for Escape, med varetellingsfunksjon, marginoversikt m.v.
 
 Tjenester det jobbes med/planlegges:
@@ -17,13 +15,11 @@ Tjenester det jobbes med/planlegges:
 ## Kort teknisk oversikt
 * Django (Python 3) er backend for systemet
 ** Django tilbyr også en innebygget admin-modul vi bruker en del.
-* AngularJS i kombinasjon med ReactJS brukes i frontend
-* Kommunikasjon mellom backend og frontend er REST-basert
-* Frontend bygges med Webpack
+* Tilbyr et REST-API til bruk av andre tjenester
+* I produksjon benyttes Postgres som database
+* For frontend-detaljer, se https://github.com/cybrairai/internsystem-frontend
 
-Hvert "underprosjekt" har sin egen mappe, og "frontend-wrapper" er et eget prosjekt i mappen `siteroot` som er template og fellesting for frontend.
-
-Et spesialprosjekt `core` har felles modeller som brukes av flere prosjekter.
+Hvert "underprosjekt" har sin egen mappe. Et spesialprosjekt `core` har felles modeller som brukes av flere prosjekter.
 
 Det brukes en del hjelpeprogrammer/verktøy, se resten av README for mer info.
 
@@ -37,14 +33,11 @@ git clone git@github.com:cybrairai/internsystem.git .
 ```
 
 Scriptet gjør følgende:
-* Installerer systempakker (npm, virtualenv, python, m.v.) - derfor den spør om sudo passord
+* Installerer systempakker (virtualenv, python, m.v.) - derfor den spør om sudo passord
 * Setter opp virtualenv ved hjelp av virtuelenvwrapper
 * Installerer Python-pakker
-* Installerer NodeJS-pakker
-* Installerer Bower-pakker
 * Setter opp lokale innstillinger for applikasjonen
 * Migrerer databasen (standard vil bruke lokal sqqlite-database)
-* Genererer frontend med `gulp build-dev`
 * Starter utviklerserveren for backend (Ctrl+C for å avslutte)
 
 Man bør også lage en superbruker for å kunne logge inn:
@@ -69,8 +62,7 @@ For å aktivere virtualenv og få tilgang til Python-pakkene for internsystemet 
 workon internsystem
 ```
 
-Det skal da stå `(internsystem)` i terminalen. Oppsettet vi bruker gjør også slik at node
-sin `bin`-mappe havner i PATH.
+Det skal da stå `(internsystem)` i terminalen.
 
 ### Avanserte innstillinger
 For å f.eks. sette opp en annen database (f.eks. Postgres), må dette settes opp i `cyb_oko/settings_local.py`.
@@ -80,7 +72,6 @@ For å f.eks. sette opp en annen database (f.eks. Postgres), må dette settes op
 #### Kjøre testserver
 ```bash
 workon internsystem
-gulp build-dev        # frontend "build"
 ./manage.py migrate   # migrer database (trenger kun kjøres hvis det er gjort endringer i databaseskjemaer)
 ./manage.py runserver
 #./manage.py runserver 0.0.0.0:8000 # example for allowing connections from others than local
@@ -92,13 +83,6 @@ Hvis man ikke vil knote med weblogin, kan man også logge inn i Django-admin (`/
 Alterantivt har vi også weblogin-adresse på `https://dev.internt.cyb.no`. Dette kan brukes på testserver ved å aktivere SSL samt sette dev.internt.cyb.no til 127.0.0.1 i hosts-filen. Filen `samlauth/settings.json` må i så fall endres.
 
 Som standard er ikke weblogin aktivert i internsystemet. Dette aktiveres ved å kjøre `scripts/setup_saml.sh`-scriptet og aktivere SAML-støtte i den lokale innstilingsfilen (`settings_local.py`).
-
-#### Utviklingstips
-Ved å kjøre kun `gulp`, vil Webpack kjøre webpack-dev-server som automatisk reloader ved endringer.
-
-Dette påvirker bare frontend, så backend må fremdeles kjøres med `./manage.py runserver` samtidig.
-
-Åpne http://localhost:3000/webpack-dev-server/ i stedet for den vanlige Django-adressen for dette.
 
 ## Produksjonsserver
 Vi har en [droplet hos Digital Ocean](https://confluence.cyb.no/display/AKTIV/Servere) som kjører systemet i produksjon. Den kjører `gunicorn` i kombinasjon med `nginx` for å kjøre Django-applikasjonen over port 80.
