@@ -25,6 +25,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
     'webpack_loader',
     'core',
@@ -34,6 +35,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'corsheaders.middleware.CorsMiddleware',
     'cyb_oko.querydebug.QueryCountDebugMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -62,6 +64,13 @@ WSGI_APPLICATION = 'cyb_oko.wsgi.application'
 AUTH_USER_MODEL = 'core.User'
 
 CSP_DEFAULT_SRC = ("'self'", "'unsafe-inline'")
+CORS_ORIGIN_WHITELIST = (
+    'localhost:3000',
+    '127.0.0.1:3000',
+    'internt.cyb.no',
+    'dev.internt.cyb.no',
+)
+CORS_ALLOW_CREDENTIALS = True
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
