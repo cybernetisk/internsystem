@@ -42,7 +42,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'csp.middleware.CSPMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -62,7 +61,6 @@ WSGI_APPLICATION = 'cyb_oko.wsgi.application'
 # custom User model
 AUTH_USER_MODEL = 'core.User'
 
-CSP_DEFAULT_SRC = ("'self'", "'unsafe-inline'")
 CORS_ORIGIN_WHITELIST = (
     'localhost:3000',
     '127.0.0.1:3000',
@@ -139,6 +137,3 @@ TEMPLATE_DEBUG = DEBUG
 
 if ENABLE_SAML:
     INSTALLED_APPS += ('samlauth',)
-
-if DEBUG:
-    CSP_DEFAULT_SRC += ("'unsafe-eval'",)
