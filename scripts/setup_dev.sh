@@ -8,14 +8,12 @@ set -e
 
 cd "$(dirname "$0")"/..
 
-NODEBIN=`pwd`/node_modules/.bin
-
 # Make sure we don't have any active environment
 deativate 2>/dev/null || true
 
 # Install needed packages for the system
 # (the second line is for packages used by python3-saml:)
-sudo apt-get install npm virtualenv virtualenvwrapper python3
+sudo apt-get install virtualenv virtualenvwrapper python3
 
 # Set up virtualenv for Python
 # This will let us install Python-packages for this project only
@@ -25,11 +23,6 @@ mkvirtualenv -p /usr/bin/python3 $VIRTUALENV || true
 if [ ! -f "$VIRTUALENVACT" ]; then
     echo "Setup of virtualenv failed, cannot find installation"
     exit 1
-fi
-
-# Add node's bin folder to virtualenv path
-if ! grep -q "$NODEBIN" "$VIRTUALENVACT"; then
-    sed -i "s~^\(export PATH\)\$~PATH=\"$NODEBIN:\$PATH\"\n\1~" "$VIRTUALENVACT"
 fi
 
 # Set up settings file
@@ -47,15 +40,8 @@ workon $VIRTUALENV
 # Install Python dependencies from pip
 pip install -r requirements.txt
 
-# Install nodejs modules (reads from package.json)
-npm install
-
 # Migrate Django's database
 ./manage.py migrate
 
-# Generate frontend files
-gulp build-dev
-
 # Run development server
 ./manage.py runserver
-

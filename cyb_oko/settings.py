@@ -25,15 +25,16 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
     'webpack_loader',
     'core',
-    'siteroot',
     'varer',
     'cal',
 )
 
 MIDDLEWARE_CLASSES = (
+    'corsheaders.middleware.CorsMiddleware',
     'cyb_oko.querydebug.QueryCountDebugMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -41,7 +42,6 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'csp.middleware.CSPMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -61,7 +61,13 @@ WSGI_APPLICATION = 'cyb_oko.wsgi.application'
 # custom User model
 AUTH_USER_MODEL = 'core.User'
 
-CSP_DEFAULT_SRC = ("'self'", "'unsafe-inline'")
+CORS_ORIGIN_WHITELIST = (
+    'localhost:3000',
+    '127.0.0.1:3000',
+    'internt.cyb.no',
+    'dev.internt.cyb.no',
+)
+CORS_ALLOW_CREDENTIALS = True
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
@@ -91,15 +97,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
-
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "siteroot/static_build"),
-)
-
-WEBPACK_LOADER = {
-    'BUNDLE_DIR_NAME': 'siteroot/static_build/',
-    'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
-}
 
 # where settings.json is located for SAML-package
 SAML_FOLDER = os.path.join(BASE_DIR, 'samlauth')
@@ -140,6 +137,3 @@ TEMPLATE_DEBUG = DEBUG
 
 if ENABLE_SAML:
     INSTALLED_APPS += ('samlauth',)
-
-if DEBUG:
-    CSP_DEFAULT_SRC += ("'unsafe-eval'",)

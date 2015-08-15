@@ -17,9 +17,7 @@ fi
 
 pip install -r requirements.txt
 pip install -r requirements_saml.txt
-npm install
 ./manage.py migrate
-gulp build
 
 # neste linje er kun nødvendig i produksjon pga. gunicorn og nginx
 ./manage.py collectstatic --noinput
