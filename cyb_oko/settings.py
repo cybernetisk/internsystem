@@ -27,7 +27,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
-    'webpack_loader',
     'core',
     'varer',
     'cal',
