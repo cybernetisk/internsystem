@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.core.urlresolvers import reverse
+#from django.core.urlresolvers import reverse
 from django.http import (HttpResponse, HttpResponseRedirect,
                          HttpResponseServerError)
 from django.shortcuts import render_to_response
@@ -54,7 +54,7 @@ def acs(request):
             login(request, user)
             if 'RelayState' in req['post_data'] and OneLogin_Saml2_Utils.get_self_url(req) != req['post_data']['RelayState']:
                 return HttpResponseRedirect(auth.redirect_to(req['post_data']['RelayState']))
-            return HttpResponseRedirect(OneLogin_Saml2_Utils.get_self_url(req) + reverse('profile'))
+            return HttpResponseRedirect(OneLogin_Saml2_Utils.get_self_url(req) + '/profile')
 
     return draw_page(request, data)
 
@@ -92,7 +92,7 @@ def index(request):
     }
 
     if 'sso' in req['get_data']:
-        return HttpResponseRedirect(auth.login(OneLogin_Saml2_Utils.get_self_url(req) + reverse('profile')))
+        return HttpResponseRedirect(auth.login(OneLogin_Saml2_Utils.get_self_url(req) + '/profile'))
     #elif 'sso2' in req['get_data']:
     #    return_to = OneLogin_Saml2_Utils.get_self_url(req) + reverse('saml_attrs')
     #    return HttpResponseRedirect(auth.login(return_to))
