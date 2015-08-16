@@ -34,4 +34,4 @@ class EscapeOccupiedEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         depth = 0
-        fields = ('start', 'end')
+        fields = ('start', 'end', 'is_allday')
