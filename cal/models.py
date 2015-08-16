@@ -10,6 +10,8 @@ class Event(models.Model):
     event with a from and to timestamp.
     """
 
+    # if is_allday is True: start and end should have correct expected naive date when formatted as UTC
+    #                       (the time-details should be considered discarded)
     start = models.DateTimeField('Start time of the event', blank=False)
     end = models.DateTimeField('End time of the event', blank=False)
 
@@ -44,11 +46,12 @@ class Event(models.Model):
         return timezone.localtime(self.end)
 
     def start_date(self):
-        return timezone.localtime(self.start).date()
+        tz = timezone.utc if self.is_allday else None
+        return timezone.localtime(self.start, tz).date()
 
     def end_date(self):
-        return timezone.localtime(self.end).date()
-
+        tz = timezone.utc if self.is_allday else None
+        return timezone.localtime(self.end, tz).date()
 
     def __str__(self):
         return 'Event at %s: %s' % (self.start, self.title)
