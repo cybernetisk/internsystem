@@ -24,4 +24,4 @@ class UserExtendedSerializer(serializers.ModelSerializer):
 class SemesterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Semester
-        fields = ('year', 'semester', 'start', 'end')
+        fields = ('year', 'semester')
