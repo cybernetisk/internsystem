@@ -22,7 +22,7 @@ class EventSerializer(serializers.ModelSerializer):
                   'is_published', 'is_public', 'is_external', 'in_escape', 'is_cancelled', 'organizer')
 
 
-class EventWriteSerializer(EventSerializer):
+class EventWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         depth = 0
