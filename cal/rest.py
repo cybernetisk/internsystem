@@ -62,7 +62,7 @@ class SemesterViewSet(viewsets.ViewSet):
                     break
 
             if not found:
-                obj, created = Semester.objects.get_or_create(year=item[0], semester=item[1])
+                obj, created = Semester.objects.get_or_create(year=item['year'], semester=item['semester'])
                 semesters_models.append(obj)
 
         serializer = SemesterSerializer(semesters_models, many=True)
