@@ -7,10 +7,12 @@ from django.http import HttpResponse, Http404
 
 from cal.models import Event
 
+
 def to_ics(events):
     cal = Calendar()
-    cal.add('prodid', '-// cyb.no //')
+    cal.add('prodid', '-//cyb.no//')
     cal.add('version', '2.0')
+    cal.add('X-WR-CALNAME', 'cyb.no')
 
     for event in events:
         e = iCalEvent()
@@ -38,6 +40,7 @@ def to_ics(events):
 
 def events_ics(request):
     return to_ics(Event.objects.all())
+
 
 def event_ics(request, pk):
     try:
