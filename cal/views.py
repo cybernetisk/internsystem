@@ -1,11 +1,9 @@
 from datetime import datetime, timedelta
+
 from icalendar import Calendar
 from icalendar import Event as iCalEvent
 
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse, Http404
-
-from cal.models import Event
+from django.http import HttpResponse
 
 
 def to_ics(events):
@@ -36,18 +34,3 @@ def to_ics(events):
     response['Content-Type'] = 'text/calendar'
 
     return response
-
-
-def events_ics(request):
-    return to_ics(Event.objects.all().order_by('start'))
-
-
-def events_public_ics(request):
-    return to_ics(Event.objects.filter(is_public=True).order_by('start'))
-
-
-def event_ics(request, pk):
-    try:
-        return to_ics([Event.objects.get(pk=pk)])
-    except ObjectDoesNotExist:
-        raise Http404('No event with id=%s' % pk)

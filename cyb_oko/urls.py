@@ -9,7 +9,7 @@ if settings.ENABLE_SAML:
     from samlauth import urls as samlauth_urls
 
 from core.urls import urlpatterns as core_urlpatterns
-from cal import urls as cal_urls
+import cal.urls  # do not remove, needed to load API-urls
 
 from core.utils import SharedAPIRootRouter
 
@@ -36,7 +36,6 @@ else:
     urlpatterns += [url(r'^saml/', RedirectView.as_view(url='/admin', permanent=False)),]
 
 urlpatterns += [
-    url(r'^api/', include(cal_urls)),
     url(r'^api/', include(router.shared_router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^admin/', include(admin.site.urls)),

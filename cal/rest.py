@@ -1,7 +1,8 @@
 import django_filters
 from rest_framework.response import Response
-from rest_framework import viewsets, filters
+from rest_framework import viewsets, filters, renderers
 
+from cal.renderers import IcsRenderer
 from cal.serializers import *
 from cal.models import Event
 from core.serializers import SemesterSerializer
@@ -23,6 +24,11 @@ class EventViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter)
     filter_class = EventFilter
     search_fields = ('title',)
+    renderer_classes = (
+        renderers.JSONRenderer,
+        renderers.BrowsableAPIRenderer,
+        IcsRenderer,
+    )
 
     def get_queryset(self):
         queryset = Event.objects.all().order_by('start')
@@ -38,6 +44,19 @@ class EventViewSet(viewsets.ModelViewSet):
                 return EventWriteSerializer
             return EventSerializer
         return EventGuestSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        if request.accepted_renderer.format == 'ics':
+            return Response([self.get_object()])
+
+        return super(EventViewSet, self).retrieve(request, *args, **kwargs)
+
+    def list(self, request, *args, **kwargs):
+        if request.accepted_renderer.format == 'ics':
+            queryset = self.filter_queryset(self.get_queryset())
+            return Response(queryset)
+
+        return super(EventViewSet, self).list(request, *args, **kwargs)
 
 
 class EscapeOccupiedViewSet(viewsets.GenericViewSet):
