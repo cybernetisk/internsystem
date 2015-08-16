@@ -36,10 +36,10 @@ else:
     urlpatterns += [url(r'^saml/', RedirectView.as_view(url='/admin', permanent=False)),]
 
 urlpatterns += [
+    url(r'^api/', include(cal_urls)),
     url(r'^api/', include(router.shared_router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^cal/', include(cal_urls)),
 ]
 
 urlpatterns += core_urlpatterns
