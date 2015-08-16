@@ -10,5 +10,6 @@ router.register(r'cal/escape_occupied', EscapeOccupiedViewSet, base_name='escape
 
 urlpatterns = patterns('',
     url(r'^cal/events\.ics$', 'cal.views.events_ics'),
+    url(r'^cal/events_public\.ics$', 'cal.views.events_public_ics'),
     url(r'^cal/events/(\d+)\.ics$', 'cal.views.event_ics'),
 )

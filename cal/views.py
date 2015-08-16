@@ -39,7 +39,11 @@ def to_ics(events):
 
 
 def events_ics(request):
-    return to_ics(Event.objects.all())
+    return to_ics(Event.objects.all().order_by('start'))
+
+
+def events_public_ics(request):
+    return to_ics(Event.objects.filter(is_public=True).order_by('start'))
 
 
 def event_ics(request, pk):
