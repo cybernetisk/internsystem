@@ -40,6 +40,20 @@ class EventViewSet(viewsets.ModelViewSet):
         return EventGuestSerializer
 
 
+class EscapeOccupiedViewSet(viewsets.GenericViewSet):
+    queryset = Event.objects.filter(is_cancelled=False, in_escape=True).order_by('start')
+
+    filter_backends = (filters.DjangoFilterBackend,)
+    filter_class = EventFilter
+
+    serializer_class = EscapeOccupiedEventSerializer
+
+    def list(self, request):
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
+
 class SemesterViewSet(viewsets.ViewSet):
     def list(self, request):
         # TODO: this method should probably be optimized
