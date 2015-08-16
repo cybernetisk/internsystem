@@ -33,7 +33,7 @@ def get_semester_details_from_date(date):
 
 """Shared API-router to maintain a shared DefaultRouter for application urls"""
 class SharedAPIRootRouter(SimpleRouter):
-    shared_router = DefaultRouter()
+    shared_router = DefaultRouter(trailing_slash=False)
 
     def register(self, *args, **kwargs):
         self.shared_router.register(*args, **kwargs)
