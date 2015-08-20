@@ -1,5 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
+from django.middleware.csrf import get_token
 
 @api_view()
 def me(request):
@@ -16,9 +17,11 @@ def me(request):
                 'realname': request.user.realname,
                 'email': request.user.email
             },
-            'metadata': metadata
+            'metadata': metadata,
+            'csrfToken': get_token(request)
         })
     else:
         return Response({
-            'loggedIn': False
+            'loggedIn': False,
+            'csrfToken': get_token(request)
         })
