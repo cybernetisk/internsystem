@@ -104,9 +104,33 @@ class SalgsvarePrisSerializer(serializers.ModelSerializer):
     class Meta:
         model = SalgsvarePris
 
-class SalgskalkyleSerializer(serializers.ModelSerializer):
+
+class SalgskalkyleReadItemSerializer(serializers.ModelSerializer):
+    class SalgskalkyleVare(serializers.ModelSerializer):
+        class Meta:
+            model = SalgskalkyleVare
+            depth = 2
+            fields = ('id', 'interngrad', 'antall', 'salgsvare')
+
+    varer = SalgskalkyleVare(many=True, source='salgskalkylevare_set')
+
     class Meta:
         model = Salgskalkyle
+        depth = 1
+        fields = ('id', 'navn', 'kommentar', 'dato', 'varer')
+
+
+class SalgskalkyleReadListSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Salgskalkyle
+        fields = ('id', 'navn', 'kommentar', 'dato')
+
+
+class SalgskalkyleWriteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Salgskalkyle
+        fields = ('id', 'navn', 'kommentar', 'dato')
+
 
 class SalgskalkyleVareSerializer(serializers.ModelSerializer):
     class Meta:
