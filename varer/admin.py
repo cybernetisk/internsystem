@@ -51,11 +51,7 @@ class SalgskalkyleAdmin(admin.ModelAdmin):
     search_fields = ['navn']
     list_display = ('navn', 'dato')
 
-class VaretellingVareInline(admin.TabularInline):
-    model = Varetelling.varer.through
-
 class VaretellingAdmin(admin.ModelAdmin):
-    inlines = [VaretellingVareInline]
     search_fields = ['tittel', 'ansvarlig']
 
 admin.site.register(Konto, KontoAdmin)
