@@ -31,7 +31,6 @@ class LeverandørAdmin(admin.ModelAdmin):
 class SalgsvareRåvareInline(admin.TabularInline):
     model = Salgsvare.raavarer.through
     extra = 0
-    min_num = 1
 
 class SalgsvarePrisInline(admin.TabularInline):
     model = SalgsvarePris
