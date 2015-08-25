@@ -1,0 +1,2686 @@
+- fields: {beholdningsendringskonto: 4411, gruppe: "ALK-\xD8L", innkjopskonto: 4211,
+    kommentar: '', navn: "\xD8l", salgskonto: 3011, varelagerkonto: 1411}
+  model: varer.konto
+  pk: 1
+- fields: {beholdningsendringskonto: 4421, gruppe: MINERALVANN, innkjopskonto: 4221,
+    kommentar: null, navn: Mineralvann, salgskonto: 3014, varelagerkonto: 1421}
+  model: varer.konto
+  pk: 7
+- fields: {beholdningsendringskonto: 4422, gruppe: KAFFE/TE, innkjopskonto: 4222,
+    kommentar: null, navn: Kaffe/te, salgskonto: 3015, varelagerkonto: 1422}
+  model: varer.konto
+  pk: 8
+- fields: {beholdningsendringskonto: 4423, gruppe: MAT/SNACKS, innkjopskonto: 4223,
+    kommentar: null, navn: Mat, salgskonto: 3017, varelagerkonto: 1423}
+  model: varer.konto
+  pk: 9
+- fields: {beholdningsendringskonto: 4431, gruppe: KAFFE/TE, innkjopskonto: 4231,
+    kommentar: null, navn: 'Til kaffe/te, mid mva', salgskonto: 3015, varelagerkonto: 1431}
+  model: varer.konto
+  pk: 11
+- fields: {beholdningsendringskonto: 4432, gruppe: KAFFE/TE, innkjopskonto: 4232,
+    kommentar: null, navn: "Til kaffe/te, h\xF8y mva", salgskonto: 3015, varelagerkonto: 1432}
+  model: varer.konto
+  pk: 12
+- fields: {beholdningsendringskonto: 4400, gruppe: EMBALLASJE, innkjopskonto: 4400,
+    kommentar: null, navn: Emballasje, salgskonto: 4400, varelagerkonto: 1470}
+  model: varer.konto
+  pk: 17
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 1, kategori: "\xD8l", lenket_salgsvare: 60,
+    mengde: 0.5, mengde_svinn: 0.0, navn: "HB H\xF8st", status: OK}
+  model: "varer.r\xE5vare"
+  pk: 10
+- fields: {antall: 1.0, enhet: stk, innkjopskonto: 17, kategori: Varetelling, lenket_salgsvare: null,
+    mengde: 1.0, mengde_svinn: 0.0, navn: "Tomme/\xE5pne fat", status: OK}
+  model: "varer.r\xE5vare"
+  pk: 14
+- fields: {antall: 1.0, enhet: stk, innkjopskonto: 17, kategori: Varetelling, lenket_salgsvare: null,
+    mengde: 1.0, mengde_svinn: 0.0, navn: Tomme kasser, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 15
+- fields: {antall: 1.0, enhet: stk, innkjopskonto: 17, kategori: Varetelling, lenket_salgsvare: null,
+    mengde: 1.0, mengde_svinn: 0.0, navn: Pant i kasser (antall flasker), status: OK}
+  model: "varer.r\xE5vare"
+  pk: 16
+- fields: {antall: 1.0, enhet: g, innkjopskonto: 8, kategori: Kaffe, lenket_salgsvare: null,
+    mengde: 2500.0, mengde_svinn: 0.0, navn: 'Merthi Mountain, India', status: OK}
+  model: "varer.r\xE5vare"
+  pk: 38
+- fields: {antall: 1.0, enhet: g, innkjopskonto: 8, kategori: Te, lenket_salgsvare: null,
+    mengde: 70.0, mengde_svinn: 0.0, navn: Ceylon Breakfast, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 40
+- fields: {antall: 1.0, enhet: g, innkjopskonto: 8, kategori: Te, lenket_salgsvare: null,
+    mengde: 2000.0, mengde_svinn: 0.0, navn: Chai Sort 2kg, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 42
+- fields: {antall: 1.0, enhet: g, innkjopskonto: 8, kategori: Te, lenket_salgsvare: null,
+    mengde: 70.0, mengde_svinn: 0.0, navn: Darjeeling Supreme Tigerhill (ren sort
+      te), status: OK}
+  model: "varer.r\xE5vare"
+  pk: 43
+- fields: {antall: 1.0, enhet: g, innkjopskonto: 8, kategori: Te, lenket_salgsvare: null,
+    mengde: 500.0, mengde_svinn: 0.0, navn: Peppermyntete, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 51
+- fields: {antall: 1.0, enhet: g, innkjopskonto: 8, kategori: Kaffe, lenket_salgsvare: null,
+    mengde: 1000.0, mengde_svinn: 0.0, navn: Half & Half Espresso, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 54
+- fields: {antall: 1.0, enhet: g, innkjopskonto: 8, kategori: Annet, lenket_salgsvare: null,
+    mengde: 5000.0, mengde_svinn: 0.0, navn: 'Sjokolade Hvit, pellets', status: OK}
+  model: "varer.r\xE5vare"
+  pk: 56
+- fields: {antall: 1.0, enhet: g, innkjopskonto: 8, kategori: Annet, lenket_salgsvare: null,
+    mengde: 5000.0, mengde_svinn: 0.0, navn: "Sjokolade M\xF8rk, pellets", status: OK}
+  model: "varer.r\xE5vare"
+  pk: 57
+- fields: {antall: 1.0, enhet: g, innkjopskonto: 8, kategori: Te, lenket_salgsvare: null,
+    mengde: 1000.0, mengde_svinn: 0.0, navn: "Gr\xF8nn gresshoppe 1 kg", status: OK}
+  model: "varer.r\xE5vare"
+  pk: 58
+- fields: {antall: 64.0, enhet: pakke, innkjopskonto: 12, kategori: null, lenket_salgsvare: null,
+    mengde: 1.0, mengde_svinn: 0.0, navn: Personal tea bags, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 62
+- fields: {antall: 1.0, enhet: cl, innkjopskonto: 11, kategori: Annet, lenket_salgsvare: null,
+    mengde: 100.0, mengde_svinn: 0.0, navn: TineMelk Hel 1 liter, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 69
+- fields: {antall: 1.0, enhet: cl, innkjopskonto: 11, kategori: Annet, lenket_salgsvare: null,
+    mengde: 100.0, mengde_svinn: 0.0, navn: TineMelk Lett 1 liter, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 70
+- fields: {antall: 1.0, enhet: cl, innkjopskonto: 11, kategori: Sirup, lenket_salgsvare: null,
+    mengde: 75.0, mengde_svinn: 0.0, navn: Butterscotch Flavour Sirup, status: OLD}
+  model: "varer.r\xE5vare"
+  pk: 71
+- fields: {antall: 1.0, enhet: cl, innkjopskonto: 11, kategori: Sirup, lenket_salgsvare: null,
+    mengde: 200.0, mengde_svinn: 0.0, navn: Davinci Chocolate Syrup, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 72
+- fields: {antall: 500.0, enhet: stk, innkjopskonto: 11, kategori: null, lenket_salgsvare: null,
+    mengde: 1.0, mengde_svinn: 0.0, navn: Natreen tabletter, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 79
+- fields: {antall: 4.0, enhet: g, innkjopskonto: 9, kategori: Mat, lenket_salgsvare: null,
+    mengde: 220.0, mengde_svinn: 40.0, navn: Cookie Milk Chocolate, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 114
+- fields: {antall: 1.0, enhet: stk, innkjopskonto: 9, kategori: Mat, lenket_salgsvare: 72,
+    mengde: 1.0, mengde_svinn: 0.0, navn: "Chilin\xF8tter 70G Polly", status: OK}
+  model: "varer.r\xE5vare"
+  pk: 115
+- fields: {antall: 1.0, enhet: stk, innkjopskonto: 9, kategori: Mat, lenket_salgsvare: 73,
+    mengde: 1.0, mengde_svinn: 0.0, navn: Barmiks 90G Polly, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 116
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 7, kategori: Alkfritt, lenket_salgsvare: 79,
+    mengde: 0.33, mengde_svinn: 0.0, navn: Aass Bayer Uten, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 123
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 7, kategori: Alkfritt, lenket_salgsvare: 80,
+    mengde: 0.33, mengde_svinn: 0.0, navn: Aass Uten, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 124
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 7, kategori: Minvann, lenket_salgsvare: 85,
+    mengde: 0.33, mengde_svinn: 0.0, navn: Eplemost, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 129
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 1, kategori: "\xD8l", lenket_salgsvare: null,
+    mengde: 30.0, mengde_svinn: 2.5, navn: Aass Bayer (fat), status: OK}
+  model: "varer.r\xE5vare"
+  pk: 137
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 1, kategori: "\xD8l", lenket_salgsvare: 93,
+    mengde: 0.33, mengde_svinn: 0.0, navn: Aass Bock, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 138
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 1, kategori: "\xD8l", lenket_salgsvare: null,
+    mengde: 30.0, mengde_svinn: 2.5, navn: Aass Classic (fat), status: OK}
+  model: "varer.r\xE5vare"
+  pk: 139
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 1, kategori: "\xD8l", lenket_salgsvare: 94,
+    mengde: 0.5, mengde_svinn: 0.0, navn: "Aass Fat\xF8l", status: OK}
+  model: "varer.r\xE5vare"
+  pk: 140
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 1, kategori: "\xD8l", lenket_salgsvare: 95,
+    mengde: 0.33, mengde_svinn: 0.0, navn: "Aass jule\xF8l D", status: OK}
+  model: "varer.r\xE5vare"
+  pk: 141
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 1, kategori: "\xD8l", lenket_salgsvare: 96,
+    mengde: 0.33, mengde_svinn: 0.0, navn: "Aass jule\xF8l Premium KL: F 6.5%", status: OK}
+  model: "varer.r\xE5vare"
+  pk: 142
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 1, kategori: "\xD8l", lenket_salgsvare: 97,
+    mengde: 0.33, mengde_svinn: 0.0, navn: "Aass jule\xF8l Vellagret 9% (Tidligere\
+      \ Premium)", status: OK}
+  model: "varer.r\xE5vare"
+  pk: 143
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 1, kategori: "\xD8l", lenket_salgsvare: 98,
+    mengde: 0.5, mengde_svinn: 0.0, navn: Aass Pale Ale, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 144
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 1, kategori: "\xD8l", lenket_salgsvare: null,
+    mengde: 30.0, mengde_svinn: 2.5, navn: Aass Pils (fat), status: OK}
+  model: "varer.r\xE5vare"
+  pk: 145
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 1, kategori: "\xD8l", lenket_salgsvare: 99,
+    mengde: 0.5, mengde_svinn: 0.0, navn: Aass Stout, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 146
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 1, kategori: "\xD8l", lenket_salgsvare: 107,
+    mengde: 0.5, mengde_svinn: 0.0, navn: HB Dark Force, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 154
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 1, kategori: "\xD8l", lenket_salgsvare: 108,
+    mengde: 0.5, mengde_svinn: 0.0, navn: HB Odin's Tipple, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 155
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 1, kategori: "\xD8l", lenket_salgsvare: 109,
+    mengde: 0.5, mengde_svinn: 0.0, navn: HB Fyr og Flamme IPA, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 156
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 1, kategori: "\xD8l", lenket_salgsvare: 114,
+    mengde: 0.33, mengde_svinn: 0.0, navn: Leffe Blonde, status: OLD}
+  model: "varer.r\xE5vare"
+  pk: 161
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 1, kategori: "\xD8l", lenket_salgsvare: 117,
+    mengde: 0.33, mengde_svinn: 0.0, navn: 'Newcastle Brown Ale 0,33', status: OLD}
+  model: "varer.r\xE5vare"
+  pk: 164
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 1, kategori: "\xD8l", lenket_salgsvare: 118,
+    mengde: 0.55, mengde_svinn: 0.0, navn: 'Newcastle Brown Ale 0,55', status: OK}
+  model: "varer.r\xE5vare"
+  pk: 165
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 1, kategori: "\xD8l", lenket_salgsvare: 127,
+    mengde: 0.33, mengde_svinn: 0.0, navn: Svaneke Choko Stout, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 174
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 1, kategori: "\xD8l", lenket_salgsvare: 128,
+    mengde: 0.33, mengde_svinn: 0.0, navn: Svaneke Liquorice Stout, status: OLD}
+  model: "varer.r\xE5vare"
+  pk: 175
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 7, kategori: Alkfritt, lenket_salgsvare: null,
+    mengde: 0.33, mengde_svinn: 0.0, navn: "Aass V\xF8rter\xF8l", status: OLD}
+  model: "varer.r\xE5vare"
+  pk: 205
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 7, kategori: Minvann, lenket_salgsvare: null,
+    mengde: 0.33, mengde_svinn: 0.0, navn: Coca-cola 0.33, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 259
+- fields: {antall: 1.0, enhet: stk, innkjopskonto: 17, kategori: Varetelling, lenket_salgsvare: null,
+    mengde: 1.0, mengde_svinn: 0.0, navn: Pant PET, status: OK}
+  model: "varer.r\xE5vare"
+  pk: 262
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 1, kategori: "\xD8l", lenket_salgsvare: null,
+    mengde: 30.0, mengde_svinn: 2.5, navn: "Aass Bryggerhuset Frukt\xF8l (fat)", status: OK}
+  model: "varer.r\xE5vare"
+  pk: 271
+- fields: {antall: 1.0, enhet: l, innkjopskonto: 1, kategori: "\xD8l", lenket_salgsvare: null,
+    mengde: 30.0, mengde_svinn: 2.5, navn: Aass Bryggerhuset Belgisk Wit (fat), status: OK}
+  model: "varer.r\xE5vare"
+  pk: 272
+- fields: {kommentar: "Bla bla bla\r\n\r\n<br>hei :)", navn: ASKO}
+  model: "varer.leverand\xF8r"
+  pk: 1
+- fields: {kommentar: '', navn: Vectura}
+  model: "varer.leverand\xF8r"
+  pk: 2
+- fields: {kommentar: '', navn: Solberg & Hansen}
+  model: "varer.leverand\xF8r"
+  pk: 3
+- fields: {kommentar: '', navn: Brewery International}
+  model: "varer.leverand\xF8r"
+  pk: 4
+- fields: {kommentar: '', navn: Select Flavour}
+  model: "varer.leverand\xF8r"
+  pk: 5
+- fields: {kommentar: '', navn: Haandbryggeriet}
+  model: "varer.leverand\xF8r"
+  pk: 6
+- fields: {kommentar: '', navn: Storcash}
+  model: "varer.leverand\xF8r"
+  pk: 7
+- fields: {kommentar: '', navn: Tine}
+  model: "varer.leverand\xF8r"
+  pk: 8
+- fields: {kommentar: Coca Cola Enterprises Norge, navn: CCEN}
+  model: "varer.leverand\xF8r"
+  pk: 9
+- fields: {kommentar: '', navn: Aass}
+  model: "varer.leverand\xF8r"
+  pk: 10
+- fields: {kommentar: '', navn: Ica}
+  model: "varer.leverand\xF8r"
+  pk: 11
+- fields: {kommentar: null, navn: Vinmonopolet}
+  model: "varer.leverand\xF8r"
+  pk: 12
+- fields: {kommentar: '', navn: Palmer Group}
+  model: "varer.leverand\xF8r"
+  pk: 13
+- fields: {aktiv: true, bestillingskode: null, dato: 2014-11-04, leverandor: 6, pant: 0.0,
+    pris: 46.81, raavare: 10, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 10
+- fields: {aktiv: true, bestillingskode: null, dato: 2000-01-01, leverandor: 1, pant: 300.0,
+    pris: 0.0, raavare: 14, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 14
+- fields: {aktiv: true, bestillingskode: null, dato: 2000-01-01, leverandor: null,
+    pant: 16.0, pris: 0.0, raavare: 15, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 15
+- fields: {aktiv: true, bestillingskode: null, dato: 2000-01-01, leverandor: null,
+    pant: 1.2, pris: 0.0, raavare: 16, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 16
+- fields: {aktiv: true, bestillingskode: '144', dato: 2014-08-07, leverandor: 3, pant: 0.0,
+    pris: 347.5, raavare: 38, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 38
+- fields: {aktiv: true, bestillingskode: '603', dato: 2014-08-08, leverandor: 3, pant: 0.0,
+    pris: 11.5, raavare: 40, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 40
+- fields: {aktiv: true, bestillingskode: '551', dato: 2014-05-01, leverandor: 3, pant: 0.0,
+    pris: 340.0, raavare: 42, type: LISTE}
+  model: "varer.r\xE5varepris"
+  pk: 42
+- fields: {aktiv: true, bestillingskode: '620', dato: 2014-08-08, leverandor: 3, pant: 0.0,
+    pris: 27.0, raavare: 43, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 43
+- fields: {aktiv: true, bestillingskode: '740', dato: 2014-08-08, leverandor: 3, pant: 0.0,
+    pris: 155.0, raavare: 51, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 51
+- fields: {aktiv: true, bestillingskode: '23210', dato: 2014-08-03, leverandor: 3,
+    pant: 0.0, pris: 138.5, raavare: 54, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 54
+- fields: {aktiv: true, bestillingskode: '2791069', dato: 2014-10-14, leverandor: 5,
+    pant: 0.0, pris: 495.0, raavare: 56, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 56
+- fields: {aktiv: true, bestillingskode: '2791051', dato: 2014-10-14, leverandor: 5,
+    pant: 0.0, pris: 495.0, raavare: 57, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 57
+- fields: {aktiv: true, bestillingskode: '584', dato: 2014-05-01, leverandor: 3, pant: 0.0,
+    pris: 172.5, raavare: 58, type: LISTE}
+  model: "varer.r\xE5varepris"
+  pk: 58
+- fields: {aktiv: true, bestillingskode: '936', dato: 2014-05-07, leverandor: 3, pant: 0.0,
+    pris: 43.5, raavare: 62, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 62
+- fields: {aktiv: true, bestillingskode: '6', dato: 2014-08-04, leverandor: 8, pant: 0.0,
+    pris: 11.47, raavare: 69, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 69
+- fields: {aktiv: true, bestillingskode: '164', dato: 2014-08-04, leverandor: 8, pant: 0.0,
+    pris: 10.33, raavare: 70, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 70
+- fields: {aktiv: true, bestillingskode: '1603', dato: 2014-08-08, leverandor: 3,
+    pant: 0.0, pris: 104.0, raavare: 71, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 71
+- fields: {aktiv: true, bestillingskode: '1682', dato: 2014-08-08, leverandor: 3,
+    pant: 0.0, pris: 128.0, raavare: 72, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 72
+- fields: {aktiv: true, bestillingskode: '373092', dato: 2014-09-04, leverandor: 1,
+    pant: 0.0, pris: 22.59, raavare: 79, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 79
+- fields: {aktiv: true, bestillingskode: '2715027', dato: 2014-07-28, leverandor: 1,
+    pant: 0.0, pris: 25.88, raavare: 114, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 114
+- fields: {aktiv: true, bestillingskode: '2923647', dato: 2014-08-06, leverandor: 1,
+    pant: 0.0, pris: 12.55, raavare: 115, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 115
+- fields: {aktiv: true, bestillingskode: '2951242', dato: 2014-08-06, leverandor: 1,
+    pant: 0.0, pris: 18.88, raavare: 116, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 116
+- fields: {aktiv: true, bestillingskode: '4019162', dato: 2014-06-12, leverandor: 1,
+    pant: 1.2, pris: 11.73, raavare: 123, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 123
+- fields: {aktiv: true, bestillingskode: '2994689', dato: 2014-08-07, leverandor: 1,
+    pant: 0.0, pris: 10.64, raavare: 124, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 124
+- fields: {aktiv: true, bestillingskode: '6113', dato: 2014-07-30, leverandor: 9,
+    pant: 1.2, pris: 11.47, raavare: 129, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 129
+- fields: {aktiv: true, bestillingskode: '2994671', dato: 2014-06-02, leverandor: 1,
+    pant: 300.0, pris: 1307.4, raavare: 137, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 137
+- fields: {aktiv: true, bestillingskode: '4020780', dato: 2014-06-02, leverandor: 1,
+    pant: 0.0, pris: 23.96, raavare: 138, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 138
+- fields: {aktiv: true, bestillingskode: '2994796', dato: 2014-06-02, leverandor: 1,
+    pant: 300.0, pris: 1289.4, raavare: 139, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 139
+- fields: {aktiv: true, bestillingskode: '2613511', dato: 2014-06-26, leverandor: 1,
+    pant: 1.0, pris: 18.31, raavare: 140, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 140
+- fields: {aktiv: true, bestillingskode: '4081188', dato: 2014-11-15, leverandor: 1,
+    pant: 0.0, pris: 16.58, raavare: 141, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 141
+- fields: {aktiv: true, bestillingskode: '4081659', dato: 2014-11-15, leverandor: 1,
+    pant: 0.0, pris: 21.44, raavare: 142, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 142
+- fields: {aktiv: true, bestillingskode: '4081667', dato: 2014-11-15, leverandor: 1,
+    pant: 0.0, pris: 26.44, raavare: 143, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 143
+- fields: {aktiv: true, bestillingskode: '2617975', dato: 2014-06-26, leverandor: 1,
+    pant: 1.0, pris: 20.28, raavare: 144, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 144
+- fields: {aktiv: true, bestillingskode: '4019089', dato: 2014-06-02, leverandor: 1,
+    pant: 300.0, pris: 1274.1, raavare: 145, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 145
+- fields: {aktiv: true, bestillingskode: '2618262', dato: 2014-06-12, leverandor: 1,
+    pant: 1.0, pris: 20.28, raavare: 146, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 146
+- fields: {aktiv: true, bestillingskode: '105', dato: 2014-06-05, leverandor: 6, pant: 0.0,
+    pris: 49.85, raavare: 154, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 154
+- fields: {aktiv: true, bestillingskode: '310', dato: 2014-08-01, leverandor: 6, pant: 0.0,
+    pris: 56.01, raavare: 155, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 155
+- fields: {aktiv: true, bestillingskode: '312', dato: 2014-06-05, leverandor: 6, pant: 0.0,
+    pris: 43.15, raavare: 156, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 156
+- fields: {aktiv: true, bestillingskode: '119139', dato: 2014-07-28, leverandor: 2,
+    pant: 0.0, pris: 30.69, raavare: 161, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 161
+- fields: {aktiv: true, bestillingskode: '103347', dato: 2014-07-28, leverandor: 2,
+    pant: 0.0, pris: 22.4, raavare: 164, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 164
+- fields: {aktiv: true, bestillingskode: '108665', dato: 2014-07-28, leverandor: 2,
+    pant: 0.0, pris: 33.75, raavare: 165, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 165
+- fields: {aktiv: true, bestillingskode: '', dato: 2000-01-01, leverandor: 4, pant: 0.0,
+    pris: 28.9, raavare: 174, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 174
+- fields: {aktiv: true, bestillingskode: UKJENT-LIQURICE_STOUT, dato: 2000-01-01,
+    leverandor: 4, pant: 0.0, pris: 29.9, raavare: 175, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 175
+- fields: {aktiv: false, bestillingskode: '', dato: 2014-08-12, leverandor: 12, pant: 1.2,
+    pris: 39.9, raavare: 143, type: LISTE}
+  model: "varer.r\xE5varepris"
+  pk: 200
+- fields: {aktiv: false, bestillingskode: '', dato: 2014-08-12, leverandor: 12, pant: 0.0,
+    pris: 43.8, raavare: 161, type: LISTE}
+  model: "varer.r\xE5varepris"
+  pk: 204
+- fields: {aktiv: false, bestillingskode: '', dato: 2014-08-12, leverandor: 12, pant: 0.0,
+    pris: 70.1, raavare: 156, type: LISTE}
+  model: "varer.r\xE5varepris"
+  pk: 213
+- fields: {aktiv: false, bestillingskode: '', dato: 2014-08-12, leverandor: 12, pant: 0.0,
+    pris: 78.7, raavare: 154, type: LISTE}
+  model: "varer.r\xE5varepris"
+  pk: 216
+- fields: {aktiv: false, bestillingskode: '', dato: 2014-08-12, leverandor: 12, pant: 0.0,
+    pris: 86.8, raavare: 155, type: LISTE}
+  model: "varer.r\xE5varepris"
+  pk: 217
+- fields: {aktiv: true, bestillingskode: '', dato: 2013-12-31, leverandor: 1, pant: 1.2,
+    pris: 5.84, raavare: 205, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 224
+- fields: {aktiv: true, bestillingskode: b100062, dato: 2014-12-10, leverandor: 4,
+    pant: 0.0, pris: 28.9, raavare: 174, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 250
+- fields: {aktiv: true, bestillingskode: '4019162', dato: 2014-10-30, leverandor: 1,
+    pant: 0.0, pris: 11.73, raavare: 123, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 251
+- fields: {aktiv: true, bestillingskode: '4096780', dato: 2014-10-30, leverandor: 1,
+    pant: 300.0, pris: 1367.99, raavare: 139, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 252
+- fields: {aktiv: true, bestillingskode: '', dato: 2000-01-01, leverandor: null, pant: 0.0,
+    pris: 15.96, raavare: 116, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 277
+- fields: {aktiv: true, bestillingskode: '2923647', dato: 2015-03-05, leverandor: 7,
+    pant: 0.0, pris: 11.0, raavare: 115, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 278
+- fields: {aktiv: true, bestillingskode: '', dato: 2000-01-01, leverandor: null, pant: 0.0,
+    pris: 184.6, raavare: 72, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 280
+- fields: {aktiv: true, bestillingskode: '', dato: 2000-01-01, leverandor: 3, pant: 0.0,
+    pris: 308.75, raavare: 54, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 281
+- fields: {aktiv: true, bestillingskode: '', dato: 2000-01-01, leverandor: 10, pant: 300.0,
+    pris: 1347.0, raavare: 137, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 282
+- fields: {aktiv: true, bestillingskode: '', dato: 2000-01-01, leverandor: null, pant: 300.0,
+    pris: 1329.0, raavare: 139, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 283
+- fields: {aktiv: true, bestillingskode: '', dato: 2000-01-01, leverandor: null, pant: 1.0,
+    pris: 22.42, raavare: 140, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 284
+- fields: {aktiv: true, bestillingskode: '', dato: 2000-01-01, leverandor: null, pant: 1.2,
+    pris: 14.65, raavare: 141, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 285
+- fields: {aktiv: true, bestillingskode: '', dato: 2000-01-01, leverandor: null, pant: 1.2,
+    pris: 20.91, raavare: 142, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 286
+- fields: {aktiv: true, bestillingskode: '', dato: 2000-01-01, leverandor: null, pant: 1.2,
+    pris: 26.88, raavare: 143, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 287
+- fields: {aktiv: true, bestillingskode: '', dato: 2000-01-01, leverandor: 10, pant: 1.0,
+    pris: 22.63, raavare: 144, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 288
+- fields: {aktiv: true, bestillingskode: '', dato: 2000-01-01, leverandor: null, pant: 300.0,
+    pris: 1319.7, raavare: 145, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 289
+- fields: {aktiv: true, bestillingskode: '2618262', dato: 2015-01-29, leverandor: 1,
+    pant: 1.0, pris: 19.95, raavare: 146, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 290
+- fields: {aktiv: true, bestillingskode: '', dato: 2000-01-01, leverandor: null, pant: 0.0,
+    pris: 48.96, raavare: 154, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 299
+- fields: {aktiv: true, bestillingskode: '', dato: 2000-01-01, leverandor: null, pant: 0.0,
+    pris: 42.36, raavare: 156, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 300
+- fields: {aktiv: true, bestillingskode: '', dato: 2000-01-01, leverandor: null, pant: 0.0,
+    pris: 29.65, raavare: 161, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 304
+- fields: {aktiv: true, bestillingskode: '', dato: 2000-01-01, leverandor: null, pant: 0.0,
+    pris: 30.75, raavare: 165, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 305
+- fields: {aktiv: true, bestillingskode: '', dato: 2000-01-01, leverandor: null, pant: 0.0,
+    pris: 7.73, raavare: 124, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 320
+- fields: {aktiv: true, bestillingskode: '', dato: 2000-01-01, leverandor: 10, pant: 1.2,
+    pris: 8.66, raavare: 129, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 323
+- fields: {aktiv: true, bestillingskode: '6', dato: 2015-02-18, leverandor: 8, pant: 0.0,
+    pris: 12.82, raavare: 69, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 336
+- fields: {aktiv: true, bestillingskode: '164', dato: 2015-02-18, leverandor: 8, pant: 0.0,
+    pris: 11.66, raavare: 70, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 337
+- fields: {aktiv: true, bestillingskode: '2994671', dato: 2015-02-19, leverandor: 1,
+    pant: 300.0, pris: 1353.7, raavare: 137, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 338
+- fields: {aktiv: true, bestillingskode: '2617975', dato: 2015-02-19, leverandor: 1,
+    pant: 1.0, pris: 20.45, raavare: 144, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 339
+- fields: {aktiv: true, bestillingskode: '4096780', dato: 2015-02-19, leverandor: 1,
+    pant: 0.0, pris: 1415.9, raavare: 139, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 340
+- fields: {aktiv: true, bestillingskode: '2715027', dato: 2015-02-19, leverandor: 1,
+    pant: 0.0, pris: 25.93, raavare: 114, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 343
+- fields: {aktiv: true, bestillingskode: '108665', dato: 2015-02-05, leverandor: 2,
+    pant: 0.0, pris: 24.2, raavare: 165, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 345
+- fields: {aktiv: true, bestillingskode: '4019089', dato: 2015-02-05, leverandor: 1,
+    pant: 300.0, pris: 1319.8, raavare: 145, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 351
+- fields: {aktiv: true, bestillingskode: '312', dato: 2015-01-30, leverandor: 6, pant: 0.0,
+    pris: 43.61, raavare: 156, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 352
+- fields: {aktiv: true, bestillingskode: '2923647', dato: 2015-01-29, leverandor: 1,
+    pant: 0.0, pris: 12.58, raavare: 115, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 357
+- fields: {aktiv: true, bestillingskode: '4096780', dato: 2015-01-22, leverandor: 1,
+    pant: 0.0, pris: 1382.98, raavare: 139, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 363
+- fields: {aktiv: true, bestillingskode: '4019089', dato: 2015-01-22, leverandor: 1,
+    pant: 300.0, pris: 1289.1, raavare: 145, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 364
+- fields: {aktiv: true, bestillingskode: '2613511', dato: 2015-01-29, leverandor: 1,
+    pant: 0.0, pris: 18.31, raavare: 140, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 368
+- fields: {aktiv: true, bestillingskode: '4020780', dato: 2014-10-30, leverandor: 1,
+    pant: 0.0, pris: 21.68, raavare: 138, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 369
+- fields: {aktiv: true, bestillingskode: '23210', dato: 2015-02-16, leverandor: 3,
+    pant: 0.0, pris: 138.5, raavare: 54, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 386
+- fields: {aktiv: true, bestillingskode: '144', dato: 2015-02-16, leverandor: 5, pant: 0.0,
+    pris: 347.5, raavare: 38, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 387
+- fields: {aktiv: true, bestillingskode: '6113', dato: 2015-01-30, leverandor: 9,
+    pant: 1.2, pris: 11.91, raavare: 129, type: FAKTURA}
+  model: "varer.r\xE5varepris"
+  pk: 389
+- fields: {aktiv: true, bestillingskode: '2096', dato: 2015-03-29, leverandor: 9,
+    pant: 0.0, pris: 11.35, raavare: 259, type: LISTE}
+  model: "varer.r\xE5varepris"
+  pk: 404
+- fields: {aktiv: true, bestillingskode: '', dato: 2000-01-01, leverandor: null, pant: 1.0,
+    pris: 0.0, raavare: 262, type: UKJENT}
+  model: "varer.r\xE5varepris"
+  pk: 407
+- fields: {aktiv: true, bestillingskode: "3331 - Frukt\xF8l", dato: 2015-05-11, leverandor: 10,
+    pant: 0.0, pris: 2050.0, raavare: 271, type: LISTE}
+  model: "varer.r\xE5varepris"
+  pk: 417
+- fields: {aktiv: true, bestillingskode: 3331 - Belgisk Wit, dato: 2015-05-11, leverandor: 10,
+    pant: 0.0, pris: 2050.0, raavare: 272, type: LISTE}
+  model: "varer.r\xE5varepris"
+  pk: 418
+- fields: {kassenr: 248, kategori: Kaffe, navn: 8KL (kaffekanne), salgskonto: 8, status: OK}
+  model: varer.salgsvare
+  pk: 21
+- fields: {kassenr: 216, kategori: Kaffe, navn: Americano, salgskonto: 8, status: OK}
+  model: varer.salgsvare
+  pk: 22
+- fields: {kassenr: 315, kategori: Te, navn: Dagens te, salgskonto: 8, status: OK}
+  model: varer.salgsvare
+  pk: 23
+- fields: {kassenr: 240, kategori: Kaffe (ekstra), navn: Dobbel, salgskonto: 8, status: OK}
+  model: varer.salgsvare
+  pk: 24
+- fields: {kassenr: 221, kategori: Kaffe, navn: Espresso, salgskonto: 8, status: OK}
+  model: varer.salgsvare
+  pk: 25
+- fields: {kassenr: 230, kategori: Kaffe, navn: Iskaffe, salgskonto: 8, status: OK}
+  model: varer.salgsvare
+  pk: 26
+- fields: {kassenr: 247, kategori: Kaffe, navn: Kaffe (kort) - 10 klipp, salgskonto: 8,
+    status: OK}
+  model: varer.salgsvare
+  pk: 27
+- fields: {kassenr: 220, kategori: Kaffe, navn: Mocca, salgskonto: 8, status: OK}
+  model: varer.salgsvare
+  pk: 28
+- fields: {kassenr: 228, kategori: Kaffe, navn: Stor kaffe, salgskonto: 8, status: OK}
+  model: varer.salgsvare
+  pk: 29
+- fields: {kassenr: 239, kategori: Kaffe (ekstra), navn: Krem, salgskonto: 8, status: OK}
+  model: varer.salgsvare
+  pk: 31
+- fields: {kassenr: 225, kategori: '', navn: Varm sjokolade, salgskonto: 8, status: OK}
+  model: varer.salgsvare
+  pk: 32
+- fields: {kassenr: 219, kategori: Kaffe, navn: Latte, salgskonto: 8, status: OK}
+  model: varer.salgsvare
+  pk: 33
+- fields: {kassenr: 222, kategori: Kaffe, navn: Cappucino, salgskonto: 8, status: OK}
+  model: varer.salgsvare
+  pk: 34
+- fields: {kassenr: 215, kategori: Kaffe, navn: Kaffe, salgskonto: 8, status: OK}
+  model: varer.salgsvare
+  pk: 35
+- fields: {kassenr: 218, kategori: Kaffe, navn: Cortado, salgskonto: 8, status: OK}
+  model: varer.salgsvare
+  pk: 36
+- fields: {kassenr: 227, kategori: Kaffe, navn: Chai latte, salgskonto: 8, status: OK}
+  model: varer.salgsvare
+  pk: 37
+- fields: {kassenr: 226, kategori: Kaffe (ekstra), navn: Quad-core, salgskonto: 8,
+    status: OK}
+  model: varer.salgsvare
+  pk: 38
+- fields: {kassenr: 223, kategori: Te, navn: Te, salgskonto: 8, status: OK}
+  model: varer.salgsvare
+  pk: 39
+- fields: {kassenr: 224, kategori: Te, navn: Te i klype, salgskonto: 8, status: OK}
+  model: varer.salgsvare
+  pk: 40
+- fields: {kassenr: 241, kategori: Kaffe (ekstra), navn: Trippel+, salgskonto: 8,
+    status: OK}
+  model: varer.salgsvare
+  pk: 41
+- fields: {kassenr: 231, kategori: null, navn: Issjokolade, salgskonto: 8, status: OK}
+  model: varer.salgsvare
+  pk: 42
+- fields: {kassenr: 278, kategori: Mat, navn: Cookie, salgskonto: 9, status: OK}
+  model: varer.salgsvare
+  pk: 43
+- fields: {kassenr: 51, kategori: "\xD8l", navn: 'Aass Bayer (fat) - 0,5 l tapp',
+    salgskonto: 1, status: OK}
+  model: varer.salgsvare
+  pk: 44
+- fields: {kassenr: 54, kategori: "\xD8l", navn: 'Aass Classic (fat) - 0,5 l tapp',
+    salgskonto: 1, status: OK}
+  model: varer.salgsvare
+  pk: 45
+- fields: {kassenr: 50, kategori: "\xD8l", navn: 'Aass Pils (fat) - 0,5 l tapp', salgskonto: 1,
+    status: OK}
+  model: varer.salgsvare
+  pk: 46
+- fields: {kassenr: 56, kategori: "\xD8l", navn: 'Aass Bayer (fat) - 0,33 l tapp',
+    salgskonto: 1, status: OK}
+  model: varer.salgsvare
+  pk: 47
+- fields: {kassenr: 57, kategori: "\xD8l", navn: 'Aass Classic (fat) - 0,33 l tapp',
+    salgskonto: 1, status: OK}
+  model: varer.salgsvare
+  pk: 48
+- fields: {kassenr: 55, kategori: "\xD8l", navn: 'Aass Pils (fat) - 0,33 l tapp',
+    salgskonto: 1, status: OK}
+  model: varer.salgsvare
+  pk: 49
+- fields: {kassenr: 519, kategori: "\xD8l", navn: "HB H\xF8st", salgskonto: 1, status: OK}
+  model: varer.salgsvare
+  pk: 60
+- fields: {kassenr: 260, kategori: Mat, navn: "Chilin\xF8tter 70G Polly", salgskonto: 9,
+    status: OK}
+  model: varer.salgsvare
+  pk: 72
+- fields: {kassenr: 261, kategori: Mat, navn: Barmiks 90G Polly, salgskonto: 9, status: OK}
+  model: varer.salgsvare
+  pk: 73
+- fields: {kassenr: 157, kategori: Alkfritt, navn: Aass Bayer Uten, salgskonto: 7,
+    status: OK}
+  model: varer.salgsvare
+  pk: 79
+- fields: {kassenr: 156, kategori: Alkfritt, navn: Aass Uten, salgskonto: 7, status: OK}
+  model: varer.salgsvare
+  pk: 80
+- fields: {kassenr: 176, kategori: Minvann, navn: Eplemost, salgskonto: 7, status: OK}
+  model: varer.salgsvare
+  pk: 85
+- fields: {kassenr: 183, kategori: Minvann, navn: Sprite, salgskonto: 7, status: OK}
+  model: varer.salgsvare
+  pk: 92
+- fields: {kassenr: 106, kategori: "\xD8l", navn: Aass Bock, salgskonto: 1, status: OK}
+  model: varer.salgsvare
+  pk: 93
+- fields: {kassenr: 84, kategori: "\xD8l", navn: "Aass Fat\xF8l", salgskonto: 1, status: OK}
+  model: varer.salgsvare
+  pk: 94
+- fields: {kassenr: 92, kategori: "\xD8l", navn: "Aass jule\xF8l D", salgskonto: 1,
+    status: OK}
+  model: varer.salgsvare
+  pk: 95
+- fields: {kassenr: 93, kategori: "\xD8l", navn: "Aass jule\xF8l Premium KL: F 6.5%",
+    salgskonto: 1, status: OK}
+  model: varer.salgsvare
+  pk: 96
+- fields: {kassenr: 94, kategori: "\xD8l", navn: "Aass jule\xF8l Vellagret 9% (Tidligere\
+      \ Premium)", salgskonto: 1, status: OK}
+  model: varer.salgsvare
+  pk: 97
+- fields: {kassenr: 53, kategori: "\xD8l", navn: Aass Pale Ale, salgskonto: 1, status: OK}
+  model: varer.salgsvare
+  pk: 98
+- fields: {kassenr: 91, kategori: "\xD8l", navn: Aass Stout, salgskonto: 1, status: OK}
+  model: varer.salgsvare
+  pk: 99
+- fields: {kassenr: 360, kategori: "\xD8l", navn: HB Dark Force, salgskonto: 1, status: OK}
+  model: varer.salgsvare
+  pk: 107
+- fields: {kassenr: 347, kategori: "\xD8l", navn: HB Odin's Tipple, salgskonto: 1,
+    status: OK}
+  model: varer.salgsvare
+  pk: 108
+- fields: {kassenr: 358, kategori: "\xD8l", navn: HB Fyr og Flamme IPA, salgskonto: 1,
+    status: OK}
+  model: varer.salgsvare
+  pk: 109
+- fields: {kassenr: 77, kategori: "\xD8l", navn: Leffe Blonde, salgskonto: 1, status: OK}
+  model: varer.salgsvare
+  pk: 114
+- fields: {kassenr: 337, kategori: "\xD8l", navn: 'Newcastle Brown Ale 0,33', salgskonto: 1,
+    status: OK}
+  model: varer.salgsvare
+  pk: 117
+- fields: {kassenr: 78, kategori: "\xD8l", navn: 'Newcastle Brown Ale 0,55', salgskonto: 1,
+    status: OK}
+  model: varer.salgsvare
+  pk: 118
+- fields: {kassenr: 365, kategori: "\xD8l", navn: Svaneke Choko Stout, salgskonto: 1,
+    status: OK}
+  model: varer.salgsvare
+  pk: 127
+- fields: {kassenr: 367, kategori: "\xD8l", navn: Svaneke Liquorice Stout, salgskonto: 1,
+    status: OK}
+  model: varer.salgsvare
+  pk: 128
+- fields: {kassenr: 528, kategori: "\xD8l", navn: "Aass Frukt\xF8l (fat) - 0.5L tapp",
+    salgskonto: 1, status: OK}
+  model: varer.salgsvare
+  pk: 172
+- fields: {kassenr: 9999, kategori: "\xD8l", navn: Aass Belgisk Wit (fat) - 0.5L tapp,
+    salgskonto: 1, status: OK}
+  model: varer.salgsvare
+  pk: 173
+- fields: {kassenr: 9999, kategori: Minvann, navn: Coca-cola 0.33 Profil, salgskonto: 7,
+    status: OK}
+  model: varer.salgsvare
+  pk: 177
+- fields: {kassenr: 9999, kategori: Minvann, navn: Coca-cola Zero 0.33 Profil, salgskonto: 7,
+    status: OK}
+  model: varer.salgsvare
+  pk: 178
+- fields: {mengde: 125.0, raavare: 38, salgsvare: 21}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 21
+- fields: {mengde: 18.0, raavare: 54, salgsvare: 22}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 22
+- fields: {mengde: 4.0, raavare: 51, salgsvare: 23}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 23
+- fields: {mengde: 9.0, raavare: 54, salgsvare: 24}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 24
+- fields: {mengde: 18.0, raavare: 54, salgsvare: 25}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 25
+- fields: {mengde: 18.0, raavare: 54, salgsvare: 26}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 26
+- fields: {mengde: 150.0, raavare: 38, salgsvare: 27}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 27
+- fields: {mengde: 18.0, raavare: 54, salgsvare: 28}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 28
+- fields: {mengde: 21.0, raavare: 38, salgsvare: 29}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 29
+- fields: {mengde: 20.0, raavare: 69, salgsvare: 31}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 31
+- fields: {mengde: 15.0, raavare: 56, salgsvare: 32}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 32
+- fields: {mengde: 18.0, raavare: 54, salgsvare: 33}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 33
+- fields: {mengde: 18.0, raavare: 54, salgsvare: 34}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 34
+- fields: {mengde: 15.0, raavare: 38, salgsvare: 35}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 35
+- fields: {mengde: 18.0, raavare: 54, salgsvare: 36}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 36
+- fields: {mengde: 36.0, raavare: 54, salgsvare: 38}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 38
+- fields: {mengde: 3.0, raavare: 43, salgsvare: 39}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 39
+- fields: {mengde: 3.0, raavare: 43, salgsvare: 40}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 40
+- fields: {mengde: 9.0, raavare: 54, salgsvare: 41}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 41
+- fields: {mengde: 55.0, raavare: 114, salgsvare: 43}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 43
+- fields: {mengde: 0.5, raavare: 137, salgsvare: 44}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 44
+- fields: {mengde: 0.5, raavare: 139, salgsvare: 45}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 45
+- fields: {mengde: 0.5, raavare: 145, salgsvare: 46}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 46
+- fields: {mengde: 0.33, raavare: 137, salgsvare: 47}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 47
+- fields: {mengde: 0.33, raavare: 139, salgsvare: 48}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 48
+- fields: {mengde: 0.33, raavare: 145, salgsvare: 49}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 49
+- fields: {mengde: 0.5, raavare: 10, salgsvare: 60}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 60
+- fields: {mengde: 1.0, raavare: 115, salgsvare: 72}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 72
+- fields: {mengde: 1.0, raavare: 116, salgsvare: 73}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 73
+- fields: {mengde: 0.33, raavare: 123, salgsvare: 79}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 79
+- fields: {mengde: 0.33, raavare: 124, salgsvare: 80}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 80
+- fields: {mengde: 0.33, raavare: 129, salgsvare: 85}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 85
+- fields: {mengde: 0.33, raavare: 138, salgsvare: 93}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 93
+- fields: {mengde: 0.5, raavare: 140, salgsvare: 94}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 94
+- fields: {mengde: 0.33, raavare: 141, salgsvare: 95}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 95
+- fields: {mengde: 0.33, raavare: 142, salgsvare: 96}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 96
+- fields: {mengde: 0.33, raavare: 143, salgsvare: 97}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 97
+- fields: {mengde: 0.5, raavare: 144, salgsvare: 98}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 98
+- fields: {mengde: 0.5, raavare: 146, salgsvare: 99}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 99
+- fields: {mengde: 0.5, raavare: 154, salgsvare: 107}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 107
+- fields: {mengde: 0.5, raavare: 155, salgsvare: 108}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 108
+- fields: {mengde: 0.5, raavare: 156, salgsvare: 109}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 109
+- fields: {mengde: 0.33, raavare: 161, salgsvare: 114}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 114
+- fields: {mengde: 0.33, raavare: 164, salgsvare: 117}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 117
+- fields: {mengde: 0.55, raavare: 165, salgsvare: 118}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 118
+- fields: {mengde: 0.33, raavare: 174, salgsvare: 127}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 127
+- fields: {mengde: 0.33, raavare: 175, salgsvare: 128}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 128
+- fields: {mengde: 24.0, raavare: 69, salgsvare: 26}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 155
+- fields: {mengde: 24.0, raavare: 69, salgsvare: 28}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 156
+- fields: {mengde: 24.0, raavare: 69, salgsvare: 32}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 157
+- fields: {mengde: 24.0, raavare: 69, salgsvare: 33}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 158
+- fields: {mengde: 12.0, raavare: 69, salgsvare: 34}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 159
+- fields: {mengde: 12.0, raavare: 69, salgsvare: 36}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 160
+- fields: {mengde: 15.0, raavare: 69, salgsvare: 37}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 161
+- fields: {mengde: 24.0, raavare: 69, salgsvare: 42}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 162
+- fields: {mengde: 15.0, raavare: 57, salgsvare: 32}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 212
+- fields: {mengde: 0.5, raavare: 271, salgsvare: 172}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 219
+- fields: {mengde: 0.5, raavare: 272, salgsvare: 173}
+  model: "varer.salgsvarer\xE5vare"
+  pk: 220
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 40, pris_intern: 16, salgsvare: 21,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 22
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 10, pris_intern: 6, salgsvare: 22,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 23
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 5, pris_intern: 2, salgsvare: 23,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 24
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 4, pris_intern: 3, salgsvare: 24,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 25
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 10, pris_intern: 6, salgsvare: 25,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 26
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 14, pris_intern: 10, salgsvare: 26,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 27
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 50, pris_intern: 20, salgsvare: 27,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 28
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 16, pris_intern: 12, salgsvare: 28,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 29
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 7, pris_intern: 3, salgsvare: 29,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 30
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 4, pris_intern: 3, salgsvare: 31,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 32
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 18, pris_intern: 14, salgsvare: 32,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 33
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 14, pris_intern: 10, salgsvare: 33,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 34
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 13, pris_intern: 9, salgsvare: 34,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 35
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 5, pris_intern: 2, salgsvare: 35,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 36
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 12, pris_intern: 8, salgsvare: 36,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 37
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 14, pris_intern: 10, salgsvare: 37,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 38
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 18, pris_intern: 15, salgsvare: 38,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 39
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 10, pris_intern: 3, salgsvare: 39,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 40
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 10, pris_intern: 3, salgsvare: 40,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 41
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 4, pris_intern: 3, salgsvare: 41,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 42
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 18, pris_intern: 14, salgsvare: 42,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 43
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 14, pris_intern: 10, salgsvare: 43,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 44
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 42, pris_intern: 36, salgsvare: 44,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 45
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 42, pris_intern: 36, salgsvare: 45,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 46
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 42, pris_intern: 36, salgsvare: 46,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 47
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 30, pris_intern: 25, salgsvare: 47,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 48
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 30, pris_intern: 25, salgsvare: 48,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 49
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 30, pris_intern: 25, salgsvare: 49,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 50
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 70, pris_intern: 65, salgsvare: 60,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 61
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 25, pris_intern: 18, salgsvare: 72,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 73
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 30, pris_intern: 25, salgsvare: 73,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 74
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 20, pris_intern: 15, salgsvare: 79,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 80
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 23, pris_intern: 18, salgsvare: 80,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 81
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 21, pris_intern: 17, salgsvare: 85,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 86
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 21, pris_intern: 17, salgsvare: 92,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 93
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 42, pris_intern: 36, salgsvare: 93,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 94
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 42, pris_intern: 36, salgsvare: 94,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 95
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 30, pris_intern: 25, salgsvare: 95,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 96
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 35, pris_intern: 30, salgsvare: 96,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 97
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 45, pris_intern: 40, salgsvare: 97,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 98
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 42, pris_intern: 36, salgsvare: 98,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 99
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 42, pris_intern: 36, salgsvare: 99,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 100
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 75, pris_intern: 70, salgsvare: 107,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 108
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 85, pris_intern: 80, salgsvare: 108,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 109
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 65, pris_intern: 60, salgsvare: 109,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 110
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 48, pris_intern: 43, salgsvare: 114,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 115
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 40, pris_intern: 34, salgsvare: 117,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 118
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 53, pris_intern: 48, salgsvare: 118,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 119
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 50, pris_intern: 45, salgsvare: 127,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 128
+- fields: {dato: 2014-12-23, mva: 25, pris_ekstern: 50, pris_intern: 45, salgsvare: 128,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 129
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 40, pris_intern: 16, salgsvare: 21,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 158
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 8, pris_intern: 5, salgsvare: 22,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 159
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 5, pris_intern: 2, salgsvare: 23,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 160
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 4, pris_intern: 3, salgsvare: 24,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 161
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 8, pris_intern: 5, salgsvare: 25,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 162
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 12, pris_intern: 8, salgsvare: 26,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 163
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 50, pris_intern: 20, salgsvare: 27,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 164
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 14, pris_intern: 10, salgsvare: 28,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 165
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 7, pris_intern: 3, salgsvare: 29,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 166
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 4, pris_intern: 3, salgsvare: 31,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 168
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 16, pris_intern: 12, salgsvare: 32,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 169
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 13, pris_intern: 9, salgsvare: 33,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 170
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 12, pris_intern: 8, salgsvare: 34,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 171
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 5, pris_intern: 2, salgsvare: 35,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 172
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 10, pris_intern: 6, salgsvare: 36,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 173
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 13, pris_intern: 9, salgsvare: 37,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 174
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 18, pris_intern: 15, salgsvare: 38,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 175
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 10, pris_intern: 3, salgsvare: 39,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 176
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 10, pris_intern: 2, salgsvare: 40,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 177
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 3, pris_intern: 2, salgsvare: 41,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 178
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 20, pris_intern: 15, salgsvare: 42,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 179
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 14, pris_intern: 10, salgsvare: 43,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 180
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 40, pris_intern: 34, salgsvare: 44,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 181
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 40, pris_intern: 34, salgsvare: 45,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 182
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 40, pris_intern: 34, salgsvare: 46,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 183
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 30, pris_intern: 25, salgsvare: 47,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 184
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 30, pris_intern: 25, salgsvare: 48,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 185
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 30, pris_intern: 25, salgsvare: 49,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 186
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 20, pris_intern: 10, salgsvare: 72,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 193
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 20, pris_intern: 10, salgsvare: 73,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 194
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 15, pris_intern: 10, salgsvare: 79,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 196
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 15, pris_intern: 10, salgsvare: 80,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 197
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 20, pris_intern: 15, salgsvare: 85,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 199
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 20, pris_intern: 15, salgsvare: 92,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 203
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 35, pris_intern: 30, salgsvare: 93,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 204
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 40, pris_intern: 34, salgsvare: 94,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 205
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 40, pris_intern: 34, salgsvare: 95,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 206
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 40, pris_intern: 34, salgsvare: 96,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 207
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: null, pris_intern: 45, salgsvare: 97,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 208
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 40, pris_intern: 34, salgsvare: 98,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 209
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 40, pris_intern: 34, salgsvare: 99,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 210
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 70, pris_intern: 65, salgsvare: 107,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 218
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 85, pris_intern: 80, salgsvare: 108,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 219
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 60, pris_intern: 55, salgsvare: 109,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 220
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 45, pris_intern: 40, salgsvare: 114,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 225
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 40, pris_intern: 34, salgsvare: 117,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 228
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 50, pris_intern: 45, salgsvare: 118,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 229
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 50, pris_intern: 45, salgsvare: 127,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 238
+- fields: {dato: 2014-06-30, mva: 25, pris_ekstern: 50, pris_intern: 45, salgsvare: 128,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 239
+- fields: {dato: 2015-05-11, mva: 25, pris_ekstern: 60, pris_intern: 55, salgsvare: 172,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 280
+- fields: {dato: 2015-05-11, mva: 25, pris_ekstern: 60, pris_intern: 55, salgsvare: 173,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 281
+- fields: {dato: 2015-05-13, mva: 25, pris_ekstern: 21, pris_intern: 17, salgsvare: 177,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 285
+- fields: {dato: 2015-05-13, mva: 25, pris_ekstern: 21, pris_intern: 17, salgsvare: 178,
+    status: KAS}
+  model: varer.salgsvarepris
+  pk: 286
+- fields: {dato: 2014-07-01, kommentar: "Interngradene gjelder i hovedsak juli 2013\
+      \ - juni 2014 der det eksisterte slik data. Antall er i stor grad basert p\xE5\
+      \ faktisk salg h\xF8st 2013 og s\xE5 noe justert.", navn: "H\xF8st 2014"}
+  model: varer.salgskalkyle
+  pk: 2
+- fields: {antall: 24, interngrad: 0.94, kalkyle: 2, salgsvare: 21}
+  model: varer.salgskalkylevare
+  pk: 18
+- fields: {antall: 192, interngrad: 0.02, kalkyle: 2, salgsvare: 22}
+  model: varer.salgskalkylevare
+  pk: 19
+- fields: {antall: 445, interngrad: null, kalkyle: 2, salgsvare: 23}
+  model: varer.salgskalkylevare
+  pk: 20
+- fields: {antall: 1695, interngrad: 0.23, kalkyle: 2, salgsvare: 24}
+  model: varer.salgskalkylevare
+  pk: 21
+- fields: {antall: 450, interngrad: 0.14, kalkyle: 2, salgsvare: 25}
+  model: varer.salgskalkylevare
+  pk: 22
+- fields: {antall: 140, interngrad: 0.56, kalkyle: 2, salgsvare: 26}
+  model: varer.salgskalkylevare
+  pk: 23
+- fields: {antall: 253, interngrad: 0.89, kalkyle: 2, salgsvare: 27}
+  model: varer.salgskalkylevare
+  pk: 24
+- fields: {antall: 367, interngrad: 0.26, kalkyle: 2, salgsvare: 28}
+  model: varer.salgskalkylevare
+  pk: 25
+- fields: {antall: 2942, interngrad: 0.09, kalkyle: 2, salgsvare: 29}
+  model: varer.salgskalkylevare
+  pk: 26
+- fields: {antall: 3, interngrad: null, kalkyle: 2, salgsvare: 31}
+  model: varer.salgskalkylevare
+  pk: 28
+- fields: {antall: 236, interngrad: 0.5, kalkyle: 2, salgsvare: 32}
+  model: varer.salgskalkylevare
+  pk: 29
+- fields: {antall: 1181, interngrad: null, kalkyle: 2, salgsvare: 33}
+  model: varer.salgskalkylevare
+  pk: 30
+- fields: {antall: 608, interngrad: null, kalkyle: 2, salgsvare: 34}
+  model: varer.salgskalkylevare
+  pk: 31
+- fields: {antall: 5202, interngrad: null, kalkyle: 2, salgsvare: 35}
+  model: varer.salgskalkylevare
+  pk: 32
+- fields: {antall: 251, interngrad: null, kalkyle: 2, salgsvare: 36}
+  model: varer.salgskalkylevare
+  pk: 33
+- fields: {antall: 111, interngrad: null, kalkyle: 2, salgsvare: 37}
+  model: varer.salgskalkylevare
+  pk: 34
+- fields: {antall: 38, interngrad: null, kalkyle: 2, salgsvare: 38}
+  model: varer.salgskalkylevare
+  pk: 35
+- fields: {antall: 205, interngrad: null, kalkyle: 2, salgsvare: 39}
+  model: varer.salgskalkylevare
+  pk: 36
+- fields: {antall: 106, interngrad: null, kalkyle: 2, salgsvare: 40}
+  model: varer.salgskalkylevare
+  pk: 37
+- fields: {antall: 11, interngrad: null, kalkyle: 2, salgsvare: 41}
+  model: varer.salgskalkylevare
+  pk: 38
+- fields: {antall: 10, interngrad: null, kalkyle: 2, salgsvare: 42}
+  model: varer.salgskalkylevare
+  pk: 39
+- fields: {antall: 800, interngrad: 0.55, kalkyle: 2, salgsvare: 43}
+  model: varer.salgskalkylevare
+  pk: 40
+- fields: {antall: 950, interngrad: 0.41, kalkyle: 2, salgsvare: 44}
+  model: varer.salgskalkylevare
+  pk: 41
+- fields: {antall: 500, interngrad: 0.18, kalkyle: 2, salgsvare: 45}
+  model: varer.salgskalkylevare
+  pk: 42
+- fields: {antall: 4300, interngrad: 0.1, kalkyle: 2, salgsvare: 46}
+  model: varer.salgskalkylevare
+  pk: 43
+- fields: {antall: 4, interngrad: 0.75, kalkyle: 2, salgsvare: 47}
+  model: varer.salgskalkylevare
+  pk: 44
+- fields: {antall: 3, interngrad: null, kalkyle: 2, salgsvare: 48}
+  model: varer.salgskalkylevare
+  pk: 45
+- fields: {antall: 7, interngrad: null, kalkyle: 2, salgsvare: 49}
+  model: varer.salgskalkylevare
+  pk: 46
+- fields: {antall: 86, interngrad: null, kalkyle: 2, salgsvare: 72}
+  model: varer.salgskalkylevare
+  pk: 51
+- fields: {antall: 20, interngrad: null, kalkyle: 2, salgsvare: 73}
+  model: varer.salgskalkylevare
+  pk: 52
+- fields: {antall: 25, interngrad: 0.54, kalkyle: 2, salgsvare: 79}
+  model: varer.salgskalkylevare
+  pk: 54
+- fields: {antall: 23, interngrad: null, kalkyle: 2, salgsvare: 80}
+  model: varer.salgskalkylevare
+  pk: 55
+- fields: {antall: 160, interngrad: 0.54, kalkyle: 2, salgsvare: 85}
+  model: varer.salgskalkylevare
+  pk: 59
+- fields: {antall: 159, interngrad: 0.72, kalkyle: 2, salgsvare: 92}
+  model: varer.salgskalkylevare
+  pk: 64
+- fields: {antall: 46, interngrad: 0.75, kalkyle: 2, salgsvare: 93}
+  model: varer.salgskalkylevare
+  pk: 65
+- fields: {antall: 465, interngrad: 0.34, kalkyle: 2, salgsvare: 94}
+  model: varer.salgskalkylevare
+  pk: 66
+- fields: {antall: 98, interngrad: null, kalkyle: 2, salgsvare: 95}
+  model: varer.salgskalkylevare
+  pk: 67
+- fields: {antall: 40, interngrad: 0.89, kalkyle: 2, salgsvare: 97}
+  model: varer.salgskalkylevare
+  pk: 68
+- fields: {antall: 1121, interngrad: 0.82, kalkyle: 2, salgsvare: 98}
+  model: varer.salgskalkylevare
+  pk: 69
+- fields: {antall: 280, interngrad: 0.83, kalkyle: 2, salgsvare: 99}
+  model: varer.salgskalkylevare
+  pk: 70
+- fields: {antall: 142, interngrad: 0.53, kalkyle: 2, salgsvare: 107}
+  model: varer.salgskalkylevare
+  pk: 78
+- fields: {antall: 61, interngrad: null, kalkyle: 2, salgsvare: 108}
+  model: varer.salgskalkylevare
+  pk: 79
+- fields: {antall: 182, interngrad: 0.42, kalkyle: 2, salgsvare: 109}
+  model: varer.salgskalkylevare
+  pk: 80
+- fields: {antall: 57, interngrad: 0.15, kalkyle: 2, salgsvare: 114}
+  model: varer.salgskalkylevare
+  pk: 85
+- fields: {antall: 18, interngrad: 0.32, kalkyle: 2, salgsvare: 117}
+  model: varer.salgskalkylevare
+  pk: 88
+- fields: {antall: 152, interngrad: 0.38, kalkyle: 2, salgsvare: 118}
+  model: varer.salgskalkylevare
+  pk: 89
+- fields: {antall: 48, interngrad: 0.87, kalkyle: 2, salgsvare: 127}
+  model: varer.salgskalkylevare
+  pk: 98
+- fields: {antall: 26, interngrad: 0.91, kalkyle: 2, salgsvare: 128}
+  model: varer.salgskalkylevare
+  pk: 99
+- fields: {ansvarlig: henrste/freh, kommentar: "Telling for \xE5 se status", tid: !!timestamp '2014-09-30
+      12:00:00+00:00', tittel: "Midth\xF8st 2014"}
+  model: varer.varetelling
+  pk: 2
+- fields: {ansvarlig: henrste/freh, kommentar: null, tid: !!timestamp '2014-06-27
+      22:00:00+00:00', tittel: "Regnskapsslutt v\xE5r 2014"}
+  model: varer.varetelling
+  pk: 3
+- fields: {ansvarlig: henrste/freh, kommentar: '', tid: !!timestamp '2014-12-29 14:00:00+00:00',
+    tittel: Avslutning 2014}
+  model: varer.varetelling
+  pk: 4
+- fields: {ansvarlig: henrste, kommentar: '', tid: !!timestamp '2013-12-17 16:53:00+00:00',
+    tittel: Avslutning 2013}
+  model: varer.varetelling
+  pk: 5
+- fields: {ansvarlig: freh/tarjeigo/henrste, kommentar: '', tid: !!timestamp '2015-03-29
+      10:53:54+00:00', tittel: 2015 Q1}
+  model: varer.varetelling
+  pk: 11
+- fields: {antall: 14.0, antallpant: null, kommentar: '', raavare: 14, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 3
+- fields: {antall: 29.0, antallpant: null, kommentar: null, raavare: 15, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 4
+- fields: {antall: 482.0, antallpant: null, kommentar: null, raavare: 16, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 5
+- fields: {antall: 10.0, antallpant: null, kommentar: null, raavare: 38, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 25
+- fields: {antall: 3.0, antallpant: null, kommentar: null, raavare: 40, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 27
+- fields: {antall: 0.9, antallpant: null, kommentar: null, raavare: 42, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 29
+- fields: {antall: 4.0, antallpant: null, kommentar: null, raavare: 43, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 30
+- fields: {antall: 2.3, antallpant: null, kommentar: null, raavare: 51, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 38
+- fields: {antall: 15.0, antallpant: null, kommentar: null, raavare: 54, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 41
+- fields: {antall: 0.5, antallpant: null, kommentar: null, raavare: 56, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 43
+- fields: {antall: 2.06, antallpant: null, kommentar: null, raavare: 57, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 44
+- fields: {antall: 0.5, antallpant: null, kommentar: null, raavare: 58, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 45
+- fields: {antall: 6.0, antallpant: null, kommentar: null, raavare: 62, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 49
+- fields: {antall: 6.5, antallpant: null, kommentar: null, raavare: 69, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 55
+- fields: {antall: 8.5, antallpant: null, kommentar: null, raavare: 70, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 56
+- fields: {antall: 1.0, antallpant: null, kommentar: null, raavare: 71, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 57
+- fields: {antall: 5.0, antallpant: null, kommentar: null, raavare: 72, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 58
+- fields: {antall: 21.0, antallpant: null, kommentar: null, raavare: 79, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 65
+- fields: {antall: 22.75, antallpant: null, kommentar: null, raavare: 114, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 98
+- fields: {antall: 48.0, antallpant: null, kommentar: null, raavare: 115, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 99
+- fields: {antall: 56.0, antallpant: null, kommentar: null, raavare: 116, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 100
+- fields: {antall: 40.0, antallpant: null, kommentar: null, raavare: 123, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 102
+- fields: {antall: 24.0, antallpant: null, kommentar: null, raavare: 124, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 103
+- fields: {antall: 53.0, antallpant: null, kommentar: null, raavare: 129, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 108
+- fields: {antall: 4.0, antallpant: null, kommentar: null, raavare: 137, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 115
+- fields: {antall: 29.0, antallpant: null, kommentar: null, raavare: 138, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 116
+- fields: {antall: 3.0, antallpant: null, kommentar: null, raavare: 139, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 117
+- fields: {antall: 173.0, antallpant: null, kommentar: null, raavare: 140, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 118
+- fields: {antall: 185.0, antallpant: null, kommentar: null, raavare: 144, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 119
+- fields: {antall: 2.0, antallpant: null, kommentar: null, raavare: 145, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 120
+- fields: {antall: 166.0, antallpant: null, kommentar: null, raavare: 146, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 121
+- fields: {antall: 0.0, antallpant: null, kommentar: null, raavare: 154, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 129
+- fields: {antall: 1.0, antallpant: null, kommentar: null, raavare: 155, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 130
+- fields: {antall: 0.0, antallpant: null, kommentar: null, raavare: 156, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 131
+- fields: {antall: 6.0, antallpant: null, kommentar: null, raavare: 161, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 136
+- fields: {antall: 0.0, antallpant: null, kommentar: null, raavare: 164, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 139
+- fields: {antall: 34.0, antallpant: null, kommentar: null, raavare: 165, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 140
+- fields: {antall: 64.0, antallpant: null, kommentar: null, raavare: 174, sted: Sum,
+    varetelling: 2}
+  model: varer.varetellingvare
+  pk: 149
+- fields: {antall: 1.1, antallpant: 2.0, kommentar: "\xC5pnede fat", raavare: 137,
+    sted: Sum, varetelling: 2}
+  model: varer.varetellingvare
+  pk: 160
+- fields: {antall: 0.9, antallpant: 1.0, kommentar: "\xC5pnede fat", raavare: 139,
+    sted: Sum, varetelling: 2}
+  model: varer.varetellingvare
+  pk: 161
+- fields: {antall: 1.6, antallpant: 2.0, kommentar: "\xC5pnede fat", raavare: 145,
+    sted: Sum, varetelling: 2}
+  model: varer.varetellingvare
+  pk: 162
+- fields: {antall: 39.0, antallpant: null, kommentar: null, raavare: 15, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 169
+- fields: {antall: 1.0, antallpant: null, kommentar: null, raavare: 38, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 190
+- fields: {antall: 3.196, antallpant: null, kommentar: null, raavare: 40, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 192
+- fields: {antall: 4.628, antallpant: null, kommentar: null, raavare: 43, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 194
+- fields: {antall: 2.772, antallpant: null, kommentar: null, raavare: 51, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 202
+- fields: {antall: 11.0, antallpant: null, kommentar: null, raavare: 62, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 205
+- fields: {antall: 1.0, antallpant: null, kommentar: null, raavare: 71, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 209
+- fields: {antall: 6.68, antallpant: null, kommentar: null, raavare: 72, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 210
+- fields: {antall: 12.0, antallpant: null, kommentar: null, raavare: 123, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 245
+- fields: {antall: 9.0, antallpant: null, kommentar: null, raavare: 124, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 246
+- fields: {antall: 49.0, antallpant: null, kommentar: null, raavare: 129, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 250
+- fields: {antall: 4.0, antallpant: null, kommentar: null, raavare: 137, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 255
+- fields: {antall: 11.0, antallpant: null, kommentar: null, raavare: 138, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 256
+- fields: {antall: 3.0, antallpant: null, kommentar: null, raavare: 139, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 257
+- fields: {antall: 95.0, antallpant: null, kommentar: null, raavare: 140, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 258
+- fields: {antall: 48.0, antallpant: null, kommentar: null, raavare: 141, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 259
+- fields: {antall: 1.0, antallpant: null, kommentar: null, raavare: 142, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 260
+- fields: {antall: 3.0, antallpant: null, kommentar: null, raavare: 143, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 261
+- fields: {antall: 198.0, antallpant: null, kommentar: null, raavare: 144, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 262
+- fields: {antall: 135.0, antallpant: null, kommentar: null, raavare: 146, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 263
+- fields: {antall: 26.0, antallpant: null, kommentar: null, raavare: 154, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 270
+- fields: {antall: 34.0, antallpant: null, kommentar: null, raavare: 155, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 271
+- fields: {antall: 15.0, antallpant: null, kommentar: null, raavare: 161, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 275
+- fields: {antall: 3.0, antallpant: null, kommentar: null, raavare: 165, sted: Sum,
+    varetelling: 3}
+  model: varer.varetellingvare
+  pk: 278
+- fields: {antall: 4.0, antallpant: null, kommentar: '', raavare: 145, sted: Lager,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 290
+- fields: {antall: 2.0, antallpant: null, kommentar: '', raavare: 137, sted: Lager,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 291
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 139, sted: Lager,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 292
+- fields: {antall: 36.0, antallpant: null, kommentar: '', raavare: 140, sted: Lager,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 293
+- fields: {antall: 12.0, antallpant: null, kommentar: '', raavare: 140, sted: "\xD8\
+      ko", varetelling: 5}
+  model: varer.varetellingvare
+  pk: 294
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 140, sted: Hylle,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 295
+- fields: {antall: 34.0, antallpant: null, kommentar: '', raavare: 140, sted: Bar,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 296
+- fields: {antall: 8.0, antallpant: null, kommentar: '', raavare: 144, sted: Lager,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 297
+- fields: {antall: 8.0, antallpant: null, kommentar: '', raavare: 144, sted: "\xD8\
+      ko", varetelling: 5}
+  model: varer.varetellingvare
+  pk: 298
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 144, sted: Hylle,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 299
+- fields: {antall: 15.0, antallpant: null, kommentar: '', raavare: 144, sted: Bar,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 300
+- fields: {antall: 52.0, antallpant: null, kommentar: '', raavare: 146, sted: Lager,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 301
+- fields: {antall: 16.0, antallpant: null, kommentar: '', raavare: 146, sted: "\xD8\
+      ko", varetelling: 5}
+  model: varer.varetellingvare
+  pk: 302
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 146, sted: Hylle,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 303
+- fields: {antall: 16.0, antallpant: null, kommentar: '', raavare: 146, sted: Bar,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 304
+- fields: {antall: 48.0, antallpant: null, kommentar: '', raavare: 141, sted: Lager,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 305
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 142, sted: Hylle,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 306
+- fields: {antall: 2.0, antallpant: null, kommentar: '', raavare: 142, sted: Bar,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 307
+- fields: {antall: 6.0, antallpant: null, kommentar: '', raavare: 143, sted: "\xD8\
+      ko", varetelling: 5}
+  model: varer.varetellingvare
+  pk: 308
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 143, sted: Hylle,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 309
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 143, sted: Bar,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 310
+- fields: {antall: 7.0, antallpant: null, kommentar: '', raavare: 165, sted: Bar,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 317
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 165, sted: Hylle,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 318
+- fields: {antall: 7.0, antallpant: null, kommentar: '', raavare: 165, sted: "\xD8\
+      ko", varetelling: 5}
+  model: varer.varetellingvare
+  pk: 319
+- fields: {antall: 3.0, antallpant: null, kommentar: '', raavare: 161, sted: Bar,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 323
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 161, sted: Hylle,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 324
+- fields: {antall: 11.0, antallpant: null, kommentar: '', raavare: 161, sted: "\xD8\
+      ko", varetelling: 5}
+  model: varer.varetellingvare
+  pk: 325
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 174, sted: Bar,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 334
+- fields: {antall: 3.0, antallpant: null, kommentar: '', raavare: 175, sted: Bar,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 335
+- fields: {antall: 4.0, antallpant: null, kommentar: '', raavare: 154, sted: Bar,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 336
+- fields: {antall: 4.0, antallpant: null, kommentar: '', raavare: 156, sted: Bar,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 338
+- fields: {antall: 10.0, antallpant: null, kommentar: '', raavare: 129, sted: Bar,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 355
+- fields: {antall: 4.0, antallpant: null, kommentar: '', raavare: 115, sted: Bar,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 361
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 116, sted: Bar,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 362
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 14, sted: Bar, varetelling: 5}
+  model: varer.varetellingvare
+  pk: 365
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 15, sted: Bar, varetelling: 5}
+  model: varer.varetellingvare
+  pk: 366
+- fields: {antall: 8.0, antallpant: null, kommentar: '', raavare: 205, sted: Bar,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 373
+- fields: {antall: 11.0, antallpant: null, kommentar: '', raavare: 129, sted: Bar,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 385
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 165, sted: Bar,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 389
+- fields: {antall: 10.0, antallpant: null, kommentar: '', raavare: 144, sted: Bar,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 401
+- fields: {antall: 9.0, antallpant: null, kommentar: '', raavare: 140, sted: Bar,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 402
+- fields: {antall: 11.0, antallpant: null, kommentar: '', raavare: 146, sted: Bar,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 403
+- fields: {antall: 4.0, antallpant: null, kommentar: '', raavare: 156, sted: Bar,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 404
+- fields: {antall: 3.0, antallpant: null, kommentar: '', raavare: 174, sted: Bar,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 418
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 123, sted: Bar,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 422
+- fields: {antall: 12.0, antallpant: null, kommentar: '', raavare: 124, sted: Bar,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 423
+- fields: {antall: 9.0, antallpant: null, kommentar: '', raavare: 138, sted: Bar,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 424
+- fields: {antall: 0.0025, antallpant: null, kommentar: '', raavare: 42, sted: Bar
+      (hylle), varetelling: 4}
+  model: varer.varetellingvare
+  pk: 440
+- fields: {antall: 0.005, antallpant: null, kommentar: '', raavare: 58, sted: Bar
+      (hylle), varetelling: 4}
+  model: varer.varetellingvare
+  pk: 441
+- fields: {antall: 0.142857142857143, antallpant: null, kommentar: '', raavare: 40,
+    sted: Bar (hylle), varetelling: 4}
+  model: varer.varetellingvare
+  pk: 442
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 174, sted: Bar (hylle),
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 457
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 165, sted: Bar (hylle),
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 461
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 146, sted: Bar (hylle),
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 463
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 144, sted: Bar (hylle),
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 464
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 140, sted: Bar (hylle),
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 465
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 138, sted: Bar (hylle),
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 466
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 141, sted: Bar (hylle),
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 467
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 142, sted: Bar (hylle),
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 468
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 143, sted: Bar (hylle),
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 469
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 124, sted: Bar (hylle),
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 470
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 123, sted: Bar (hylle),
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 471
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 156, sted: Bar (hylle),
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 484
+- fields: {antall: 6.0, antallpant: null, kommentar: '', raavare: 15, sted: "Bar (l\xF8\
+      st)", varetelling: 4}
+  model: varer.varetellingvare
+  pk: 492
+- fields: {antall: 0.1875, antallpant: null, kommentar: '', raavare: 62, sted: Bar
+      (lite skap), varetelling: 4}
+  model: varer.varetellingvare
+  pk: 493
+- fields: {antall: 0.5, antallpant: null, kommentar: '', raavare: 42, sted: Bar (lite
+      skap), varetelling: 4}
+  model: varer.varetellingvare
+  pk: 495
+- fields: {antall: 0.3, antallpant: null, kommentar: '', raavare: 58, sted: Bar (lite
+      skap), varetelling: 4}
+  model: varer.varetellingvare
+  pk: 496
+- fields: {antall: 0.3, antallpant: null, kommentar: '', raavare: 51, sted: Bar (lite
+      skap), varetelling: 4}
+  model: varer.varetellingvare
+  pk: 500
+- fields: {antall: 21.0, antallpant: null, kommentar: '', raavare: 79, sted: Bar (lite
+      skap), varetelling: 4}
+  model: varer.varetellingvare
+  pk: 502
+- fields: {antall: 12.0, antallpant: null, kommentar: '', raavare: 115, sted: Bar,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 512
+- fields: {antall: 12.0, antallpant: null, kommentar: '', raavare: 116, sted: Bar,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 513
+- fields: {antall: 50.0, antallpant: null, kommentar: '', raavare: 16, sted: Bar,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 514
+- fields: {antall: 5.0, antallpant: null, kommentar: '', raavare: 15, sted: "\xD8\
+      ko", varetelling: 4}
+  model: varer.varetellingvare
+  pk: 515
+- fields: {antall: 5.0, antallpant: null, kommentar: '', raavare: 143, sted: "\xD8\
+      ko (skap)", varetelling: 4}
+  model: varer.varetellingvare
+  pk: 516
+- fields: {antall: 8.0, antallpant: null, kommentar: '', raavare: 142, sted: "\xD8\
+      ko (skap)", varetelling: 4}
+  model: varer.varetellingvare
+  pk: 517
+- fields: {antall: 8.0, antallpant: null, kommentar: '', raavare: 141, sted: "\xD8\
+      ko (skap)", varetelling: 4}
+  model: varer.varetellingvare
+  pk: 518
+- fields: {antall: 7.0, antallpant: null, kommentar: '', raavare: 124, sted: "\xD8\
+      ko (skap)", varetelling: 4}
+  model: varer.varetellingvare
+  pk: 519
+- fields: {antall: 3.0, antallpant: null, kommentar: '', raavare: 10, sted: "\xD8\
+      ko (skap)", varetelling: 4}
+  model: varer.varetellingvare
+  pk: 527
+- fields: {antall: 2.0, antallpant: null, kommentar: '', raavare: 156, sted: "\xD8\
+      ko (skap)", varetelling: 4}
+  model: varer.varetellingvare
+  pk: 528
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 129, sted: "\xD8\
+      ko (skap)", varetelling: 4}
+  model: varer.varetellingvare
+  pk: 537
+- fields: {antall: 3.0, antallpant: null, kommentar: '', raavare: 143, sted: "\xD8\
+      ko (skap)", varetelling: 4}
+  model: varer.varetellingvare
+  pk: 543
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 141, sted: "\xD8\
+      ko (skap)", varetelling: 4}
+  model: varer.varetellingvare
+  pk: 544
+- fields: {antall: 9.0, antallpant: null, kommentar: '', raavare: 140, sted: "\xD8\
+      ko (skap)", varetelling: 4}
+  model: varer.varetellingvare
+  pk: 547
+- fields: {antall: 23.0, antallpant: null, kommentar: '', raavare: 114, sted: Saferom
+      (fryser), varetelling: 4}
+  model: varer.varetellingvare
+  pk: 549
+- fields: {antall: 1.95, antallpant: null, kommentar: '', raavare: 56, sted: DJ, varetelling: 4}
+  model: varer.varetellingvare
+  pk: 550
+- fields: {antall: 1.95, antallpant: null, kommentar: '', raavare: 57, sted: DJ, varetelling: 4}
+  model: varer.varetellingvare
+  pk: 551
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 42, sted: DJ, varetelling: 4}
+  model: varer.varetellingvare
+  pk: 556
+- fields: {antall: 2.0, antallpant: null, kommentar: '', raavare: 51, sted: DJ, varetelling: 4}
+  model: varer.varetellingvare
+  pk: 560
+- fields: {antall: 2.0, antallpant: null, kommentar: '', raavare: 40, sted: DJ, varetelling: 4}
+  model: varer.varetellingvare
+  pk: 563
+- fields: {antall: 4.0, antallpant: null, kommentar: '', raavare: 43, sted: DJ, varetelling: 4}
+  model: varer.varetellingvare
+  pk: 565
+- fields: {antall: 5.0, antallpant: null, kommentar: '', raavare: 54, sted: DJ, varetelling: 4}
+  model: varer.varetellingvare
+  pk: 571
+- fields: {antall: 112.0, antallpant: null, kommentar: '', raavare: 144, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 610
+- fields: {antall: 4.0, antallpant: null, kommentar: '', raavare: 145, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 615
+- fields: {antall: 2.0, antallpant: null, kommentar: '', raavare: 139, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 616
+- fields: {antall: 3.0, antallpant: null, kommentar: '', raavare: 137, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 617
+- fields: {antall: 46.0, antallpant: null, kommentar: '', raavare: 124, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 621
+- fields: {antall: 48.0, antallpant: null, kommentar: '', raavare: 123, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 622
+- fields: {antall: 15.0, antallpant: null, kommentar: '', raavare: 129, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 630
+- fields: {antall: 54.0, antallpant: null, kommentar: '', raavare: 174, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 642
+- fields: {antall: 24.0, antallpant: null, kommentar: '', raavare: 138, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 643
+- fields: {antall: 116.0, antallpant: null, kommentar: '', raavare: 140, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 651
+- fields: {antall: 176.0, antallpant: null, kommentar: '', raavare: 146, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 652
+- fields: {antall: 48.0, antallpant: null, kommentar: '', raavare: 156, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 660
+- fields: {antall: 24.0, antallpant: null, kommentar: '', raavare: 10, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 667
+- fields: {antall: 7.0, antallpant: null, kommentar: '', raavare: 165, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 668
+- fields: {antall: 6.0, antallpant: null, kommentar: '', raavare: 141, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 669
+- fields: {antall: 15.0, antallpant: null, kommentar: '', raavare: 142, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 670
+- fields: {antall: 46.0, antallpant: null, kommentar: '', raavare: 143, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 671
+- fields: {antall: 22.0, antallpant: null, kommentar: '', raavare: 15, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 678
+- fields: {antall: 17.0, antallpant: null, kommentar: '', raavare: 14, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 680
+- fields: {antall: 20.0, antallpant: null, kommentar: '', raavare: 15, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 681
+- fields: {antall: 264.0, antallpant: null, kommentar: '', raavare: 16, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 682
+- fields: {antall: 36.0, antallpant: null, kommentar: '', raavare: 116, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 696
+- fields: {antall: 12.0, antallpant: null, kommentar: '', raavare: 115, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 697
+- fields: {antall: 18.0, antallpant: null, kommentar: '', raavare: 114, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 705
+- fields: {antall: 4.0, antallpant: null, kommentar: '', raavare: 14, sted: Lager,
+    varetelling: 4}
+  model: varer.varetellingvare
+  pk: 732
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 174, sted: Hylle,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 761
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 175, sted: Hylle,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 762
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 154, sted: Hylle,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 764
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 156, sted: Hylle,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 766
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 205, sted: Hylle,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 776
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 15, sted: Hylle,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 777
+- fields: {antall: 3.0, antallpant: null, kommentar: '', raavare: 174, sted: "\xD8\
+      ko", varetelling: 5}
+  model: varer.varetellingvare
+  pk: 781
+- fields: {antall: 5.0, antallpant: null, kommentar: '', raavare: 175, sted: "\xD8\
+      ko", varetelling: 5}
+  model: varer.varetellingvare
+  pk: 782
+- fields: {antall: 4.0, antallpant: null, kommentar: '', raavare: 154, sted: "\xD8\
+      ko", varetelling: 5}
+  model: varer.varetellingvare
+  pk: 783
+- fields: {antall: 18.0, antallpant: null, kommentar: '', raavare: 124, sted: "\xD8\
+      ko", varetelling: 5}
+  model: varer.varetellingvare
+  pk: 789
+- fields: {antall: 3.0, antallpant: null, kommentar: '', raavare: 54, sted: DJ, varetelling: 5}
+  model: varer.varetellingvare
+  pk: 813
+- fields: {antall: 36.0, antallpant: null, kommentar: '', raavare: 174, sted: Lager,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 820
+- fields: {antall: 24.0, antallpant: null, kommentar: '', raavare: 154, sted: Lager,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 822
+- fields: {antall: 24.0, antallpant: null, kommentar: '', raavare: 156, sted: Lager,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 824
+- fields: {antall: 72.0, antallpant: null, kommentar: '', raavare: 129, sted: Lager,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 834
+- fields: {antall: 2.0, antallpant: null, kommentar: '', raavare: 72, sted: Lager,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 840
+- fields: {antall: 32.0, antallpant: null, kommentar: '', raavare: 115, sted: Lager,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 841
+- fields: {antall: 28.0, antallpant: null, kommentar: '', raavare: 116, sted: Lager,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 842
+- fields: {antall: 17.0, antallpant: null, kommentar: '', raavare: 14, sted: Lager,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 844
+- fields: {antall: 48.0, antallpant: null, kommentar: '', raavare: 15, sted: Lager,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 845
+- fields: {antall: 192.0, antallpant: null, kommentar: '', raavare: 16, sted: Lager,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 846
+- fields: {antall: 7.0, antallpant: null, kommentar: '', raavare: 140, sted: Z663,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 856
+- fields: {antall: 13.0, antallpant: null, kommentar: '', raavare: 144, sted: Z663,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 857
+- fields: {antall: 12.0, antallpant: null, kommentar: '', raavare: 146, sted: Z663,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 858
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 161, sted: Z663,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 861
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 140, sted: Z664-1,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 863
+- fields: {antall: 2.0, antallpant: null, kommentar: '', raavare: 174, sted: Z663,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 867
+- fields: {antall: 2.0, antallpant: null, kommentar: '', raavare: 154, sted: Z663,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 868
+- fields: {antall: 2.0, antallpant: null, kommentar: '', raavare: 156, sted: Z663,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 870
+- fields: {antall: 4.0, antallpant: null, kommentar: '', raavare: 129, sted: Z663,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 879
+- fields: {antall: 5.0, antallpant: null, kommentar: '', raavare: 115, sted: Z663,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 882
+- fields: {antall: 4.0, antallpant: null, kommentar: '', raavare: 116, sted: Z663,
+    varetelling: 5}
+  model: varer.varetellingvare
+  pk: 883
+- fields: {antall: 5.0, antallpant: null, kommentar: '', raavare: 129, sted: "Bar\
+      \ (h\xF8ye skap)", varetelling: 11}
+  model: varer.varetellingvare
+  pk: 930
+- fields: {antall: 9.0, antallpant: null, kommentar: '', raavare: 124, sted: "Bar\
+      \ (h\xF8ye skap)", varetelling: 11}
+  model: varer.varetellingvare
+  pk: 933
+- fields: {antall: 9.0, antallpant: null, kommentar: '', raavare: 140, sted: "Bar\
+      \ (h\xF8ye skap)", varetelling: 11}
+  model: varer.varetellingvare
+  pk: 942
+- fields: {antall: 11.0, antallpant: null, kommentar: '', raavare: 146, sted: "Bar\
+      \ (h\xF8ye skap)", varetelling: 11}
+  model: varer.varetellingvare
+  pk: 943
+- fields: {antall: 9.0, antallpant: null, kommentar: '', raavare: 144, sted: "Bar\
+      \ (h\xF8ye skap)", varetelling: 11}
+  model: varer.varetellingvare
+  pk: 944
+- fields: {antall: 7.0, antallpant: null, kommentar: '', raavare: 156, sted: "Bar\
+      \ (h\xF8ye skap)", varetelling: 11}
+  model: varer.varetellingvare
+  pk: 949
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 137, sted: Lager,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 954
+- fields: {antall: 3.0, antallpant: null, kommentar: '', raavare: 145, sted: Lager,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 957
+- fields: {antall: 24.0, antallpant: null, kommentar: '', raavare: 129, sted: Lager,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 969
+- fields: {antall: 2.0, antallpant: null, kommentar: '', raavare: 114, sted: "Bar\
+      \ (lite kj\xF8leskap)", varetelling: 11}
+  model: varer.varetellingvare
+  pk: 973
+- fields: {antall: 6.0, antallpant: null, kommentar: '', raavare: 141, sted: Lager,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 988
+- fields: {antall: 15.0, antallpant: null, kommentar: '', raavare: 142, sted: Lager,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 989
+- fields: {antall: 46.0, antallpant: null, kommentar: '', raavare: 143, sted: Lager,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 990
+- fields: {antall: 2.0, antallpant: null, kommentar: '', raavare: 138, sted: Lager,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 991
+- fields: {antall: 126.0, antallpant: null, kommentar: '', raavare: 140, sted: Lager,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1011
+- fields: {antall: 108.0, antallpant: null, kommentar: '', raavare: 146, sted: Lager,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1013
+- fields: {antall: 12.0, antallpant: null, kommentar: '', raavare: 10, sted: Lager,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1021
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 10, sted: Bar (hylle),
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1052
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 156, sted: Bar (hylle),
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1054
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 124, sted: Bar (hylle),
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1063
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 138, sted: Bar (hylle),
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1064
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 140, sted: Bar (hylle),
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1065
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 146, sted: Bar (hylle),
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1067
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 144, sted: Bar (hylle),
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1068
+- fields: {antall: 10.0, antallpant: null, kommentar: '', raavare: 141, sted: Lager,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1075
+- fields: {antall: 9.0, antallpant: null, kommentar: '', raavare: 142, sted: Lager,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1077
+- fields: {antall: 5.0, antallpant: null, kommentar: '', raavare: 143, sted: Lager,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1080
+- fields: {antall: 32.0, antallpant: null, kommentar: '', raavare: 144, sted: Lager,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1082
+- fields: {antall: 2.0, antallpant: null, kommentar: '', raavare: 14, sted: Lager,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1086
+- fields: {antall: 17.0, antallpant: null, kommentar: '15 vanlige, 2 store', raavare: 15,
+    sted: Lager, varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1087
+- fields: {antall: 9.0, antallpant: 9.0, kommentar: 9 kasser med colaretur, raavare: 15,
+    sted: Lager, varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1088
+- fields: {antall: 8.0, antallpant: null, kommentar: '', raavare: 115, sted: Lager,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1094
+- fields: {antall: 2.0, antallpant: null, kommentar: '', raavare: 62, sted: Bar (bardisk),
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1095
+- fields: {antall: 0.75, antallpant: null, kommentar: '', raavare: 72, sted: Bar (bardisk),
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1102
+- fields: {antall: 27.0, antallpant: null, kommentar: '', raavare: 114, sted: Lager,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1107
+- fields: {antall: 0.03, antallpant: null, kommentar: '', raavare: 57, sted: Bar (bardisk),
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1108
+- fields: {antall: 0.06, antallpant: null, kommentar: '', raavare: 56, sted: Bar (bardisk),
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1109
+- fields: {antall: 0.68, antallpant: null, kommentar: '', raavare: 38, sted: Bar (kaffekvern),
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1112
+- fields: {antall: 8.5, antallpant: null, kommentar: '', raavare: 79, sted: Bar (kaffeskap),
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1115
+- fields: {antall: 0.075, antallpant: null, kommentar: '', raavare: 42, sted: Bar
+      (kaffeskap), varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1123
+- fields: {antall: 0.12, antallpant: null, kommentar: '', raavare: 51, sted: Bar (kaffeskap),
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1124
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 54, sted: Bar (kaffeskap),
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1125
+- fields: {antall: 0.08, antallpant: null, kommentar: '', raavare: 38, sted: Bar (kaffeskap),
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1126
+- fields: {antall: 4.0, antallpant: null, kommentar: '', raavare: 114, sted: "\xD8\
+      konomikontor", varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1130
+- fields: {antall: 3.0, antallpant: null, kommentar: '', raavare: 156, sted: "\xD8\
+      konomikontor(Store skap)", varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1139
+- fields: {antall: 2.0, antallpant: null, kommentar: '', raavare: 124, sted: "\xD8\
+      konomikontor(Store skap)", varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1143
+- fields: {antall: 6.0, antallpant: null, kommentar: '', raavare: 10, sted: "\xD8\
+      konomikontor(Store skap)", varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1149
+- fields: {antall: 15.0, antallpant: null, kommentar: '', raavare: 115, sted: Bar,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1160
+- fields: {antall: 2.0, antallpant: null, kommentar: 15 flasker, raavare: 15, sted: Bar,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1161
+- fields: {antall: 0.85, antallpant: null, kommentar: '', raavare: 137, sted: Bar
+      (tapperom), varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1162
+- fields: {antall: 2.0, antallpant: null, kommentar: innhold Svinnet avslutning 2014,
+    raavare: 14, sted: Lager, varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1163
+- fields: {antall: 5.0, antallpant: null, kommentar: '', raavare: 38, sted: DJ, varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1166
+- fields: {antall: 10.0, antallpant: null, kommentar: '', raavare: 54, sted: DJ, varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1167
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 54, sted: DJ, varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1170
+- fields: {antall: 12.0, antallpant: null, kommentar: '', raavare: 62, sted: DJ, varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1172
+- fields: {antall: 11.0, antallpant: null, kommentar: '', raavare: 79, sted: DJ, varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1175
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 42, sted: DJ, varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1176
+- fields: {antall: 1.9, antallpant: null, kommentar: '', raavare: 51, sted: DJ, varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1177
+- fields: {antall: 0.4, antallpant: null, kommentar: '', raavare: 57, sted: DJ, varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1181
+- fields: {antall: 0.94, antallpant: null, kommentar: '', raavare: 56, sted: DJ, varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1182
+- fields: {antall: 2.0, antallpant: null, kommentar: '', raavare: 43, sted: DJ, varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1183
+- fields: {antall: 144.0, antallpant: null, kommentar: '', raavare: 259, sted: Lager,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1189
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 14, sted: Lager,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1201
+- fields: {antall: 16.0, antallpant: null, kommentar: '', raavare: 15, sted: Lager,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1203
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 165, sted: Bar (hylle),
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1237
+- fields: {antall: 1.0, antallpant: null, kommentar: '', raavare: 14, sted: Lager,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1241
+- fields: {antall: 0.1, antallpant: null, kommentar: '', raavare: 145, sted: Bar (tapperom),
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1242
+- fields: {antall: 4.0, antallpant: null, kommentar: "Gr\xF8nne kasser", raavare: 15,
+    sted: Lager, varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1243
+- fields: {antall: 2.0, antallpant: null, kommentar: '', raavare: 15, sted: Saferom,
+    varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1244
+- fields: {antall: 216.0, antallpant: null, kommentar: Fulle kasser til retur, raavare: 16,
+    sted: Lager, varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1245
+- fields: {antall: 875.0, antallpant: null, kommentar: Estimert pant i pantesekk,
+    raavare: 262, sted: Lager, varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1246
+- fields: {antall: 16.0, antallpant: null, kommentar: Pant i kasse, raavare: 16, sted: Bar
+      (fritt), varetelling: 11}
+  model: varer.varetellingvare
+  pk: 1247

@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
-import os
+import os, importlib
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 ALLOWED_HOSTS = [
@@ -25,13 +25,16 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'rest_framework',
-    'siteroot',
+    'core',
     'varer',
-    'z'
+    'cal',
+    'z',
 )
 
 MIDDLEWARE_CLASSES = (
+    'corsheaders.middleware.CorsMiddleware',
     'cyb_oko.querydebug.QueryCountDebugMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -39,7 +42,11 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+)
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'samlauth.auth_backend.SAMLServiceProviderBackend',
 )
 
 TEMPLATE_LOADERS = (
@@ -51,6 +58,16 @@ ROOT_URLCONF = 'cyb_oko.urls'
 
 WSGI_APPLICATION = 'cyb_oko.wsgi.application'
 
+# custom User model
+AUTH_USER_MODEL = 'core.User'
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:3000',
+    '127.0.0.1:3000',
+    'internt.cyb.no',
+    'dev.internt.cyb.no',
+)
+CORS_ALLOW_CREDENTIALS = True
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
@@ -81,9 +98,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "siteroot/static_build"),
-)
+# where settings.json is located for SAML-package
+SAML_FOLDER = os.path.join(BASE_DIR, 'samlauth')
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticatedOrReadOnly',),
@@ -97,35 +113,27 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_SERIALIZER_CLASS': 'cyb_oko.pagination.CybPaginationSerializer'
 }
 
-LOGGING = {
-    'version': 1,
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler'
-        }
-    },
-    'loggers': {
-        'cyb_oko.querydebug': {
-            'handlers': ['console'],
-            'level': 'DEBUG'
-        },
-        'django.db.backends': {
-            'level': 'DEBUG',
-            'handlers': ['console']
-        }
-    }
-}
+# see https://docs.djangoproject.com/en/1.8/ref/settings/#secure-proxy-ssl-header
+# if using nginx, make sure to have 'proxy_set_header X-Forwarded-Proto $scheme;' in config
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 DEBUG = False
 
+# Use the SAML-module? Requires compiling of more requirements
+# turn off in local settings if needed
+ENABLE_SAML = True
+
 # Local settings should be defined in the file `settings_local.py`
 # It must at least contain `SECRET_KEY`
-if not os.path.isfile(os.path.dirname(__file__) + '/settings_local.py'):
+settings_local_name = os.getenv("LOCAL_SETTINGS", "settings_local")
+if not os.path.isfile(os.path.dirname(__file__) + '/' + settings_local_name + '.py'):
     raise Exception("Missing local settingsfile. See settings.py")
 
-from cyb_oko.settings_local import *
+locals().update(importlib.import_module('cyb_oko.' + settings_local_name).__dict__)
 if not 'SECRET_KEY' in locals():
     raise Exception("Missing SECRET_KEY in local settings. See settings.py");
 
 TEMPLATE_DEBUG = DEBUG
+
+if ENABLE_SAML:
+    INSTALLED_APPS += ('samlauth',)

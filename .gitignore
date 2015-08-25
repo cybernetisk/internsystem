@@ -53,12 +53,12 @@ docs/_build/
 # PyBuilder
 target/
 
+# Old files when frontend was part of backend
+node_modules/
+siteroot/static_build/
+webpack-stats.json
 
 *.iml
 .idea/
-db.sqlite3
-bower_components/
-node_modules/
-siteroot/static_build/
+db.sqlite3*
 cyb_oko/settings_local.py
-

@@ -1,0 +1,17 @@
+language: python
+python: '3.4'
+sudo: false
+env:
+- LOCAL_SETTINGS=settings_local_travis
+install:
+- pip install -r requirements.txt
+script:
+- python manage.py test
+notifications:
+  slack:
+    secure: qThWSSDhhcLDyYXmGuHYR/5P7eHNsU/xAumx85U4JoiTBP2+KcAVfhdziO0SWg18+3odXrhMQEEmj2inONj7+Ug12HGJEpNO7GdgJCnvlTI5/QnsH6vlqDjVEapRPCZpenW3oxqsBLl/wjaez1NvHtfJIUIPVNivvbjvWVvFGyk=
+deploy:
+  provider: script
+  script: scripts/deploy.sh
+  on:
+    branch: master

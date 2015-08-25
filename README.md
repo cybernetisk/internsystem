@@ -1,63 +1,116 @@
-# CYB-økonomi
-Tidligere har vi benyttet diverse regneark for å holde oversikt over prisfastsetting m.v. I 2014 ble dette utvidet til å være en komplett varekatalog over alle varene vi har, deres innkjøpspris og salgspris m.v.
+# CYBs internsystem (backend)
+Dette prosjektet tilbyr en rekke tjenester til hjelp for Cybernetisk Selskab. I hovedsak tilbyr dette prosjektet kun et API, som brukes av blant annet https://github.com/cybrairai/internsystem-frontend.
 
-Målet med dette prosjektet er å lage et bedre tilpasset system, slik at man kan ha historikk over priser, kanskje knytte det mot kassesystemet/Z-rapporter, mulighet for enklere vareopptelling med rapport til regnskap m.v.
+Tjenester prosjektet tilbyr i dag:
+* Påloggingsløsning mot Universitet i Oslo med Weblogin
+* Vare- og priskatalog for Escape, med varetellingsfunksjon, marginoversikt m.v.
+
+Tjenester det jobbes med/planlegges:
+* Ta over for [eksisterende medlemssystem](https://github.com/vegarang/medlemssystem_django)
+* Elektronisk bongsystem (i stedet for Google Spreadsheets)
+* Internliste (i stedet for tabeller i wikien)
+* Z-rapport-statistikk
+* Sentral brukerdatabase for CYB (kunne koble andre tjenester som wiki m.v. mot dette systemet, med pålogging videresendt mot UiO)
 
 ## Kort teknisk oversikt
-Django (Python 3) er backend for systemet, mens AngularJS i kombinasjon med ReactJS brukes i frontend. Kommunikasjon mellom backend og frontend er REST-basert. Django tilbyr også en innebygget admin-modul vi bruker en del.
+* Django (Python 3) er backend for systemet
+** Django tilbyr også en innebygget admin-modul vi bruker en del.
+* Tilbyr et REST-API til bruk av andre tjenester
+* I produksjon benyttes Postgres som database
+* For frontend-detaljer, se https://github.com/cybrairai/internsystem-frontend
 
-Hvert "underprosjekt" har sin egen mappe, og "frontend-wrapper" er et eget prosjekt i mappen `siteroot` som er template og fellesting for frontend.
+Hvert "underprosjekt" har sin egen mappe. Et spesialprosjekt `core` har felles modeller som brukes av flere prosjekter.
 
 Det brukes en del hjelpeprogrammer/verktøy, se resten av README for mer info.
 
 ## Sette opp systemet
+For å forenkle oppsett er det laget et eget script som gjør alle nødvendige operasjoner. Man må først hente ned filene fra Git.
 
-### Forutsetninger
-`npm` og `virtualenv` må være tilgjengelig på systemet, i tillegg til Python 3. (F.eks. `sudo apt-get install npm virtualenv python3`)
-
-### Grunnoppsett
-Sørg for at du er i mappen du ønsker å ha prosjektet, bør være tom!
 ```bash
-git clone git@github.com:cybrairai/okonomi.git .
-virtualenv -p python3 env        # virtualenv sørger for at Python-pakker er lokale for prosjektet
-source env/bin/activate          # for å "bruke" virtualenv må dette skrives
-pip install -r requirements.txt  # installerer Python-pakker
-npm install                      # installer NodeJS-moduler (hjelpeverktøy) fra package.json
+mkdir internsystem && cd internsystem # endre mappe om ønskelig
+git clone git@github.com:cybrairai/internsystem.git .
+./scripts/setup_dev.sh
 ```
 
-For å kunne kjøre NodeJS-modulene, åpne `env/bin/activiate` og rediger linjen med `PATH=` til:
-`PATH="$VIRTUAL_ENV/bin:$VIRTUAL_ENV/../node_modules/.bin:$PATH"`
+Scriptet gjør følgende:
+* Installerer systempakker (virtualenv, python, m.v.) - derfor den spør om sudo passord
+* Setter opp virtualenv ved hjelp av virtuelenvwrapper
+* Installerer Python-pakker
+* Setter opp lokale innstillinger for applikasjonen
+* Migrerer databasen (standard vil bruke lokal sqqlite-database)
+* Starter utviklerserveren for backend (Ctrl+C for å avslutte)
 
-Hvis ønskelig, rediger databaseinnstillinger i `settings_local.py` før du fortsetter.
+Man bør også lage en superbruker for å kunne logge inn:
 
 ```bash
-bower install       # installerer angular, jquery m.v.
-./manage.py migrate # initialiserer databasen
+./manage.py createsuperuser # husk at du må ha aktivert virtualenv!
 ```
 
-### Kjøre testserver
+Det kan også hentes inn demodata for at applikasjonen blir litt mer praktisk å teste lokalt:
+
 ```bash
-gulp                  # frontend "build"
+./manage.py loaddata semester varer events
+```
+
+### Bruke virtualenv
+Pakken `virtualenvwrapper` installeres globalt, noe som gjør bruk av virtualenv veldig enkelt.
+Som standard settes det opp et miljø som heter `internsystem`.
+
+For å aktivere virtualenv og få tilgang til Python-pakkene for internsystemet skrives følgende:
+
+```bash
+workon internsystem
+```
+
+Det skal da stå `(internsystem)` i terminalen.
+
+### Avanserte innstillinger
+For å f.eks. sette opp en annen database (f.eks. Postgres), må dette settes opp i `cyb_oko/settings_local.py`.
+
+### Utvikling
+
+#### Kjøre testserver
+```bash
+workon internsystem
 ./manage.py migrate   # migrer database (trenger kun kjøres hvis det er gjort endringer i databaseskjemaer)
 ./manage.py runserver
+#./manage.py runserver 0.0.0.0:8000 # example for allowing connections from others than local
 ```
 
-### Utviklingstips
-Hver gang noe i frontend endres, må som regel `gulp` kjøres. For å forenkle dette kan man la `gulp watch` kjøre i bakgrunnen.
+#### Pålogging mot UiO-weblogin
+Hvis man ikke vil knote med weblogin, kan man også logge inn i Django-admin (`/admin/`). Da blir man logget inn på resten av siden.
+
+Alterantivt har vi også weblogin-adresse på `https://dev.internt.cyb.no`. Dette kan brukes på testserver ved å aktivere SSL samt sette dev.internt.cyb.no til 127.0.0.1 i hosts-filen. Filen `samlauth/settings.json` må i så fall endres.
+
+Som standard er ikke weblogin aktivert i internsystemet. Dette aktiveres ved å kjøre `scripts/setup_saml.sh`-scriptet og aktivere SAML-støtte i den lokale innstilingsfilen (`settings_local.py`).
 
 ## Produksjonsserver
-Vi har en droplet hos Digital Ocean som kjører systemet i produksjon. Den kjører `gunicorn` i kombinasjon med `nginx` for å kjøre Django-applikasjonen over port 80.
+Vi har en [droplet hos Digital Ocean](https://confluence.cyb.no/display/AKTIV/Servere) som kjører systemet i produksjon. Den kjører `gunicorn` i kombinasjon med `nginx` for å kjøre Django-applikasjonen over port 80.
 
-http://cyb.hsw.no/
+https://internt.cyb.no/
 
 Prosjektet ligger i `~django/django_project`. For å komme inn på serveren brukes SSH-nøkler, så har du ikke tilgang ta kontakt med en som har. Dersom det logges inn med root, husk å bytte til django-brukeren: `su django`.
 
 ### Oppdatere produksjonsserver
-Her er eksempel på prosess:
+Dette skjer automatisk ved push til master. Se `.travis.yml` og `scripts/deploy.sh` for detaljer.
+
+## Dependencies on Mac OS X
+
 ```bash
-su django # om nødvendig
-cd ~/django_project
-./deploy-production.sh
+# Install libxml and libxmlsec
+brew install libxml2 libxmlsec1
 ```
 
-Se `deploy-production.sh` for mer info. Gunicorn blir restartet når dette kjøres. Dette gjøres med `sudo` og `django`-brukeren har rettighet til å gjøre det uten passord iht. `/etc/sudoers`.
+Fix virtualenv (somehow) …
+
+```bash
+# Set include path to include libxmlsec
+export C_INCLUDE_PATH=/usr/local/Cellar/libxmlsec1/1.2.20/include/xmlsec1/
+
+# Install manual dependency not in pip
+pip install git+https://github.com/bgaifullin/python3-saml.git
+
+# Install Python dependencies from pip
+pip install -r requirements.txt
+```
+Do other stuff …

@@ -54,9 +54,25 @@ class SalgsvarePrisViewSet(viewsets.ModelViewSet):
     queryset = SalgsvarePris.objects.all()
     serializer_class = SalgsvarePrisSerializer
 
+
 class SalgskalkyleViewSet(viewsets.ModelViewSet):
-    queryset = Salgskalkyle.objects.prefetch_related('varer').all()
-    serializer_class = SalgskalkyleSerializer
+    def get_queryset(self):
+        if self.action == 'list':
+            return Salgskalkyle.objects.all()
+        else:
+            return Salgskalkyle.objects\
+                .prefetch_related('salgskalkylevare_set__salgsvare__salgskonto')\
+                .prefetch_related('salgskalkylevare_set__salgsvare__raavarer')\
+                .all()
+
+    def get_serializer_class(self):
+        if self.action in ['create', 'update']:
+            return SalgskalkyleWriteSerializer
+        elif self.action == 'list':
+            return SalgskalkyleReadListSerializer
+        else:
+            return SalgskalkyleReadItemSerializer
+
 
 class SalgskalkyleVareViewSet(viewsets.ModelViewSet):
     queryset = SalgskalkyleVare.objects.all()
