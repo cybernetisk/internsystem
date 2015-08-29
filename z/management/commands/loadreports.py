@@ -203,7 +203,8 @@ class Command(BaseCommand):
         print('Map til annen vare [2]')
         action = int(input('Velg kommando: '))
         if action == 1:
-            print('Doing stuff')
+            vare.kassenavn = name
+            vare.save()
         elif action == 2:
             self.find_salgsvare()
             #self.create_mapping(vare.kassenr, name)
