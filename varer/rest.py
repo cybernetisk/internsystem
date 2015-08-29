@@ -41,6 +41,8 @@ class SalgsvareViewSet(viewsets.ModelViewSet):
         .prefetch_related('salgsvareråvare_set__raavare__priser__leverandor')\
         .all()
 
+    filter_fields = ('navn', 'kategori', 'status', 'kassenr', 'kassenavn')
+
     def get_serializer_class(self):
         if self.action in ['create', 'update']:
             return SalgsvareWriteSerializer
