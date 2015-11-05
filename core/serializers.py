@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from core.models import User, Semester
+from core.models import User, Semester, Card
 
 
 class UserSimpleGuestSerializer(serializers.ModelSerializer):
@@ -25,3 +25,9 @@ class SemesterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Semester
         fields = ('year', 'semester')
+
+class CardSerializer(serializers.ModelSerializer):
+    user = UserSimpleSerializer()
+    class Meta:
+        model = Card
+        fields = ('user', 'card_number', 'disabled', 'comment')

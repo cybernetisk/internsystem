@@ -79,3 +79,16 @@ class Semester(models.Model):
     class Meta:
         ordering = ['-year', '-semester']
         unique_together = ("semester", "year")
+
+class Card(models.Model):
+    CARD_NUMBER_REGEX = r'^\d{6}\.\d{2}\.\d{7}(\.\d)?$'
+    user = models.ForeignKey(User)
+    comment = models.CharField(max_length=20, blank=True)
+    disabled = models.BooleanField(default=False)
+    card_number = models.CharField(max_length=20, unique=True,
+        validators = [
+            validators.RegexValidator(CARD_NUMBER_REGEX, _('Enter a valid card number.'), 'invalid')
+        ])
+
+    def __str__(self):
+        return "%s - %s (%s)" % (self.user.username, self.card_number, self.comment)
