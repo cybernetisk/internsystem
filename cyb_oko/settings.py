@@ -125,6 +125,10 @@ DEBUG = False
 # turn off in local settings if needed
 ENABLE_SAML = True
 
+LOGIN_REDIRECT_URL = '/api/me'
+LOGIN_URL = '/saml/' if ENABLE_SAML else '/api-auth/login/'
+LOGOUT_URL = '/saml/sls/' if ENABLE_SAML else '/api-auth/logout/'
+
 # Local settings should be defined in the file `settings_local.py`
 # It must at least contain `SECRET_KEY`
 settings_local_name = os.getenv("LOCAL_SETTINGS", "settings_local")
