@@ -129,6 +129,15 @@ LOGIN_REDIRECT_URL = '/api/me'
 LOGIN_URL = '/saml/' if ENABLE_SAML else '/api-auth/login/'
 LOGOUT_URL = '/saml/sls/' if ENABLE_SAML else '/api-auth/logout/'
 
+OAUTH2_PROVIDER = {
+    'SCOPES': {
+        'none': 'Read-only access to user details',
+        'vouchers': 'Access to modify vouchers',
+        'members': 'Access to modify the member register',
+        'all': 'Access to all resources the user have access to',
+    },
+}
+
 # Local settings should be defined in the file `settings_local.py`
 # It must at least contain `SECRET_KEY`
 settings_local_name = os.getenv("LOCAL_SETTINGS", "settings_local")
