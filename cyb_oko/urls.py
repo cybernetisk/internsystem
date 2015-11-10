@@ -39,6 +39,7 @@ urlpatterns += [
     url(r'^api/', include(router.shared_router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^o/', include('oauth2_provider.urls', namespace='oauth2_provider')),
 ]
 
 urlpatterns += core_urlpatterns

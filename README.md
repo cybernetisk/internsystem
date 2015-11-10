@@ -84,6 +84,19 @@ Alterantivt har vi også weblogin-adresse på `https://dev.internt.cyb.no`. Dett
 
 Som standard er ikke weblogin aktivert i internsystemet. Dette aktiveres ved å kjøre `scripts/setup_saml.sh`-scriptet og aktivere SAML-støtte i den lokale innstilingsfilen (`settings_local.py`).
 
+## Autentisering mot API
+Vi benytter [django-oauth-toolkit](https://github.com/evonove/django-oauth-toolkit) som håndterer mye av autentiseringen
+ved bruk av API-et. Dette brukes imidlertid ikke på frontend-versjonen av internsia, som bruker vanlige sessions.
+
+Man er nødt til å opprette en såkalt applikasjon, f.eks. via http://localhost:8000/o/applications/, hvor man så
+må bruke client_id for å faktisk kunne bruke autentiseringstjenesten. En applikasjon vil f.eks. være en mobilapp.
+
+Nyttige ressurser:
+* http://django-oauth-toolkit.readthedocs.org/en/latest/rest-framework/getting_started.html
+* http://oauthlib.readthedocs.org/en/latest/oauth2/grants/grants.html
+* http://requests-oauthlib.readthedocs.org/en/latest/oauth2_workflow.html
+* `client_secret` skal aldri publiseres noe sted eller brukes på en webapp/mobilapp.
+
 ## Produksjonsserver
 Vi har en [droplet hos Digital Ocean](https://confluence.cyb.no/display/AKTIV/Servere) som kjører systemet i produksjon. Den kjører `gunicorn` i kombinasjon med `nginx` for å kjøre Django-applikasjonen over port 80.
 
