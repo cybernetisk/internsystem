@@ -11,6 +11,10 @@ git pull origin master
 
 cd "$(dirname "$0")"/..
 
+# in case of critical error when running migration, backup database to more easily manually rollback
+mkdir -p backups
+pg_dump django >backups/db.backup.$(date +%Y%m%d.%H%M%S).sql
+
 if [ -z "$VIRTUAL_ENV" ]; then
   source env/bin/activate
 fi

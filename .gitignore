@@ -62,3 +62,4 @@ webpack-stats.json
 .idea/
 db.sqlite3*
 cyb_oko/settings_local.py
+backups/
