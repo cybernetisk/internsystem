@@ -191,7 +191,7 @@ class ZSimpleParser(object):
             return
 
         elm = ProductTotal()
-        elm.id = m.group(2)
+        elm.id = int(m.group(2))
         elm.title = m.group(3).strip()
         elm.count = int(m.group(4))
         elm.amount = float(m.group(5))
