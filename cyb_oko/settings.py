@@ -30,6 +30,7 @@ INSTALLED_APPS = (
     'core',
     'varer',
     'cal',
+    'z',
 )
 
 MIDDLEWARE_CLASSES = (
