@@ -60,7 +60,7 @@ class Command(BaseCommand):
                 accounts = Konto.objects.all()
 
                 print()
-                print('Unknown product: %s' % product.title)
+                print('Unknown product: %s (number %d)' % (product.title, product.id))
                 print('Account list:')
 
                 for idx, account in enumerate(accounts):
