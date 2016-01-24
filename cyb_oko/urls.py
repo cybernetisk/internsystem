@@ -10,7 +10,7 @@ if settings.ENABLE_SAML:
 
 from core.urls import urlpatterns as core_urlpatterns
 import cal.urls  # do not remove, needed to load API-urls
-import voucher.urls # do not remove, needed to load API-urls
+import voucher.urls  # do not remove, needed to load API-urls
 
 from core.utils import SharedAPIRootRouter
 

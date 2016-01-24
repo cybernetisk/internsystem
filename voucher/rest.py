@@ -1,5 +1,4 @@
 from rest_framework import viewsets
-from rest_framework import filters
 from rest_framework import exceptions
 from rest_framework import generics
 from rest_framework import status
@@ -14,9 +13,11 @@ from core.models import Card
 from core.serializers import CardSerializer
 from core.utils import get_semester
 
+
 class UserFromCard(generics.RetrieveAPIView):
     def retrieve(request, *args, **kwargs):
         raise exceptions.NotAuthenticated()
+
 
 class CardViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = CardSerializer
@@ -27,8 +28,9 @@ class CardViewSet(viewsets.ReadOnlyModelViewSet):
 
         if cardnum is not None:
             queryset = queryset.filter(card_number=cardnum)
-        
+
         return queryset
+
 
 class VoucherWalletViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = VoucherWalletSerializer
@@ -50,6 +52,7 @@ class VoucherWalletViewSet(viewsets.ReadOnlyModelViewSet):
             queryset = queryset.filter(user__username=username)
 
         return queryset
+
 
 class VoucherViewSet(viewsets.GenericViewSet):
     serializer_class = VoucherSerializer
@@ -77,16 +80,16 @@ class VoucherViewSet(viewsets.GenericViewSet):
         vouchers_used = 0
         vouchers_to_spend = data.data['vouchers']
 
-        if vouchers_to_spend <= 0: 
+        if vouchers_to_spend <= 0:
             return Response({'error': _('Vouchers must be positive')}, status=status.HTTP_400_BAD_REQUEST)
 
         for w in wallets:
-            if vouchers_to_spend == 0: 
+            if vouchers_to_spend == 0:
                 break
 
             w.calculate_balance()
 
-            new_log_entry = VoucherUseLog(wallet=w, 
+            new_log_entry = VoucherUseLog(wallet=w,
                                           comment=data.data['comment'],
                                           vouchers=min(vouchers_to_spend, w.cached_balance))
 
@@ -101,17 +104,7 @@ class VoucherViewSet(viewsets.GenericViewSet):
 
         return Response(
             {
-                'status': 'ok', 
+                'status': 'ok',
                 'transactions': [VoucherUseLogSerializer(p).data for p in pending_transactions]
             }
         )
-
-
-
-
-
-
-
-
-
-

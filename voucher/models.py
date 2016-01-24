@@ -1,11 +1,11 @@
 from django.db import models, transaction
 from django.db.models import Sum
 from core.models import User, Card, Semester
-from django.utils import timezone
 from decimal import Decimal
 
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
+
 
 class VoucherWallet(models.Model):
     user = models.ForeignKey(User)
@@ -23,7 +23,8 @@ class VoucherWallet(models.Model):
         return self.cached_balance
 
     def __str__(self):
-        return str(self.user)+" ("+str(self.semester)+")"
+        return str(self.user) + " (" + str(self.semester) + ")"
+
 
 class WorkLog(models.Model):
     wallet = models.ForeignKey(VoucherWallet)
@@ -36,7 +37,7 @@ class WorkLog(models.Model):
     comment = models.CharField(max_length=100)
 
     def __str__(self):
-        return str(self.wallet)+" "+str(self.date_worked)+" "+str(self.hours)+" hours"
+        return str(self.wallet) + " " + str(self.date_worked) + " " + str(self.hours) + " hours"
 
     def clean(self):
         if self.hours <= 0:
@@ -67,5 +68,3 @@ class VoucherUseLog(models.Model):
 
     def __str__(self):
         return "%s - %s at %s (%s)" % (self.wallet, self.vouchers, self.date_spent, self.comment)
-
-
