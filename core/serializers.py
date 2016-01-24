@@ -24,7 +24,7 @@ class UserExtendedSerializer(serializers.ModelSerializer):
 class SemesterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Semester
-        fields = ('year', 'semester')
+        fields = ('id', 'year', 'semester')
 
 class CardSerializer(serializers.ModelSerializer):
     user = UserSimpleSerializer()
