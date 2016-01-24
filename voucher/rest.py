@@ -54,7 +54,7 @@ class VoucherWalletViewSet(viewsets.ReadOnlyModelViewSet):
         return queryset
 
 
-class VoucherViewSet(viewsets.GenericViewSet):
+class VoucherUserViewSet(viewsets.GenericViewSet):
     serializer_class = VoucherSerializer
     queryset = User.objects.all()
 
@@ -67,7 +67,7 @@ class VoucherViewSet(viewsets.GenericViewSet):
         return semesters
 
     @detail_route(methods=['post'])
-    def use_vouchers(self, request, pk=None):
+    def use_vouchers(self, request):
         user = self.get_object()
         wallets = VoucherWallet.objects.filter(user=user, semester__in=self.get_valid_semesters()).order_by('semester')
         pending_transactions = []
