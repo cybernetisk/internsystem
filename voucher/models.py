@@ -34,7 +34,7 @@ class WorkLog(models.Model):
     hours = models.DecimalField(max_digits=8, decimal_places=1)
     vouchers = models.DecimalField(max_digits=8, decimal_places=2)
     issuing_user = models.ForeignKey(User)
-    comment = models.CharField(max_length=100)
+    comment = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
         return str(self.wallet) + " " + str(self.date_worked) + " " + str(self.hours) + " hours"
@@ -51,10 +51,11 @@ class WorkLog(models.Model):
             super(WorkLog, self).save(*args, **kwargs)
             self.wallet.calculate_balance()
 
+
 class VoucherUseLog(models.Model):
     wallet = models.ForeignKey(VoucherWallet)
     date_spent = models.DateTimeField(auto_now_add=True)
-    comment = models.CharField(max_length=100)
+    comment = models.CharField(max_length=100, null=True, blank=True)
     vouchers = models.IntegerField()
 
     def save(self, *args, **kwargs):
