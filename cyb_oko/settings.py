@@ -99,7 +99,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # where settings.json is located for SAML-package
-SAML_FOLDER = os.path.join(BASE_DIR, 'samlauth')
+SAML_FOLDER = os.path.join(BASE_DIR, 'samlauth', 'dev')
 
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticatedOrReadOnly',),
