@@ -27,23 +27,27 @@ class VoucherWallet(models.Model):
 
 
 class WorkLog(models.Model):
+    DEFAULT_VOUCHERS_PER_HOUR = 0.5
+
     wallet = models.ForeignKey(VoucherWallet)
     date_issued = models.DateTimeField(auto_now_add=True)
     date_worked = models.DateField()
     work_group = models.CharField(max_length=20)
-    hours = models.DecimalField(max_digits=8, decimal_places=1)
-    vouchers = models.DecimalField(max_digits=8, decimal_places=2)
+    hours = models.DecimalField(max_digits=8, decimal_places=2)
+    vouchers = models.DecimalField(max_digits=8, decimal_places=2, blank=True)
     issuing_user = models.ForeignKey(User)
     comment = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
-        return str(self.wallet) + " " + str(self.date_worked) + " " + str(self.hours) + " hours"
+        return '%s %s %s hours' % (self.wallet, self.date_worked, self.hours)
 
     def clean(self):
         if self.hours <= 0:
             raise ValidationError({'hours': _("Hours must be positive")})
 
-        if self.vouchers <= 0:
+        if self.vouchers is None:
+            self.vouchers = round(self.hours * self.DEFAULT_VOUCHERS_PER_HOUR, 2)
+        elif self.vouchers <= 0:
             raise ValidationError({'vouchers': _("Vouchers must be positive")})
 
     def save(self, *args, **kwargs):
@@ -68,4 +72,5 @@ class VoucherUseLog(models.Model):
             raise ValidationError({'vouchers': _('Vouchers must be a positive whole number')})
 
     def __str__(self):
-        return "%s - %s at %s (%s)" % (self.wallet, self.vouchers, self.date_spent, self.comment)
+        comment = ' (%s)' % self.comment if self.comment else ''
+        return "%s - %s at %s%s" % (self.wallet, self.vouchers, self.date_spent.strftime('%Y-%m-%d %H:%M'), comment)
