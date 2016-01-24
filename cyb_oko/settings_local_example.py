@@ -1,3 +1,5 @@
+import os
+
 # this should be unique
 SECRET_KEY = 'edit-me'
 
