@@ -83,6 +83,7 @@ class Salgsvare(models.Model):
     salgskonto = models.ForeignKey(Konto, related_name='salgsvarer')
     status = models.CharField(max_length=10, choices=Råvare.STATUS_CHOICES, default='OK')
     kassenr = models.PositiveSmallIntegerField(help_text="Nr i varekatalog i kassa", null=True, blank=True)
+    kassenavn = models.CharField(max_length=15, help_text="Navn i varekatalog i kassa", null=True, blank=True)
     raavarer = models.ManyToManyField(Råvare, through='varer.SalgsvareRåvare', related_name='salgsvarer')
 
     class Meta:
