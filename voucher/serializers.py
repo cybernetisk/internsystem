@@ -18,10 +18,16 @@ class VoucherUseLogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = VoucherUseLog
-        fields = ('wallet', 'date_spent', 'comment', 'vouchers',)
+        fields = ('id', 'wallet', 'date_spent', 'comment', 'vouchers',)
 
 
-class VoucherSerializer(serializers.Serializer):
+class WorkLogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WorkLog
+        fields = ('id', 'date_issued', 'date_worked', 'work_group', 'hours', 'vouchers', 'issuing_user', 'comment',)
+
+
+class UseVouchersSerializer(serializers.Serializer):
     vouchers = serializers.IntegerField()
     comment = serializers.CharField()
 

@@ -36,6 +36,8 @@ class CardViewSet(viewsets.ReadOnlyModelViewSet):
 class VoucherWalletViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = VoucherWalletSerializer
 
+    filter_fields = ('semester',)
+
     def get_queryset(self):
         cardnum = self.request.query_params.get('cardnum', None)
         username = self.request.query_params.get('username', None)
@@ -74,7 +76,7 @@ class VoucherWalletViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class VoucherUserViewSet(viewsets.GenericViewSet):
-    serializer_class = VoucherSerializer
+    serializer_class = UseVouchersSerializer
     queryset = User.objects.all()
 
     def get_valid_semesters(self):
@@ -91,7 +93,7 @@ class VoucherUserViewSet(viewsets.GenericViewSet):
         wallets = VoucherWallet.objects.filter(user=user, semester__in=self.get_valid_semesters()).order_by('semester')
         pending_transactions = []
 
-        data = VoucherSerializer(data=request.data)
+        data = UseVouchersSerializer(data=request.data)
 
         if not data.is_valid():
             return Response(data.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -127,3 +129,13 @@ class VoucherUserViewSet(viewsets.GenericViewSet):
                 'transactions': [VoucherUseLogSerializer(p).data for p in pending_transactions]
             }
         )
+
+
+class WorkLogViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = WorkLogSerializer
+    queryset = WorkLog.objects.all()
+
+
+class UseLogViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = VoucherUseLogSerializer
+    queryset = VoucherUseLog.objects.all()
