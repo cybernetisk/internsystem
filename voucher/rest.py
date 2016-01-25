@@ -2,10 +2,11 @@ from rest_framework import viewsets
 from rest_framework import exceptions
 from rest_framework import generics
 from rest_framework import status
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
 from datetime import datetime
 from django.utils.translation import ugettext_lazy as _
+from django.db.models import Sum, Count
 
 from voucher.serializers import *
 from voucher.models import *
@@ -52,6 +53,24 @@ class VoucherWalletViewSet(viewsets.ReadOnlyModelViewSet):
             queryset = queryset.filter(user__username=username)
 
         return queryset
+
+    @list_route(methods=['get'])
+    def stats(self, request):
+        queryset = self.get_queryset() \
+            .values('semester') \
+            .annotate(sum_balance=Sum('cached_balance'), count_users=Count('user'))
+
+        semesters = {}
+        for semester in Semester.objects.all():
+            semesters[semester.id] = semester
+
+        data = []
+        for sem in queryset:
+            sem['semester'] = semesters[sem['semester']]
+            data.append(sem)
+
+        serializer = WalletStatsSerializer(data, many=True)
+        return Response(serializer.data)
 
 
 class VoucherUserViewSet(viewsets.GenericViewSet):

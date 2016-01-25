@@ -24,3 +24,9 @@ class VoucherUseLogSerializer(serializers.ModelSerializer):
 class VoucherSerializer(serializers.Serializer):
     vouchers = serializers.IntegerField()
     comment = serializers.CharField()
+
+
+class WalletStatsSerializer(serializers.Serializer):
+    semester = SemesterSerializer()
+    sum_balance = serializers.DecimalField(max_digits=8, decimal_places=2)
+    count_users = serializers.IntegerField()
