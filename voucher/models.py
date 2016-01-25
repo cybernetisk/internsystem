@@ -38,6 +38,9 @@ class WorkLog(models.Model):
     issuing_user = models.ForeignKey(User)
     comment = models.CharField(max_length=100, null=True, blank=True)
 
+    class Meta:
+        ordering = ['-date_issued']
+
     def __str__(self):
         return '%s %s %s hours' % (self.wallet, self.date_worked, self.hours)
 
@@ -61,6 +64,9 @@ class VoucherUseLog(models.Model):
     date_spent = models.DateTimeField(auto_now_add=True)
     comment = models.CharField(max_length=100, null=True, blank=True)
     vouchers = models.IntegerField()
+
+    class Meta:
+        ordering = ['-date_spent']
 
     def save(self, *args, **kwargs):
         with transaction.atomic():
