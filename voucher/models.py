@@ -46,7 +46,7 @@ class WorkLog(models.Model):
             raise ValidationError({'hours': _("Hours must be positive")})
 
         if self.vouchers is None:
-            self.vouchers = round(self.hours * self.DEFAULT_VOUCHERS_PER_HOUR, 2)
+            self.vouchers = round(float(self.hours) * self.DEFAULT_VOUCHERS_PER_HOUR, 2)
         elif self.vouchers <= 0:
             raise ValidationError({'vouchers': _("Vouchers must be positive")})
 
