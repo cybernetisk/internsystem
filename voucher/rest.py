@@ -82,6 +82,7 @@ class VoucherWalletViewSet(viewsets.ReadOnlyModelViewSet):
 class VoucherUserViewSet(viewsets.GenericViewSet):
     serializer_class = UseVouchersSerializer
     queryset = User.objects.all()
+    lookup_field = 'username'
 
     def get_valid_semesters(self):
         semesters = []
@@ -92,7 +93,7 @@ class VoucherUserViewSet(viewsets.GenericViewSet):
         return semesters
 
     @detail_route(methods=['post'])
-    def use_vouchers(self, request):
+    def use_vouchers(self, request, username=None):
         user = self.get_object()
         wallets = VoucherWallet.objects.filter(user=user, semester__in=self.get_valid_semesters()).order_by('semester')
         pending_transactions = []
@@ -102,21 +103,24 @@ class VoucherUserViewSet(viewsets.GenericViewSet):
         if not data.is_valid():
             return Response(data.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        vouchers_used = 0
         vouchers_to_spend = data.data['vouchers']
 
         if vouchers_to_spend <= 0:
             return Response({'error': _('Vouchers must be positive')}, status=status.HTTP_400_BAD_REQUEST)
 
-        for w in wallets:
+        # we are in a risk of a race condition if multiple requests occur at the same time
+        # leaving a negative balance - but the risk is low and it is not critical, so we have
+        # not tried to properly solve it
+        for wallet in wallets:
             if vouchers_to_spend == 0:
                 break
 
-            w.calculate_balance()
+            if wallet.calculate_balance() <= 0:
+                continue
 
-            new_log_entry = VoucherUseLog(wallet=w,
+            new_log_entry = VoucherUseLog(wallet=wallet,
                                           comment=data.data['comment'],
-                                          vouchers=min(vouchers_to_spend, w.cached_balance))
+                                          vouchers=min(vouchers_to_spend, wallet.cached_balance))
 
             vouchers_to_spend -= new_log_entry.vouchers
             pending_transactions.append(new_log_entry)
