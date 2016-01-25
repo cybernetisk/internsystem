@@ -58,24 +58,39 @@ class VoucherWalletViewSet(viewsets.ReadOnlyModelViewSet):
 
     @list_route(methods=['get'])
     def stats(self, request):
-        queryset = self.get_queryset() \
+        # pull stuff from main table
+        wallets1 = self.get_queryset() \
             .values('semester') \
             .annotate(sum_balance=Sum('cached_balance'),
-                      count_users=Count('user'),
-                      sum_hours=Sum('worklogs__hours'),
-                      sum_vouchers=Sum('worklogs__vouchers'),
-                      sum_vouchers_used=Sum('uselogs__vouchers'))
+                      count_users=Count('user', distinct=True))
+
+        # pull stuff from worklogs
+        wallets2 = self.get_queryset() \
+            .values('semester') \
+            .annotate(sum_hours=Sum('worklogs__hours'),
+                      sum_vouchers=Sum('worklogs__vouchers'))
+
+        # pull stuff from uselogs
+        wallets3 = self.get_queryset() \
+            .values('semester') \
+            .annotate(sum_vouchers_used=Sum('uselogs__vouchers'))
 
         semesters = {}
         for semester in Semester.objects.all():
             semesters[semester.id] = semester
 
-        data = []
-        for sem in queryset:
-            sem['semester'] = semesters[sem['semester']]
-            data.append(sem)
+        data = {}
+        for row in wallets1:
+            row['semester'] = semesters[row['semester']]
+            data[row['semester'].id] = row
+        for row in wallets2:
+            row['semester'] = semesters[row['semester']]
+            data[row['semester'].id].update(row)
+        for row in wallets3:
+            row['semester'] = semesters[row['semester']]
+            data[row['semester'].id].update(row)
 
-        serializer = WalletStatsSerializer(data, many=True)
+        serializer = WalletStatsSerializer(data.values(), many=True)
         return Response(serializer.data)
 
 
