@@ -22,9 +22,12 @@ class VoucherUseLogSerializer(serializers.ModelSerializer):
 
 
 class WorkLogSerializer(serializers.ModelSerializer):
+    wallet = VoucherWalletSerializer()
+
     class Meta:
         model = WorkLog
-        fields = ('id', 'date_issued', 'date_worked', 'work_group', 'hours', 'vouchers', 'issuing_user', 'comment',)
+        fields = ('id', 'wallet', 'date_issued', 'date_worked', 'work_group',
+                  'hours', 'vouchers', 'issuing_user', 'comment',)
 
 
 class UseVouchersSerializer(serializers.Serializer):
