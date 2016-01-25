@@ -60,7 +60,11 @@ class VoucherWalletViewSet(viewsets.ReadOnlyModelViewSet):
     def stats(self, request):
         queryset = self.get_queryset() \
             .values('semester') \
-            .annotate(sum_balance=Sum('cached_balance'), count_users=Count('user'))
+            .annotate(sum_balance=Sum('cached_balance'),
+                      count_users=Count('user'),
+                      sum_hours=Sum('worklogs__hours'),
+                      sum_vouchers=Sum('worklogs__vouchers'),
+                      sum_vouchers_used=Sum('uselogs__vouchers'))
 
         semesters = {}
         for semester in Semester.objects.all():

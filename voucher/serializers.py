@@ -38,4 +38,7 @@ class UseVouchersSerializer(serializers.Serializer):
 class WalletStatsSerializer(serializers.Serializer):
     semester = SemesterSerializer()
     sum_balance = serializers.DecimalField(max_digits=8, decimal_places=2)
+    sum_hours = serializers.DecimalField(max_digits=8, decimal_places=2)
+    sum_vouchers = serializers.DecimalField(max_digits=8, decimal_places=2)
+    sum_vouchers_used = serializers.IntegerField()
     count_users = serializers.IntegerField()

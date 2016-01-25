@@ -29,7 +29,7 @@ class VoucherWallet(models.Model):
 class WorkLog(models.Model):
     DEFAULT_VOUCHERS_PER_HOUR = 0.5
 
-    wallet = models.ForeignKey(VoucherWallet)
+    wallet = models.ForeignKey(VoucherWallet, related_name='worklogs')
     date_issued = models.DateTimeField(auto_now_add=True)
     date_worked = models.DateField()
     work_group = models.CharField(max_length=20)
@@ -60,7 +60,7 @@ class WorkLog(models.Model):
 
 
 class VoucherUseLog(models.Model):
-    wallet = models.ForeignKey(VoucherWallet)
+    wallet = models.ForeignKey(VoucherWallet, related_name='uselogs')
     date_spent = models.DateTimeField(auto_now_add=True)
     comment = models.CharField(max_length=100, null=True, blank=True)
     vouchers = models.IntegerField()
