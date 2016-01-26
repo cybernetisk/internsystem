@@ -3,6 +3,9 @@ from django.db.models import Sum
 from core.models import User, Card, Semester
 from decimal import Decimal
 
+import calendar
+import datetime
+
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
@@ -21,6 +24,20 @@ class Wallet(models.Model):
         self.cached_balance = vouchers_earned - vouchers_used
         self.save()
         return self.cached_balance
+
+    def _is_valid(self):
+        start_month = 1 if self.semester.semester == Semester.SPRING else 7
+        end_month = 8 if self.semester.semester == Semester.SPRING else 1
+        end_year_offset = 0 if self.semester.semester == Semester.SPRING else 1
+        end_day = calendar.monthrange(self.semester.year, end_month)[1]
+
+        start = datetime.date(self.semester.year, start_month, 1)
+        end = datetime.date(self.semester.year + end_year_offset, end_month, end_day)
+
+        now = datetime.date.today()
+        return start <= now and now <= end
+
+    is_valid = property(_is_valid)
 
     def __str__(self):
         return str(self.user) + " (" + str(self.semester) + ")"

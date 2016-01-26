@@ -13,7 +13,7 @@ class WalletSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Wallet
-        fields = ('id', 'user', 'semester', 'cached_balance',)
+        fields = ('id', 'user', 'semester', 'cached_balance', 'is_valid',)
 
 
 class UseLogSerializer(serializers.ModelSerializer):
