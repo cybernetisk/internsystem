@@ -1,12 +1,12 @@
 from django.contrib import admin
-from voucher.models import VoucherWallet, WorkLog, VoucherUseLog
+from voucher.models import Wallet, WorkLog, UseLog
 
 
-class VoucherWalletAdmin(admin.ModelAdmin):
-    model = VoucherWallet
+class WalletAdmin(admin.ModelAdmin):
+    model = Wallet
     readonly_fields = ('cached_balance',)
 
 
-admin.site.register(VoucherWallet, VoucherWalletAdmin)
+admin.site.register(Wallet, WalletAdmin)
 admin.site.register(WorkLog)
-admin.site.register(VoucherUseLog)
+admin.site.register(UseLog)

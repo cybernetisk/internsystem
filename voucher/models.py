@@ -7,7 +7,7 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
 
-class VoucherWallet(models.Model):
+class Wallet(models.Model):
     user = models.ForeignKey(User)
     semester = models.ForeignKey(Semester)
     cached_balance = models.DecimalField(default=0, max_digits=8, decimal_places=2, editable=False)
@@ -17,7 +17,7 @@ class VoucherWallet(models.Model):
 
     def calculate_balance(self):
         vouchers_earned = WorkLog.objects.filter(wallet=self).aggregate(sum=Sum('vouchers'))['sum'] or Decimal(0)
-        vouchers_used = VoucherUseLog.objects.filter(wallet=self).aggregate(sum=Sum('vouchers'))['sum'] or Decimal(0)
+        vouchers_used = UseLog.objects.filter(wallet=self).aggregate(sum=Sum('vouchers'))['sum'] or Decimal(0)
         self.cached_balance = vouchers_earned - vouchers_used
         self.save()
         return self.cached_balance
@@ -29,7 +29,7 @@ class VoucherWallet(models.Model):
 class WorkLog(models.Model):
     DEFAULT_VOUCHERS_PER_HOUR = 0.5
 
-    wallet = models.ForeignKey(VoucherWallet, related_name='worklogs')
+    wallet = models.ForeignKey(Wallet, related_name='worklogs')
     date_issued = models.DateTimeField(auto_now_add=True)
     date_worked = models.DateField()
     work_group = models.CharField(max_length=20)
@@ -59,8 +59,8 @@ class WorkLog(models.Model):
             self.wallet.calculate_balance()
 
 
-class VoucherUseLog(models.Model):
-    wallet = models.ForeignKey(VoucherWallet, related_name='uselogs')
+class UseLog(models.Model):
+    wallet = models.ForeignKey(Wallet, related_name='uselogs')
     date_spent = models.DateTimeField(auto_now_add=True)
     comment = models.CharField(max_length=100, null=True, blank=True)
     vouchers = models.IntegerField()

@@ -34,8 +34,8 @@ class CardViewSet(viewsets.ReadOnlyModelViewSet):
         return queryset
 
 
-class VoucherWalletViewSet(viewsets.ReadOnlyModelViewSet):
-    serializer_class = VoucherWalletSerializer
+class WalletViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = WalletSerializer
 
     filter_fields = ('semester',)
 
@@ -43,7 +43,7 @@ class VoucherWalletViewSet(viewsets.ReadOnlyModelViewSet):
         cardnum = self.request.query_params.get('cardnum', None)
         username = self.request.query_params.get('username', None)
 
-        queryset = VoucherWallet.objects.all()
+        queryset = Wallet.objects.all()
 
         if cardnum is not None:
             cards = Card.objects.filter(card_number=cardnum)
@@ -95,7 +95,7 @@ class VoucherWalletViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data)
 
 
-class VoucherUserViewSet(viewsets.GenericViewSet):
+class UserViewSet(viewsets.GenericViewSet):
     serializer_class = UseVouchersSerializer
     queryset = User.objects.all()
     lookup_field = 'username'
@@ -112,7 +112,7 @@ class VoucherUserViewSet(viewsets.GenericViewSet):
     @detail_route(methods=['post'])
     def use_vouchers(self, request, username=None):
         user = self.get_object()
-        wallets = VoucherWallet.objects.filter(user=user, semester__in=self.get_valid_semesters()).order_by('semester')
+        wallets = Wallet.objects.filter(user=user, semester__in=self.get_valid_semesters()).order_by('semester')
         pending_transactions = []
 
         data = UseVouchersSerializer(data=request.data)
@@ -137,7 +137,7 @@ class VoucherUserViewSet(viewsets.GenericViewSet):
                 continue
 
             available_vouchers += wallet.cached_balance
-            new_log_entry = VoucherUseLog(wallet=wallet,
+            new_log_entry = UseLog(wallet=wallet,
                                           comment=data.data['comment'],
                                           vouchers=min(vouchers_to_spend, wallet.cached_balance))
 
@@ -156,7 +156,7 @@ class VoucherUserViewSet(viewsets.GenericViewSet):
         return Response(
             {
                 'status': 'ok',
-                'transactions': [VoucherUseLogSerializer(p).data for p in pending_transactions]
+                'transactions': [UseLogSerializer(p).data for p in pending_transactions]
             }
         )
 
@@ -207,7 +207,7 @@ class WorkLogViewSet(viewsets.ReadOnlyModelViewSet):
                 status=status.HTTP_406_NOT_ACCEPTABLE
             )
 
-        wallet = VoucherWallet.objects.get_or_create(user=user, semester=get_semester())[0]
+        wallet = Wallet.objects.get_or_create(user=user, semester=get_semester())[0]
 
         worklog = WorkLog(
             wallet=wallet,
@@ -224,5 +224,5 @@ class WorkLogViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class UseLogViewSet(viewsets.ReadOnlyModelViewSet):
-    serializer_class = VoucherUseLogSerializer
-    queryset = VoucherUseLog.objects.all()
+    serializer_class = UseLogSerializer
+    queryset = UseLog.objects.all()

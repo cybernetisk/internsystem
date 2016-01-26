@@ -4,20 +4,20 @@ from voucher.models import *
 from core.serializers import UserSimpleSerializer, SemesterSerializer
 
 
-class VoucherWalletSerializer(serializers.ModelSerializer):
+class WalletSerializer(serializers.ModelSerializer):
     user = UserSimpleSerializer()
     semester = SemesterSerializer()
 
     class Meta:
-        model = VoucherWallet
+        model = Wallet
         fields = ('id', 'user', 'semester', 'cached_balance',)
 
 
-class VoucherUseLogSerializer(serializers.ModelSerializer):
-    wallet = VoucherWalletSerializer()
+class UseLogSerializer(serializers.ModelSerializer):
+    wallet = WalletSerializer()
 
     class Meta:
-        model = VoucherUseLog
+        model = UseLog
         fields = ('id', 'wallet', 'date_spent', 'comment', 'vouchers',)
 
 
@@ -30,7 +30,7 @@ class WorkLogCreateSerializer(serializers.Serializer):
 
 
 class WorkLogSerializer(serializers.ModelSerializer):
-    wallet = VoucherWalletSerializer()
+    wallet = WalletSerializer()
 
     class Meta:
         model = WorkLog
