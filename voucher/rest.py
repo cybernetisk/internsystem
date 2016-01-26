@@ -5,7 +5,7 @@ from rest_framework import generics
 from rest_framework import status
 from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from datetime import datetime, date
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import Sum, Count
@@ -25,6 +25,7 @@ class UserFromCard(generics.RetrieveAPIView):
 
 class CardViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = CardSerializer
+    permission_classes = (IsAuthenticated,)
 
     def get_queryset(self):
         queryset = Card.objects.all()
