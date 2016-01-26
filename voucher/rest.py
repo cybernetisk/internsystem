@@ -4,6 +4,7 @@ from rest_framework import generics
 from rest_framework import status
 from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from datetime import datetime, date
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import Sum, Count
@@ -98,6 +99,7 @@ class VoucherUserViewSet(viewsets.GenericViewSet):
     serializer_class = UseVouchersSerializer
     queryset = User.objects.all()
     lookup_field = 'username'
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_valid_semesters(self):
         semesters = []
@@ -161,6 +163,7 @@ class VoucherUserViewSet(viewsets.GenericViewSet):
 
 class WorkLogViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = WorkLog.objects.all()
+    permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_first_valid_date(self):
         valid = date.today().replace(day=1)
