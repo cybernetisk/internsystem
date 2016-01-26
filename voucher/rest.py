@@ -18,11 +18,6 @@ from core.serializers import CardSerializer
 from core.utils import get_semester
 
 
-class UserFromCard(generics.RetrieveAPIView):
-    def retrieve(request, *args, **kwargs):
-        raise exceptions.NotAuthenticated()
-
-
 class CardViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = CardSerializer
     permission_classes = (IsAuthenticated,)
