@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from django.core import validators
+from django.utils.translation import ugettext_lazy as _
 
 from voucher.models import *
 from core.models import User
@@ -23,7 +25,12 @@ class UseLogSerializer(serializers.ModelSerializer):
 
 
 class WorkLogCreateSerializer(serializers.Serializer):
-    user = serializers.CharField()
+    user = serializers.CharField(max_length=30,
+                                 help_text=_('Required. 30 characters or fewer. Letters, digits and '
+                                             '@/./+/-/_ only.'),
+                                 validators=[
+                                     validators.RegexValidator(r'^[\w.@+-]+$', _('Enter a valid username.'), 'invalid')
+                                 ])
     date_worked = serializers.DateField()
     work_group = serializers.CharField(max_length=20)
     hours = serializers.DecimalField(max_digits=8, decimal_places=2, min_value=0.01)

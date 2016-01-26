@@ -206,7 +206,8 @@ class WorkLogViewSet(viewsets.ReadOnlyModelViewSet):
                 status=status.HTTP_406_NOT_ACCEPTABLE
             )
 
-        user = User.objects.get(username=serializer.data['user'])
+        username = serializer.data['user'].strip()
+        user = User.objects.get_or_create(username=username)[0]
         if not user:
             return Response(
                 {'error': _('User %(user)s not found') % {'user': serializer.data['user']}},
