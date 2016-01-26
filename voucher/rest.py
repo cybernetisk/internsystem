@@ -1,4 +1,5 @@
 from rest_framework import viewsets
+from rest_framework import mixins
 from rest_framework import exceptions
 from rest_framework import generics
 from rest_framework import status
@@ -95,11 +96,15 @@ class WalletViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data)
 
 
-class UserViewSet(viewsets.GenericViewSet):
-    serializer_class = UseVouchersSerializer
+class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     queryset = User.objects.all()
     lookup_field = 'username'
     permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def get_serializer_class(self):
+        if self.action in ['create']:
+            return UserCreateSerializer
+        return None
 
     def get_valid_semesters(self):
         semesters = []
@@ -138,8 +143,8 @@ class UserViewSet(viewsets.GenericViewSet):
 
             available_vouchers += wallet.cached_balance
             new_log_entry = UseLog(wallet=wallet,
-                                          comment=data.data['comment'],
-                                          vouchers=min(vouchers_to_spend, wallet.cached_balance))
+                                   comment=data.data['comment'],
+                                   vouchers=min(vouchers_to_spend, wallet.cached_balance))
 
             vouchers_to_spend -= new_log_entry.vouchers
             pending_transactions.append(new_log_entry)

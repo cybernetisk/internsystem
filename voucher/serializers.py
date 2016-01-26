@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from voucher.models import *
+from core.models import User
 from core.serializers import UserSimpleSerializer, SemesterSerializer
 
 
@@ -41,6 +42,12 @@ class WorkLogSerializer(serializers.ModelSerializer):
 class UseVouchersSerializer(serializers.Serializer):
     vouchers = serializers.IntegerField()
     comment = serializers.CharField()
+
+
+class UserCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'realname',)
 
 
 class WalletStatsSerializer(serializers.Serializer):
