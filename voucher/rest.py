@@ -207,13 +207,6 @@ class WorkLogViewSet(viewsets.ReadOnlyModelViewSet):
                 status=status.HTTP_406_NOT_ACCEPTABLE
             )
 
-        issuing_user = User.objects.get(username=serializer.data['issuing_user'])
-        if not issuing_user:
-            return Response(
-                {'error': _('User %(user)s not found') % {'user': serializer.data['issuing_user']}},
-                status=status.HTTP_406_NOT_ACCEPTABLE
-            )
-
         wallet = VoucherWallet.objects.get_or_create(user=user, semester=get_semester())[0]
 
         worklog = WorkLog(
@@ -221,7 +214,7 @@ class WorkLogViewSet(viewsets.ReadOnlyModelViewSet):
             date_worked=serializer.data['date_worked'],
             work_group=serializer.data['work_group'],
             hours=Decimal(serializer.data['hours']),
-            issuing_user=issuing_user,
+            issuing_user=request.user,
             comment=serializer.data['comment']
         )
 
