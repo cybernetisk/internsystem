@@ -9,6 +9,8 @@ from onelogin.saml2.auth import OneLogin_Saml2_Auth
 from onelogin.saml2.utils import OneLogin_Saml2_Utils
 
 from django.contrib.auth import authenticate, logout, login
+from django.utils.http import is_safe_url
+from django.shortcuts import resolve_url
 
 
 def init_saml_auth(req):
@@ -83,6 +85,9 @@ def sls(request):
 
 
 def index(request):
+    if 'sso' in request.GET:
+        return sso(request)
+
     req = prepare_django_request(request)
     auth = init_saml_auth(req)
 
@@ -91,12 +96,7 @@ def index(request):
         'not_auth_warn': False
     }
 
-    if 'sso' in req['get_data']:
-        return HttpResponseRedirect(auth.login(OneLogin_Saml2_Utils.get_self_url(req) + '/profile'))
-    #elif 'sso2' in req['get_data']:
-    #    return_to = OneLogin_Saml2_Utils.get_self_url(req) + reverse('saml_attrs')
-    #    return HttpResponseRedirect(auth.login(return_to))
-    elif 'slo' in req['get_data']:
+    if 'slo' in req['get_data']:
         name_id = None
         session_index = None
         if 'samlNameId' in request.session:
@@ -106,6 +106,18 @@ def index(request):
         return HttpResponseRedirect(auth.logout(name_id=name_id, session_index=session_index))
 
     return draw_page(request, data)
+
+
+def sso(request):
+    req = prepare_django_request(request)
+    auth = init_saml_auth(req)
+
+    # Ensure the user-originating redirection url is safe.
+    redirect_to = request.POST.get('next', request.GET.get('next', ''))
+    if not is_safe_url(url=redirect_to, host=request.get_host()):
+        redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
+
+    return HttpResponseRedirect(auth.login(redirect_to))
 
 
 def draw_page(request, data):

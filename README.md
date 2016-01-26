@@ -80,9 +80,45 @@ workon internsystem
 #### Pålogging mot UiO-weblogin
 Hvis man ikke vil knote med weblogin, kan man også logge inn i Django-admin (`/admin/`). Da blir man logget inn på resten av siden.
 
-Alterantivt har vi også weblogin-adresse på `https://dev.internt.cyb.no`. Dette kan brukes på testserver ved å aktivere SSL samt sette dev.internt.cyb.no til 127.0.0.1 i hosts-filen. Filen `samlauth/settings.json` må i så fall endres.
+Alternativt har vi også weblogin-adresse på `https://dev.internt.cyb.no`. Dette kan brukes på testserver ved å aktivere
+SSL samt sette dev.internt.cyb.no til 127.0.0.1 i hosts-filen. Filen `samlauth/settings.json` må i så fall endres, slik
+at ting peker til `dev.internt.cyb.no`.
+
+Se også [`scripts/connect_dev.sh`](scripts/connect_dev.sh) for å bruke den reelle `dev.internt.cyb.no`-hosten og
+sende trafikk mot https videre over tunnell til lokal devinstans. På `dev.internt.cyb.no` blir port 443 redirected
+til `localhost:8000` uten TLS på samme server.
 
 Som standard er ikke weblogin aktivert i internsystemet. Dette aktiveres ved å kjøre `scripts/setup_saml.sh`-scriptet og aktivere SAML-støtte i den lokale innstilingsfilen (`settings_local.py`).
+
+## Autentisering mot API
+Vi benytter [django-oauth-toolkit](https://github.com/evonove/django-oauth-toolkit) som håndterer mye av autentiseringen
+ved bruk av API-et. Dette brukes imidlertid ikke på frontend-versjonen av internsia, som bruker vanlige sessions.
+
+Man er nødt til å opprette en såkalt applikasjon, f.eks. via http://localhost:8000/o/applications/, hvor man så
+må bruke client_id for å faktisk kunne bruke autentiseringstjenesten. En applikasjon vil f.eks. være en mobilapp.
+
+Nyttige ressurser:
+* http://django-oauth-toolkit.readthedocs.org/en/latest/rest-framework/getting_started.html
+* http://oauthlib.readthedocs.org/en/latest/oauth2/grants/grants.html
+* http://requests-oauthlib.readthedocs.org/en/latest/oauth2_workflow.html
+* https://tools.ietf.org/html/rfc6749
+* `client_secret` skal aldri publiseres noe sted eller brukes på en webapp/mobilapp.
+
+### Autentisering på eget utstyr, f.eks. kortlesere
+For f.eks. fysisk utstyr som bruker internsia som API benyttes grant typen `password` (Resource Owner Password
+Credentials Grant), i kombinasjon med brukere som opprettes spesifikt for utstyret. På denne måten får man
+autentisert (siden man da har en client_id), og får korrekte rettigheter/tilganger (siden man autentiserer
+en bestemt bruker).
+
+Eksempel:
+
+`curl -X POST -d "grant_type=password&username=<username>&password=<pass>" -u"<client_id>:<client_secret>" https://dev.internt.cyb.no/o/token/`
+
+Man mottar da en access token og refresh token som tas vare på. I praksis kan man generere dette en gang for
+deretter å f.eks. fjerne passordet på systembrukeren. client_id, client_secret og access/refresh token legges med 
+andre ord inn i systemet som bruker API-et.
+
+Dersom `client type` settes til `public` er ikke `client_secret` nødvendig.
 
 ## Produksjonsserver
 Vi har en [droplet hos Digital Ocean](https://confluence.cyb.no/display/AKTIV/Servere) som kjører systemet i produksjon. Den kjører `gunicorn` i kombinasjon med `nginx` for å kjøre Django-applikasjonen over port 80.
