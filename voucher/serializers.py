@@ -39,9 +39,11 @@ class WorkLogSerializer(serializers.ModelSerializer):
                   'hours', 'vouchers', 'issuing_user', 'comment',)
 
 
-class UseVouchersSerializer(serializers.Serializer):
-    vouchers = serializers.IntegerField()
-    comment = serializers.CharField()
+class UseVouchersSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UseLog
+        fields = ('vouchers', 'comment',)
+        extra_kwargs = {'comment': {'default': None}}
 
 
 class UserCreateSerializer(serializers.ModelSerializer):
