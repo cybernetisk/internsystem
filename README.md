@@ -105,15 +105,20 @@ Nyttige ressurser:
 * `client_secret` skal aldri publiseres noe sted eller brukes på en webapp/mobilapp.
 
 ### Autentisering på eget utstyr, f.eks. kortlesere
-For f.eks. fysisk utstyr som bruker internsia som API benyttes grant typen `client_credentials`.
+For f.eks. fysisk utstyr som bruker internsia som API benyttes grant typen `password` (Resource Owner Password
+Credentials Grant), i kombinasjon med brukere som opprettes spesifikt for utstyret. På denne måten får man
+autentisert (siden man da har en client_id), og får korrekte rettigheter/tilganger (siden man autentiserer
+en bestemt bruker).
 
 Eksempel:
 
-`curl -X POST -d "grant_type=client_credentials" -u"<client_id>:<client_secret>" https://dev.internt.cyb.no/o/token/`
+`curl -X POST -d "grant_type=password&username=<username>&password=<pass>" -u"<client_id>:<client_secret>" https://dev.internt.cyb.no/o/token/`
 
-Man mottar da en access token som gir tilgang uten å være koblet til noen bruker i systemet. client_id og
-client_secret legges med andre ord inn i systemet som trenger access_token slik at systemet kan be om
-access_token når den trenger det.
+Man mottar da en access token og refresh token som tas vare på. I praksis kan man generere dette en gang for
+deretter å f.eks. fjerne passordet på systembrukeren. client_id, client_secret og access/refresh token legges med 
+andre ord inn i systemet som bruker API-et.
+
+Dersom `client type` settes til `public` er ikke `client_secret` nødvendig.
 
 ## Produksjonsserver
 Vi har en [droplet hos Digital Ocean](https://confluence.cyb.no/display/AKTIV/Servere) som kjører systemet i produksjon. Den kjører `gunicorn` i kombinasjon med `nginx` for å kjøre Django-applikasjonen over port 80.
