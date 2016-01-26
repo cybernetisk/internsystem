@@ -21,6 +21,15 @@ class VoucherUseLogSerializer(serializers.ModelSerializer):
         fields = ('id', 'wallet', 'date_spent', 'comment', 'vouchers',)
 
 
+class WorkLogCreateSerializer(serializers.Serializer):
+    user = serializers.CharField()
+    date_worked = serializers.DateField()
+    work_group = serializers.CharField(max_length=20)
+    hours = serializers.DecimalField(max_digits=8, decimal_places=2, min_value=0.01)
+    issuing_user = serializers.CharField()
+    comment = serializers.CharField(max_length=100, required=False)
+
+
 class WorkLogSerializer(serializers.ModelSerializer):
     wallet = VoucherWalletSerializer()
 

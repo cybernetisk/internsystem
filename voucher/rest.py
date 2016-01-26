@@ -4,7 +4,7 @@ from rest_framework import generics
 from rest_framework import status
 from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
-from datetime import datetime
+from datetime import datetime, date
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import Sum, Count
 
@@ -126,6 +126,7 @@ class VoucherUserViewSet(viewsets.GenericViewSet):
         # we are in a risk of a race condition if multiple requests occur at the same time
         # leaving a negative balance - but the risk is low and it is not critical, so we have
         # not tried to properly solve it
+        available_vouchers = 0
         for wallet in wallets:
             if vouchers_to_spend == 0:
                 break
@@ -133,6 +134,7 @@ class VoucherUserViewSet(viewsets.GenericViewSet):
             if wallet.calculate_balance() <= 0:
                 continue
 
+            available_vouchers += wallet.cached_balance
             new_log_entry = VoucherUseLog(wallet=wallet,
                                           comment=data.data['comment'],
                                           vouchers=min(vouchers_to_spend, wallet.cached_balance))
@@ -141,7 +143,10 @@ class VoucherUserViewSet(viewsets.GenericViewSet):
             pending_transactions.append(new_log_entry)
 
         if vouchers_to_spend != 0:
-            return Response({'error': _('User does not have enough vouchers')}, status=status.HTTP_402_PAYMENT_REQUIRED)
+            return Response(
+                {'error': _('User does not have enough vouchers. Currently having %d available.' % available_vouchers)},
+                status=status.HTTP_402_PAYMENT_REQUIRED
+            )
 
         for p in pending_transactions:
             p.save()
@@ -155,8 +160,71 @@ class VoucherUserViewSet(viewsets.GenericViewSet):
 
 
 class WorkLogViewSet(viewsets.ReadOnlyModelViewSet):
-    serializer_class = WorkLogSerializer
     queryset = WorkLog.objects.all()
+
+    def get_first_valid_date(self):
+        valid = date.today().replace(day=1)
+
+        if valid.month <= 1:
+            valid = valid.replace(year=valid.year - 1)
+            valid = valid.replace(month=7)
+        elif valid.month <= 8:
+            valid = valid.replace(month=1)
+        else:
+            valid = valid.replace(month=7)
+
+        return valid
+
+    def get_serializer_class(self):
+        if self.action in ['create']:
+            return WorkLogCreateSerializer
+        else:
+            return WorkLogSerializer
+
+    def create(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        date = datetime.strptime(serializer.data['date_worked'], '%Y-%m-%d').date()
+        if date < self.get_first_valid_date():
+            return Response(
+                {'error': _('Date %(date)s is too old') % {'date': serializer.data['date_worked']}},
+                status=status.HTTP_406_NOT_ACCEPTABLE
+            )
+        if date > date.today():
+            return Response(
+                {'error': _('Date %(date)s is in the future') % {'date': serializer.data['date_worked']}},
+                status=status.HTTP_406_NOT_ACCEPTABLE
+            )
+
+        user = User.objects.get(username=serializer.data['user'])
+        if not user:
+            return Response(
+                {'error': _('User %(user)s not found') % {'user': serializer.data['user']}},
+                status=status.HTTP_406_NOT_ACCEPTABLE
+            )
+
+        issuing_user = User.objects.get(username=serializer.data['issuing_user'])
+        if not issuing_user:
+            return Response(
+                {'error': _('User %(user)s not found') % {'user': serializer.data['issuing_user']}},
+                status=status.HTTP_406_NOT_ACCEPTABLE
+            )
+
+        wallet = VoucherWallet.objects.get_or_create(user=user, semester=get_semester())[0]
+
+        worklog = WorkLog(
+            wallet=wallet,
+            date_worked=serializer.data['date_worked'],
+            work_group=serializer.data['work_group'],
+            hours=Decimal(serializer.data['hours']),
+            issuing_user=issuing_user,
+            comment=serializer.data['comment']
+        )
+
+        worklog.clean()
+        worklog.save()
+        return Response(WorkLogSerializer(worklog).data, status=status.HTTP_201_CREATED)
 
 
 class UseLogViewSet(viewsets.ReadOnlyModelViewSet):
