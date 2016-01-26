@@ -7,35 +7,19 @@ from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from datetime import datetime, date
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import Sum, Count
+from decimal import Decimal
 
 from voucher.serializers import *
-from voucher.models import *
-from voucher.filters import UseLogFilter, WorkLogFilter
-from core.models import Card
-from core.utils import get_semester
+from voucher.models import Wallet, WorkLog, UseLog
+from voucher.filters import UseLogFilter, WalletFilter, WorkLogFilter
+from voucher.utils import get_valid_semesters
+from core.utils import get_semester_of_date
 
 
 class WalletViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = WalletSerializer
-    filter_fields = ('semester',)
-
-    def get_queryset(self):
-        cardnum = self.request.query_params.get('cardnum', None)
-        username = self.request.query_params.get('username', None)
-
-        queryset = Wallet.objects.prefetch_related('user', 'semester').all()
-
-        if cardnum is not None:
-            cards = Card.objects.filter(card_number=cardnum)
-            if cards.exists():
-                queryset = queryset.filter(user=cards.first().user)
-            else:
-                queryset = queryset.none()
-
-        if username is not None:
-            queryset = queryset.filter(user__username=username)
-
-        return queryset
+    filter_class = WalletFilter
+    queryset = Wallet.objects.prefetch_related('user', 'semester').all()
 
     @list_route(methods=['get'])
     def stats(self, request):
@@ -83,20 +67,12 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     def get_serializer_class(self):
         if self.action in ['create']:
             return UserCreateSerializer
-        return None
-
-    def get_valid_semesters(self):
-        semesters = []
-        now = datetime.now()
-        if now.month == 8 or now.month == 1:
-            semesters.append(get_semester(-1))
-        semesters.append(get_semester())
-        return semesters
+        return UseVouchersSerializer
 
     @detail_route(methods=['post'])
     def use_vouchers(self, request, username=None):
         user = self.get_object()
-        wallets = Wallet.objects.filter(user=user, semester__in=self.get_valid_semesters()).order_by('semester')
+        wallets = Wallet.objects.filter(user=user, semester__in=get_valid_semesters()).order_by('semester')
         pending_transactions = []
 
         data = UseVouchersSerializer(data=request.data)

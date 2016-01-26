@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.core import validators
 from django.utils.translation import ugettext_lazy as _
 
-from voucher.models import *
+from voucher.models import UseLog, Wallet, WorkLog
 from core.models import User
 from core.serializers import UserSimpleSerializer, SemesterSerializer
 
