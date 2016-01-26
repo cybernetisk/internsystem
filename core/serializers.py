@@ -26,8 +26,17 @@ class SemesterSerializer(serializers.ModelSerializer):
         model = Semester
         fields = ('id', 'year', 'semester')
 
+
 class CardSerializer(serializers.ModelSerializer):
     user = UserSimpleSerializer()
+
     class Meta:
         model = Card
-        fields = ('user', 'card_number', 'disabled', 'comment')
+        fields = ('id', 'user', 'card_number', 'disabled', 'comment')
+
+
+class CardCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Card
+        fields = ('user', 'card_number', 'comment')
+        extra_kwargs = {'comment': {'default': None}}

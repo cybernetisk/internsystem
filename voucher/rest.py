@@ -12,24 +12,43 @@ from django.db.models import Sum, Count
 
 from voucher.serializers import *
 from voucher.models import *
-from voucher.filters import UseLogFilter, WorkLogFilter
+from voucher.filters import CardFilter, UseLogFilter, WorkLogFilter
 from core.models import Card
-from core.serializers import CardSerializer
+from core.serializers import CardSerializer, CardCreateSerializer
 from core.utils import get_semester
 
 
 class CardViewSet(viewsets.ReadOnlyModelViewSet):
-    serializer_class = CardSerializer
     permission_classes = (IsAuthenticated,)
+    filter_class = CardFilter
+    queryset = Card.objects.all()
 
-    def get_queryset(self):
-        queryset = Card.objects.all()
-        cardnum = self.request.query_params.get('cardnum', None)
+    def get_serializer_class(self):
+        if self.action in ['create']:
+            return CardCreateSerializer
+        return CardSerializer
 
-        if cardnum is not None:
-            queryset = queryset.filter(card_number=cardnum)
+    def create(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
-        return queryset
+        user = User.objects.get(id=serializer.data['user'])
+        if user != request.user:
+            if not request.user.has_perm('%s.add_%s' % (Card._meta.app_label, Card._meta.model_name)):
+                self.permission_denied(request)
+
+        card = serializer.save()
+        return Response(CardSerializer(card).data, status=status.HTTP_201_CREATED)
+
+    def destroy(self, request):
+        instance = self.get_object()
+
+        if instance.user != request.user:
+            if not request.user.has_perm('%s.delete_%s' % (Card._meta.app_label, Card._meta.model_name)):
+                self.permission_denied(request)
+
+        instance.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class WalletViewSet(viewsets.ReadOnlyModelViewSet):
