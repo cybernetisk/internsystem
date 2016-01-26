@@ -127,10 +127,6 @@ DEBUG = False
 # turn off in local settings if needed
 ENABLE_SAML = True
 
-LOGIN_REDIRECT_URL = '/api/me'
-LOGIN_URL = '/saml/' if ENABLE_SAML else '/api-auth/login/'
-LOGOUT_URL = '/saml/sls/' if ENABLE_SAML else '/api-auth/logout/'
-
 OAUTH2_PROVIDER = {
     'SCOPES': {
         'none': 'Read-only access to user details',
@@ -149,6 +145,10 @@ if not os.path.isfile(os.path.dirname(__file__) + '/' + settings_local_name + '.
 locals().update(importlib.import_module('cyb_oko.' + settings_local_name).__dict__)
 if not 'SECRET_KEY' in locals():
     raise Exception("Missing SECRET_KEY in local settings. See settings.py");
+
+LOGIN_REDIRECT_URL = '/api/me'
+LOGIN_URL = '/saml/' if ENABLE_SAML else '/api-auth/login/'
+LOGOUT_URL = '/saml/sls/' if ENABLE_SAML else '/api-auth/logout/'
 
 TEMPLATE_DEBUG = DEBUG
 
