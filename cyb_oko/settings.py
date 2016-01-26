@@ -106,7 +106,9 @@ STATIC_URL = '/static/'
 SAML_FOLDER = os.path.join(BASE_DIR, 'samlauth', 'dev')
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticatedOrReadOnly',),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ),
     #'PAGINATE_BY': 10,
     'PAGINATE_BY_PARAM': 'limit',
     'DEFAULT_FILTER_BACKENDS': (
@@ -114,7 +116,11 @@ REST_FRAMEWORK = {
         'rest_framework.filters.SearchFilter',
         'rest_framework.filters.OrderingFilter',
     ),
-    'DEFAULT_PAGINATION_SERIALIZER_CLASS': 'cyb_oko.pagination.CybPaginationSerializer'
+    'DEFAULT_PAGINATION_SERIALIZER_CLASS': 'cyb_oko.pagination.CybPaginationSerializer',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.ext.rest_framework.OAuth2Authentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
 }
 
 # see https://docs.djangoproject.com/en/1.8/ref/settings/#secure-proxy-ssl-header
