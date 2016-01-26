@@ -1,14 +1,5 @@
 import django_filters
-from core.models import Card
 from voucher.models import UseLog, WorkLog
-
-
-class CardFilter(django_filters.FilterSet):
-    user = django_filters.CharFilter(name='user__username')
-
-    class Meta:
-        model = Card
-        fields = ['user', 'card_number', 'disabled']
 
 
 class UseLogFilter(django_filters.FilterSet):
