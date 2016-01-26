@@ -152,7 +152,7 @@ locals().update(importlib.import_module('cyb_oko.' + settings_local_name).__dict
 if not 'SECRET_KEY' in locals():
     raise Exception("Missing SECRET_KEY in local settings. See settings.py");
 
-LOGIN_REDIRECT_URL = '/api/me'
+LOGIN_REDIRECT_URL = '/profile'
 LOGIN_URL = '/saml/' if ENABLE_SAML else '/api-auth/login/'
 LOGOUT_URL = '/saml/sls/' if ENABLE_SAML else '/api-auth/logout/'
 
