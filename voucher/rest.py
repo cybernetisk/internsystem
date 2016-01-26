@@ -169,7 +169,7 @@ class WorkLogViewSet(viewsets.ReadOnlyModelViewSet):
                 status=status.HTTP_406_NOT_ACCEPTABLE
             )
 
-        wallet = Wallet.objects.get_or_create(user=user, semester=get_semester())[0]
+        wallet = Wallet.objects.get_or_create(user=user, semester=get_semester_of_date(date))[0]
 
         worklog = WorkLog(
             wallet=wallet,
