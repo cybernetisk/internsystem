@@ -38,14 +38,13 @@ class CardViewSet(viewsets.ReadOnlyModelViewSet):
 
 class WalletViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = WalletSerializer
-
     filter_fields = ('semester',)
 
     def get_queryset(self):
         cardnum = self.request.query_params.get('cardnum', None)
         username = self.request.query_params.get('username', None)
 
-        queryset = Wallet.objects.all()
+        queryset = Wallet.objects.prefetch_related('user', 'semester').all()
 
         if cardnum is not None:
             cards = Card.objects.filter(card_number=cardnum)
@@ -168,7 +167,7 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
 
 class WorkLogViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = WorkLog.objects.all()
+    queryset = WorkLog.objects.prefetch_related('wallet__user', 'wallet__semester', 'issuing_user').all()
     permission_classes = (IsAuthenticatedOrReadOnly,)
     filter_class = WorkLogFilter
 
@@ -232,5 +231,5 @@ class WorkLogViewSet(viewsets.ReadOnlyModelViewSet):
 
 class UseLogViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = UseLogSerializer
-    queryset = UseLog.objects.all()
+    queryset = UseLog.objects.prefetch_related('wallet__user', 'wallet__semester').all()
     filter_class = UseLogFilter

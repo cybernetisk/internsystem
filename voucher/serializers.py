@@ -32,6 +32,7 @@ class WorkLogCreateSerializer(serializers.Serializer):
 
 class WorkLogSerializer(serializers.ModelSerializer):
     wallet = WalletSerializer()
+    issuing_user = UserSimpleSerializer()
 
     class Meta:
         model = WorkLog
