@@ -101,7 +101,19 @@ Nyttige ressurser:
 * http://django-oauth-toolkit.readthedocs.org/en/latest/rest-framework/getting_started.html
 * http://oauthlib.readthedocs.org/en/latest/oauth2/grants/grants.html
 * http://requests-oauthlib.readthedocs.org/en/latest/oauth2_workflow.html
+* https://tools.ietf.org/html/rfc6749
 * `client_secret` skal aldri publiseres noe sted eller brukes på en webapp/mobilapp.
+
+### Autentisering på eget utstyr, f.eks. kortlesere
+For f.eks. fysisk utstyr som bruker internsia som API benyttes grant typen `client_credentials`.
+
+Eksempel:
+
+`curl -X POST -d "grant_type=client_credentials" -u"<client_id>:<client_secret>" https://dev.internt.cyb.no/o/token/`
+
+Man mottar da en access token som gir tilgang uten å være koblet til noen bruker i systemet. client_id og
+client_secret legges med andre ord inn i systemet som trenger access_token slik at systemet kan be om
+access_token når den trenger det.
 
 ## Produksjonsserver
 Vi har en [droplet hos Digital Ocean](https://confluence.cyb.no/display/AKTIV/Servere) som kjører systemet i produksjon. Den kjører `gunicorn` i kombinasjon med `nginx` for å kjøre Django-applikasjonen over port 80.
