@@ -27,7 +27,7 @@ class WorkLogCreateSerializer(serializers.Serializer):
     work_group = serializers.CharField(max_length=20)
     hours = serializers.DecimalField(max_digits=8, decimal_places=2, min_value=0.01)
     issuing_user = serializers.CharField()
-    comment = serializers.CharField(max_length=100, required=False)
+    comment = serializers.CharField(max_length=100, allow_blank=True)
 
 
 class WorkLogSerializer(serializers.ModelSerializer):
