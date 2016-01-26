@@ -12,6 +12,7 @@ from django.db.models import Sum, Count
 
 from voucher.serializers import *
 from voucher.models import *
+from voucher.filters import UseLogFilter, WorkLogFilter
 from core.models import Card
 from core.serializers import CardSerializer
 from core.utils import get_semester
@@ -169,6 +170,7 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
 class WorkLogViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = WorkLog.objects.all()
     permission_classes = (IsAuthenticatedOrReadOnly,)
+    filter_class = WorkLogFilter
 
     def get_first_valid_date(self):
         valid = date.today().replace(day=1)
@@ -231,3 +233,4 @@ class WorkLogViewSet(viewsets.ReadOnlyModelViewSet):
 class UseLogViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = UseLogSerializer
     queryset = UseLog.objects.all()
+    filter_class = UseLogFilter
