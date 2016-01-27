@@ -156,3 +156,8 @@ class UseLogViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = UseLogSerializer
     queryset = UseLog.objects.prefetch_related('wallet__user', 'wallet__semester').all()
     filter_class = UseLogFilter
+
+
+class WorkGroupsViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = WorkGroupsSerializer
+    queryset = WorkLog.objects.order_by('work_group').distinct().values('work_group')

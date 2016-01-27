@@ -96,3 +96,7 @@ class WalletStatsSerializer(serializers.Serializer):
     sum_vouchers = serializers.DecimalField(max_digits=8, decimal_places=2)
     sum_vouchers_used = serializers.IntegerField()
     count_users = serializers.IntegerField()
+
+
+class WorkGroupsSerializer(serializers.Serializer):
+    work_group = serializers.CharField()
