@@ -150,7 +150,8 @@ class WorkLogViewSet(viewsets.ModelViewSet):
 
         worklog.clean()
         worklog.save()
-        return Response(WorkLogSerializer(worklog).data, status=status.HTTP_201_CREATED)
+        return Response(WorkLogSerializer(worklog, context={'request': self.request}).data,
+                        status=status.HTTP_201_CREATED)
 
 
 class UseLogViewSet(viewsets.ReadOnlyModelViewSet):
