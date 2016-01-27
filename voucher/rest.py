@@ -96,7 +96,8 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
                 continue
 
             available_vouchers += wallet.cached_balance
-            new_log_entry = UseLog(wallet=wallet,
+            new_log_entry = UseLog(issuing_user=request.user,
+                                   wallet=wallet,
                                    comment=data.data['comment'],
                                    vouchers=min(vouchers_to_spend, wallet.cached_balance))
 

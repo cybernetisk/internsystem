@@ -95,6 +95,7 @@ class WorkLog(models.Model):
 class UseLog(models.Model):
     wallet = models.ForeignKey(Wallet, related_name='uselogs')
     date_spent = models.DateTimeField(auto_now_add=True)
+    issuing_user = models.ForeignKey(User)
     comment = models.CharField(max_length=100, null=True, blank=True)
     vouchers = models.IntegerField()
 

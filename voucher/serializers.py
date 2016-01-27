@@ -22,10 +22,11 @@ class WalletSerializer(serializers.ModelSerializer):
 
 class UseLogSerializer(serializers.ModelSerializer):
     wallet = WalletSerializer()
+    issuing_user = UserSimpleSerializer(read_only=True)
 
     class Meta:
         model = UseLog
-        fields = ('id', 'wallet', 'date_spent', 'comment', 'vouchers',)
+        fields = ('id', 'wallet', 'date_spent', 'issuing_user', 'comment', 'vouchers',)
 
 
 class WorkLogCreateSerializer(serializers.Serializer):
