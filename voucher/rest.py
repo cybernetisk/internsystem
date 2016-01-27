@@ -15,6 +15,7 @@ from voucher.filters import UseLogFilter, WalletFilter, WorkLogFilter
 from voucher.permissions import WorkLogPermissions
 from voucher.utils import get_valid_semesters
 from core.utils import get_semester_of_date
+from core.models import Semester
 
 
 class WalletViewSet(viewsets.ReadOnlyModelViewSet):
