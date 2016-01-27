@@ -14,15 +14,22 @@ class Wallet(models.Model):
     user = models.ForeignKey(User)
     semester = models.ForeignKey(Semester)
     cached_balance = models.DecimalField(default=0, max_digits=8, decimal_places=2, editable=False)
+    cached_hours = models.DecimalField(default=0, max_digits=8, decimal_places=2, editable=False)
+    cached_vouchers = models.DecimalField(default=0, max_digits=8, decimal_places=2, editable=False)
+    cached_vouchers_used = models.IntegerField(default=0, editable=False)
 
     class Meta:
         unique_together = ("user", "semester")
         ordering = ['user__username']
 
     def calculate_balance(self):
+        hours = WorkLog.objects.filter(wallet=self).aggregate(sum=Sum('hours'))['sum'] or Decimal(0)
         vouchers_earned = WorkLog.objects.filter(wallet=self).aggregate(sum=Sum('vouchers'))['sum'] or Decimal(0)
         vouchers_used = UseLog.objects.filter(wallet=self).aggregate(sum=Sum('vouchers'))['sum'] or Decimal(0)
         self.cached_balance = vouchers_earned - vouchers_used
+        self.cached_hours = hours
+        self.cached_vouchers = vouchers_earned
+        self.cached_vouchers_used = vouchers_used
         self.save()
         return self.cached_balance
 
