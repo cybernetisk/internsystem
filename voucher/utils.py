@@ -1,6 +1,4 @@
 import datetime
-from rest_framework import serializers
-from django.utils.translation import ugettext_lazy as _
 
 from core.utils import get_semester
 
@@ -26,10 +24,3 @@ def get_first_valid_work_log_date():
         valid = valid.replace(month=7)
 
     return valid
-
-
-def valid_date_worked(date):
-    if date < get_first_valid_work_log_date():
-        raise serializers.ValidationError(detail=_('Date %(date)s is too far in the past') % {'date': date.isoformat()})
-    if date > datetime.date.today():
-        raise serializers.ValidationError(detail=_('Date %(date)s is in the future') % {'date': date.isoformat()})

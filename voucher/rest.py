@@ -77,15 +77,10 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         wallets = Wallet.objects.filter(user=user, semester__in=get_valid_semesters()).order_by('semester')
         pending_transactions = []
 
-        data = UseVouchersSerializer(data=request.data)
+        data = UseVouchersSerializer(data=request.data, context=self)
+        data.is_valid(raise_exception=True)
 
-        if not data.is_valid():
-            return Response(data.errors, status=status.HTTP_400_BAD_REQUEST)
-
-        vouchers_to_spend = data.data['vouchers']
-
-        if vouchers_to_spend <= 0:
-            return Response({'error': _('Vouchers must be positive')}, status=status.HTTP_400_BAD_REQUEST)
+        vouchers_to_spend = data.validated_data['vouchers']
 
         # we are in a risk of a race condition if multiple requests occur at the same time
         # leaving a negative balance - but the risk is low and it is not critical, so we have
@@ -115,12 +110,7 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         for p in pending_transactions:
             p.save()
 
-        return Response(
-            {
-                'status': 'ok',
-                'transactions': [UseLogSerializer(p).data for p in pending_transactions]
-            }
-        )
+        return Response([UseLogSerializer(p).data for p in pending_transactions], status=status.HTTP_201_CREATED)
 
 
 class WorkLogViewSet(viewsets.ModelViewSet):

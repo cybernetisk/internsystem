@@ -3,7 +3,7 @@ from django.core import validators
 from django.utils.translation import ugettext_lazy as _
 
 from voucher.models import UseLog, Wallet, WorkLog
-from voucher.utils import valid_date_worked
+from voucher.validators import valid_date_worked, ValidVouchers
 from voucher.permissions import work_log_has_perm
 from core.models import User
 from core.serializers import UserSimpleSerializer, SemesterSerializer
@@ -74,6 +74,8 @@ class WorkLogSerializer(serializers.ModelSerializer):
 
 
 class UseVouchersSerializer(serializers.ModelSerializer):
+    vouchers = serializers.IntegerField(validators=[ValidVouchers()])
+
     class Meta:
         model = UseLog
         fields = ('vouchers', 'comment',)
