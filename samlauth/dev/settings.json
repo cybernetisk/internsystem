@@ -1,0 +1,30 @@
+{
+  "strict": true,
+  "debug": true,
+  "sp": {
+    "entityId": "https://dev.internt.cyb.no/saml/metadata/",
+    "assertionConsumerService": {
+      "url": "https://dev.internt.cyb.no/saml/acs/",
+      "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+    },
+    "singleLogoutService": {
+      "url": "https://dev.internt.cyb.no/saml/sls/",
+      "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+    },
+    "NameIDFormat": "urn:oasis:names:tc:SAML:2.0:nameid-format:transient",
+    "x509cert": "",
+    "privateKey": ""
+  },
+  "idp": {
+    "entityId": "https://weblogin-test.uio.no",
+    "singleSignOnService": {
+      "url": "https://weblogin-test.uio.no/simplesaml/saml2/idp/SSOService.php",
+      "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+    },
+    "singleLogoutService": {
+      "url": "https://weblogin-test.uio.no/simplesaml/saml2/idp/SingleLogoutService.php",
+      "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+    },
+    "certFingerprint": "0463eddf47e2736a3b681fca61aa23d327f5ed52"
+  }
+}

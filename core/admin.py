@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as _UserAdmin
-from core.models import User, Semester
+from core.models import User, Semester, Card
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -20,3 +20,4 @@ class UserAdmin(_UserAdmin):
 
 admin.site.register(User, UserAdmin)
 admin.site.register(Semester)
+admin.site.register(Card)

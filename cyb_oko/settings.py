@@ -27,9 +27,11 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'oauth2_provider',
     'core',
     'varer',
     'cal',
+    'voucher',
     'z',
 )
 
@@ -41,10 +43,12 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
+    'oauth2_provider.middleware.OAuth2TokenMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
+    'oauth2_provider.backends.OAuth2Backend',
     'django.contrib.auth.backends.ModelBackend',
     'samlauth.auth_backend.SAMLServiceProviderBackend',
 )
@@ -99,10 +103,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # where settings.json is located for SAML-package
-SAML_FOLDER = os.path.join(BASE_DIR, 'samlauth')
+SAML_FOLDER = os.path.join(BASE_DIR, 'samlauth', 'dev')
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticatedOrReadOnly',),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ),
     #'PAGINATE_BY': 10,
     'PAGINATE_BY_PARAM': 'limit',
     'DEFAULT_FILTER_BACKENDS': (
@@ -110,7 +116,11 @@ REST_FRAMEWORK = {
         'rest_framework.filters.SearchFilter',
         'rest_framework.filters.OrderingFilter',
     ),
-    'DEFAULT_PAGINATION_SERIALIZER_CLASS': 'cyb_oko.pagination.CybPaginationSerializer'
+    'DEFAULT_PAGINATION_SERIALIZER_CLASS': 'cyb_oko.pagination.CybPaginationSerializer',
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'oauth2_provider.ext.rest_framework.OAuth2Authentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
 }
 
 # see https://docs.djangoproject.com/en/1.8/ref/settings/#secure-proxy-ssl-header
@@ -123,6 +133,15 @@ DEBUG = False
 # turn off in local settings if needed
 ENABLE_SAML = True
 
+OAUTH2_PROVIDER = {
+    'SCOPES': {
+        'none': 'Read-only access to user details',
+        'vouchers': 'Access to modify vouchers',
+        'members': 'Access to modify the member register',
+        'all': 'Access to all resources the user have access to',
+    },
+}
+
 # Local settings should be defined in the file `settings_local.py`
 # It must at least contain `SECRET_KEY`
 settings_local_name = os.getenv("LOCAL_SETTINGS", "settings_local")
@@ -132,6 +151,10 @@ if not os.path.isfile(os.path.dirname(__file__) + '/' + settings_local_name + '.
 locals().update(importlib.import_module('cyb_oko.' + settings_local_name).__dict__)
 if not 'SECRET_KEY' in locals():
     raise Exception("Missing SECRET_KEY in local settings. See settings.py");
+
+LOGIN_REDIRECT_URL = '/profile'
+LOGIN_URL = '/saml/' if ENABLE_SAML else '/api-auth/login/'
+LOGOUT_URL = '/saml/sls/' if ENABLE_SAML else '/api-auth/logout/'
 
 TEMPLATE_DEBUG = DEBUG
 

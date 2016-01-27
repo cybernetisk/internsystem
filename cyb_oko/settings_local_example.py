@@ -1,3 +1,6 @@
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
 # this should be unique
 SECRET_KEY = 'edit-me'
 
@@ -6,7 +9,8 @@ DEBUG = True
 
 # enable SAML if wanted
 # see setup_saml.sh
-ENABLE_SAML = False
+ENABLE_SAML = True
+#SAML_FOLDER = os.path.join(BASE_DIR, 'samlauth', 'prod')
 
 # see https://docs.djangoproject.com/en/1.7/ref/settings/#std:setting-ALLOWED_HOSTS
 #ALLOWED_HOSTS = [

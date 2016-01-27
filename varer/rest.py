@@ -1,19 +1,24 @@
 from rest_framework import viewsets
-from rest_framework import filters
+from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 
 from varer.serializers import *
 from varer.models import *
 
 
-class KontoViewSet(viewsets.ModelViewSet):
+class BaseVarerViewSet(viewsets.ModelViewSet):
+    permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
+
+
+class KontoViewSet(BaseVarerViewSet):
     queryset = Konto.objects.all()
     serializer_class = KontoSerializer
 
-class RåvareViewSet(viewsets.ModelViewSet):
-    queryset = Råvare.objects\
-        .prefetch_related('priser__leverandor')\
-        .prefetch_related('lenket_salgsvare__priser')\
-        .prefetch_related('lenket_salgsvare__raavarer')\
+
+class RåvareViewSet(BaseVarerViewSet):
+    queryset = Råvare.objects \
+        .prefetch_related('priser__leverandor') \
+        .prefetch_related('lenket_salgsvare__priser') \
+        .prefetch_related('lenket_salgsvare__raavarer') \
         .all()
 
     filter_fields = ('navn', 'kategori', 'status', 'innkjopskonto__innkjopskonto')
@@ -25,20 +30,22 @@ class RåvareViewSet(viewsets.ModelViewSet):
         return RåvareReadSerializer
 
 
-class LeverandørViewSet(viewsets.ModelViewSet):
+class LeverandørViewSet(BaseVarerViewSet):
     queryset = Leverandør.objects.all()
     serializer_class = LeverandørSerializer
 
-class RåvareprisViewSet(viewsets.ModelViewSet):
+
+class RåvareprisViewSet(BaseVarerViewSet):
     queryset = Råvarepris.objects.all()
     serializer_class = RåvareprisSerializer
 
-class SalgsvareViewSet(viewsets.ModelViewSet):
-    queryset = Salgsvare.objects\
-        .select_related('salgskonto')\
-        .prefetch_related('priser')\
-        .prefetch_related('salgsvareråvare_set__raavare__innkjopskonto')\
-        .prefetch_related('salgsvareråvare_set__raavare__priser__leverandor')\
+
+class SalgsvareViewSet(BaseVarerViewSet):
+    queryset = Salgsvare.objects \
+        .select_related('salgskonto') \
+        .prefetch_related('priser') \
+        .prefetch_related('salgsvareråvare_set__raavare__innkjopskonto') \
+        .prefetch_related('salgsvareråvare_set__raavare__priser__leverandor') \
         .all()
 
     filter_fields = ('navn', 'kategori', 'status', 'kassenr')
@@ -48,23 +55,25 @@ class SalgsvareViewSet(viewsets.ModelViewSet):
             return SalgsvareWriteSerializer
         return SalgsvareReadSerializer
 
-class SalgsvareRåvareViewSet(viewsets.ModelViewSet):
+
+class SalgsvareRåvareViewSet(BaseVarerViewSet):
     queryset = SalgsvareRåvare.objects.all()
     serializer_class = SalgsvareRåvareSerializer
 
-class SalgsvarePrisViewSet(viewsets.ModelViewSet):
+
+class SalgsvarePrisViewSet(BaseVarerViewSet):
     queryset = SalgsvarePris.objects.all()
     serializer_class = SalgsvarePrisSerializer
 
 
-class SalgskalkyleViewSet(viewsets.ModelViewSet):
+class SalgskalkyleViewSet(BaseVarerViewSet):
     def get_queryset(self):
         if self.action == 'list':
             return Salgskalkyle.objects.all()
         else:
-            return Salgskalkyle.objects\
-                .prefetch_related('salgskalkylevare_set__salgsvare__salgskonto')\
-                .prefetch_related('salgskalkylevare_set__salgsvare__raavarer')\
+            return Salgskalkyle.objects \
+                .prefetch_related('salgskalkylevare_set__salgsvare__salgskonto') \
+                .prefetch_related('salgskalkylevare_set__salgsvare__raavarer') \
                 .all()
 
     def get_serializer_class(self):
@@ -76,11 +85,12 @@ class SalgskalkyleViewSet(viewsets.ModelViewSet):
             return SalgskalkyleReadItemSerializer
 
 
-class SalgskalkyleVareViewSet(viewsets.ModelViewSet):
+class SalgskalkyleVareViewSet(BaseVarerViewSet):
     queryset = SalgskalkyleVare.objects.all()
     serializer_class = SalgskalkyleVareSerializer
 
-class VaretellingViewSet(viewsets.ModelViewSet):
+
+class VaretellingViewSet(BaseVarerViewSet):
     queryset = Varetelling.objects.prefetch_related('varetellingvare_set__raavare__innkjopskonto').all()
     queryset = Varetelling.objects.prefetch_related('varetellingvare_set__raavare__priser__leverandor').all()
 
@@ -89,6 +99,7 @@ class VaretellingViewSet(viewsets.ModelViewSet):
             return VaretellingWriteSerializer
         return VaretellingReadSerializer
 
-class VaretellingVareViewSet(viewsets.ModelViewSet):
+
+class VaretellingVareViewSet(BaseVarerViewSet):
     queryset = VaretellingVare.objects.all()
     serializer_class = VaretellingVareSerializer
