@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from voucher.models import UseLog, Wallet, WorkLog
 from voucher.utils import valid_date_worked
+from voucher.permissions import work_log_has_perm
 from core.models import User
 from core.serializers import UserSimpleSerializer, SemesterSerializer
 from core.utils import get_semester_of_date
@@ -43,11 +44,19 @@ class WorkLogSerializer(serializers.ModelSerializer):
     wallet = WalletSerializer(read_only=True)
     issuing_user = UserSimpleSerializer(read_only=True)
     date_worked = serializers.DateField(validators=[valid_date_worked])
+    can_edit = serializers.SerializerMethodField('_can_edit')
+    can_delete = serializers.SerializerMethodField('_can_delete')
+
+    def _can_edit(self, instance):
+        return work_log_has_perm(self.context['request'], instance, 'change')
+
+    def _can_delete(self, instance):
+        return work_log_has_perm(self.context['request'], instance, 'delete')
 
     class Meta:
         model = WorkLog
         fields = ('id', 'wallet', 'date_issued', 'date_worked', 'work_group',
-                  'hours', 'vouchers', 'issuing_user', 'comment',)
+                  'hours', 'vouchers', 'issuing_user', 'comment', 'can_edit', 'can_delete',)
         read_only_fields = ('id', 'wallet', 'date_issued', 'issuing_user',)
 
     def update(self, instance, validated_data):

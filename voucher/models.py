@@ -79,6 +79,10 @@ class WorkLog(models.Model):
     def calculate_vouchers(self, hours):
         return round(float(hours) * self.DEFAULT_VOUCHERS_PER_HOUR, 2)
 
+    def is_locked(self):
+        now = datetime.datetime.now(datetime.timezone.utc)
+        return (now - self.date_issued).days > self.LOCKED_FOR_EDITING_AFTER_DAYS
+
 
 class UseLog(models.Model):
     wallet = models.ForeignKey(Wallet, related_name='uselogs')
