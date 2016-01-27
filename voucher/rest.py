@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from rest_framework import viewsets
 from rest_framework import mixins
 from rest_framework import status
@@ -28,6 +29,7 @@ class WalletViewSet(viewsets.ReadOnlyModelViewSet):
         # pull stuff from main table
         wallets1 = self.get_queryset() \
             .values('semester') \
+            .order_by('-semester__year', '-semester__semester') \
             .annotate(sum_balance=Sum('cached_balance'),
                       count_users=Count('user', distinct=True))
 
@@ -46,7 +48,7 @@ class WalletViewSet(viewsets.ReadOnlyModelViewSet):
         for semester in Semester.objects.all():
             semesters[semester.id] = semester
 
-        data = {}
+        data = OrderedDict()
         for row in wallets1:
             row['semester'] = semesters[row['semester']]
             data[row['semester'].id] = row

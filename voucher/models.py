@@ -17,6 +17,7 @@ class Wallet(models.Model):
 
     class Meta:
         unique_together = ("user", "semester")
+        ordering = ['user__username']
 
     def calculate_balance(self):
         vouchers_earned = WorkLog.objects.filter(wallet=self).aggregate(sum=Sum('vouchers'))['sum'] or Decimal(0)
