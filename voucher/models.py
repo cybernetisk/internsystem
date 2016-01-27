@@ -45,6 +45,7 @@ class Wallet(models.Model):
 
 class WorkLog(models.Model):
     DEFAULT_VOUCHERS_PER_HOUR = 0.5
+    LOCKED_FOR_EDITING_AFTER_DAYS = 10
 
     wallet = models.ForeignKey(Wallet, related_name='worklogs')
     date_issued = models.DateTimeField(auto_now_add=True)
@@ -66,7 +67,7 @@ class WorkLog(models.Model):
             raise ValidationError({'hours': _("Hours must be positive")})
 
         if self.vouchers is None:
-            self.vouchers = round(float(self.hours) * self.DEFAULT_VOUCHERS_PER_HOUR, 2)
+            self.vouchers = self.calculate_vouchers(self.hours)
         elif self.vouchers <= 0:
             raise ValidationError({'vouchers': _("Vouchers must be positive")})
 
@@ -74,6 +75,9 @@ class WorkLog(models.Model):
         with transaction.atomic():
             super(WorkLog, self).save(*args, **kwargs)
             self.wallet.calculate_balance()
+
+    def calculate_vouchers(self, hours):
+        return round(float(hours) * self.DEFAULT_VOUCHERS_PER_HOUR, 2)
 
 
 class UseLog(models.Model):

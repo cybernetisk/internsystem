@@ -4,7 +4,7 @@ from rest_framework import status
 from rest_framework.decorators import detail_route, list_route
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
-from datetime import datetime, date
+from rest_framework.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import Sum, Count
 from decimal import Decimal
@@ -12,6 +12,7 @@ from decimal import Decimal
 from voucher.serializers import *
 from voucher.models import Wallet, WorkLog, UseLog
 from voucher.filters import UseLogFilter, WalletFilter, WorkLogFilter
+from voucher.permissions import WorkLogPermissions
 from voucher.utils import get_valid_semesters
 from core.utils import get_semester_of_date
 
@@ -121,23 +122,10 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         )
 
 
-class WorkLogViewSet(viewsets.ReadOnlyModelViewSet):
+class WorkLogViewSet(viewsets.ModelViewSet):
     queryset = WorkLog.objects.prefetch_related('wallet__user', 'wallet__semester', 'issuing_user').all()
-    permission_classes = (IsAuthenticatedOrReadOnly,)
+    permission_classes = (IsAuthenticatedOrReadOnly, WorkLogPermissions,)
     filter_class = WorkLogFilter
-
-    def get_first_valid_date(self):
-        valid = date.today().replace(day=1)
-
-        if valid.month <= 1:
-            valid = valid.replace(year=valid.year - 1)
-            valid = valid.replace(month=7)
-        elif valid.month <= 8:
-            valid = valid.replace(month=1)
-        else:
-            valid = valid.replace(month=7)
-
-        return valid
 
     def get_serializer_class(self):
         if self.action in ['create']:
@@ -145,30 +133,16 @@ class WorkLogViewSet(viewsets.ReadOnlyModelViewSet):
         else:
             return WorkLogSerializer
 
-    def create(self, request):
+    def create(self, request, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-
-        date = datetime.strptime(serializer.data['date_worked'], '%Y-%m-%d').date()
-        if date < self.get_first_valid_date():
-            return Response(
-                {'error': _('Date %(date)s is too old') % {'date': serializer.data['date_worked']}},
-                status=status.HTTP_406_NOT_ACCEPTABLE
-            )
-        if date > date.today():
-            return Response(
-                {'error': _('Date %(date)s is in the future') % {'date': serializer.data['date_worked']}},
-                status=status.HTTP_406_NOT_ACCEPTABLE
-            )
 
         username = serializer.data['user'].strip()
         user = User.objects.get_or_create(username=username)[0]
         if not user:
-            return Response(
-                {'error': _('User %(user)s not found') % {'user': serializer.data['user']}},
-                status=status.HTTP_406_NOT_ACCEPTABLE
-            )
+            raise ValidationError(detail=_('User %(user)s not found') % {'user': serializer.data['user']})
 
+        date = serializer.validated_data['date_worked']
         wallet = Wallet.objects.get_or_create(user=user, semester=get_semester_of_date(date))[0]
 
         worklog = WorkLog(
