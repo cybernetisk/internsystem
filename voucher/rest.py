@@ -22,7 +22,12 @@ from core.models import Semester
 class WalletViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = WalletSerializer
     filter_class = WalletFilter
-    queryset = Wallet.objects.prefetch_related('user', 'semester').all()
+
+    def get_queryset(self):
+        queryset = Wallet.objects.all()
+        if self.action == 'stats':
+            return queryset.order_by()
+        return queryset.prefetch_related('user', 'semester')
 
     @list_route(methods=['get'])
     def stats(self, request):
