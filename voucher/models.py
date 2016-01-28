@@ -53,7 +53,7 @@ class Wallet(models.Model):
 
 class WorkLog(models.Model):
     DEFAULT_VOUCHERS_PER_HOUR = 0.5
-    LOCKED_FOR_EDITING_AFTER_DAYS = 10
+    LOCKED_FOR_EDITING_AFTER_DAYS = 2
 
     wallet = models.ForeignKey(Wallet, related_name='worklogs')
     date_issued = models.DateTimeField(auto_now_add=True)
