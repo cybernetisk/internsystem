@@ -1,5 +1,8 @@
 from rest_framework import viewsets
+from rest_framework import status
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
+from rest_framework.response import Response
+
 
 from varer.serializers import *
 from varer.models import *
@@ -103,3 +106,9 @@ class VaretellingViewSet(BaseVarerViewSet):
 class VaretellingVareViewSet(BaseVarerViewSet):
     queryset = VaretellingVare.objects.all()
     serializer_class = VaretellingVareSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save(added_by=request.user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

@@ -1,4 +1,5 @@
 from django.db import models
+from core.models import User
 from varer.managers import RåvareManager
 
 class Konto(models.Model):
@@ -167,7 +168,10 @@ class Varetelling(models.Model):
 class VaretellingVare(models.Model):
     varetelling = models.ForeignKey(Varetelling)
     raavare = models.ForeignKey(Råvare)
-    sted = models.CharField(max_length=50)
+    time_price = models.DateTimeField(null=True, blank=True, help_text="Overstyring av tidspunkt varen skal prises")
+    added_by = models.ForeignKey(User, editable=False, null=True, help_text="Brukeren som registrerte oppføringen")
+    time_added = models.DateTimeField(auto_now_add=True)
+    sted = models.CharField(max_length=50, null=True, blank=True)
     antall = models.FloatField()
     antallpant = models.FloatField(help_text="Antall hele forpakninger det skal telles pant for, brukes vanlig antall (avrundet opp) hvis ikke spesifisert", null=True, blank=True)
     kommentar = models.CharField(max_length=150, null=True, blank=True)
