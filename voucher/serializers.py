@@ -65,7 +65,7 @@ class WorkLogSerializer(serializers.ModelSerializer):
         if 'hours' in validated_data and validated_data['hours'] != instance.hours and \
                 ('vouchers' not in validated_data or validated_data['vouchers'] == instance.vouchers):
             instance.vouchers = instance.calculate_vouchers(validated_data['hours'])
-            validated_data.pop('vouchers')
+            validated_data.pop('vouchers', None)
 
         if 'date_worked' in validated_data:
             date = validated_data['date_worked']
