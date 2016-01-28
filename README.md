@@ -4,11 +4,12 @@ Dette prosjektet tilbyr en rekke tjenester til hjelp for Cybernetisk Selskab. I 
 Tjenester prosjektet tilbyr i dag:
 * Påloggingsløsning mot Universitet i Oslo med Weblogin
 * Vare- og priskatalog for Escape, med varetellingsfunksjon, marginoversikt m.v.
+* Bongsystem for internbonger
 
 Tjenester det jobbes med/planlegges:
 * Ta over for [eksisterende medlemssystem](https://github.com/vegarang/medlemssystem_django)
-* Elektronisk bongsystem (i stedet for Google Spreadsheets)
-* Internliste (i stedet for tabeller i wikien)
+* Kaffebonger
+* Internliste (i stedet for tabeller i wikien/GARM-systemet)
 * Z-rapport-statistikk
 * Sentral brukerdatabase for CYB (kunne koble andre tjenester som wiki m.v. mot dette systemet, med pålogging videresendt mot UiO)
 
