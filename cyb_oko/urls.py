@@ -10,24 +10,12 @@ if settings.ENABLE_SAML:
 
 from core.urls import urlpatterns as core_urlpatterns
 import cal.urls  # do not remove, needed to load API-urls
+import varer.urls  # do not remove, needed to load API-urls
 import voucher.urls  # do not remove, needed to load API-urls
 
 from core.utils import SharedAPIRootRouter
 
 router = SharedAPIRootRouter()
-
-# TODO: namespace these API-endpoints and move it to the application urls-file
-router.register(r'kontoer', KontoViewSet)
-router.register(r'råvarer', RåvareViewSet)
-router.register(r'leverandører', LeverandørViewSet)
-router.register(r'råvarepriser', RåvareprisViewSet)
-router.register(r'salgsvarer', SalgsvareViewSet)
-router.register(r'salgsvareråvarer', SalgsvareRåvareViewSet)
-router.register(r'salgsvarepriser', SalgsvarePrisViewSet)
-router.register(r'salgskalkyler', SalgskalkyleViewSet, base_name='salgskalkyler')
-router.register(r'salgskalkylevarer', SalgskalkyleVareViewSet)
-router.register(r'varetellinger', VaretellingViewSet)
-router.register(r'varetellingvarer', VaretellingVareViewSet)
 
 urlpatterns = []
 
