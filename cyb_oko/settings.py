@@ -119,7 +119,7 @@ REST_FRAMEWORK = {
         'rest_framework.filters.SearchFilter',
         'rest_framework.filters.OrderingFilter',
     ),
-    'DEFAULT_PAGINATION_SERIALIZER_CLASS': 'cyb_oko.pagination.CybPaginationSerializer',
+    'DEFAULT_PAGINATION_CLASS': 'cyb_oko.pagination.CybPagination',
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'oauth2_provider.ext.rest_framework.OAuth2Authentication',
         'rest_framework.authentication.SessionAuthentication',

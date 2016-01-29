@@ -16,15 +16,17 @@ class WalletSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Wallet
-        fields = ('id', 'user', 'semester', 'cached_balance', 'is_valid',)
+        fields = ('id', 'user', 'semester', 'cached_balance', 'cached_hours', 'cached_vouchers',
+                  'cached_vouchers_used', 'is_valid',)
 
 
 class UseLogSerializer(serializers.ModelSerializer):
     wallet = WalletSerializer()
+    issuing_user = UserSimpleSerializer(read_only=True)
 
     class Meta:
         model = UseLog
-        fields = ('id', 'wallet', 'date_spent', 'comment', 'vouchers',)
+        fields = ('id', 'wallet', 'date_spent', 'issuing_user', 'comment', 'vouchers',)
 
 
 class WorkLogCreateSerializer(serializers.Serializer):
@@ -63,7 +65,7 @@ class WorkLogSerializer(serializers.ModelSerializer):
         if 'hours' in validated_data and validated_data['hours'] != instance.hours and \
                 ('vouchers' not in validated_data or validated_data['vouchers'] == instance.vouchers):
             instance.vouchers = instance.calculate_vouchers(validated_data['hours'])
-            validated_data.pop('vouchers')
+            validated_data.pop('vouchers', None)
 
         if 'date_worked' in validated_data:
             date = validated_data['date_worked']
@@ -95,3 +97,7 @@ class WalletStatsSerializer(serializers.Serializer):
     sum_vouchers = serializers.DecimalField(max_digits=8, decimal_places=2)
     sum_vouchers_used = serializers.IntegerField()
     count_users = serializers.IntegerField()
+
+
+class WorkGroupsSerializer(serializers.Serializer):
+    work_group = serializers.CharField()

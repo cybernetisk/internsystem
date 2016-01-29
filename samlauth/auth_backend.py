@@ -21,6 +21,10 @@ class SAMLServiceProviderBackend(object):
                 'email': 'mail'
             }
 
+            # ensure realname for users from webid don't contain unverified note
+            if 'cn' in attributes:
+                attributes['cn'][0] = attributes['cn'][0].replace(' (unverified)', '')
+
             for field, samlfield in map_fields.items():
                 if getattr(user, field) != attributes[samlfield][0]:
                     setattr(user, field, attributes[samlfield][0])

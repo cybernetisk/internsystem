@@ -146,7 +146,8 @@ class VaretellingReadSerializer(serializers.ModelSerializer):
         class Meta:
             model = VaretellingVare
             depth = 0
-            fields = ('id', 'sted', 'antall', 'antallpant', 'kommentar', 'raavare')
+            fields = ('id', 'sted', 'antall', 'antallpant', 'kommentar', 'raavare', 'time_price', 'added_by',
+                      'time_added')
 
     varer = VaretellingVare(many=True, source='varetellingvare_set')
 

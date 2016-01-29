@@ -1,14 +1,15 @@
-from rest_framework import pagination, serializers
+from rest_framework import pagination
+from rest_framework.response import Response
+from rest_framework.compat import OrderedDict
 
-class CurrentPageField(serializers.Field):
-    def to_representation(self, value):
-        return value.number
 
-class PagSerializer(serializers.Serializer):
-    page = CurrentPageField(source='*')
-    pages = serializers.ReadOnlyField(source='paginator.num_pages')
-    per_page = serializers.ReadOnlyField(source='paginator.per_page')
-    total = serializers.ReadOnlyField(source='paginator.count')
-
-class CybPaginationSerializer(pagination.BasePaginationSerializer):
-    pagination = PagSerializer(source='*')
+class CybPagination(pagination.PageNumberPagination):
+    def get_paginated_response(self, data):
+        print(repr(self.page))
+        return Response(OrderedDict([
+            ('page', self.page.number),
+            ('pages', self.page.paginator.num_pages),
+            ('per_page', self.page.paginator.per_page),
+            ('total', self.page.paginator.count),
+            ('results', data)
+        ]))

@@ -18,7 +18,8 @@ class UserExtendedSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'realname', 'email', 'is_superuser', 'is_staff', 'is_active', 'date_joined',
-                  'groups', 'user_permissions')
+                  'groups', 'user_permissions', 'phone_number',)
+        depth = 1
 
 
 class SemesterSerializer(serializers.ModelSerializer):

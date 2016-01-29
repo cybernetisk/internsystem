@@ -4,11 +4,12 @@ Dette prosjektet tilbyr en rekke tjenester til hjelp for Cybernetisk Selskab. I 
 Tjenester prosjektet tilbyr i dag:
 * Påloggingsløsning mot Universitet i Oslo med Weblogin
 * Vare- og priskatalog for Escape, med varetellingsfunksjon, marginoversikt m.v.
+* Bongsystem for internbonger
 
 Tjenester det jobbes med/planlegges:
 * Ta over for [eksisterende medlemssystem](https://github.com/vegarang/medlemssystem_django)
-* Elektronisk bongsystem (i stedet for Google Spreadsheets)
-* Internliste (i stedet for tabeller i wikien)
+* Kaffebonger
+* Internliste (i stedet for tabeller i wikien/GARM-systemet)
 * Z-rapport-statistikk
 * Sentral brukerdatabase for CYB (kunne koble andre tjenester som wiki m.v. mot dette systemet, med pålogging videresendt mot UiO)
 
@@ -81,14 +82,14 @@ workon internsystem
 Hvis man ikke vil knote med weblogin, kan man også logge inn i Django-admin (`/admin/`). Da blir man logget inn på resten av siden.
 
 Alternativt har vi også weblogin-adresse på `https://dev.internt.cyb.no`. Dette kan brukes på testserver ved å aktivere
-SSL samt sette dev.internt.cyb.no til 127.0.0.1 i hosts-filen. Filen `samlauth/settings.json` må i så fall endres, slik
-at ting peker til `dev.internt.cyb.no`.
+SSL samt sette dev.internt.cyb.no til 127.0.0.1 i hosts-filen.
 
 Se også [`scripts/connect_dev.sh`](scripts/connect_dev.sh) for å bruke den reelle `dev.internt.cyb.no`-hosten og
 sende trafikk mot https videre over tunnell til lokal devinstans. På `dev.internt.cyb.no` blir port 443 redirected
 til `localhost:8000` uten TLS på samme server.
 
-Som standard er ikke weblogin aktivert i internsystemet. Dette aktiveres ved å kjøre `scripts/setup_saml.sh`-scriptet og aktivere SAML-støtte i den lokale innstilingsfilen (`settings_local.py`).
+Som standard er ikke weblogin aktivert i internsystemet. Dette aktiveres ved å kjøre `scripts/setup_saml.sh`-scriptet
+og aktivere SAML-støtte i den lokale innstilingsfilen (`settings_local.py`).
 
 ## Autentisering mot API
 Vi benytter [django-oauth-toolkit](https://github.com/evonove/django-oauth-toolkit) som håndterer mye av autentiseringen

@@ -7,6 +7,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 
+from phonenumber_field.modelfields import PhoneNumberField
+
 
 class UserManager(_UserManager):
     pass
@@ -34,6 +36,7 @@ class User(AbstractBaseUser, PermissionsMixin):
                                     help_text=_('Designates whether this user should be treated as '
                                                 'active. Unselect this instead of deleting accounts.'))
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+    phone_number = PhoneNumberField(blank=True)
 
     objects = UserManager()
 

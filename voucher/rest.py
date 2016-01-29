@@ -1,3 +1,4 @@
+from collections import OrderedDict
 from rest_framework import viewsets
 from rest_framework import mixins
 from rest_framework import status
@@ -21,13 +22,19 @@ from core.models import Semester
 class WalletViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = WalletSerializer
     filter_class = WalletFilter
-    queryset = Wallet.objects.prefetch_related('user', 'semester').all()
+
+    def get_queryset(self):
+        queryset = Wallet.objects.all()
+        if self.action == 'stats':
+            return queryset.order_by()
+        return queryset.prefetch_related('user', 'semester')
 
     @list_route(methods=['get'])
     def stats(self, request):
         # pull stuff from main table
         wallets1 = self.get_queryset() \
             .values('semester') \
+            .order_by('-semester__year', '-semester__semester') \
             .annotate(sum_balance=Sum('cached_balance'),
                       count_users=Count('user', distinct=True))
 
@@ -46,7 +53,7 @@ class WalletViewSet(viewsets.ReadOnlyModelViewSet):
         for semester in Semester.objects.all():
             semesters[semester.id] = semester
 
-        data = {}
+        data = OrderedDict()
         for row in wallets1:
             row['semester'] = semesters[row['semester']]
             data[row['semester'].id] = row
@@ -94,7 +101,8 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
                 continue
 
             available_vouchers += wallet.cached_balance
-            new_log_entry = UseLog(wallet=wallet,
+            new_log_entry = UseLog(issuing_user=request.user,
+                                   wallet=wallet,
                                    comment=data.data['comment'],
                                    vouchers=min(vouchers_to_spend, wallet.cached_balance))
 
@@ -147,10 +155,16 @@ class WorkLogViewSet(viewsets.ModelViewSet):
 
         worklog.clean()
         worklog.save()
-        return Response(WorkLogSerializer(worklog).data, status=status.HTTP_201_CREATED)
+        return Response(WorkLogSerializer(worklog, context={'request': self.request}).data,
+                        status=status.HTTP_201_CREATED)
 
 
 class UseLogViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = UseLogSerializer
     queryset = UseLog.objects.prefetch_related('wallet__user', 'wallet__semester').all()
     filter_class = UseLogFilter
+
+
+class WorkGroupsViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = WorkGroupsSerializer
+    queryset = WorkLog.objects.order_by('work_group').distinct().values('work_group')
