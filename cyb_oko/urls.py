@@ -13,6 +13,7 @@ from core.urls import urlpatterns as core_urlpatterns
 
 from core.utils import SharedAPIRootRouter
 
+
 router = SharedAPIRootRouter()
 
 urlpatterns = []
