@@ -6,10 +6,15 @@ from django.views.generic.base import RedirectView
 from varer.rest import *
 
 
+
 if settings.ENABLE_SAML:
     from samlauth import urls as samlauth_urls
 
 from core.urls import urlpatterns as core_urlpatterns
+import cal.urls  # do not remove, needed to load API-urls
+import members.urls  # do not remove, needed to load API-urls
+import varer.urls  # do not remove, needed to load API-urls
+import voucher.urls  # do not remove, needed to load API-urls
 
 from core.utils import SharedAPIRootRouter
 
