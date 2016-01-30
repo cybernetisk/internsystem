@@ -1,7 +1,8 @@
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-
+from rest_framework import status
+from django.db.models import Q
 from members.serializers import *
 from core.models import User
 from core.utils import get_semester_of_date
@@ -41,12 +42,14 @@ class MemberViewSet(viewsets.ModelViewSet):
             member.user = user
         member.save()
 
-        return Response(member.id)
+        return Response(MemberSerializer(member).data, status=status.HTTP_201_CREATED)
 
 
 
 
     def list(self, request, username=None):
-        objects = Member.objects.all()
+        objects = Member.objects.filter(Q(semester=get_semester_of_date(datetime.datetime.now())) |
+                                        Q(lifetime=True) | Q(honorary=True))
         serializers = MemberSerializer(objects, many=True)
+
         return Response(serializers.data)
