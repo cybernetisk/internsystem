@@ -100,6 +100,8 @@ class VaretellingViewSet(BaseVarerViewSet):
     def get_serializer_class(self):
         if self.action in ['create', 'update']:
             return VaretellingWriteSerializer
+        elif self.action in ['list']:
+            return VaretellingListSerializer
         return VaretellingReadSerializer
 
 
