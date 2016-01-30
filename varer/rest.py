@@ -3,7 +3,6 @@ from rest_framework import status
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 from rest_framework.response import Response
 
-
 from varer.serializers import *
 from varer.models import *
 
@@ -94,15 +93,25 @@ class SalgskalkyleVareViewSet(BaseVarerViewSet):
 
 
 class VaretellingViewSet(BaseVarerViewSet):
-    queryset = Varetelling.objects.prefetch_related('varetellingvare_set__raavare__innkjopskonto').all()
-    queryset = Varetelling.objects.prefetch_related('varetellingvare_set__raavare__priser__leverandor').all()
+    queryset = Varetelling.objects.all()
 
     def get_serializer_class(self):
         if self.action in ['create', 'update']:
             return VaretellingWriteSerializer
         elif self.action in ['list']:
             return VaretellingListSerializer
+        elif 'expand' in self.request.query_params:
+            return VaretellingReadExpandedSerializer
         return VaretellingReadSerializer
+
+    def get_queryset(self):
+        if 'expand' not in self.request.query_params:
+            return self.queryset
+
+        return self.queryset \
+            .prefetch_related('varetellingvare_set__raavare__innkjopskonto') \
+            .prefetch_related('varetellingvare_set__raavare__priser__leverandor') \
+            .prefetch_related('varetellingvare_set__added_by')
 
 
 class VaretellingVareViewSet(BaseVarerViewSet):

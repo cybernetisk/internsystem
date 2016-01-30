@@ -1,3 +1,4 @@
+from core.serializers import UserSimpleSerializer
 from rest_framework import serializers
 
 from varer.models import *
@@ -13,7 +14,8 @@ class RåvareWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Råvare
         fields = (
-        'kategori', 'navn', 'mengde', 'enhet', 'mengde_svinn', 'antall', 'innkjopskonto', 'status', 'lenket_salgsvare')
+            'kategori', 'navn', 'mengde', 'enhet', 'mengde_svinn', 'antall', 'innkjopskonto', 'status',
+            'lenket_salgsvare')
         depth = 0
 
 
@@ -42,8 +44,8 @@ class RåvareReadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Råvare
         fields = (
-        'id', 'kategori', 'navn', 'mengde', 'enhet', 'mengde_svinn', 'antall', 'innkjopskonto', 'status', 'priser',
-        'lenket_salgsvare')
+            'id', 'kategori', 'navn', 'mengde', 'enhet', 'mengde_svinn', 'antall', 'innkjopskonto', 'status', 'priser',
+            'lenket_salgsvare')
         depth = 1
 
 
@@ -77,8 +79,8 @@ class SalgsvareReadSerializer(serializers.ModelSerializer):
             class Meta:
                 model = Råvare
                 fields = (
-                'id', 'kategori', 'navn', 'mengde', 'enhet', 'mengde_svinn', 'antall', 'innkjopskonto', 'status',
-                'priser')
+                    'id', 'kategori', 'navn', 'mengde', 'enhet', 'mengde_svinn', 'antall', 'innkjopskonto', 'status',
+                    'priser')
                 depth = 1
 
         raavare = RåvareItem()
@@ -155,6 +157,39 @@ class VaretellingReadSerializer(serializers.ModelSerializer):
         class Meta:
             model = VaretellingVare
             depth = 0
+            fields = ('id', 'sted', 'antall', 'antallpant', 'kommentar', 'raavare', 'time_price', 'added_by',
+                      'time_added')
+
+    varer = VaretellingVare(many=True, source='varetellingvare_set')
+
+    class Meta:
+        model = Varetelling
+        depth = 1
+        fields = ('id', 'tittel', 'kommentar', 'tid', 'ansvarlig', 'varer')
+
+
+class VaretellingReadExpandedSerializer(serializers.ModelSerializer):
+    class VaretellingVare(serializers.ModelSerializer):
+        class VaretellingRåvareSerializer(serializers.ModelSerializer):
+            class Priser(serializers.ModelSerializer):
+                class Meta:
+                    model = Råvarepris
+                    fields = ('pris', 'pant', 'dato', 'aktiv')
+                    depth = 1
+
+            priser = Priser(many=True, read_only=True)
+
+            class Meta:
+                model = Råvare
+                fields = ('id', 'kategori', 'navn', 'mengde', 'enhet', 'mengde_svinn', 'antall', 'innkjopskonto',
+                          'status', 'priser',)
+                depth = 1
+
+        added_by = UserSimpleSerializer()
+        raavare = VaretellingRåvareSerializer()
+
+        class Meta:
+            model = VaretellingVare
             fields = ('id', 'sted', 'antall', 'antallpant', 'kommentar', 'raavare', 'time_price', 'added_by',
                       'time_added')
 
