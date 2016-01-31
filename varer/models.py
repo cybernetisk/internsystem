@@ -157,6 +157,7 @@ class Varetelling(models.Model):
     tid = models.DateTimeField()
     ansvarlig = models.CharField(max_length=100)
     varer = models.ManyToManyField(Råvare, through='varer.VaretellingVare', related_name='varetellinger')
+    is_locked = models.BooleanField(default=False, help_text="Sperr tellingen for endringer")
 
     class Meta:
         ordering = ['-tid']
@@ -168,7 +169,7 @@ class Varetelling(models.Model):
 class VaretellingVare(models.Model):
     varetelling = models.ForeignKey(Varetelling)
     raavare = models.ForeignKey(Råvare)
-    time_price = models.DateTimeField(null=True, blank=True, help_text="Overstyring av tidspunkt varen skal prises")
+    time_price = models.DateField(null=True, blank=True, help_text="Overstyring av tidspunkt varen skal prises")
     added_by = models.ForeignKey(User, editable=False, null=True, help_text="Brukeren som registrerte oppføringen")
     time_added = models.DateTimeField(auto_now_add=True)
     sted = models.CharField(max_length=50, null=True, blank=True)
@@ -177,7 +178,7 @@ class VaretellingVare(models.Model):
     kommentar = models.CharField(max_length=150, null=True, blank=True)
 
     class Meta:
-        ordering = ['varetelling', 'raavare']
+        ordering = ['varetelling', '-time_added']
 
     def __str__(self):
         return '%s (sted: %s) %d stk' % (self.raavare, self.sted, self.antall)

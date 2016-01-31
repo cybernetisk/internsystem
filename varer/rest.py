@@ -1,12 +1,13 @@
+from django.utils.translation import ugettext_lazy as _
 from rest_framework import viewsets
 from rest_framework import status
-from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
+from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly, IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
-
+from rest_framework.exceptions import PermissionDenied
 
 from varer.serializers import *
 from varer.models import *
-
+from varer.permissions import *
 
 class BaseVarerViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
@@ -25,7 +26,7 @@ class RåvareViewSet(BaseVarerViewSet):
         .all()
 
     filter_fields = ('navn', 'kategori', 'status', 'innkjopskonto__innkjopskonto')
-    search_fields = ['kategori', 'navn', 'innkjopskonto__innkjopskonto']
+    search_fields = ['kategori', 'navn', 'innkjopskonto__gruppe', 'innkjopskonto__navn']
 
     def get_serializer_class(self):
         if self.action in ['create', 'update']:
@@ -94,21 +95,54 @@ class SalgskalkyleVareViewSet(BaseVarerViewSet):
 
 
 class VaretellingViewSet(BaseVarerViewSet):
-    queryset = Varetelling.objects.prefetch_related('varetellingvare_set__raavare__innkjopskonto').all()
-    queryset = Varetelling.objects.prefetch_related('varetellingvare_set__raavare__priser__leverandor').all()
+    queryset = Varetelling.objects.all()
+    permission_classes = (IsAuthenticatedOrReadOnly, VaretellingPermissions,)
 
     def get_serializer_class(self):
         if self.action in ['create', 'update']:
             return VaretellingWriteSerializer
+        elif self.action in ['list']:
+            return VaretellingListSerializer
+        elif 'expand' in self.request.query_params:
+            return VaretellingReadExpandedSerializer
         return VaretellingReadSerializer
+
+    def get_queryset(self):
+        if 'expand' not in self.request.query_params:
+            return self.queryset
+
+        return self.queryset \
+            .prefetch_related('varetellingvare_set__raavare__innkjopskonto') \
+            .prefetch_related('varetellingvare_set__raavare__priser__leverandor') \
+            .prefetch_related('varetellingvare_set__added_by')
 
 
 class VaretellingVareViewSet(BaseVarerViewSet):
     queryset = VaretellingVare.objects.all()
-    serializer_class = VaretellingVareSerializer
+    ordering_fields = ('id', 'time_price', 'time_added',)
+    filter_fields = ('varetelling',)
+    permission_classes = (IsAuthenticatedOrReadOnly, VaretellingVarePermissions,)
+
+    def get_serializer_class(self):
+        if 'expand' in self.request.query_params:
+            return VaretellingVareExpandedSerializer
+        return VaretellingVareSerializer
+
+    def get_queryset(self):
+        if 'expand' not in self.request.query_params:
+            return self.queryset
+
+        return self.queryset \
+            .prefetch_related('raavare__innkjopskonto') \
+            .prefetch_related('raavare__priser__leverandor') \
+            .prefetch_related('added_by')
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
+
+        if serializer.validated_data['varetelling'].is_locked:
+            raise PermissionDenied(detail=_('The inventory count is locked for editing'))
+
         serializer.save(added_by=request.user)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(VaretellingVareExpandedSerializer(serializer.instance).data, status=status.HTTP_201_CREATED)
