@@ -157,6 +157,7 @@ class Varetelling(models.Model):
     tid = models.DateTimeField()
     ansvarlig = models.CharField(max_length=100)
     varer = models.ManyToManyField(Råvare, through='varer.VaretellingVare', related_name='varetellinger')
+    is_locked = models.BooleanField(default=False, help_text="Sperr tellingen for endringer")
 
     class Meta:
         ordering = ['-tid']

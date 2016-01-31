@@ -155,14 +155,14 @@ class SalgskalkyleVareSerializer(serializers.ModelSerializer):
 class VaretellingWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Varetelling
-        fields = ('id', 'tittel', 'kommentar', 'tid', 'ansvarlig')
+        fields = ('id', 'tittel', 'kommentar', 'tid', 'ansvarlig', 'is_locked')
 
 
 class VaretellingReadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Varetelling
         depth = 1
-        fields = ('id', 'tittel', 'kommentar', 'tid', 'ansvarlig')
+        fields = ('id', 'tittel', 'kommentar', 'tid', 'ansvarlig', 'is_locked')
 
 
 class VaretellingReadExpandedSerializer(serializers.ModelSerializer):
@@ -178,14 +178,14 @@ class VaretellingReadExpandedSerializer(serializers.ModelSerializer):
     class Meta:
         model = Varetelling
         depth = 1
-        fields = ('id', 'tittel', 'kommentar', 'tid', 'ansvarlig', 'varer')
+        fields = ('id', 'tittel', 'kommentar', 'tid', 'ansvarlig', 'is_locked', 'varer')
 
 
 class VaretellingListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Varetelling
         depth = 1
-        fields = ('id', 'tittel', 'kommentar', 'tid', 'ansvarlig')
+        fields = ('id', 'tittel', 'kommentar', 'tid', 'ansvarlig', 'is_locked')
 
 
 class VaretellingVareSerializer(serializers.ModelSerializer):
