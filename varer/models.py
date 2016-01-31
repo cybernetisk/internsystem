@@ -177,7 +177,7 @@ class VaretellingVare(models.Model):
     kommentar = models.CharField(max_length=150, null=True, blank=True)
 
     class Meta:
-        ordering = ['varetelling', 'raavare']
+        ordering = ['varetelling', '-time_added']
 
     def __str__(self):
         return '%s (sted: %s) %d stk' % (self.raavare, self.sted, self.antall)

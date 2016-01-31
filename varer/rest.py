@@ -116,7 +116,22 @@ class VaretellingViewSet(BaseVarerViewSet):
 
 class VaretellingVareViewSet(BaseVarerViewSet):
     queryset = VaretellingVare.objects.all()
-    serializer_class = VaretellingVareSerializer
+    ordering_fields = ('id', 'time_price', 'time_added',)
+    filter_fields = ('varetelling',)
+
+    def get_serializer_class(self):
+        if 'expand' in self.request.query_params:
+            return VaretellingVareExpandedSerializer
+        return VaretellingVareSerializer
+
+    def get_queryset(self):
+        if 'expand' not in self.request.query_params:
+            return self.queryset
+
+        return self.queryset \
+            .prefetch_related('raavare__innkjopskonto') \
+            .prefetch_related('raavare__priser__leverandor') \
+            .prefetch_related('added_by')
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
