@@ -159,6 +159,13 @@ class VaretellingWriteSerializer(serializers.ModelSerializer):
 
 
 class VaretellingReadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Varetelling
+        depth = 1
+        fields = ('id', 'tittel', 'kommentar', 'tid', 'ansvarlig')
+
+
+class VaretellingReadExpandedSerializer(serializers.ModelSerializer):
     class VaretellingVare(serializers.ModelSerializer):
         class Meta:
             model = VaretellingVare
@@ -209,12 +216,3 @@ class VaretellingVareExpandedSerializer(serializers.ModelSerializer):
         model = VaretellingVare
         fields = ('id', 'sted', 'antall', 'antallpant', 'kommentar', 'raavare', 'time_price', 'added_by',
                   'time_added')
-
-
-class VaretellingReadExpandedSerializer(serializers.ModelSerializer):
-    varer = VaretellingVareExpandedSerializer(many=True, source='varetellingvare_set')
-
-    class Meta:
-        model = Varetelling
-        depth = 1
-        fields = ('id', 'tittel', 'kommentar', 'tid', 'ansvarlig', 'varer')
