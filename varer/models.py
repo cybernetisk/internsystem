@@ -169,7 +169,7 @@ class Varetelling(models.Model):
 class VaretellingVare(models.Model):
     varetelling = models.ForeignKey(Varetelling)
     raavare = models.ForeignKey(Råvare)
-    time_price = models.DateTimeField(null=True, blank=True, help_text="Overstyring av tidspunkt varen skal prises")
+    time_price = models.DateField(null=True, blank=True, help_text="Overstyring av tidspunkt varen skal prises")
     added_by = models.ForeignKey(User, editable=False, null=True, help_text="Brukeren som registrerte oppføringen")
     time_added = models.DateTimeField(auto_now_add=True)
     sted = models.CharField(max_length=50, null=True, blank=True)
