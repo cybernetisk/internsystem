@@ -9,6 +9,7 @@ from varer.serializers import *
 from varer.models import *
 from varer.permissions import *
 
+
 class BaseVarerViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
 
@@ -40,8 +41,13 @@ class LeverandørViewSet(BaseVarerViewSet):
 
 
 class RåvareprisViewSet(BaseVarerViewSet):
-    queryset = Råvarepris.objects.all()
+    queryset = Råvarepris.objects \
+        .prefetch_related('leverandor') \
+        .order_by('-dato') \
+        .all()
     serializer_class = RåvareprisSerializer
+
+    filter_fields = ('bestillingskode', 'leverandor', 'aktiv', 'raavare')
 
 
 class SalgsvareViewSet(BaseVarerViewSet):

@@ -61,6 +61,13 @@ class LeverandørSerializer(serializers.ModelSerializer):
 
 
 class RåvareprisSerializer(serializers.ModelSerializer):
+    class LeverandørSimpleSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Leverandør
+            fields = ('id', 'navn',)
+
+    leverandor = LeverandørSimpleSerializer()
+
     class Meta:
         model = Råvarepris
 
