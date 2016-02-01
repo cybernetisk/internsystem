@@ -153,7 +153,7 @@ if not 'SECRET_KEY' in locals():
     raise Exception("Missing SECRET_KEY in local settings. See settings.py");
 
 LOGIN_REDIRECT_URL = '/profile'
-LOGIN_URL = '/saml/' if ENABLE_SAML else '/api-auth/login/'
+LOGIN_URL = '/saml/?sso' if ENABLE_SAML else '/api-auth/login/'
 LOGOUT_URL = '/saml/sls/' if ENABLE_SAML else '/api-auth/logout/'
 
 TEMPLATE_DEBUG = DEBUG
