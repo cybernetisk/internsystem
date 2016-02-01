@@ -8,10 +8,8 @@ class UserSimpleGuestSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'realname')
 
 
-class UserSimpleSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('id', 'username', 'realname', 'email')
+class UserSimpleSerializer(UserSimpleGuestSerializer):
+    pass
 
 
 class UserExtendedSerializer(serializers.ModelSerializer):
