@@ -121,6 +121,10 @@ andre ord inn i systemet som bruker API-et.
 
 Dersom `client type` settes til `public` er ikke `client_secret` nødvendig.
 
+TODO: Burde sannsynligvis heller bruke grant_type=authorization-code slik at man kan logge inn på systembrukeren
+direkte på utstyret. Alternativt legge inn authorization code etter man logger inn et annet sted/får generert
+authorization code.
+
 ## Produksjonsserver
 Vi har en [droplet hos Digital Ocean](https://confluence.cyb.no/display/AKTIV/Servere) som kjører systemet i produksjon. Den kjører `gunicorn` i kombinasjon med `nginx` for å kjøre Django-applikasjonen over port 80.
 
