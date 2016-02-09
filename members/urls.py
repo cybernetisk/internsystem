@@ -3,5 +3,6 @@ from members.rest import *
 
 # SharedAPIRootRouter is automatically imported in global urls config
 router = SharedAPIRootRouter()
-# TODO: Add endpoints under here.
-router.register(r'member/members', MemberViewSet)
+
+router.register(r'member/semester', SemesterViewSet, base_name='semester')
+router.register(r'member/member', MemberViewSet, base_name='member')
