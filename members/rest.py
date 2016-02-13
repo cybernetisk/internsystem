@@ -3,45 +3,36 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from django.db.models import Q
-from members.serializers import *
-from members.filters import MemberFilter
-from core.models import User
-from core.utils import get_semester_of_date
-import datetime
 import django_filters
 from rest_framework import filters
 
-class SemesterViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Member.objects.filter(Q(semester=get_semester_of_date(datetime.datetime.now())) |
-                                     Q(lifetime=True) | Q(honorary=True))
-    permission_classes = (IsAuthenticated,)
-    lookup_field = 'semester'
+from members.serializers import *
+from members.filters import MemberFilter
+from members.permissions import MemberPermissions
 
-    def get_serializer_class(self):
-        return MemberSerializer
+from core.models import User
+from core.utils import get_semester_of_date
 
-    def list(self, request, *args, **kwargs):
-        objects = Member.objects.filter(Q(semester=semester))
-        serializer = MemberSerializer(objects, many=True)
-        return Response(serializer.data)
-
+import datetime
 
 
 
 class MemberViewSet(viewsets.ModelViewSet):
-    queryset = Member.objects.filter(Q(semester=get_semester_of_date(datetime.datetime.now())) |
-                                     Q(lifetime=True) | Q(honorary=True))
-    permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated, MemberPermissions)
     filter_class = MemberFilter
     filter_backends = (filters.SearchFilter, filters.OrderingFilter)
     search_fields = ('name',)
-    ordering_fields = ('date_joined',)
+    ordering_fields = ('date_joined', 'name')
 
 
     def get_serializer_class(self):
         if self.action in ['create']:
             return AddMemberSerializer
         return MemberSerializer
+
+    def get_queryset(self):
+        return Member.objects.filter(Q(semester=get_semester_of_date(datetime.datetime.now())) |
+                                     Q(lifetime=True) | Q(honorary=True))
 
     def create(self, request, **kwargs):
         serializer = AddMemberSerializer(data=request.data)
