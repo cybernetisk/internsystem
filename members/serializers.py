@@ -7,7 +7,7 @@ from core.serializers import SemesterSerializer
 
 class MemberSerializer(serializers.ModelSerializer):
     can_edit = serializers.SerializerMethodField('_can_edit')
-    semester = SemesterSerializer()
+    semester = SemesterSerializer(read_only=True)
 
     def _can_edit(self, instance):
         return has_permission(self.context['request'], instance, 'change')
