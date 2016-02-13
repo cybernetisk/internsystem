@@ -59,13 +59,3 @@ class MemberViewSet(viewsets.ModelViewSet):
         member.save()
 
         return Response(MemberSerializer(member).data, status=status.HTTP_201_CREATED)
-
-
-
-        #
-        # def list(self, request, username=None):
-        #     objects = Member.objects.filter(Q(semester=get_semester_of_date(datetime.datetime.now())) |
-        #                                     Q(lifetime=True) | Q(honorary=True))
-        #     serializers = MemberSerializer(objects, many=True)
-        #
-        #     return Response(serializers.data)
