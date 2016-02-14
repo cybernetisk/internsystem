@@ -6,15 +6,13 @@ from core.serializers import SemesterSerializer
 
 
 class MemberSerializer(serializers.ModelSerializer):
-    can_edit = serializers.SerializerMethodField('_can_edit')
     semester = SemesterSerializer(read_only=True)
 
-    def _can_edit(self, instance):
-        return has_permission(self.context['request'], instance, 'change')
+
 
     class Meta:
         model = Member
-        fields = ('id', 'name', 'email', 'date_joined', 'semester', 'lifetime', 'honorary', 'can_edit')
+        fields = ('id', 'name', 'email', 'date_joined', 'semester', 'lifetime', 'honorary')
 
 
 class AddMemberSerializer(serializers.Serializer):
