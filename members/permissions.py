@@ -1,11 +1,5 @@
 from rest_framework.permissions import BasePermission, DjangoModelPermissions
 
-from members.models import Member
-
-
-def has_permission(request, instance, type):
-    return request.user.has_perm('%s.%s.%s' % (Member._meta.app_label, type, Member._meta.model_name))
-
 
 class MemberPermissions(BasePermission):
     def has_object_permission(self, request, view, obj):

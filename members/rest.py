@@ -49,8 +49,9 @@ class MemberViewSet(viewsets.ModelViewSet):
             lifetime=serializer.data['lifetime'],
             email=serializer.data['email'],
             honorary=False,
-            uio_username=serializer.data['uio_username']
         )
+        if 'uio_username' in serializer.data:
+            member.uio_username = serializer.data['uio_username']
         if user is not None:
             member.user = user
         if lifetime:
