@@ -1,5 +1,3 @@
-__author__ = 'mats'
-
 from rest_framework.permissions import BasePermission, DjangoModelPermissions
 
 from members.models import Member

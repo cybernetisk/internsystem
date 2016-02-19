@@ -12,20 +12,24 @@ class Member(models.Model):
             (and for ordinary members also the semester it's valid for)
         -if the member got a lifetime or honorary membership.
         -the date the membership was sold
+        -the date the member got a lifetimemembership
         -who sold it
         -name of the member
         -email address that can be blank
+        -uio username that can be blank.
 
     Can only be one member with the same name and email address per semester.
     """
-    user = models.ForeignKey(User, null=True, blank=True, related_name='user')
+    user = models.ForeignKey(User, null=True, blank=True)
     semester = models.ForeignKey(Semester)
-    lifetime = models.BooleanField(blank=False, help_text='Lifetime member')
-    honorary = models.BooleanField(blank=False, help_text='Honorary member')
-    date_joined = models.DateTimeField()
+    lifetime = models.BooleanField(default=False, help_text='Lifetime member')
+    honorary = models.BooleanField(default=False, help_text='Honorary member')
+    date_joined = models.DateTimeField(auto_now_add=True)
+    date_lifetime = models.DateTimeField(null=True)
     seller = models.ForeignKey(User, related_name='seller')
     name = models.CharField(max_length=50)
     email = models.EmailField(blank=True)
+    uio_username = models.CharField(max_length=15, null=True)
 
     def __str__(self):
         return self.name

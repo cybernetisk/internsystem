@@ -1,20 +1,17 @@
+import datetime
+
 from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import status
 from django.db.models import Q
-import django_filters
 from rest_framework import filters
 
 from members.serializers import *
 from members.filters import MemberFilter
 from members.permissions import MemberPermissions
-
 from core.models import User
 from core.utils import get_semester_of_date
-
-import datetime
-
 
 
 class MemberViewSet(viewsets.ModelViewSet):
@@ -39,23 +36,26 @@ class MemberViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         id = request.user
         adder = User.objects.get(username=id)
-        date_joined = datetime.datetime.now()
-        semester = get_semester_of_date(date_joined)
+        semester = get_semester_of_date(datetime.datetime.now())
+        lifetime = serializer.data['lifetime']
         try:
             user = User.objects.get(email=serializer.data['email'])
         except:
             user = None
         member = Member(
             seller=adder,
-            date_joined=date_joined,
             semester=semester,
             name=serializer.data['name'],
             lifetime=serializer.data['lifetime'],
             email=serializer.data['email'],
-            honorary=False
+            honorary=False,
+            uio_username=serializer.data['uio_username']
         )
         if user is not None:
             member.user = user
+        if lifetime:
+            member.date_lifetime = datetime.datetime.now()
+
         member.save()
 
         return Response(MemberSerializer(member).data, status=status.HTTP_201_CREATED)
