@@ -2,20 +2,19 @@ import datetime
 
 from rest_framework import viewsets
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import DjangoModelPermissions
 from rest_framework import status
 from django.db.models import Q
 from rest_framework import filters
 
 from members.serializers import *
 from members.filters import MemberFilter
-from members.permissions import MemberPermissions
 from core.models import User
 from core.utils import get_semester_of_date
 
 
 class MemberViewSet(viewsets.ModelViewSet):
-    permission_classes = (IsAuthenticated, MemberPermissions)
+    permission_classes = (DjangoModelPermissions,)
     filter_class = MemberFilter
     filter_backends = (filters.SearchFilter, filters.OrderingFilter)
     search_fields = ('name',)
