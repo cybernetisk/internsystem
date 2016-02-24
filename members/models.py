@@ -29,7 +29,7 @@ class Member(models.Model):
     seller = models.ForeignKey(User, related_name='seller')
     name = models.CharField(max_length=50)
     email = models.EmailField(blank=True)
-    uio_username = models.CharField(max_length=15, null=True)
+    uio_username = models.CharField(max_length=15, null=True, blank=True)
     comments = models.TextField(null=True, blank=True)
 
     def __str__(self):
