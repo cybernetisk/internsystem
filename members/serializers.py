@@ -14,7 +14,7 @@ class MemberSerializer(serializers.ModelSerializer):
         model = Member
         fields = (
             'id', 'name', 'email', 'date_joined', 'semester', 'lifetime', 'honorary', 'date_lifetime', 'uio_username',
-            'seller')
+            'seller', 'comments')
 
 
 class AddMemberSerializer(serializers.Serializer):
