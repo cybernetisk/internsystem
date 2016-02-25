@@ -1,4 +1,5 @@
 import datetime
+from django.utils import timezone
 
 from rest_framework import viewsets
 from rest_framework.response import Response
@@ -11,7 +12,6 @@ from members.serializers import *
 from members.filters import MemberFilter
 from core.models import User
 from core.utils import get_semester_of_date
-
 
 class MemberViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
@@ -43,6 +43,7 @@ class MemberViewSet(viewsets.ModelViewSet):
             user = None
         member = Member(
             seller=adder,
+            last_edited_by=adder,
             semester=semester,
             name=serializer.data['name'],
             lifetime=serializer.data['lifetime'],
@@ -54,8 +55,31 @@ class MemberViewSet(viewsets.ModelViewSet):
         if user is not None:
             member.user = user
         if lifetime:
-            member.date_lifetime = datetime.datetime.now()
+            member.date_lifetime = timezone.now()
 
         member.save()
 
         return Response(MemberSerializer(member).data, status=status.HTTP_201_CREATED)
+
+    def update(self, request, *args, **kwargs):
+        member = self.get_object()
+
+        member.name = request.data['name']
+        member.email = request.data['email']
+        member.last_edited_by = User.objects.get(username=request.user)
+        lifetime = request.data['lifetime']
+        if lifetime and not member.lifetime:
+            member.date_lifetime = timezone.now()
+            member.lifetime = lifetime
+        elif not lifetime and member.lifetime:
+            member.date_lifetime = None
+            member.lifetime = lifetime
+            print('yep')
+        if 'honorary' in request.data:
+            member.honorary = request.data['honorary']
+        if 'comments' in request.data:
+            member.comments = request.data['comments']
+
+        member.save()
+
+        return Response(MemberSerializer(member).data, status=status.HTTP_200_OK)

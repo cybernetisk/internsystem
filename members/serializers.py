@@ -6,15 +6,16 @@ from core.serializers import UserSimpleSerializer
 
 
 class MemberSerializer(serializers.ModelSerializer):
-    semester = SemesterSerializer(read_only=True)
+    semester = SemesterSerializer(read_only=True, required=False)
     seller = UserSimpleSerializer(read_only=True)
+    last_edited_by = UserSimpleSerializer(read_only=True)
 
 
     class Meta:
         model = Member
         fields = (
             'id', 'name', 'email', 'date_joined', 'semester', 'lifetime', 'honorary', 'date_lifetime', 'uio_username',
-            'seller', 'comments')
+            'seller', 'comments', 'last_edited_by')
 
 
 class AddMemberSerializer(serializers.Serializer):
