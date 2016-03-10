@@ -20,7 +20,7 @@ class MemberViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
     filter_class = MemberFilter
     filter_backends = (filters.SearchFilter, filters.OrderingFilter)
-    search_fields = ('name', 'semester')
+    search_fields = ('name',)
     ordering_fields = ('date_joined', 'name')
 
     def get_serializer_class(self):
