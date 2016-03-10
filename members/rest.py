@@ -1,25 +1,27 @@
 import datetime
-from django.utils import timezone
+from collections import OrderedDict
 
-from rest_framework import viewsets
-from rest_framework.response import Response
-from rest_framework.permissions import DjangoModelPermissions
-from rest_framework import status
 from django.db.models import Q
+from django.utils import timezone
+from django.shortcuts import get_object_or_404
 from rest_framework import filters
+from rest_framework import status
+from rest_framework import viewsets
+from rest_framework.permissions import DjangoModelPermissions
+from rest_framework.response import Response
 
-from members.serializers import *
-from members.filters import MemberFilter
-from core.models import User
+from core.models import User, Semester
 from core.utils import get_semester_of_date
+from members.filters import MemberFilter
+from members.serializers import *
+
 
 class MemberViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
     filter_class = MemberFilter
     filter_backends = (filters.SearchFilter, filters.OrderingFilter)
-    search_fields = ('name',)
+    search_fields = ('name', 'semester')
     ordering_fields = ('date_joined', 'name')
-
 
     def get_serializer_class(self):
         if self.action in ['create']:
@@ -83,3 +85,41 @@ class MemberViewSet(viewsets.ModelViewSet):
         member.save()
 
         return Response(MemberSerializer(member).data, status=status.HTTP_200_OK)
+
+
+class MemberStatsViewSet(viewsets.GenericViewSet):
+    def list(self, request, *args, **kwargs):
+        semesters = Semester.objects.all()
+        semlist = OrderedDict()
+        for semester in semesters:
+            semlist[semester.id] = self.make_stats_dict(semester)
+
+        serializers = MemberSemesterSerializer(semlist.values(), many=True)
+        return Response(serializers.data)
+
+    def retrieve(self, request, pk=None):
+        semesters = Semester.objects.all()
+        semester = get_object_or_404(semesters, pk=pk)
+        serializer = MemberSemesterSerializer(self.make_stats_dict(semester))
+        return Response(serializer.data)
+
+    def make_stats_dict(self, semester):
+        members = semester.member_set
+        lifetime = members.filter(lifetime=True).count()
+        honorary = members.filter(honorary=True).count()
+        normal = members.filter(lifetime=False, honorary=False).count()
+        semid = semester.id
+        semdict = {
+            'id': semid,
+            'lifetime': lifetime,
+            'honorary': honorary, 'normal': normal,
+            'semester': semester}
+        return semdict
+
+
+class SemesterMemberViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = MemberSerializer
+    queryset = Member.objects.all()
+    permission_classes = (DjangoModelPermissions,)
+    filter_class = MemberFilter
+    search_fields = ('semester')

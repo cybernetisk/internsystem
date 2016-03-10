@@ -5,3 +5,5 @@ from members.rest import *
 router = SharedAPIRootRouter()
 
 router.register(r'member/member', MemberViewSet, base_name='member')
+router.register(r'member/stats', MemberStatsViewSet, base_name='member-stats')
+router.register(r'member/all', SemesterMemberViewSet, base_name='semester-member')
