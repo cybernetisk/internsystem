@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'voucher',
     'z',
     'members',
+    'intern',
 )
 
 MIDDLEWARE_CLASSES = (
