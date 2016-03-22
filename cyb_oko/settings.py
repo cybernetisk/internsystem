@@ -72,6 +72,7 @@ CORS_ORIGIN_WHITELIST = (
     'localhost:3000',
     '127.0.0.1:3000',
     'internt.cyb.no',
+    'cyb.no',
     'dev.internt.cyb.no',
 )
 CORS_ALLOW_CREDENTIALS = True
