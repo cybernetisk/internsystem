@@ -136,7 +136,7 @@ class WorkLogViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        username = serializer.data['user'].strip()
+        username = serializer.data['user'].strip().lower()
         user = User.objects.get_or_create(username=username)[0]
         if not user:
             raise ValidationError(detail=_('User %(user)s not found') % {'user': serializer.data['user']})
