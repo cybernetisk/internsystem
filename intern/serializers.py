@@ -43,3 +43,4 @@ class InternSerializer(serializers.ModelSerializer):
             'id', 'user', 'semester', 'recived_card', 'active', 'comments',
             'roles', 'cards'
         )
+

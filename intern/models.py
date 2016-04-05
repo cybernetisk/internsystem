@@ -48,7 +48,6 @@ class Intern(models.Model):
 
 class InternAccessCard(models.Model):
     intern = models.ForeignKey(Intern, related_name='cards')
-    card = models.ForeignKey(Card)
     given_access = models.BooleanField(default=False)
     valid = models.BooleanField(default=True)
 
