@@ -19,7 +19,8 @@ from members.serializers import *
 class MemberViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
     filter_class = MemberFilter
-    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
+    filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    filter_fields = ('lifetime',)
     search_fields = ('name',)
     ordering_fields = ('date_joined', 'name')
 
