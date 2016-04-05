@@ -122,6 +122,9 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
     def _get_time(self, dt):
         if type(dt) == datetime.date:
             return dt
+        if dt.tzinfo is None or dt.tzinfo.utcoffset(dt) is None:
+            # assume this timezone
+            return dt.replace(tzinfo=pytz.timezone("Europe/Oslo"))
         return dt.astimezone(pytz.timezone("Europe/Oslo"))
 
     def _force_naive_datetime(self, dt):
