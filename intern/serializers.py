@@ -8,7 +8,7 @@ class AccessLevelSerializer(serializers.ModelSerializer):
     class Meta:
         model = AccessLevel
         fields = (
-            'name', 'uio_name', 'description'
+            'id', 'name', 'uio_name', 'description'
         )
 
 
@@ -18,7 +18,7 @@ class InternGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = InternGroup
         fields = (
-            'name', 'leader', 'description'
+            'id', 'name', 'leader', 'description'
         )
 
 
