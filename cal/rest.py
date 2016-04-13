@@ -254,18 +254,21 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
         now = datetime.datetime.now(pytz.utc)
         osl = pytz.timezone("Europe/Oslo")
 
+        def get_aware_date(dt):
+            if type(dt) is datetime.date:
+                dt = datetime.datetime.combine(dt, datetime.time.min)
+            if dt.tzinfo is None or dt.tzinfo.utcoffset(dt) is None:
+                dt = osl.localize(dt)
+            return dt
+
         def is_future(ev):
-            end = ev['end']
-            if type(end) is datetime.date:
-                end = datetime.datetime.combine(end, datetime.time.min)
-            if end.tzinfo is None or end.tzinfo.utcoffset(end) is None:
-                end = osl.localize(end)
+            end = get_aware_date(ev['end'])
             if ev['all_day']:
                 end += datetime.timedelta(days=1)
             return end > now
 
         def get_start_time(ev):
-            return datetime.datetime.combine(ev['start'], datetime.time.min).replace(tzinfo=osl)
+            return get_aware_date(ev['start'])
 
         for calendar in self._calendars:
             events = data[calendar]
