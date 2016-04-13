@@ -255,7 +255,11 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
         osl = pytz.timezone("Europe/Oslo")
 
         def is_future(ev):
-            end = datetime.datetime.combine(ev['end'], datetime.time.min).replace(tzinfo=osl)
+            end = ev['end']
+            if type(end) is datetime.date:
+                end = datetime.datetime.combine(end, datetime.time.min)
+            if end.tzinfo is None or end.tzinfo.utcoffset(end) is None:
+                end = osl.localize(end)
             if ev['all_day']:
                 end += datetime.timedelta(days=1)
             return end > now
