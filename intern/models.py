@@ -45,12 +45,6 @@ class Intern(models.Model):
     def __str__(self):
         return "%s %s" % (self.user, self.semester)
 
-
-class InternAccessCard(models.Model):
-    intern = models.ForeignKey(Intern, related_name='cards')
-    card = models.ForeignKey(Card)
-    given_access = models.BooleanField(default=False)
-    valid = models.BooleanField(default=True)
-
-    def __str__(self):
-        return '%s %s' % (self.intern.user.get_full_name(), self.card.card_number)
+    def cards(self):
+        cards = self.user.card_set.all()
+        return cards
