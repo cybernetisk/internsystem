@@ -175,7 +175,7 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
         """
         summary = component['SUMMARY']
 
-        if 'DESCRIPTION' in component:
+        if 'DESCRIPTION' in component and len(component['DESCRIPTION']) > 0:
             pos = summary.find(": " + component['DESCRIPTION'][0:10])
             if pos != -1:
                 summary = summary[0:pos]
