@@ -169,6 +169,19 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
 
             yield d
 
+    def _parse_summary(self, component):
+        """
+        Remove description from summary so only the title is left
+        """
+        summary = component['SUMMARY']
+
+        if 'DESCRIPTION' in component:
+            pos = summary.find(": " + component['DESCRIPTION'][0:10])
+            if pos != -1:
+                summary = summary[0:pos]
+
+        return summary
+
     def _parse_ics(self, ics_data):
         events = []
 
@@ -194,7 +207,7 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
                 'all_day': is_day,
                 'start': self._get_time(component['DTSTART'].dt),
                 'end': self._get_time(dtend),
-                'summary': component['SUMMARY'],
+                'summary': self._parse_summary(component),
                 'url': component['URL'] if 'URL' in component else None
             })
 
@@ -218,7 +231,7 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
                     'all_day': is_day,
                     'start': d,
                     'end': dtend,
-                    'summary': component['SUMMARY'],
+                    'summary': self._parse_summary(component),
                     'url': component['URL'] if 'URL' in component else None
                 })
 
