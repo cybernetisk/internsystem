@@ -146,8 +146,11 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
 
         # handle exclusions
         if 'EXDATE' in component:
-            for exdate in component['EXDATE'].dts:
-                rruleset.exdate(self._force_naive_datetime(self._get_time(exdate.dt)))
+            # the value here will be a list if it has multiple EXDATE occurences
+            exdate_list = [component['EXDATE']] if not isinstance(component['EXDATE'], list) else component['EXDATE']
+            for exdate in exdate_list:
+                for d in exdate.dts:
+                    rruleset.exdate(self._force_naive_datetime(self._get_time(d.dt)))
 
         return rruleset
 
