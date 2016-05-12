@@ -70,8 +70,7 @@ class MemberViewSet(viewsets.ModelViewSet):
         member.name = request.data['name']
         member.email = request.data['email']
         member.last_edited_by = User.objects.get(username=request.user)
-        print(request.data['lifetime'])
-        lifetime = request.data['lifetime']
+        lifetime = (request.data['lifetime'] == 'true')
         if lifetime and not member.lifetime:
             member.date_lifetime = timezone.now()
             member.lifetime = True
@@ -80,7 +79,7 @@ class MemberViewSet(viewsets.ModelViewSet):
             member.lifetime = False
 
         if 'honorary' in request.data:
-            member.honorary = request.data['honorary']
+            member.honorary = (request.data['honorary'] == 'true')
         if 'comments' in request.data:
             member.comments = request.data['comments']
 
