@@ -122,6 +122,9 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
     def _get_time(self, dt):
         if type(dt) == datetime.date:
             return dt
+        if dt.tzinfo is None or dt.tzinfo.utcoffset(dt) is None:
+            # assume this timezone
+            return dt.replace(tzinfo=pytz.timezone("Europe/Oslo"))
         return dt.astimezone(pytz.timezone("Europe/Oslo"))
 
     def _force_naive_datetime(self, dt):
@@ -143,8 +146,11 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
 
         # handle exclusions
         if 'EXDATE' in component:
-            for exdate in component['EXDATE'].dts:
-                rruleset.exdate(self._force_naive_datetime(self._get_time(exdate.dt)))
+            # the value here will be a list if it has multiple EXDATE occurences
+            exdate_list = [component['EXDATE']] if not isinstance(component['EXDATE'], list) else component['EXDATE']
+            for exdate in exdate_list:
+                for d in exdate.dts:
+                    rruleset.exdate(self._force_naive_datetime(self._get_time(d.dt)))
 
         return rruleset
 
@@ -165,6 +171,19 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
                 continue
 
             yield d
+
+    def _parse_summary(self, component):
+        """
+        Remove description from summary so only the title is left
+        """
+        summary = component['SUMMARY']
+
+        if 'DESCRIPTION' in component and len(component['DESCRIPTION']) > 0:
+            pos = summary.find(": " + component['DESCRIPTION'][0:10])
+            if pos != -1:
+                summary = summary[0:pos]
+
+        return summary
 
     def _parse_ics(self, ics_data):
         events = []
@@ -191,7 +210,7 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
                 'all_day': is_day,
                 'start': self._get_time(component['DTSTART'].dt),
                 'end': self._get_time(dtend),
-                'summary': component['SUMMARY'],
+                'summary': self._parse_summary(component),
                 'url': component['URL'] if 'URL' in component else None
             })
 
@@ -215,7 +234,7 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
                     'all_day': is_day,
                     'start': d,
                     'end': dtend,
-                    'summary': component['SUMMARY'],
+                    'summary': self._parse_summary(component),
                     'url': component['URL'] if 'URL' in component else None
                 })
 
@@ -251,13 +270,21 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
         now = datetime.datetime.now(pytz.utc)
         osl = pytz.timezone("Europe/Oslo")
 
+        def get_aware_date(dt):
+            if type(dt) is datetime.date:
+                dt = datetime.datetime.combine(dt, datetime.time.min)
+            if dt.tzinfo is None or dt.tzinfo.utcoffset(dt) is None:
+                dt = osl.localize(dt)
+            return dt
+
         def is_future(ev):
-            # TODO: improve this forcing it to be aware datetime object
-            return datetime.datetime.combine(ev['end'], datetime.time.min).replace(tzinfo=osl) > now
+            end = get_aware_date(ev['end'])
+            if ev['all_day']:
+                end += datetime.timedelta(days=1)
+            return end > now
 
         def get_start_time(ev):
-            # TODO: improve this forcing it to be aware datetime object
-            return datetime.datetime.combine(ev['start'], datetime.time.min).replace(tzinfo=osl)
+            return get_aware_date(ev['start'])
 
         for calendar in self._calendars:
             events = data[calendar]

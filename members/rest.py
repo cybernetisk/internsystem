@@ -19,7 +19,8 @@ from members.serializers import *
 class MemberViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
     filter_class = MemberFilter
-    filter_backends = (filters.SearchFilter, filters.OrderingFilter)
+    filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    filter_fields = ('lifetime',)
     search_fields = ('name',)
     ordering_fields = ('date_joined', 'name')
 
@@ -69,7 +70,7 @@ class MemberViewSet(viewsets.ModelViewSet):
         member.name = request.data['name']
         member.email = request.data['email']
         member.last_edited_by = User.objects.get(username=request.user)
-        lifetime = (request.data['lifetime'] is 'true')
+        lifetime = (request.data['lifetime'] == 'true')
         if lifetime and not member.lifetime:
             member.date_lifetime = timezone.now()
             member.lifetime = True
@@ -78,7 +79,7 @@ class MemberViewSet(viewsets.ModelViewSet):
             member.lifetime = False
 
         if 'honorary' in request.data:
-            member.honorary = (request.data['honorary'] is 'true')
+            member.honorary = (request.data['honorary'] == 'true')
         if 'comments' in request.data:
             member.comments = request.data['comments']
 
