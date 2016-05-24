@@ -7,7 +7,7 @@ import re
 import pytz
 
 from django.core.management.base import BaseCommand
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, MultipleObjectsReturned
 
 from cyb_oko.settings import TIME_ZONE
 
@@ -53,7 +53,10 @@ class Command(BaseCommand):
     def find_products(self, z):
         for product in z.product_totals:
             try:
-                obj = Salgsvare.objects.select_related('salgskonto').get(kassenr=product.id)
+                try:
+                    obj = Salgsvare.objects.select_related('salgskonto').get(kassenr=product.id)
+                except MultipleObjectsReturned:
+                    obj = Salgsvare.objects.select_related('salgskonto').filter(kassenavn=product.title).get(kassenr=product.id)
                 product.reference_product = obj
                 product.account = obj.salgskonto
             except ObjectDoesNotExist:
