@@ -94,10 +94,10 @@ class Command(BaseCommand):
 
         groups = {}
         for product in z.product_totals:
-            group = groups.get(product.account.gruppe)
+            group = groups.get(str(product.account))
             if not group:
-                group = Group(product.account.gruppe)
-                groups[product.account.gruppe] = group
+                group = Group(str(product.account))
+                groups[str(product.account)] = group
 
             group.products.append(product)
 
