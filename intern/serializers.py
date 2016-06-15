@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from core.serializers import UserSimpleSerializer, UserExtendedSerializer, CardSerializer
+from core.serializers import UserSerializer, CardSerializer
 from intern.models import Intern, InternRole, InternGroup, AccessLevel
 
 
@@ -13,7 +13,7 @@ class AccessLevelSerializer(serializers.ModelSerializer):
 
 
 class InternGroupSerializer(serializers.ModelSerializer):
-    leader = UserSimpleSerializer()
+    leader = UserSerializer()
 
     class Meta:
         model = InternGroup
@@ -34,7 +34,7 @@ class InternRoleSerializer(serializers.ModelSerializer):
 
 
 class InternSerializer(serializers.ModelSerializer):
-    user = UserExtendedSerializer()
+    user = UserSerializer()
     roles = InternRoleSerializer(many=True)
     cards = CardSerializer(many=True)
 
