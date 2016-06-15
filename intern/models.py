@@ -33,6 +33,7 @@ class InternRole(models.Model):
         return self.name
 
 
+
 class Intern(models.Model):
     user = models.ForeignKey(User)
     member = models.ForeignKey(Member)
@@ -48,3 +49,6 @@ class Intern(models.Model):
     def cards(self):
         cards = self.user.card_set.all()
         return cards
+
+    class Meta:
+        unique_together = ("user", "semester")

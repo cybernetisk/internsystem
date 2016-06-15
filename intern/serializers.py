@@ -45,3 +45,10 @@ class InternSerializer(serializers.ModelSerializer):
             'roles', 'cards'
         )
 
+
+class InternRoleSimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = InternRole
+        fields = (
+            'id', 'name'
+        )
