@@ -5,9 +5,9 @@ Tjenester prosjektet tilbyr i dag:
 * Påloggingsløsning mot Universitet i Oslo med Weblogin
 * Vare- og priskatalog for Escape, med varetellingsfunksjon, marginoversikt m.v.
 * Bongsystem for internbonger
+* Medlemssystem for å registere medlemmer i foreningen.
 
 Tjenester det jobbes med/planlegges:
-* Ta over for [eksisterende medlemssystem](https://github.com/vegarang/medlemssystem_django)
 * Kaffebonger
 * Internliste (i stedet for tabeller i wikien/GARM-systemet)
 * Z-rapport-statistikk
