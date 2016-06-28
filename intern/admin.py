@@ -1,5 +1,5 @@
 from django.contrib import admin
-from intern.models import Intern, InternGroup, Role, AccessLevel
+from intern.models import Intern, InternGroup, Role, AccessLevel, InternRole
 
 
 class InternAdmin(admin.ModelAdmin):
@@ -18,3 +18,4 @@ admin.site.register(Intern, InternAdmin)
 admin.site.register(Role, RoleAdmin)
 admin.site.register(InternGroup, InternGroupAdmin)
 admin.site.register(AccessLevel)
+admin.site.register(InternRole)

@@ -1,8 +1,10 @@
-from rest_framework import viewsets
 from rest_framework import filters
+from rest_framework import viewsets
 from rest_framework.permissions import DjangoModelPermissions
+
 from intern.models import *
-from intern.serializers import InternSerializer, RoleSerializer, InternGroupSerializer, AccessLevelSerializer
+from intern.serializers import InternRoleFullSerializer, InternSerializer, AccessLevelSerializer, InternGroupSerializer, \
+    RoleSerializer
 
 
 class InternViewSet(viewsets.ModelViewSet):
@@ -46,3 +48,16 @@ class RoleViewSet(viewsets.ModelViewSet):
 
     def get_serializer_class(self):
         return RoleSerializer
+
+
+class InternRoleViewSet(viewsets.ModelViewSet):
+    permission_classes = (DjangoModelPermissions,)
+    filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    filter_fields = ('intern', 'role', 'semester_start', 'semester_end')
+    search_fields = ('intern')
+
+    def get_queryset(self):
+        return InternRole.objects.all()
+
+    def get_serializer_class(self):
+        return InternRoleFullSerializer
