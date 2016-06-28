@@ -50,7 +50,7 @@ class Intern(models.Model):
 
 
 class InternRole(models.Model):
-    intern = models.ForeignKey(Intern)
+    intern = models.ForeignKey(Intern, related_name='roles')
     role = models.ForeignKey(Role)
     semester_start = models.ForeignKey(Semester, related_name='start')
     semester_end = models.ForeignKey(Semester, related_name='end')
