@@ -1,13 +1,12 @@
 from django.contrib import admin
-from intern.models import Intern, InternGroup, InternRole, AccessLevel
+from intern.models import Intern, InternGroup, Role, AccessLevel
 
 
 class InternAdmin(admin.ModelAdmin):
     list_display = ('user', 'active')
-    list_filter = ['semester']
 
 
-class InternRoleAdmin(admin.ModelAdmin):
+class RoleAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
 
 
@@ -16,6 +15,6 @@ class InternGroupAdmin(admin.ModelAdmin):
 
 # Register your models here.
 admin.site.register(Intern, InternAdmin)
-admin.site.register(InternRole, InternRoleAdmin)
+admin.site.register(Role, RoleAdmin)
 admin.site.register(InternGroup, InternGroupAdmin)
 admin.site.register(AccessLevel)

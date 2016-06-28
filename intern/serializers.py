@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from core.serializers import UserSerializer, CardSerializer
-from intern.models import Intern, InternRole, InternGroup, AccessLevel
+from intern.models import Intern, Role, InternGroup, AccessLevel
 
 
 class AccessLevelSerializer(serializers.ModelSerializer):
@@ -22,32 +22,25 @@ class InternGroupSerializer(serializers.ModelSerializer):
         )
 
 
-class InternRoleSerializer(serializers.ModelSerializer):
+class RoleSerializer(serializers.ModelSerializer):
     groups = InternGroupSerializer(many=True)
     access_levels = AccessLevelSerializer(many=True)
 
     class Meta:
-        model = InternRole
+        model = Role
         fields = (
             'id', 'name', 'description', 'groups', 'access_levels'
         )
 
 
-class InternRoleSimpleSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = InternRole
-        fields = (
-            'id', 'name'
-        )
 
 class InternSerializer(serializers.ModelSerializer):
     user = UserSerializer()
-    roles = InternRoleSimpleSerializer(many=True)
     cards = CardSerializer(many=True)
 
     class Meta:
         model = Intern
         fields = (
             'id', 'user', 'semester', 'recived_card', 'active', 'comments',
-            'roles', 'cards'
+            'cards'
         )

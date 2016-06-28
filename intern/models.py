@@ -23,7 +23,7 @@ class InternGroup(models.Model):
         return self.name
 
 
-class InternRole(models.Model):
+class Role(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField(max_length=300, null=True, blank=True)
     groups = models.ManyToManyField(InternGroup, related_name='groups')
@@ -37,18 +37,23 @@ class InternRole(models.Model):
 class Intern(models.Model):
     user = models.ForeignKey(User)
     member = models.ForeignKey(Member)
-    semester = models.ForeignKey(Semester)
     recived_card = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
     comments = models.CharField(max_length=300, null=True, blank=True)
-    roles = models.ManyToManyField(InternRole, related_name='roles')
 
     def __str__(self):
-        return "%s %s" % (self.user, self.semester)
+        return str(self.user)
 
     def cards(self):
         cards = self.user.card_set.all()
         return cards
 
-    class Meta:
-        unique_together = ("user", "semester")
+
+class InternRole(models.Model):
+    intern = models.ForeignKey(Intern)
+    role = models.ForeignKey(Role)
+    semester_start = models.ForeignKey(Semester, related_name='start')
+    semester_end = models.ForeignKey(Semester, related_name='end')
+
+    def __str__(self):
+        return '%s %s' % (self.role, self.intern)
