@@ -9,7 +9,9 @@ from intern.serializers import InternRoleFullSerializer, InternSerializer, Acces
 
 class InternViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
-    search_fields = ('name', 'roles')
+    search_fields = ('user__username', 'user__realname')
+    filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
+    filter_fields = ('user', 'user__username')
 
     def get_queryset(self):
         return Intern.objects.all()
@@ -53,8 +55,9 @@ class RoleViewSet(viewsets.ModelViewSet):
 class InternRoleViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
-    filter_fields = ('intern', 'role', 'semester_start', 'semester_end')
-    search_fields = ('intern')
+    filter_fields = ('intern', 'role', 'semester_start', 'semester_end',
+                     'role__groups')
+    search_fields = ('intern', 'role')
 
     def get_queryset(self):
         return InternRole.objects.all()

@@ -66,12 +66,13 @@ class SimpleInternSerializer(serializers.ModelSerializer):
         )
 
 
-class InternRoleFullSerializer(serializers.ModelSerializer):
-    intern = SimpleInternSerializer()
+class InternRoleFullSerializer(InternRoleSerializer):
     role = RoleSerializer()
+    intern = SimpleInternSerializer()
 
     class Meta:
         model = InternRole
         fields = (
             'id', 'intern', 'role', 'semester_start', 'semester_end'
         )
+

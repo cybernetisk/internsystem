@@ -49,11 +49,13 @@ class Intern(models.Model):
         return cards
 
 
+
 class InternRole(models.Model):
     intern = models.ForeignKey(Intern, related_name='roles')
-    role = models.ForeignKey(Role, related_name='role')
+    role = models.ForeignKey(Role, related_name='intern')
     semester_start = models.ForeignKey(Semester, related_name='start')
-    semester_end = models.ForeignKey(Semester, related_name='end')
+    semester_end = models.ForeignKey(Semester, related_name='end', null=True)
+    comments = models.CharField(max_length=300, null=True, blank=True)
 
     def __str__(self):
         return '%s %s' % (self.role, self.intern)
