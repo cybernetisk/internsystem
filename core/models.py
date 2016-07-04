@@ -86,29 +86,19 @@ class Semester(models.Model):
 
 class Card(models.Model):
     CARD_NUMBER_REGEX = r'^\d{6}\.\d{2}\.\d{7}(\.\d)?$'
-    user = models.ForeignKey(User)
+    CARD_UID_REGEX = r'^[a-z0-9]{8}$'
+    user = models.ForeignKey(User, blank=True, null=True)
     comment = models.CharField(max_length=20, blank=True)
     disabled = models.BooleanField(default=False)
-    card_number = models.CharField(max_length=20, unique=True,
+    card_number = models.CharField(max_length=20, unique=True, blank=True, null=True,
                                    validators=[
                                        validators.RegexValidator(CARD_NUMBER_REGEX, _('Enter a valid card number.'),
                                                                  'invalid')
                                    ])
-
-    def __str__(self):
-        return "%s - %s (%s)" % (self.user.username, self.card_number, self.comment)
-
-
-class NfcCard(models.Model):
-    CARD_UID_REGEX = r'^[a-z0-9]{8}$'
-
-    card_uid = models.CharField(unique=True, max_length=8,
+    card_uid = models.CharField(unique=True, max_length=8, blank=True, null=True,
                                 validators=[
                                     validators.RegexValidator(CARD_UID_REGEX, _('Enter valid card uid.'), 'invalid')
                                 ])
-    user = models.ForeignKey(User, blank=True, null=True)
-    intern = models.BooleanField(default=False)
-    comment = models.CharField(max_length=20, blank=True)
 
     def __str__(self):
-        return "NFC Card: [card_uid: %s, user=%s, intern=%s]" % (self.card_uid, self.user, self.intern)
+        return "%s - %s - %s (%s)" % (self.user.username, self.card_number, self.card_uid, self.comment)
