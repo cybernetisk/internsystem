@@ -1,6 +1,8 @@
 from rest_framework import filters
 from rest_framework import viewsets
+from rest_framework import status
 from rest_framework.permissions import DjangoModelPermissions
+from rest_framework.response import Response
 
 from intern.models import *
 from intern.serializers import InternRoleFullSerializer, InternSerializer, AccessLevelSerializer, InternGroupSerializer, \
@@ -66,3 +68,18 @@ class InternRoleViewSet(viewsets.ModelViewSet):
         if self.action in ['create']:
             return AddInternRoleSerializer
         return InternRoleFullSerializer
+
+    def create(self, request, *args, **kwargs):
+        serializer = AddInternRoleSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        username = serializer.data['username']
+
+        user = User.objects.get_or_create(username=username)[0]
+        intern = Intern.objects.get_or_create(user=user)[0]
+        role = Role.objects.get(pk=serializer.data['role'])
+
+        internrole = InternRole(intern=intern, role=role)
+
+        internrole.save()
+
+        return Response(InternRoleFullSerializer(internrole).data, status=status.HTTP_201_CREATED)

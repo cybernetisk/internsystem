@@ -80,9 +80,10 @@ class InternRoleFullSerializer(InternRoleSerializer):
 
 
 class AddInternRoleSerializer(serializers.ModelSerializer):
+    username = serializers.CharField(max_length=15)
     class Meta:
         model = InternRole
         fields = (
-            'intern', 'role'
+            'username', 'role'
         )
 

@@ -38,7 +38,7 @@ class Role(models.Model):
 
 class Intern(models.Model):
     user = models.ForeignKey(User)
-    member = models.ForeignKey(Member)
+    member = models.ForeignKey(Member, blank=True, null=True)
     recived_card = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
     comments = models.CharField(max_length=300, null=True, blank=True)
