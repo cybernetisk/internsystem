@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from core.serializers import CardCreateSerializer, CardSerializer, UserExtendedSerializer, NfcCardCreateSerializer, \
     NfcCardSerializer
 from core.models import Card, User, NfcCard
-from core.filters import CardFilter, UserFilter, NfcCardFilet
+from core.filters import CardFilter, UserFilter, NfcCardFilter
 
 
 class CardViewSet(viewsets.ReadOnlyModelViewSet):
@@ -44,7 +44,7 @@ class CardViewSet(viewsets.ReadOnlyModelViewSet):
 
 class NfcCardViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = (IsAuthenticated,)
-    filter_class = NfcCardFilet
+    filter_class = NfcCardFilter
     queryset = NfcCard.objects.all()
 
     def get_serializer_class(self):

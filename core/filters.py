@@ -10,7 +10,7 @@ class CardFilter(django_filters.FilterSet):
         fields = ['user', 'card_number', 'disabled']
 
 
-class NfcCardFilet(django_filters.FilterSet):
+class NfcCardFilter(django_filters.FilterSet):
     user = django_filters.CharFilter(name='user__username')
 
     class Meta:
