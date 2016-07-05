@@ -2,21 +2,33 @@ from rest_framework import serializers
 from django.core import validators
 from django.utils.translation import ugettext_lazy as _
 
-from voucher.models import UseLog, Wallet, WorkLog
+from voucher.models import UseLog, Wallet, WorkLog, VoucherWallet, CoffeeWallet, RegisterLog
 from voucher.validators import valid_date_worked, ValidVouchers
 from voucher.permissions import work_log_has_perm
 from core.models import User
-from core.serializers import UserSimpleSerializer, SemesterSerializer
+from core.serializers import UserSimpleSerializer, SemesterSerializer, NfcCardSerializer
 from core.utils import get_semester_of_date
 
 
 class WalletSerializer(serializers.ModelSerializer):
-    user = UserSimpleSerializer()
     semester = SemesterSerializer()
 
+
+class VoucherWalletSerializer(WalletSerializer):
+    user = UserSimpleSerializer()
+
     class Meta:
-        model = Wallet
+        model = VoucherWallet
         fields = ('id', 'user', 'semester', 'cached_balance', 'cached_hours', 'cached_vouchers',
+                  'cached_vouchers_used', 'is_valid',)
+
+
+class CoffeeWalletSerializer(WalletSerializer):
+    card = NfcCardSerializer()
+
+    class Meta:
+        model = CoffeeWallet
+        fields = ('id', 'card', 'semester', 'cached_balance', 'cached_vouchers',
                   'cached_vouchers_used', 'is_valid',)
 
 
@@ -27,6 +39,17 @@ class UseLogSerializer(serializers.ModelSerializer):
     class Meta:
         model = UseLog
         fields = ('id', 'wallet', 'date_spent', 'issuing_user', 'comment', 'vouchers',)
+
+
+class RegisterLogCreateSerializer(serializers.Serializer):
+    card = serializers.CharField(max_length=8,
+                                 help_text=_('Required. 8 characters. Letters and digits only):'),
+                                 validators=[
+                                     validators.RegexValidator(r'^[\w]+$', _('Enter a valid username.'), 'invalid')
+                                 ])
+    date = serializers.DateField(validators=[valid_date_worked])
+    vouchers = serializers.DecimalField(max_digits=8, decimal_places=2, min_value=0.01)
+    comment = serializers.CharField(max_length=100, allow_blank=True, default=None)
 
 
 class WorkLogCreateSerializer(serializers.Serializer):
@@ -42,10 +65,9 @@ class WorkLogCreateSerializer(serializers.Serializer):
     comment = serializers.CharField(max_length=100, allow_blank=True, default=None)
 
 
-class WorkLogSerializer(serializers.ModelSerializer):
-    wallet = WalletSerializer(read_only=True)
+class RegisterLogSerializer(serializers.ModelSerializer):
+    wallet = CoffeeWalletSerializer(read_only=True)
     issuing_user = UserSimpleSerializer(read_only=True)
-    date_worked = serializers.DateField(validators=[valid_date_worked])
     can_edit = serializers.SerializerMethodField('_can_edit')
     can_delete = serializers.SerializerMethodField('_can_delete')
 
@@ -54,6 +76,24 @@ class WorkLogSerializer(serializers.ModelSerializer):
 
     def _can_delete(self, instance):
         return work_log_has_perm(self.context['request'], instance, 'delete')
+
+    class Meta:
+        model = RegisterLog
+        fields = ('id', 'wallet', 'date_issued', 'work_group',
+                  'hours', 'vouchers', 'issuing_user', 'comment', 'can_edit', 'can_delete',)
+        read_only_fields = ('id', 'wallet', 'date_issued', 'issuing_user',)
+
+    def update(self, instance, validated_data):
+        if 'vouchers' in validated_data or validated_data['vouchers'] != instance.vouchers:
+            instance.vouchers = int(validated_data['vouchers'])
+            validated_data.pop('vouchers', None)
+
+        return super().update(instance, validated_data)
+
+
+class WorkLogSerializer(RegisterLogSerializer):
+    wallet = VoucherWalletSerializer(read_only=True)
+    date_worked = serializers.DateField(validators=[valid_date_worked])
 
     class Meta:
         model = WorkLog
@@ -93,9 +133,12 @@ class UserCreateSerializer(serializers.ModelSerializer):
 class WalletStatsSerializer(serializers.Serializer):
     semester = SemesterSerializer()
     sum_balance = serializers.DecimalField(max_digits=8, decimal_places=2)
-    sum_hours = serializers.DecimalField(max_digits=8, decimal_places=2)
     sum_vouchers = serializers.DecimalField(max_digits=8, decimal_places=2)
     sum_vouchers_used = serializers.IntegerField()
+
+
+class VoucherWalletStatsSerializer(WalletStatsSerializer):
+    sum_hours = serializers.DecimalField(max_digits=8, decimal_places=2)
     count_users = serializers.IntegerField()
 
 

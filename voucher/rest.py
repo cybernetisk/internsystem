@@ -11,20 +11,21 @@ from django.db.models import Sum, Count
 from decimal import Decimal
 
 from voucher.serializers import *
-from voucher.models import Wallet, WorkLog, UseLog
-from voucher.filters import UseLogFilter, WalletFilter, WorkLogFilter
+from voucher.models import Wallet, WorkLog, UseLog, VoucherUseLog, RegisterLog, CoffeeUseLog
+from voucher.filters import UseLogFilter, WalletFilter, WorkLogFilter, VoucherUseLogFilter, VoucherWalletFilter, \
+    CoffeeWalletFilter, RegisterLogFilter, CoffeeUseLogFilter
 from voucher.permissions import WorkLogPermissions
 from voucher.utils import get_valid_semesters
 from core.utils import get_semester_of_date
-from core.models import Semester
+from core.models import Semester, NfcCard
 
 
-class WalletViewSet(viewsets.ReadOnlyModelViewSet):
-    serializer_class = WalletSerializer
-    filter_class = WalletFilter
+class VoucherWalletViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = VoucherWalletSerializer
+    filter_class = VoucherWalletFilter
 
     def get_queryset(self):
-        queryset = Wallet.objects.all()
+        queryset = VoucherWallet.objects.all()
         if self.action == 'stats':
             return queryset.order_by()
         return queryset.prefetch_related('user', 'semester')
@@ -61,6 +62,46 @@ class WalletViewSet(viewsets.ReadOnlyModelViewSet):
             row['semester'] = semesters[row['semester']]
             data[row['semester'].id].update(row)
         for row in wallets3:
+            row['semester'] = semesters[row['semester']]
+            data[row['semester'].id].update(row)
+
+        serializer = VoucherWalletStatsSerializer(data.values(), many=True)
+        return Response(serializer.data)
+
+
+class CoffeeWalletViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = CoffeeWalletSerializer
+    filter_class = CoffeeWalletFilter
+
+    def get_queryset(self):
+        queryset = CoffeeWallet.objects.all()
+        if self.action == 'stats':
+            return queryset.order_by()
+        return queryset.prefetch_related('card', 'semester')
+
+    @list_route(methods=['get'])
+    def stats(self, request):
+        # pull stuff from main table
+        wallets1 = self.get_queryset() \
+            .values('semester') \
+            .order_by('-semester__year', '-semester__semester') \
+            .annotate(sum_balance=Sum('cached_balance'),
+                      count_users=Count('user', distinct=True))
+
+        # pull stuff from uselogs
+        wallets2 = self.get_queryset() \
+            .values('semester') \
+            .annotate(sum_vouchers_used=Sum('uselogs__vouchers'))
+
+        semesters = {}
+        for semester in Semester.objects.all():
+            semesters[semester.id] = semester
+
+        data = OrderedDict()
+        for row in wallets1:
+            row['semester'] = semesters[row['semester']]
+            data[row['semester'].id] = row
+        for row in wallets2:
             row['semester'] = semesters[row['semester']]
             data[row['semester'].id].update(row)
 
@@ -121,6 +162,43 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         return Response([UseLogSerializer(p).data for p in pending_transactions], status=status.HTTP_201_CREATED)
 
 
+class RegisterLogViewSet(viewsets.ModelViewSet):
+    queryset = RegisterLog.objects.prefetch_related('wallet__user', 'wallet__semester', 'issuing_user').all()
+    permission_classes = (IsAuthenticatedOrReadOnly, WorkLogPermissions,)
+    filter_class = RegisterLogFilter
+
+    def get_serializer_class(self):
+        if self.action in ['create']:
+            return RegisterLogCreateSerializer
+        else:
+            return RegisterLogSerializer
+
+    def create(self, request, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        card_uid = serializer.data['card_uid'].strip().lower()
+        card = User.objects.get_or_create(card_uid=card_uid)[0]
+        if not card:
+            raise ValidationError(detail=_('User %(card)s not found') % {'card': serializer.data['card_uid']})
+
+        date = serializer.validated_data['date']
+        wallet = CoffeeWallet.objects.get_or_create(card_uid=card, semester=get_semester_of_date(date))[0]
+
+        registerlog = RegisterLog(
+            wallet=wallet,
+            date=serializer.data['date'],
+            vouchers=Decimal(serializer.data['vouchers']),
+            issuing_user=request.user,
+            comment=serializer.data['comment']
+        )
+
+        registerlog.clean()
+        registerlog.save()
+        return Response(RegisterLogSerializer(registerlog, context={'request': self.request}).data,
+                        status=status.HTTP_201_CREATED)
+
+
 class WorkLogViewSet(viewsets.ModelViewSet):
     queryset = WorkLog.objects.prefetch_related('wallet__user', 'wallet__semester', 'issuing_user').all()
     permission_classes = (IsAuthenticatedOrReadOnly, WorkLogPermissions,)
@@ -142,7 +220,7 @@ class WorkLogViewSet(viewsets.ModelViewSet):
             raise ValidationError(detail=_('User %(user)s not found') % {'user': serializer.data['user']})
 
         date = serializer.validated_data['date_worked']
-        wallet = Wallet.objects.get_or_create(user=user, semester=get_semester_of_date(date))[0]
+        wallet = VoucherWallet.objects.get_or_create(user=user, semester=get_semester_of_date(date))[0]
 
         worklog = WorkLog(
             wallet=wallet,
@@ -159,10 +237,16 @@ class WorkLogViewSet(viewsets.ModelViewSet):
                         status=status.HTTP_201_CREATED)
 
 
-class UseLogViewSet(viewsets.ReadOnlyModelViewSet):
+class VoucherUseLogViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = UseLogSerializer
-    queryset = UseLog.objects.prefetch_related('wallet__user', 'wallet__semester').all()
-    filter_class = UseLogFilter
+    queryset = VoucherUseLog.objects.prefetch_related('wallet__user', 'wallet__semester').all()
+    filter_class = VoucherUseLogFilter
+
+
+class CoffeeUseLogViewSet(viewsets.ReadOnlyModelViewSet):
+    serializer_class = UseLogSerializer
+    queryset = CoffeeUseLog.objects.prefetch_related('wallet__card', 'wallet__semester').all()
+    filter_class = CoffeeUseLogFilter
 
 
 class WorkGroupsViewSet(viewsets.ReadOnlyModelViewSet):

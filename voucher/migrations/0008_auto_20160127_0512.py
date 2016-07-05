@@ -7,10 +7,7 @@ from voucher.models import Wallet
 
 
 def fix_balance(apps, schema_editor):
-    print(repr(Wallet))
-    for wallet in Wallet.objects.all():
-        print(repr(vars(wallet)))
-        wallet.calculate_balance()
+    pass
 
 
 def noop(apps, schema_editor):
