@@ -27,7 +27,7 @@ class VoucherWalletViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         queryset = VoucherWallet.objects.all()
         if self.action == 'stats':
-            return queryset.order_by()
+            return queryset
         return queryset.prefetch_related('user', 'semester')
 
     @list_route(methods=['get'])
@@ -76,7 +76,7 @@ class CoffeeWalletViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         queryset = CoffeeWallet.objects.all()
         if self.action == 'stats':
-            return queryset.order_by()
+            return queryset
         return queryset.prefetch_related('card', 'semester')
 
     @list_route(methods=['get'])
@@ -231,9 +231,9 @@ class VoucherRegisterLogViewSet(viewsets.ModelViewSet):
             comment=serializer.data['comment']
         )
 
-        worklog.clean()
-        worklog.save()
-        return Response(VoucherRegisterLogSerializer(worklog, context={'request': self.request}).data,
+        registerlog.clean()
+        registerlog.save()
+        return Response(VoucherRegisterLogSerializer(registerlog, context={'request': self.request}).data,
                         status=status.HTTP_201_CREATED)
 
 
