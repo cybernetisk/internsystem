@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
             },
         ),
         migrations.CreateModel(
-            name='RegisterLog',
+            name='CoffeeRegisterLog',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
                 ('date_issued', models.DateTimeField(auto_now_add=True)),

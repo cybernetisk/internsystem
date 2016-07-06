@@ -15,9 +15,10 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RenameModel('Wallet', 'VoucherWallet'),
         migrations.RenameModel('UseLog', 'VoucherUseLog'),
+        migrations.RenameModel('WorkLog', 'VoucherRegisterLog'),
 
         migrations.AlterField(
-            model_name='worklog',
+            model_name='voucherregisterlog',
             name='wallet',
             field=models.ForeignKey(to='voucher.VoucherWallet', related_name='worklogs'),
         ),

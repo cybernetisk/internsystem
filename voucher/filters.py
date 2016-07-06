@@ -5,8 +5,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import get_current_timezone
 
 from core.models import NfcCard
-from voucher.models import UseLog, Wallet, WorkLog, VoucherWallet, CoffeeWallet, VoucherUseLog, CoffeeUseLog, \
-    RegisterLog
+from voucher.models import UseLog, Wallet, VoucherRegisterLog, VoucherWallet, CoffeeWallet, VoucherUseLog, CoffeeUseLog, \
+    CoffeeRegisterLog
 from voucher.utils import get_valid_semesters
 
 
@@ -76,26 +76,26 @@ class CoffeeWalletFilter(WalletFilter):
         fields = ['card', 'semester']
 
 
-class RegisterLogFilterBase(django_filters.FilterSet):
+class RegisterLogFilter(django_filters.FilterSet):
     issuing_user = django_filters.CharFilter(name='issuing_user__username')
     semester = django_filters.CharFilter(name='wallet__semester')
 
 
-class RegisterLogFilter(RegisterLogFilterBase):
+class CoffeeRegisterLogFilter(RegisterLogFilter):
     card = django_filters.CharFilter(name='wallet__card__card_uid')
 
     class Meta:
-        model = RegisterLog
+        model = CoffeeRegisterLog
         fields = ['id', 'card', 'issuing_user', 'semester']
 
 
-class WorkLogFilter(RegisterLogFilterBase):
+class VoucherRegisterLogFilter(RegisterLogFilter):
     user = django_filters.CharFilter(name='wallet__user__username')
     date_from = django_filters.MethodFilter(action='filter_date_from')
     date_to = django_filters.MethodFilter(action='filter_date_to')
 
     class Meta:
-        model = WorkLog
+        model = VoucherRegisterLog
         fields = ['id', 'user', 'issuing_user', 'semester']
 
     def filter_date_from(self, queryset, value):

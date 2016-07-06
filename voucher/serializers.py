@@ -2,9 +2,9 @@ from rest_framework import serializers
 from django.core import validators
 from django.utils.translation import ugettext_lazy as _
 
-from voucher.models import UseLog, Wallet, WorkLog, VoucherWallet, CoffeeWallet, RegisterLog
+from voucher.models import UseLog, Wallet, VoucherRegisterLog, VoucherWallet, CoffeeWallet, CoffeeRegisterLog
 from voucher.validators import valid_date_worked, ValidVouchers
-from voucher.permissions import work_log_has_perm
+from voucher.permissions import register_log_has_perm
 from core.models import User
 from core.serializers import UserSimpleSerializer, SemesterSerializer, NfcCardSerializer
 from core.utils import get_semester_of_date
@@ -72,13 +72,13 @@ class RegisterLogSerializer(serializers.ModelSerializer):
     can_delete = serializers.SerializerMethodField('_can_delete')
 
     def _can_edit(self, instance):
-        return work_log_has_perm(self.context['request'], instance, 'change')
+        return register_log_has_perm(self.context['request'], instance, 'change')
 
     def _can_delete(self, instance):
-        return work_log_has_perm(self.context['request'], instance, 'delete')
+        return register_log_has_perm(self.context['request'], instance, 'delete')
 
     class Meta:
-        model = RegisterLog
+        model = CoffeeRegisterLog
         fields = ('id', 'wallet', 'date_issued', 'work_group',
                   'hours', 'vouchers', 'issuing_user', 'comment', 'can_edit', 'can_delete',)
         read_only_fields = ('id', 'wallet', 'date_issued', 'issuing_user',)
@@ -91,12 +91,12 @@ class RegisterLogSerializer(serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
 
-class WorkLogSerializer(RegisterLogSerializer):
+class VoucherRegisterLogSerializer(RegisterLogSerializer):
     wallet = VoucherWalletSerializer(read_only=True)
     date_worked = serializers.DateField(validators=[valid_date_worked])
 
     class Meta:
-        model = WorkLog
+        model = VoucherRegisterLog
         fields = ('id', 'wallet', 'date_issued', 'date_worked', 'work_group',
                   'hours', 'vouchers', 'issuing_user', 'comment', 'can_edit', 'can_delete',)
         read_only_fields = ('id', 'wallet', 'date_issued', 'issuing_user',)
