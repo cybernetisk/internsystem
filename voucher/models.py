@@ -19,17 +19,7 @@ class Wallet(models.Model):
     class Meta:
         abstract = True
 
-    def calculate_balance(self):
-        vouchers_earned = None
-        if isinstance(self, VoucherWallet):
-            vouchers_earned = WorkLog.objects.filter(wallet=self).aggregate(sum=Sum('vouchers'))['sum'] or Decimal(0)
-        else:
-            vouchers_earned = RegisterLog.objects.filter(wallet=self).aggregate(sum=Sum('vouchers'))['sum'] or Decimal(0)
-        vouchers_used = None
-        if isinstance(self, VoucherWallet):
-            vouchers_used = VoucherUseLog.objects.filter(wallet=self).aggregate(sum=Sum('vouchers'))['sum'] or Decimal(0)
-        else:
-            vouchers_used = CoffeeUseLog.objects.filter(wallet=self).aggregate(sum=Sum('vouchers'))['sum'] or Decimal(0)
+    def _calculate_balance(self, vouchers_earned, vouchers_used):
         self.cached_balance = vouchers_earned - vouchers_used
         self.cached_vouchers = vouchers_earned
         self.cached_vouchers_used = vouchers_used
@@ -60,9 +50,11 @@ class VoucherWallet(Wallet):
         ordering = ["user__username"]
 
     def calculate_balance(self):
+        vouchers_earned = WorkLog.objects.filter(wallet=self).aggregate(sum=Sum('vouchers'))['sum'] or Decimal(0)
+        vouchers_used = VoucherUseLog.objects.filter(wallet=self).aggregate(sum=Sum('vouchers'))['sum'] or Decimal(0)
         hours = WorkLog.objects.filter(wallet=self).aggregate(sum=Sum('hours'))['sum'] or Decimal(0)
         self.cached_hours = hours
-        return super().calculate_balance()
+        return super()._calculate_balance(vouchers_earned, vouchers_used)
 
     def __str__(self):
         return str(self.user) + " (" + str(self.semester) + ")"
@@ -74,6 +66,12 @@ class CoffeeWallet(Wallet):
     class Meta:
         unique_together = ("card", "semester")
         ordering = ["card__card_uid"]
+
+    def calculate_balance(self):
+        vouchers_earned = RegisterLog.objects.filter(wallet=self).aggregate(sum=Sum('vouchers'))['sum'] or Decimal(0)
+        vouchers_used = CoffeeUseLog.objects.filter(wallet=self).aggregate(sum=Sum('vouchers'))['sum'] or Decimal(0)
+
+        return super()._calculate_balance(vouchers_earned, vouchers_used)
 
     def __str__(self):
         return str(self.card) + " (" + str(self.semester) + ")"
