@@ -122,7 +122,7 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     @detail_route(methods=['post'])
     def use_vouchers(self, request, username=None):
         user = self.get_object()
-        wallets = Wallet.objects.filter(user=user, semester__in=get_valid_semesters()).order_by('semester')
+        wallets = VoucherWallet.objects.filter(user=user, semester__in=get_valid_semesters()).order_by('semester')
         pending_transactions = []
 
         data = UseVouchersSerializer(data=request.data, context=self)
@@ -142,7 +142,7 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
                 continue
 
             available_vouchers += wallet.cached_balance
-            new_log_entry = UseLog(issuing_user=request.user,
+            new_log_entry = VoucherUseLog(issuing_user=request.user,
                                    wallet=wallet,
                                    comment=data.data['comment'],
                                    vouchers=min(vouchers_to_spend, wallet.cached_balance))
@@ -159,7 +159,58 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         for p in pending_transactions:
             p.save()
 
-        return Response([UseLogSerializer(p).data for p in pending_transactions], status=status.HTTP_201_CREATED)
+        return Response([VoucherUseLogSerializer(p).data for p in pending_transactions], status=status.HTTP_201_CREATED)
+
+
+class CardViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+    queryset = NfcCard.objects.all()
+    lookup_field = 'card_uid'
+    permission_classes = (IsAuthenticatedOrReadOnly,)
+
+    def get_serializer_class(self):
+        return UseVouchersSerializer
+
+    @detail_route(methods=['post'])
+    def use_vouchers(self, request, card_uid):
+        card = self.get_object()
+        wallets = CoffeeWallet.objects.filter(card=card, semester__in=get_valid_semesters()).order_by('semester')
+        pending_transactions = []
+
+        data = UseCoffeeVouchersSerializer(data=request.data, context=self)
+        data.is_valid(raise_exception=True)
+
+        vouchers_to_spend = data.validated_data['vouchers']
+
+        # we are in a risk of a race condition if multiple requests occur at the same time
+        # leaving a negative balance - but the risk is low and it is not critical, so we have
+        # not tried to properly solve it
+        available_vouchers = 0
+        for wallet in wallets:
+            if vouchers_to_spend == 0:
+                break
+
+            if wallet.calculate_balance() <= 0:
+                continue
+
+            available_vouchers += wallet.cached_balance
+            new_log_entry = CoffeeUseLog(issuing_user=request.user,
+                                   wallet=wallet,
+                                   comment=data.data['comment'],
+                                   vouchers=min(vouchers_to_spend, wallet.cached_balance))
+
+            vouchers_to_spend -= new_log_entry.vouchers
+            pending_transactions.append(new_log_entry)
+
+        if vouchers_to_spend != 0:
+            return Response(
+                {'error': _('User does not have enough vouchers. Currently having %d available.' % available_vouchers)},
+                status=status.HTTP_402_PAYMENT_REQUIRED
+            )
+
+        for p in pending_transactions:
+            p.save()
+
+        return Response([CoffeeUseLogSerializer(p).data for p in pending_transactions], status=status.HTTP_201_CREATED)
 
 
 class CoffeeRegisterLogViewSet(viewsets.ModelViewSet):
@@ -238,13 +289,13 @@ class WorkLogViewSet(viewsets.ModelViewSet):
 
 
 class VoucherUseLogViewSet(viewsets.ReadOnlyModelViewSet):
-    serializer_class = UseLogSerializer
+    serializer_class = VoucherUseLogSerializer
     queryset = VoucherUseLog.objects.prefetch_related('wallet__user', 'wallet__semester').all()
     filter_class = VoucherUseLogFilter
 
 
 class CoffeeUseLogViewSet(viewsets.ReadOnlyModelViewSet):
-    serializer_class = UseLogSerializer
+    serializer_class = CoffeeUseLogSerializer
     queryset = CoffeeUseLog.objects.prefetch_related('wallet__card', 'wallet__semester').all()
     filter_class = CoffeeUseLogFilter
 

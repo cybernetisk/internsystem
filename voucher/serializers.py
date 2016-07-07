@@ -2,10 +2,11 @@ from rest_framework import serializers
 from django.core import validators
 from django.utils.translation import ugettext_lazy as _
 
-from voucher.models import UseLog, Wallet, WorkLog, VoucherWallet, CoffeeWallet, CoffeeRegisterLog
+from voucher.models import UseLog, Wallet, WorkLog, VoucherWallet, CoffeeWallet, CoffeeRegisterLog, VoucherUseLog, \
+    CoffeeUseLog
 from voucher.validators import valid_date_worked, ValidVouchers
 from voucher.permissions import register_log_has_perm
-from core.models import User
+from core.models import User, NfcCard
 from core.serializers import UserSimpleSerializer, SemesterSerializer, NfcCardSerializer
 from core.utils import get_semester_of_date
 
@@ -33,11 +34,22 @@ class CoffeeWalletSerializer(WalletSerializer):
 
 
 class UseLogSerializer(serializers.ModelSerializer):
-    wallet = WalletSerializer()
     issuing_user = UserSimpleSerializer(read_only=True)
 
+
+class VoucherUseLogSerializer(UseLogSerializer):
+    wallet = VoucherWalletSerializer()
+
     class Meta:
-        model = UseLog
+        model = VoucherUseLog
+        fields = ('id', 'wallet', 'date_spent', 'issuing_user', 'comment', 'vouchers',)
+
+
+class CoffeeUseLogSerializer(UseLogSerializer):
+    wallet = CoffeeWalletSerializer()
+
+    class Meta:
+        model = CoffeeUseLog
         fields = ('id', 'wallet', 'date_spent', 'issuing_user', 'comment', 'vouchers',)
 
 
@@ -119,7 +131,16 @@ class UseVouchersSerializer(serializers.ModelSerializer):
     vouchers = serializers.IntegerField(validators=[ValidVouchers()])
 
     class Meta:
-        model = UseLog
+        model = VoucherUseLog
+        fields = ('vouchers', 'comment',)
+        extra_kwargs = {'comment': {'default': None}}
+
+
+class UseCoffeeVouchersSerializer(serializers.ModelSerializer):
+    vouchers = serializers.IntegerField(validators=[ValidVouchers()])
+
+    class Meta:
+        model = CoffeeUseLog
         fields = ('vouchers', 'comment',)
         extra_kwargs = {'comment': {'default': None}}
 
