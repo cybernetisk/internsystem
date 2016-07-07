@@ -5,7 +5,7 @@ from voucher.rest import *
 router = SharedAPIRootRouter()
 router.register(r'voucher/wallets', VoucherWalletViewSet, base_name='voucher_wallets')
 router.register(r'coffee/wallets', CoffeeWalletViewSet, base_name='coffee_wallets')
-router.register(r'voucher/registerlogs', VoucherRegisterLogViewSet)
+router.register(r'voucher/worklogs', WorkLogViewSet)
 router.register(r'coffee/registerlogs', CoffeeRegisterLogViewSet)
 router.register(r'voucher/uselogs', VoucherUseLogViewSet)
 router.register(r'coffee/uselogs', CoffeeUseLogViewSet)

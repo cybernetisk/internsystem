@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.core import validators
 from django.utils.translation import ugettext_lazy as _
 
-from voucher.models import UseLog, Wallet, VoucherRegisterLog, VoucherWallet, CoffeeWallet, CoffeeRegisterLog
+from voucher.models import UseLog, Wallet, WorkLog, VoucherWallet, CoffeeWallet, CoffeeRegisterLog
 from voucher.validators import valid_date_worked, ValidVouchers
 from voucher.permissions import register_log_has_perm
 from core.models import User
@@ -91,12 +91,12 @@ class RegisterLogSerializer(serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
 
-class VoucherRegisterLogSerializer(RegisterLogSerializer):
+class WorkLogSerializer(RegisterLogSerializer):
     wallet = VoucherWalletSerializer(read_only=True)
     date_worked = serializers.DateField(validators=[valid_date_worked])
 
     class Meta:
-        model = VoucherRegisterLog
+        model = WorkLog
         fields = ('id', 'wallet', 'date_issued', 'date_worked', 'work_group',
                   'hours', 'vouchers', 'issuing_user', 'comment', 'can_edit', 'can_delete',)
         read_only_fields = ('id', 'wallet', 'date_issued', 'issuing_user',)

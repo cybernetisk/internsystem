@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import get_current_timezone
 
 from core.models import NfcCard
-from voucher.models import UseLog, Wallet, VoucherRegisterLog, VoucherWallet, CoffeeWallet, VoucherUseLog, CoffeeUseLog, \
+from voucher.models import UseLog, Wallet, WorkLog, VoucherWallet, CoffeeWallet, VoucherUseLog, CoffeeUseLog, \
     CoffeeRegisterLog
 from voucher.utils import get_valid_semesters
 
@@ -89,13 +89,13 @@ class CoffeeRegisterLogFilter(RegisterLogFilter):
         fields = ['id', 'card', 'issuing_user', 'semester']
 
 
-class VoucherRegisterLogFilter(RegisterLogFilter):
+class WorkLogFilter(RegisterLogFilter):
     user = django_filters.CharFilter(name='wallet__user__username')
     date_from = django_filters.MethodFilter(action='filter_date_from')
     date_to = django_filters.MethodFilter(action='filter_date_to')
 
     class Meta:
-        model = VoucherRegisterLog
+        model = WorkLog
         fields = ['id', 'user', 'issuing_user', 'semester']
 
     def filter_date_from(self, queryset, value):

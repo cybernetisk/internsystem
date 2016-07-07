@@ -2,7 +2,7 @@ import datetime
 from rest_framework import serializers
 from django.utils.translation import ugettext_lazy as _
 
-from voucher.models import VoucherRegisterLog
+from voucher.models import WorkLog
 from voucher.utils import get_first_valid_work_log_date
 
 
@@ -20,7 +20,7 @@ class ValidVouchers(object):
         if value > 0:
             return
 
-        perm = '%s.delete_%s' % (VoucherRegisterLog._meta.app_label, VoucherRegisterLog._meta.model_name)
+        perm = '%s.delete_%s' % (WorkLog._meta.app_label, WorkLog._meta.model_name)
         if self.serializer_field.parent.context.request.user.has_perm(perm):
             return
 

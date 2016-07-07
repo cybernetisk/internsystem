@@ -1,7 +1,7 @@
 import datetime
 from rest_framework.permissions import BasePermission, DjangoModelPermissions
 
-from voucher.models import VoucherRegisterLog
+from voucher.models import WorkLog
 
 
 def register_log_has_perm(request, obj, perm_action=None):
@@ -10,7 +10,7 @@ def register_log_has_perm(request, obj, perm_action=None):
         return False
 
     if perm_action is not None:
-        if request.user.has_perm('%s.%s_%s' % (VoucherRegisterLog._meta.app_label, perm_action, VoucherRegisterLog._meta.model_name)):
+        if request.user.has_perm('%s.%s_%s' % (WorkLog._meta.app_label, perm_action, WorkLog._meta.model_name)):
             return True
 
     if obj.issuing_user != request.user:

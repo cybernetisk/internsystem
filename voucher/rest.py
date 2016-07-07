@@ -11,8 +11,8 @@ from django.db.models import Sum, Count
 from decimal import Decimal
 
 from voucher.serializers import *
-from voucher.models import Wallet, VoucherRegisterLog, UseLog, VoucherUseLog, CoffeeRegisterLog, CoffeeUseLog
-from voucher.filters import UseLogFilter, WalletFilter, VoucherRegisterLogFilter, VoucherUseLogFilter, VoucherWalletFilter, \
+from voucher.models import Wallet, WorkLog, UseLog, VoucherUseLog, CoffeeRegisterLog, CoffeeUseLog
+from voucher.filters import UseLogFilter, WalletFilter, WorkLogFilter, VoucherUseLogFilter, VoucherWalletFilter, \
     CoffeeWalletFilter, CoffeeRegisterLogFilter, CoffeeUseLogFilter
 from voucher.permissions import RegisterLogPermissions
 from voucher.utils import get_valid_semesters
@@ -199,16 +199,16 @@ class CoffeeRegisterLogViewSet(viewsets.ModelViewSet):
                         status=status.HTTP_201_CREATED)
 
 
-class VoucherRegisterLogViewSet(viewsets.ModelViewSet):
-    queryset = VoucherRegisterLog.objects.prefetch_related('wallet__user', 'wallet__semester', 'issuing_user').all()
+class WorkLogViewSet(viewsets.ModelViewSet):
+    queryset = WorkLog.objects.prefetch_related('wallet__user', 'wallet__semester', 'issuing_user').all()
     permission_classes = (IsAuthenticatedOrReadOnly, RegisterLogPermissions,)
-    filter_class = VoucherRegisterLogFilter
+    filter_class = WorkLogFilter
 
     def get_serializer_class(self):
         if self.action in ['create']:
             return WorkLogCreateSerializer
         else:
-            return VoucherRegisterLogSerializer
+            return WorkLogSerializer
 
     def create(self, request, **kwargs):
         serializer = self.get_serializer(data=request.data)
@@ -222,7 +222,7 @@ class VoucherRegisterLogViewSet(viewsets.ModelViewSet):
         date = serializer.validated_data['date_worked']
         wallet = VoucherWallet.objects.get_or_create(user=user, semester=get_semester_of_date(date))[0]
 
-        registerlog = VoucherRegisterLog(
+        worklog = WorkLog(
             wallet=wallet,
             date_worked=serializer.data['date_worked'],
             work_group=serializer.data['work_group'],
@@ -231,9 +231,9 @@ class VoucherRegisterLogViewSet(viewsets.ModelViewSet):
             comment=serializer.data['comment']
         )
 
-        registerlog.clean()
-        registerlog.save()
-        return Response(VoucherRegisterLogSerializer(registerlog, context={'request': self.request}).data,
+        worklog.clean()
+        worklog.save()
+        return Response(WorkLogSerializer(worklog, context={'request': self.request}).data,
                         status=status.HTTP_201_CREATED)
 
 
@@ -251,4 +251,4 @@ class CoffeeUseLogViewSet(viewsets.ReadOnlyModelViewSet):
 
 class WorkGroupsViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = WorkGroupsSerializer
-    queryset = VoucherRegisterLog.objects.order_by('work_group').distinct().values('work_group')
+    queryset = WorkLog.objects.order_by('work_group').distinct().values('work_group')

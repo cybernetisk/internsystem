@@ -50,9 +50,9 @@ class VoucherWallet(Wallet):
         ordering = ["user__username"]
 
     def calculate_balance(self):
-        vouchers_earned = VoucherRegisterLog.objects.filter(wallet=self).aggregate(sum=Sum('vouchers'))['sum'] or Decimal(0)
+        vouchers_earned = WorkLog.objects.filter(wallet=self).aggregate(sum=Sum('vouchers'))['sum'] or Decimal(0)
         vouchers_used = VoucherUseLog.objects.filter(wallet=self).aggregate(sum=Sum('vouchers'))['sum'] or Decimal(0)
-        hours = VoucherRegisterLog.objects.filter(wallet=self).aggregate(sum=Sum('hours'))['sum'] or Decimal(0)
+        hours = WorkLog.objects.filter(wallet=self).aggregate(sum=Sum('hours'))['sum'] or Decimal(0)
         self.cached_hours = hours
         return super()._calculate_balance(vouchers_earned, vouchers_used)
 
@@ -108,7 +108,7 @@ class CoffeeRegisterLog(RegisterLog):
         return '%s %s vouchers' % (self.wallet, self.vouchers)
 
 
-class VoucherRegisterLog(RegisterLog):
+class WorkLog(RegisterLog):
     DEFAULT_VOUCHERS_PER_HOUR = 0.5
     LOCKED_FOR_EDITING_AFTER_DAYS = 2
 
