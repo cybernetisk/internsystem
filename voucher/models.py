@@ -78,6 +78,8 @@ class CoffeeWallet(Wallet):
 
 
 class RegisterLog(models.Model):
+    LOCKED_FOR_EDITING_AFTER_DAYS = 2
+
     date_issued = models.DateTimeField(auto_now_add=True)
     issuing_user = models.ForeignKey(User)
     comment = models.CharField(max_length=100, null=True, blank=True)
@@ -110,7 +112,6 @@ class CoffeeRegisterLog(RegisterLog):
 
 class WorkLog(RegisterLog):
     DEFAULT_VOUCHERS_PER_HOUR = 0.5
-    LOCKED_FOR_EDITING_AFTER_DAYS = 2
 
     wallet = models.ForeignKey(VoucherWallet, related_name='worklogs')
     date_worked = models.DateField()

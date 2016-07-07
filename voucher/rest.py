@@ -1,3 +1,4 @@
+from datetime import datetime
 from collections import OrderedDict
 from rest_framework import viewsets
 from rest_framework import mixins
@@ -11,8 +12,8 @@ from django.db.models import Sum, Count
 from decimal import Decimal
 
 from voucher.serializers import *
-from voucher.models import Wallet, WorkLog, UseLog, VoucherUseLog, CoffeeRegisterLog, CoffeeUseLog
-from voucher.filters import UseLogFilter, WalletFilter, WorkLogFilter, VoucherUseLogFilter, VoucherWalletFilter, \
+from voucher.models import WorkLog, VoucherUseLog, CoffeeRegisterLog, CoffeeUseLog
+from voucher.filters import WorkLogFilter, VoucherUseLogFilter, VoucherWalletFilter, \
     CoffeeWalletFilter, CoffeeRegisterLogFilter, CoffeeUseLogFilter
 from voucher.permissions import RegisterLogPermissions
 from voucher.utils import get_valid_semesters
@@ -214,7 +215,7 @@ class CardViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
 
 class CoffeeRegisterLogViewSet(viewsets.ModelViewSet):
-    queryset = CoffeeRegisterLog.objects.prefetch_related('wallet__user', 'wallet__semester', 'issuing_user').all()
+    queryset = CoffeeRegisterLog.objects.prefetch_related('wallet__card', 'wallet__semester', 'issuing_user').all()
     permission_classes = (IsAuthenticatedOrReadOnly, RegisterLogPermissions,)
     filter_class = CoffeeRegisterLogFilter
 
@@ -228,17 +229,16 @@ class CoffeeRegisterLogViewSet(viewsets.ModelViewSet):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        card_uid = serializer.data['card_uid'].strip().lower()
-        card = User.objects.get_or_create(card_uid=card_uid)[0]
+        card_uid = serializer.data['card'].strip().lower()
+        card = NfcCard.objects.get_or_create(card_uid=card_uid)[0]
         if not card:
-            raise ValidationError(detail=_('User %(card)s not found') % {'card': serializer.data['card_uid']})
+            raise ValidationError(detail=_('Card %(card)s not found') % {'card': serializer.data['card_uid']})
 
-        date = serializer.validated_data['date']
-        wallet = CoffeeWallet.objects.get_or_create(card_uid=card, semester=get_semester_of_date(date))[0]
+        wallet = CoffeeWallet.objects.get_or_create(
+            card=card, semester=get_semester_of_date(datetime.now().date()))[0]
 
         registerlog = CoffeeRegisterLog(
             wallet=wallet,
-            date=serializer.data['date'],
             vouchers=Decimal(serializer.data['vouchers']),
             issuing_user=request.user,
             comment=serializer.data['comment']

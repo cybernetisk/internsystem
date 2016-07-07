@@ -59,7 +59,6 @@ class RegisterLogCreateSerializer(serializers.Serializer):
                                  validators=[
                                      validators.RegexValidator(r'^[\w]+$', _('Enter a valid username.'), 'invalid')
                                  ])
-    date = serializers.DateField(validators=[valid_date_worked])
     vouchers = serializers.DecimalField(max_digits=8, decimal_places=2, min_value=0.01)
     comment = serializers.CharField(max_length=100, allow_blank=True, default=None)
 
@@ -91,8 +90,7 @@ class RegisterLogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CoffeeRegisterLog
-        fields = ('id', 'wallet', 'date_issued', 'work_group',
-                  'hours', 'vouchers', 'issuing_user', 'comment', 'can_edit', 'can_delete',)
+        fields = ('id', 'wallet', 'date_issued', 'vouchers', 'issuing_user', 'comment', 'can_edit', 'can_delete',)
         read_only_fields = ('id', 'wallet', 'date_issued', 'issuing_user',)
 
     def update(self, instance, validated_data):
