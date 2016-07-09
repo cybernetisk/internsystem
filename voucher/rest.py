@@ -12,7 +12,7 @@ from django.db.models import Sum, Count
 from decimal import Decimal
 
 from voucher.serializers import *
-from voucher.models import WorkLog, VoucherUseLog, CoffeeRegisterLog, CoffeeUseLog
+from voucher.models import VoucherWallet, CoffeeWallet, WorkLog, VoucherUseLog, CoffeeRegisterLog, CoffeeUseLog
 from voucher.filters import WorkLogFilter, VoucherUseLogFilter, VoucherWalletFilter, \
     CoffeeWalletFilter, CoffeeRegisterLogFilter, CoffeeUseLogFilter
 from voucher.permissions import RegisterLogPermissions
