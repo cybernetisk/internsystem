@@ -110,14 +110,12 @@ class CoffeeWalletViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data)
 
 
-class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+class UserViewSet(viewsets.GenericViewSet):
     queryset = User.objects.all()
     lookup_field = 'username'
     permission_classes = (IsAuthenticatedOrReadOnly,)
 
     def get_serializer_class(self):
-        if self.action in ['create']:
-            return UserCreateSerializer
         return UseVouchersSerializer
 
     @detail_route(methods=['post'])
@@ -163,7 +161,7 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
         return Response([VoucherUseLogSerializer(p).data for p in pending_transactions], status=status.HTTP_201_CREATED)
 
 
-class CardViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
+class CardViewSet(viewsets.GenericViewSet):
     queryset = NfcCard.objects.all()
     lookup_field = 'card_uid'
     permission_classes = (IsAuthenticatedOrReadOnly,)

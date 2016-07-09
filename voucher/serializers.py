@@ -143,12 +143,6 @@ class UseCoffeeVouchersSerializer(serializers.ModelSerializer):
         extra_kwargs = {'comment': {'default': None}}
 
 
-class UserCreateSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ('username', 'realname',)
-
-
 class WalletStatsSerializer(serializers.Serializer):
     semester = SemesterSerializer()
     sum_balance = serializers.DecimalField(max_digits=8, decimal_places=2)
