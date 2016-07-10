@@ -28,6 +28,8 @@ class RåvareViewSet(BaseVarerViewSet):
 
     filter_fields = ('navn', 'kategori', 'status', 'innkjopskonto__innkjopskonto')
     search_fields = ['kategori', 'navn', 'innkjopskonto__gruppe', 'innkjopskonto__navn']
+    ordering_fields = ('navn', 'kategori', 'status', 'innkjopskonto__gruppe', 'innkjopskonto__innkjopskonto',
+                       'innkjopskonto__navn')
 
     def get_serializer_class(self):
         if self.action in ['create', 'update']:
@@ -59,6 +61,7 @@ class SalgsvareViewSet(BaseVarerViewSet):
         .all()
 
     filter_fields = ('navn', 'kategori', 'status', 'kassenr')
+    ordering_fields = ('navn', 'kategori', 'status', 'kassenr')
 
     def get_serializer_class(self):
         if self.action in ['create', 'update']:
@@ -77,6 +80,8 @@ class SalgsvarePrisViewSet(BaseVarerViewSet):
 
 
 class SalgskalkyleViewSet(BaseVarerViewSet):
+    ordering_fields = ('navn', 'dato')
+
     def get_queryset(self):
         if self.action == 'list':
             return Salgskalkyle.objects.all()
@@ -103,6 +108,8 @@ class SalgskalkyleVareViewSet(BaseVarerViewSet):
 class VaretellingViewSet(BaseVarerViewSet):
     queryset = Varetelling.objects.all()
     permission_classes = (IsAuthenticatedOrReadOnly, VaretellingPermissions,)
+    ordering_fields = ('id', 'sted', 'antall', 'antallpant', 'raavare', 'time_price', 'added_by',
+                       'time_added')
 
     def get_serializer_class(self):
         if self.action in ['create', 'update']:

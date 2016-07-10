@@ -56,10 +56,18 @@ AUTHENTICATION_BACKENDS = (
     'samlauth.auth_backend.SAMLServiceProviderBackend',
 )
 
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.contrib.auth.context_processors.auth',
+            ],
+            # debug option is set later in this settings file
+        }
+    },
+]
 
 ROOT_URLCONF = 'cyb_oko.urls'
 
@@ -113,8 +121,6 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
     ),
-    #'PAGINATE_BY': 10,
-    'PAGINATE_BY_PARAM': 'limit',
     'DEFAULT_FILTER_BACKENDS': (
         'rest_framework.filters.DjangoFilterBackend',
         'rest_framework.filters.SearchFilter',
@@ -160,7 +166,7 @@ LOGIN_REDIRECT_URL = '/profile'
 LOGIN_URL = '/saml/?sso' if ENABLE_SAML else '/api-auth/login/'
 LOGOUT_URL = '/saml/sls/' if ENABLE_SAML else '/api-auth/logout/'
 
-TEMPLATE_DEBUG = DEBUG
+TEMPLATES[0]['OPTIONS']['debug'] = DEBUG
 
 if ENABLE_SAML:
     INSTALLED_APPS += ('samlauth',)

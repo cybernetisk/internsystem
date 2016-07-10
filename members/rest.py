@@ -88,7 +88,7 @@ class MemberViewSet(viewsets.ModelViewSet):
         return Response(MemberSerializer(member).data, status=status.HTTP_200_OK)
 
 
-class MemberStatsViewSet(viewsets.GenericViewSet):
+class MemberStatsViewSet(viewsets.ViewSet):
     def list(self, request, *args, **kwargs):
         semesters = Semester.objects.all()
         semlist = OrderedDict()

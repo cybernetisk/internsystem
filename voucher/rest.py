@@ -252,6 +252,7 @@ class WorkLogViewSet(viewsets.ModelViewSet):
     queryset = WorkLog.objects.prefetch_related('wallet__user', 'wallet__semester', 'issuing_user').all()
     permission_classes = (IsAuthenticatedOrReadOnly, RegisterLogPermissions,)
     filter_class = WorkLogFilter
+    ordering_fields = ('date_issued', 'date_worked', 'work_group', 'hours', 'vouchers')
 
     def get_serializer_class(self):
         if self.action in ['create']:
