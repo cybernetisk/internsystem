@@ -15,7 +15,7 @@ Tjenester det jobbes med/planlegges:
 
 ## Kort teknisk oversikt
 * Django (Python 3) er backend for systemet
-** Django tilbyr også en innebygget admin-modul vi bruker en del.
+  * Django tilbyr også en innebygget admin-modul vi bruker en del.
 * Tilbyr et REST-API til bruk av andre tjenester
 * I produksjon benyttes Postgres som database
 * For frontend-detaljer, se https://github.com/cybrairai/internsystem-frontend
