@@ -75,15 +75,16 @@ class InternRoleFullSerializer(InternRoleSerializer):
     class Meta:
         model = InternRole
         fields = (
-            'id', 'intern', 'role', 'semester_start', 'semester_end', 'date_access_given', 'date_access_given'
+            'id', 'intern', 'role', 'semester_start', 'semester_end', 'date_access_given', 'date_access_revoked',
+            'date_added', 'date_removed'
         )
 
 
 class AddInternRoleSerializer(serializers.ModelSerializer):
     username = serializers.CharField(max_length=15)
+
     class Meta:
         model = InternRole
         fields = (
             'username', 'role'
         )
-
