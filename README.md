@@ -39,19 +39,10 @@ Scriptet gjør følgende:
 * Installerer Python-pakker
 * Setter opp lokale innstillinger for applikasjonen
 * Migrerer databasen (standard vil bruke lokal sqqlite-database)
+* Installerer fixtures (demodata)
 * Starter utviklerserveren for backend (Ctrl+C for å avslutte)
 
-Man bør også lage en superbruker for å kunne logge inn:
-
-```bash
-./manage.py createsuperuser # husk at du må ha aktivert virtualenv!
-```
-
-Det kan også hentes inn demodata for at applikasjonen blir litt mer praktisk å teste lokalt:
-
-```bash
-./manage.py loaddata semester varer events
-```
+Du skal kunne logge inn med brukeren `cyb` og passord `cyb`.
 
 ### Bruke virtualenv
 Pakken `virtualenvwrapper` installeres globalt, noe som gjør bruk av virtualenv veldig enkelt.
