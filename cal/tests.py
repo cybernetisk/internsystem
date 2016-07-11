@@ -1,3 +1,8 @@
 from django.test import TestCase
 
-# Create your tests here.
+
+class FixturesTestCase(TestCase):
+    fixtures = ['events']
+
+    def test_cal_fixtures(self):
+        return True

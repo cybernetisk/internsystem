@@ -18,3 +18,10 @@ class KontoTestCase(TestCase):
     def test_name(self):
         konto = Konto.objects.first()
         self.assertEqual(str(konto), "DIV: Varesalg", "Correct string representation")
+
+
+class FixturesTestCase(TestCase):
+    fixtures = ['user', 'varer']
+
+    def test_varer_fixtures(self):
+        return True

@@ -1,3 +1,8 @@
 from django.test import TestCase
 
-# Create your tests here.
+
+class FixturesTestCase(TestCase):
+    fixtures = ['semester', 'user', 'nfccard', 'voucher']
+
+    def test_voucher_fixtures(self):
+        return True
