@@ -4,7 +4,7 @@ from rest_framework.permissions import BasePermission, DjangoModelPermissions
 from voucher.models import WorkLog
 
 
-def work_log_has_perm(request, obj, perm_action=None):
+def register_log_has_perm(request, obj, perm_action=None):
     """Check for permission to modify work log. perm_action can be change or delete"""
     if obj.is_locked():
         return False
@@ -19,7 +19,7 @@ def work_log_has_perm(request, obj, perm_action=None):
     return True
 
 
-class WorkLogPermissions(BasePermission):
+class RegisterLogPermissions(BasePermission):
     def has_object_permission(self, request, view, obj):
         if view.action not in ['update', 'partial_update', 'destroy']:
             return True
@@ -28,4 +28,4 @@ class WorkLogPermissions(BasePermission):
         if modelperm.has_permission(request, view):
             return True
 
-        return work_log_has_perm(request, obj)
+        return register_log_has_perm(request, obj)

@@ -1,5 +1,6 @@
 from django.contrib import admin
-from voucher.models import Wallet, WorkLog, UseLog
+from voucher.models import Wallet, WorkLog, UseLog, VoucherWallet, CoffeeWallet, VoucherUseLog, CoffeeUseLog, \
+    CoffeeRegisterLog
 
 
 class WalletAdmin(admin.ModelAdmin):
@@ -7,6 +8,9 @@ class WalletAdmin(admin.ModelAdmin):
     readonly_fields = ('cached_balance',)
 
 
-admin.site.register(Wallet, WalletAdmin)
+admin.site.register(VoucherWallet, WalletAdmin)
+admin.site.register(CoffeeWallet, WalletAdmin)
+admin.site.register(CoffeeRegisterLog)
 admin.site.register(WorkLog)
-admin.site.register(UseLog)
+admin.site.register(VoucherUseLog)
+admin.site.register(CoffeeUseLog)

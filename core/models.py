@@ -97,3 +97,20 @@ class Card(models.Model):
 
     def __str__(self):
         return "%s - %s (%s)" % (self.user.username, self.card_number, self.comment)
+
+
+class NfcCard(models.Model):
+    CARD_UID_REGEX = r'^[a-z0-9]{8}$'
+
+    card_uid = models.CharField(unique=True, max_length=8,
+                                validators=[
+                                    validators.RegexValidator(CARD_UID_REGEX, _('Enter valid card uid.'), 'invalid')
+                                ])
+    user = models.ForeignKey(User, blank=True, null=True)
+    intern = models.BooleanField(default=False)
+    comment = models.CharField(max_length=20, blank=True)
+
+    def __str__(self):
+        if not self.user:
+            return self.card_uid
+        return "%s (%s)" % (self.card_uid, self.user)

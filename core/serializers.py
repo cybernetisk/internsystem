@@ -1,5 +1,4 @@
 from rest_framework import serializers
-
 from core.models import User, Semester, Card
 
 
@@ -46,3 +45,18 @@ class CardCreateSerializer(serializers.ModelSerializer):
         model = Card
         fields = ('user', 'card_number', 'comment')
         extra_kwargs = {'comment': {'default': None}}
+
+
+class NfcCardSerializer(serializers.ModelSerializer):
+    user = UserSimpleSerializer()
+
+    class Meta:
+        model = NfcCard
+        fields = ('card_uid', 'user', 'intern')
+
+
+class NfcCardCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = NfcCard
+        fields = ('card_uid', 'user', 'intern', 'comment')
+        extra_kwargs = {'user': {'default': None}, 'intern': {'default': False}, 'comment': {'default': None}}

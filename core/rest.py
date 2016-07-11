@@ -3,9 +3,10 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
-from core.serializers import CardCreateSerializer, CardSerializer, UserExtendedSerializer
-from core.models import Card, User
-from core.filters import CardFilter, UserFilter
+from core.serializers import CardCreateSerializer, CardSerializer, UserExtendedSerializer, NfcCardCreateSerializer, \
+    NfcCardSerializer
+from core.models import Card, User, NfcCard
+from core.filters import CardFilter, UserFilter, NfcCardFilter
 
 
 class CardViewSet(viewsets.ReadOnlyModelViewSet):
@@ -39,6 +40,32 @@ class CardViewSet(viewsets.ReadOnlyModelViewSet):
 
         instance.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+class NfcCardViewSet(viewsets.ReadOnlyModelViewSet):
+    permission_classes = (IsAuthenticated,)
+    filter_class = NfcCardFilter
+    queryset = NfcCard.objects.all()
+
+    def get_serializer_class(self):
+        if self.action in ['create']:
+            return NfcCardCreateSerializer
+        return NfcCardSerializer
+
+    def create(self, request):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        user = None
+        # A NFC card does not need a user. Omitting this will cause a 500 if no user is supplied.
+        if serializer.data['user']:
+            user = User.objects.get(id=serializer.data['user'])
+        if user != request.user:
+            if not request.user.has_perm('%s.add_%s' % (Card._meta.app_label, Card._meta.model_name)):
+                self.permission_denied(request)
+
+        card = serializer.save()
+        return Response(NfcCardSerializer(card).data, status=status.HTTP_201_CREATED)
 
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
