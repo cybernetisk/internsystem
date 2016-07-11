@@ -4,6 +4,8 @@ from rest_framework import status
 from rest_framework.permissions import DjangoModelPermissions
 from rest_framework.response import Response
 
+from core.utils import get_semester
+
 from intern.models import *
 from intern.serializers import InternRoleFullSerializer, InternSerializer, AccessLevelSerializer, InternGroupSerializer, \
     RoleSerializer, AddInternRoleSerializer
@@ -62,6 +64,7 @@ class InternRoleViewSet(viewsets.ModelViewSet):
         role = Role.objects.get(pk=serializer.data['role'])
 
         internrole = InternRole(intern=intern, role=role)
+        internrole.semester_start = get_semester()
 
         internrole.save()
 

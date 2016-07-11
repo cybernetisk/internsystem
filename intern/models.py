@@ -48,7 +48,7 @@ class Intern(models.Model):
 class InternRole(models.Model):
     intern = models.ForeignKey(Intern, related_name='roles')
     role = models.ForeignKey(Role, related_name='intern')
-    semester_start = models.ForeignKey(Semester, related_name='start', default=get_semester)
+    semester_start = models.ForeignKey(Semester, related_name='start')
     semester_end = models.ForeignKey(Semester, related_name='end', null=True, blank=True)
     comments = models.CharField(max_length=300, null=True, blank=True)
 
