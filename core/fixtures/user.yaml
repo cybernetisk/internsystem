@@ -1,0 +1,45 @@
+- fields:
+    date_joined: 2016-07-11 18:32:05.515748+00:00
+    email: ''
+    groups: []
+    is_active: true
+    is_staff: true
+    is_superuser: true
+    last_login: null
+    password: pbkdf2_sha256$20000$SyTeoq28RUcG$W1vGA28u0ISSQTo7U6rDcvEPiMfYW3PmQnF1hJa8xns= # cyb
+    phone_number: '22843004'
+    realname: 'Cybernetisk Selskab'
+    user_permissions: []
+    username: cyb
+  model: core.user
+  pk: 1
+- fields:
+    date_joined: 2016-07-11 18:50:16.735631+00:00
+    email: ''
+    groups: []
+    is_active: true
+    is_staff: false
+    is_superuser: false
+    last_login: null
+    password: pbkdf2_sha256$20000$SyTeoq28RUcG$W1vGA28u0ISSQTo7U6rDcvEPiMfYW3PmQnF1hJa8xns= # cyb
+    phone_number: ''
+    realname: 'Second user'
+    user_permissions: []
+    username: user2
+  model: core.user
+  pk: 2
+- fields:
+    date_joined: 2016-07-11 18:50:31.836041+00:00
+    email: ''
+    groups: []
+    is_active: true
+    is_staff: false
+    is_superuser: false
+    last_login: null
+    password: pbkdf2_sha256$20000$SyTeoq28RUcG$W1vGA28u0ISSQTo7U6rDcvEPiMfYW3PmQnF1hJa8xns= # cyb
+    phone_number: ''
+    realname: 'Third user'
+    user_permissions: []
+    username: user3
+  model: core.user
+  pk: 3

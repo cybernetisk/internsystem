@@ -1,0 +1,74 @@
+- fields: {cached_balance: '0.00', cached_hours: '10.00', cached_vouchers: '5.00',
+    cached_vouchers_used: 5, semester: 6, user: 1}
+  model: voucher.voucherwallet
+  pk: 1
+- fields: {cached_balance: '1.50', cached_hours: '3.00', cached_vouchers: '1.50',
+    cached_vouchers_used: 0, semester: 5, user: 1}
+  model: voucher.voucherwallet
+  pk: 2
+- fields: {cached_balance: '2.50', cached_hours: '5.00', cached_vouchers: '2.50',
+    cached_vouchers_used: 0, semester: 6, user: 2}
+  model: voucher.voucherwallet
+  pk: 3
+- fields: {cached_balance: '3.00', cached_hours: '6.00', cached_vouchers: '3.00',
+    cached_vouchers_used: 0, semester: 5, user: 3}
+  model: voucher.voucherwallet
+  pk: 4
+- fields: {cached_balance: '4.00', cached_vouchers: '8.00', cached_vouchers_used: 4,
+    card: 1, semester: 6}
+  model: voucher.coffeewallet
+  pk: 1
+- fields: {comment: '', date_issued: !!timestamp '2016-07-11 21:39:25.596363+00:00',
+    issuing_user: 2, vouchers: '3.00', wallet: 1}
+  model: voucher.coffeeregisterlog
+  pk: 1
+- fields: {comment: '', date_issued: !!timestamp '2016-07-11 21:47:31.844436+00:00',
+    issuing_user: 1, vouchers: '5.00', wallet: 1}
+  model: voucher.coffeeregisterlog
+  pk: 2
+- fields: {comment: '', date_issued: !!timestamp '2016-07-11 20:39:35.001471+00:00',
+    date_worked: 2016-07-11, hours: '1.00', issuing_user: 1, vouchers: '0.50', wallet: 1,
+    work_group: Web}
+  model: voucher.worklog
+  pk: 1
+- fields: {comment: Jobbet med Y, date_issued: !!timestamp '2016-07-11 20:39:53.436870+00:00',
+    date_worked: 2016-07-08, hours: '3.00', issuing_user: 1, vouchers: '1.50', wallet: 1,
+    work_group: Web}
+  model: voucher.worklog
+  pk: 2
+- fields: {comment: "Jobbet med X, glemte \xE5 registrere da", date_issued: !!timestamp '2016-07-11
+      20:40:25.757864+00:00', date_worked: 2016-06-10, hours: '3.00', issuing_user: 1,
+    vouchers: '1.50', wallet: 2, work_group: Web}
+  model: voucher.worklog
+  pk: 3
+- fields: {comment: '', date_issued: !!timestamp '2016-07-11 20:41:01.538053+00:00',
+    date_worked: 2016-07-10, hours: '5.00', issuing_user: 1, vouchers: '2.50', wallet: 3,
+    work_group: Drift}
+  model: voucher.worklog
+  pk: 4
+- fields: {comment: '', date_issued: !!timestamp '2016-07-11 20:41:21.820656+00:00',
+    date_worked: 2016-06-27, hours: '6.00', issuing_user: 1, vouchers: '3.00', wallet: 4,
+    work_group: Drift}
+  model: voucher.worklog
+  pk: 5
+- fields: {comment: '', date_issued: !!timestamp '2016-07-11 20:41:39.511548+00:00',
+    date_worked: 2016-07-11, hours: '6.00', issuing_user: 1, vouchers: '3.00', wallet: 1,
+    work_group: Bar}
+  model: voucher.worklog
+  pk: 6
+- fields: {comment: '', date_spent: !!timestamp '2016-07-11 20:41:55.614355+00:00',
+    issuing_user: 1, vouchers: 2, wallet: 1}
+  model: voucher.voucheruselog
+  pk: 1
+- fields: {comment: '', date_spent: !!timestamp '2016-07-11 20:42:07.409094+00:00',
+    issuing_user: 1, vouchers: 3, wallet: 1}
+  model: voucher.voucheruselog
+  pk: 2
+- fields: {comment: '', date_spent: !!timestamp '2016-07-11 21:46:58.842128+00:00',
+    issuing_user: 1, vouchers: 1, wallet: 1}
+  model: voucher.coffeeuselog
+  pk: 1
+- fields: {comment: tester, date_spent: !!timestamp '2016-07-11 21:47:49.180061+00:00',
+    issuing_user: 3, vouchers: 3, wallet: 1}
+  model: voucher.coffeeuselog
+  pk: 2
