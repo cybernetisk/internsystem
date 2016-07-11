@@ -36,4 +36,7 @@ urlpatterns += [
     url(r'^profile$', RedirectView.as_view(url='/api/me', permanent=False)),  # not used when having frontend
 ]
 
+if 'django_spaghetti' in settings.INSTALLED_APPS:
+    urlpatterns += [url(r'^plate/', include('django_spaghetti.urls')),]
+
 urlpatterns += core_urlpatterns

@@ -146,6 +146,12 @@ OAUTH2_PROVIDER = {
     },
 }
 
+SPAGHETTI_SAUCE = {
+    'apps': ['cal', 'core', 'members', 'varer', 'voucher'],
+    'show_fields': False,
+    'exclude': {}
+}
+
 # Local settings should be defined in the file `settings_local.py`
 # It must at least contain `SECRET_KEY`
 settings_local_name = os.getenv("LOCAL_SETTINGS", "settings_local")
@@ -164,3 +170,8 @@ TEMPLATE_DEBUG = DEBUG
 
 if ENABLE_SAML:
     INSTALLED_APPS += ('samlauth',)
+
+# get /plate url with visualization of models (only when debugging)
+# see https://github.com/LegoStormtroopr/django-spaghetti-and-meatballs
+if DEBUG:
+    INSTALLED_APPS += ('django_spaghetti',)
