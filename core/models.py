@@ -111,4 +111,6 @@ class NfcCard(models.Model):
     comment = models.CharField(max_length=20, blank=True)
 
     def __str__(self):
-        return "NFC Card: [card_uid: %s, user=%s, intern=%s]" % (self.card_uid, self.user, self.intern)
+        if not self.user:
+            return self.card_uid
+        return "%s (%s)" % (self.card_uid, self.user)

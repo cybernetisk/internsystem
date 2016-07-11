@@ -31,13 +31,13 @@ class CardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Card
-        fields = ('id', 'user', 'card_number', 'disabled', 'comment')
+        fields = ('id', 'user', 'card_number', 'card_uid', 'disabled', 'comment')
 
 
 class CardCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
-        fields = ('user', 'card_number', 'comment')
+        fields = ('user', 'card_number', 'card_uid', 'comment')
         extra_kwargs = {'comment': {'default': None}}
 
 

@@ -8,7 +8,7 @@ from core.utils import SharedAPIRootRouter
 router = SharedAPIRootRouter()
 router.register(r'core/users', UserViewSet, base_name='users')
 router.register(r'core/cards', CardViewSet, base_name='voucher_cards')
-router.register(r'core/nfc', NfcCardViewSet, base_name='nfc_cards')
+router.register(r'core/nfc', NfcCardViewSet)
 
 urlpatterns = patterns('',
     url(r'^api/me$', me, name='me'),
