@@ -43,10 +43,6 @@ class Intern(models.Model):
     def __str__(self):
         return str(self.user)
 
-    def cards(self):
-        cards = self.user.card_set.all()
-        return cards
-
 
 
 class InternRole(models.Model):

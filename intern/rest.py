@@ -14,44 +14,27 @@ class InternViewSet(viewsets.ModelViewSet):
     search_fields = ('user__username', 'user__realname')
     filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
     filter_fields = ('user', 'user__username')
-
-    def get_queryset(self):
-        return Intern.objects.all()
-
-    def get_serializer_class(self):
-        return InternSerializer
+    serializer_class = InternSerializer
+    queryset = Intern.objects.all()
 
 
 class InternGroupViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
-
-    def get_queryset(self):
-        return InternGroup.objects.all()
-
-    def get_serializer_class(self):
-        return InternGroupSerializer
-
+    serializer_class = InternGroupSerializer
+    queryset = InternGroup.objects.all()
 
 class AccessLevelViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = (DjangoModelPermissions,)
-
-    def get_queryset(self):
-        return AccessLevel.objects.all()
-
-    def get_serializer_class(self):
-        return AccessLevelSerializer
+    serializer_class = AccessLevelSerializer
+    queryset = AccessLevel.objects.all()
 
 
 class RoleViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_fields = ('groups',)
-
-    def get_queryset(self):
-        return Role.objects.all()
-
-    def get_serializer_class(self):
-        return RoleSerializer
+    queryset = Role.objects.all()
+    serializer_class = RoleSerializer
 
 
 class InternRoleViewSet(viewsets.ModelViewSet):
