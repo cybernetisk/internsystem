@@ -1,5 +1,5 @@
 from django.test import TestCase
-from varer.models import Konto
+from .models import Konto, Varetelling
 
 class KontoTestCase(TestCase):
     def setUp(self):
@@ -24,4 +24,4 @@ class FixturesTestCase(TestCase):
     fixtures = ['user', 'varer']
 
     def test_varer_fixtures(self):
-        return True
+        self.assertEqual(Varetelling.objects.count(), 4, "There are four inventory counts")
