@@ -42,7 +42,7 @@ Scriptet gjør følgende:
 * Installerer fixtures (demodata)
 * Starter utviklerserveren for backend (Ctrl+C for å avslutte)
 
-Du skal kunne logge inn med brukeren `cyb` og passord `cyb`.
+Du skal kunne logge inn med brukeren `cyb` og passord `cyb`. De andre brukerne som opprettes har også passord `cyb`.
 
 ### Bruke virtualenv
 Pakken `virtualenvwrapper` installeres globalt, noe som gjør bruk av virtualenv veldig enkelt.
