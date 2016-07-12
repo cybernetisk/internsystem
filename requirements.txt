@@ -2,7 +2,7 @@ Django==1.9.7
 PyYAML==3.11
 django-filter==0.13.0
 djangorestframework==3.3.3
-ipython==3.2.0
+ipython==5.0.0
 isodate==0.5.1
 icalendar==3.9.0
 python-dateutil==2.4.2
