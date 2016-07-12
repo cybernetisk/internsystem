@@ -52,10 +52,6 @@ class CoffeeUseLogFilter(UseLogFilter):
 class WalletFilter(django_filters.FilterSet):
     valid = django_filters.MethodFilter(action='filter_active')
 
-    class Meta:
-        model = Wallet
-        fields = ['semester']
-
     def filter_active(self, queryset, value):
         return queryset.filter(semester__in=get_valid_semesters())
 

@@ -165,9 +165,7 @@ class CardViewSet(viewsets.GenericViewSet):
     queryset = NfcCard.objects.all()
     lookup_field = 'card_uid'
     permission_classes = (IsAuthenticatedOrReadOnly,)
-
-    def get_serializer_class(self):
-        return UseVouchersSerializer
+    serializer_class = UseVouchersSerializer
 
     @detail_route(methods=['post'])
     def use_vouchers(self, request, card_uid):
@@ -216,6 +214,7 @@ class CoffeeRegisterLogViewSet(viewsets.ModelViewSet):
     queryset = CoffeeRegisterLog.objects.prefetch_related('wallet__card', 'wallet__semester', 'issuing_user').all()
     permission_classes = (IsAuthenticatedOrReadOnly, RegisterLogPermissions,)
     filter_class = CoffeeRegisterLogFilter
+    ordering_fields = ('id', 'wallet', 'date_issued', 'vouchers', 'issuing_user', 'can_edit', 'can_delete',)
 
     def get_serializer_class(self):
         if self.action in ['create']:
