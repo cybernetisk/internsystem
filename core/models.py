@@ -100,7 +100,7 @@ class Card(models.Model):
 
 
 class NfcCard(models.Model):
-    CARD_UID_REGEX = r'^[a-z0-9]{8}$'
+    CARD_UID_REGEX = r'^[a-f0-9]{4,}$'
 
     card_uid = models.CharField(unique=True, max_length=8,
                                 validators=[
