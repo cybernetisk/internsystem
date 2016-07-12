@@ -7,6 +7,7 @@ from varer.models import *
 class KontoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Konto
+        fields = '__all__'
         depth = 2
 
 
@@ -36,12 +37,14 @@ class RåvareReadSerializer(serializers.ModelSerializer):
         class SalgsvarePriser(serializers.ModelSerializer):
             class Meta:
                 model = SalgsvarePris
+                fields = '__all__'
                 depth = 0
 
         priser = SalgsvarePriser(many=True)
 
         class Meta:
             model = Salgsvare
+            fields = '__all__'
             depth = 0
 
     priser = Priser(many=True, read_only=True)
@@ -58,6 +61,7 @@ class RåvareReadSerializer(serializers.ModelSerializer):
 class LeverandørSerializer(serializers.ModelSerializer):
     class Meta:
         model = Leverandør
+        fields = '__all__'
 
 
 class RåvareprisSerializer(serializers.ModelSerializer):
@@ -70,6 +74,7 @@ class RåvareprisSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Råvarepris
+        fields = '__all__'
 
 
 class SalgsvareWriteSerializer(serializers.ModelSerializer):
@@ -114,17 +119,20 @@ class SalgsvareReadSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Salgsvare
+        fields = '__all__'
         depth = 1
 
 
 class SalgsvareRåvareSerializer(serializers.ModelSerializer):
     class Meta:
         model = SalgsvareRåvare
+        fields = '__all__'
 
 
 class SalgsvarePrisSerializer(serializers.ModelSerializer):
     class Meta:
         model = SalgsvarePris
+        fields = '__all__'
 
 
 class SalgskalkyleReadItemSerializer(serializers.ModelSerializer):
@@ -157,6 +165,7 @@ class SalgskalkyleWriteSerializer(serializers.ModelSerializer):
 class SalgskalkyleVareSerializer(serializers.ModelSerializer):
     class Meta:
         model = SalgskalkyleVare
+        fields = '__all__'
 
 
 class VaretellingWriteSerializer(serializers.ModelSerializer):
@@ -198,6 +207,7 @@ class VaretellingListSerializer(serializers.ModelSerializer):
 class VaretellingVareSerializer(serializers.ModelSerializer):
     class Meta:
         model = VaretellingVare
+        fields = '__all__'
 
 
 class VaretellingVareExpandedSerializer(serializers.ModelSerializer):

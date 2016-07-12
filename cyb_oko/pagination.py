@@ -1,9 +1,11 @@
 from rest_framework import pagination
 from rest_framework.response import Response
-from rest_framework.compat import OrderedDict
+from collections import OrderedDict
 
 
 class CybPagination(pagination.PageNumberPagination):
+    page_size_query_param = 'limit'
+
     def get_paginated_response(self, data):
         print(repr(self.page))
         return Response(OrderedDict([
