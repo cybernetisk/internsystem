@@ -12,4 +12,4 @@ django-cors-headers==1.1.0
 django-oauth-toolkit==0.10.0
 sqlparse==0.1.19
 django-phonenumber-field==1.1.0
-requests==2.9.1
+requests==2.10.0
