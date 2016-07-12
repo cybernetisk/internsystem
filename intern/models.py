@@ -52,7 +52,7 @@ class InternRole(models.Model):
     semester_end = models.ForeignKey(Semester, related_name='end', null=True, blank=True)
     comments = models.CharField(max_length=300, null=True, blank=True)
 
-    date_added = models.DateField(default=timezone.now)
+    date_added = models.DateField(auto_now_add=True)
     date_removed = models.DateField(null=True, blank=True)
 
     date_access_given = models.DateField(null=True, blank=True)
