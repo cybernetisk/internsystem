@@ -39,7 +39,7 @@ class InternRoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = InternRole
         fields = (
-            'id', 'role', 'semesters', 'date_added', 'date_removed', 'date_access_given', 'date_access_removed'
+            'id', 'role', 'date_added'
         )
 
 
@@ -69,13 +69,12 @@ class SimpleInternSerializer(serializers.ModelSerializer):
 class InternRoleFullSerializer(InternRoleSerializer):
     role = RoleSerializer()
     intern = SimpleInternSerializer()
-    semester_start = SemesterSerializer()
-    semester_end = SemesterSerializer()
+    semesters = SemesterSerializer(many=True)
 
     class Meta:
         model = InternRole
         fields = (
-            'id', 'intern', 'role', 'semester_start', 'semester_end', 'date_access_given', 'date_access_revoked',
+            'id', 'intern', 'role', 'semesters', 'date_access_given', 'date_access_revoked',
             'date_added', 'date_removed'
         )
 
