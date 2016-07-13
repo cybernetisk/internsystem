@@ -39,7 +39,7 @@ class InternRoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = InternRole
         fields = (
-            'id', 'role', 'semester_start', 'semester_end'
+            'id', 'role', 'semesters', 'date_added', 'date_removed', 'date_access_given', 'date_access_removed'
         )
 
 

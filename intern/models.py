@@ -48,8 +48,7 @@ class Intern(models.Model):
 class InternRole(models.Model):
     intern = models.ForeignKey(Intern, related_name='roles')
     role = models.ForeignKey(Role, related_name='intern')
-    semester_start = models.ForeignKey(Semester, related_name='start')
-    semester_end = models.ForeignKey(Semester, related_name='end', null=True, blank=True)
+    semesters = models.ManyToManyField(Semester, related_name='internroles')
     comments = models.CharField(max_length=300, null=True, blank=True)
 
     date_added = models.DateField(auto_now_add=True)
@@ -62,4 +61,4 @@ class InternRole(models.Model):
         return '%s %s' % (self.role, self.intern)
 
     class Meta:
-        unique_together = ("intern", "role", "semester_start")
+        unique_together = ("intern", "role")
