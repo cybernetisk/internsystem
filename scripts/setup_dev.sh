@@ -43,5 +43,8 @@ pip install -r requirements.txt
 # Migrate Django's database
 ./manage.py migrate
 
+# Load fixtures
+scripts/load_fixtures.sh
+
 # Run development server
 ./manage.py runserver

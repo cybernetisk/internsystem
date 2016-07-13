@@ -1,8 +1,8 @@
-from django.conf.urls import url, patterns
+from django.conf.urls import url
 from django.views.decorators.csrf import csrf_exempt
 from samlauth.views import sls, acs, index, metadata, sso
 
-urlpatterns = patterns('',
+urlpatterns = [
     # SingleLogoutService
     url(r'sls/$', csrf_exempt(sls), name='saml_sls'),
 
@@ -14,4 +14,4 @@ urlpatterns = patterns('',
 
     url(r'^$', index, name='saml_index'),
     url(r'sso', sso, name='saml_sso'),
-)
+]

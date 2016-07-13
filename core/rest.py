@@ -13,6 +13,7 @@ class CardViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = (IsAuthenticated,)
     filter_class = CardFilter
     queryset = Card.objects.all()
+    ordering_fields = ('id', 'user__username', 'card_number', 'disabled')
 
     def get_serializer_class(self):
         if self.action in ['create']:
@@ -46,6 +47,7 @@ class NfcCardViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = (IsAuthenticated,)
     filter_class = NfcCardFilter
     queryset = NfcCard.objects.all()
+    ordering_fields = ('card_uid', 'user', 'intern')
 
     def get_serializer_class(self):
         if self.action in ['create']:

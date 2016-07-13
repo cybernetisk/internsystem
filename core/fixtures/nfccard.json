@@ -1,0 +1,12 @@
+[
+    {
+        "fields": {
+            "card_uid": "3b2be5a2",
+            "comment": "",
+            "intern": false,
+            "user": 1
+        },
+        "model": "core.nfccard",
+        "pk": 1
+    }
+]

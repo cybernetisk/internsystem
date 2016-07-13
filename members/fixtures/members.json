@@ -1,0 +1,92 @@
+[
+    {
+        "fields": {
+            "comments": null,
+            "date_joined": "2016-07-11T20:30:15.984Z",
+            "date_lifetime": null,
+            "email": "",
+            "honorary": false,
+            "last_edited_by": 1,
+            "lifetime": false,
+            "name": "Kirsten Arne Haugen",
+            "seller": 1,
+            "semester": 6,
+            "uio_username": null,
+            "user": null
+        },
+        "model": "members.member",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "comments": "",
+            "date_joined": "2016-07-11T20:30:23.501Z",
+            "date_lifetime": "2016-07-11T20:32:13.369Z",
+            "email": "example@example.com",
+            "honorary": false,
+            "last_edited_by": 1,
+            "lifetime": true,
+            "name": "Stian Gunne Losnedahl",
+            "seller": 1,
+            "semester": 6,
+            "uio_username": null,
+            "user": null
+        },
+        "model": "members.member",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "comments": null,
+            "date_joined": "2016-07-11T20:30:33.246Z",
+            "date_lifetime": null,
+            "email": "",
+            "honorary": false,
+            "last_edited_by": 1,
+            "lifetime": false,
+            "name": "Jon Helge Rasmussen",
+            "seller": 1,
+            "semester": 6,
+            "uio_username": null,
+            "user": null
+        },
+        "model": "members.member",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "comments": "",
+            "date_joined": "2016-07-11T20:30:38.598Z",
+            "date_lifetime": null,
+            "email": "",
+            "honorary": true,
+            "last_edited_by": 1,
+            "lifetime": false,
+            "name": "Hedda Henning Vinter",
+            "seller": 1,
+            "semester": 6,
+            "uio_username": null,
+            "user": null
+        },
+        "model": "members.member",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "comments": null,
+            "date_joined": "2016-07-11T20:30:49.357Z",
+            "date_lifetime": null,
+            "email": "",
+            "honorary": false,
+            "last_edited_by": 1,
+            "lifetime": false,
+            "name": "Silje Laurits Carlson",
+            "seller": 1,
+            "semester": 6,
+            "uio_username": null,
+            "user": null
+        },
+        "model": "members.member",
+        "pk": 5
+    }
+]

@@ -1,0 +1,325 @@
+[
+    {
+        "fields": {
+            "comment": "",
+            "description": "",
+            "end": "2015-05-07T10:00:00Z",
+            "in_escape": true,
+            "is_allday": true,
+            "is_cancelled": false,
+            "is_external": true,
+            "is_public": false,
+            "is_published": true,
+            "link": "",
+            "organizer": null,
+            "start": "2015-05-07T10:00:00Z",
+            "title": "Forening X"
+        },
+        "model": "cal.event",
+        "pk": 1
+    },
+    {
+        "fields": {
+            "comment": "",
+            "description": "",
+            "end": "2015-05-10T13:00:00Z",
+            "in_escape": false,
+            "is_allday": false,
+            "is_cancelled": false,
+            "is_external": false,
+            "is_public": false,
+            "is_published": true,
+            "link": "",
+            "organizer": null,
+            "start": "2015-05-08T13:00:00Z",
+            "title": "Hyttetur"
+        },
+        "model": "cal.event",
+        "pk": 2
+    },
+    {
+        "fields": {
+            "comment": "",
+            "description": "",
+            "end": "2015-05-11T10:00:00Z",
+            "in_escape": true,
+            "is_allday": true,
+            "is_cancelled": false,
+            "is_external": false,
+            "is_public": false,
+            "is_published": false,
+            "link": "",
+            "organizer": null,
+            "start": "2015-05-11T10:00:00Z",
+            "title": "Kaf\u00e9kveld"
+        },
+        "model": "cal.event",
+        "pk": 3
+    },
+    {
+        "fields": {
+            "comment": "",
+            "description": "",
+            "end": "2015-05-13T10:00:00Z",
+            "in_escape": true,
+            "is_allday": true,
+            "is_cancelled": false,
+            "is_external": false,
+            "is_public": true,
+            "is_published": true,
+            "link": "",
+            "organizer": null,
+            "start": "2015-05-13T10:00:00Z",
+            "title": "ettermiddagen@ifi"
+        },
+        "model": "cal.event",
+        "pk": 4
+    },
+    {
+        "fields": {
+            "comment": "",
+            "description": "",
+            "end": "2015-05-23T10:00:00Z",
+            "in_escape": true,
+            "is_allday": true,
+            "is_cancelled": false,
+            "is_external": false,
+            "is_public": false,
+            "is_published": true,
+            "link": "",
+            "organizer": null,
+            "start": "2015-05-23T10:00:00Z",
+            "title": "Internfest v/HS"
+        },
+        "model": "cal.event",
+        "pk": 5
+    },
+    {
+        "fields": {
+            "comment": "",
+            "description": "",
+            "end": "2015-05-28T10:00:00Z",
+            "in_escape": true,
+            "is_allday": true,
+            "is_cancelled": false,
+            "is_external": true,
+            "is_public": false,
+            "is_published": false,
+            "link": "",
+            "organizer": null,
+            "start": "2015-05-28T10:00:00Z",
+            "title": "Forening Y"
+        },
+        "model": "cal.event",
+        "pk": 6
+    },
+    {
+        "fields": {
+            "comment": "",
+            "description": "",
+            "end": "2015-05-30T00:00:00Z",
+            "in_escape": true,
+            "is_allday": false,
+            "is_cancelled": false,
+            "is_external": false,
+            "is_public": true,
+            "is_published": true,
+            "link": "",
+            "organizer": null,
+            "start": "2015-05-29T16:00:00Z",
+            "title": "Fredagsquiz"
+        },
+        "model": "cal.event",
+        "pk": 7
+    },
+    {
+        "fields": {
+            "comment": "",
+            "description": "",
+            "end": "2015-06-06T00:00:00Z",
+            "in_escape": true,
+            "is_allday": false,
+            "is_cancelled": false,
+            "is_external": false,
+            "is_public": true,
+            "is_published": true,
+            "link": "",
+            "organizer": null,
+            "start": "2015-06-05T16:00:00Z",
+            "title": "Faglig pub"
+        },
+        "model": "cal.event",
+        "pk": 8
+    },
+    {
+        "fields": {
+            "comment": "",
+            "description": "",
+            "end": "2015-06-07T10:00:00Z",
+            "in_escape": true,
+            "is_allday": true,
+            "is_cancelled": false,
+            "is_external": false,
+            "is_public": true,
+            "is_published": true,
+            "link": "",
+            "organizer": null,
+            "start": "2015-06-07T10:00:00Z",
+            "title": "Magic (Grand Prix Trail)"
+        },
+        "model": "cal.event",
+        "pk": 9
+    },
+    {
+        "fields": {
+            "comment": "",
+            "description": "",
+            "end": "2015-06-13T00:00:00Z",
+            "in_escape": true,
+            "is_allday": false,
+            "is_cancelled": false,
+            "is_external": false,
+            "is_public": true,
+            "is_published": true,
+            "link": "",
+            "organizer": null,
+            "start": "2015-06-12T16:00:00Z",
+            "title": "Semestersluttfest"
+        },
+        "model": "cal.event",
+        "pk": 10
+    },
+    {
+        "fields": {
+            "comment": "",
+            "description": "",
+            "end": "2015-06-20T10:00:00Z",
+            "in_escape": true,
+            "is_allday": true,
+            "is_cancelled": false,
+            "is_external": false,
+            "is_public": false,
+            "is_published": true,
+            "link": "",
+            "organizer": null,
+            "start": "2015-06-20T10:00:00Z",
+            "title": "Ryddedag"
+        },
+        "model": "cal.event",
+        "pk": 11
+    },
+    {
+        "fields": {
+            "comment": "",
+            "description": "",
+            "end": "2015-07-24T10:00:00Z",
+            "in_escape": true,
+            "is_allday": true,
+            "is_cancelled": false,
+            "is_external": false,
+            "is_public": false,
+            "is_published": true,
+            "link": "",
+            "organizer": null,
+            "start": "2015-07-24T10:00:00Z",
+            "title": "Julitrefest"
+        },
+        "model": "cal.event",
+        "pk": 12
+    },
+    {
+        "fields": {
+            "comment": "",
+            "description": "",
+            "end": "2015-08-22T10:00:00Z",
+            "in_escape": true,
+            "is_allday": true,
+            "is_cancelled": false,
+            "is_external": false,
+            "is_public": false,
+            "is_published": false,
+            "link": "",
+            "organizer": null,
+            "start": "2015-08-10T10:00:00Z",
+            "title": "Fadderuker"
+        },
+        "model": "cal.event",
+        "pk": 13
+    },
+    {
+        "fields": {
+            "comment": "",
+            "description": "",
+            "end": "2015-08-17T10:00:00Z",
+            "in_escape": true,
+            "is_allday": true,
+            "is_cancelled": false,
+            "is_external": false,
+            "is_public": true,
+            "is_published": true,
+            "link": "",
+            "organizer": null,
+            "start": "2015-08-17T10:00:00Z",
+            "title": "Pub-til-pub"
+        },
+        "model": "cal.event",
+        "pk": 14
+    },
+    {
+        "fields": {
+            "comment": "",
+            "description": "",
+            "end": "2015-10-14T10:00:00Z",
+            "in_escape": true,
+            "is_allday": true,
+            "is_cancelled": false,
+            "is_external": false,
+            "is_public": true,
+            "is_published": true,
+            "link": "",
+            "organizer": null,
+            "start": "2015-10-14T10:00:00Z",
+            "title": "Whisky-seminar"
+        },
+        "model": "cal.event",
+        "pk": 15
+    },
+    {
+        "fields": {
+            "comment": "",
+            "description": "",
+            "end": "2015-10-17T10:00:00Z",
+            "in_escape": true,
+            "is_allday": true,
+            "is_cancelled": false,
+            "is_external": false,
+            "is_public": true,
+            "is_published": true,
+            "link": "",
+            "organizer": null,
+            "start": "2015-10-17T10:00:00Z",
+            "title": "Ifi-galla"
+        },
+        "model": "cal.event",
+        "pk": 16
+    },
+    {
+        "fields": {
+            "comment": "",
+            "description": "",
+            "end": "2015-10-29T11:00:00Z",
+            "in_escape": true,
+            "is_allday": true,
+            "is_cancelled": false,
+            "is_external": false,
+            "is_public": true,
+            "is_published": true,
+            "link": "",
+            "organizer": null,
+            "start": "2015-10-29T11:00:00Z",
+            "title": "Dagen@ifi"
+        },
+        "model": "cal.event",
+        "pk": 17
+    }
+]
