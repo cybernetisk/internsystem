@@ -28,7 +28,7 @@ class VoucherWalletViewSet(viewsets.ReadOnlyModelViewSet):
     def get_queryset(self):
         queryset = VoucherWallet.objects.all()
         if self.action == 'stats':
-            return queryset
+            return queryset.order_by()
         return queryset.prefetch_related('user', 'semester')
 
     @list_route(methods=['get'])
