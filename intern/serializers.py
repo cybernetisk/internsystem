@@ -51,7 +51,7 @@ class InternSerializer(serializers.ModelSerializer):
         model = Intern
         fields = (
             'id', 'user', 'active', 'comments',
-            'roles'
+            'roles', 'registered', 'left'
         )
 
 

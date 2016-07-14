@@ -1,3 +1,5 @@
+from django.utils import timezone
+
 from rest_framework import filters
 from rest_framework import viewsets
 from rest_framework import status
@@ -19,7 +21,6 @@ class InternViewSet(viewsets.ModelViewSet):
     serializer_class = InternSerializer
     queryset = Intern.objects.all()
 
-
 class InternGroupViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
     serializer_class = InternGroupSerializer
@@ -29,7 +30,6 @@ class AccessLevelViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = (DjangoModelPermissions,)
     serializer_class = AccessLevelSerializer
     queryset = AccessLevel.objects.all()
-
 
 class RoleViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
@@ -55,6 +55,7 @@ class InternRoleViewSet(viewsets.ModelViewSet):
             return AddInternRoleSerializer
         return InternRoleFullSerializer
 
+
     def create(self, request, *args, **kwargs):
         serializer = AddInternRoleSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -71,3 +72,14 @@ class InternRoleViewSet(viewsets.ModelViewSet):
         internrole.semesters.add(get_semester())
 
         return Response(InternRoleFullSerializer(internrole).data, status=status.HTTP_201_CREATED)
+
+    def destroy(self, request, *args, **kwargs):
+        serializer = self.get_serializer_class()
+        serializer.data = request.data
+        serializer.is_valid()
+
+        internrole = self.get_object()
+        internrole.date_removed = timezone.now()
+        internrole.save()
+
+        return Response(InternRoleFullSerializer(internrole).data, status=status.HTTP_200_OK)

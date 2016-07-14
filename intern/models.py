@@ -39,6 +39,8 @@ class Intern(models.Model):
     user = models.OneToOneField(User, unique=True)
     active = models.BooleanField(default=True)
     comments = models.CharField(max_length=300, null=True, blank=True)
+    registered = models.DateField(auto_now_add=True)
+    left = models.DateField(null=True)
 
     def __str__(self):
         return str(self.user)
