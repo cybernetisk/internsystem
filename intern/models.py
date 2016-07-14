@@ -36,7 +36,7 @@ class Role(models.Model):
 
 
 class Intern(models.Model):
-    user = models.ForeignKey(User, unique=True)
+    user = models.OneToOneField(User, unique=True)
     active = models.BooleanField(default=True)
     comments = models.CharField(max_length=300, null=True, blank=True)
 

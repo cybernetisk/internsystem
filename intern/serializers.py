@@ -45,14 +45,13 @@ class InternRoleSerializer(serializers.ModelSerializer):
 
 class InternSerializer(serializers.ModelSerializer):
     user = UserSerializer()
-    cards = CardSerializer(many=True)
     roles = InternRoleSerializer(many=True, allow_null=True)
 
     class Meta:
         model = Intern
         fields = (
-            'id', 'user', 'recived_card', 'active', 'comments',
-            'cards', 'roles'
+            'id', 'user', 'active', 'comments',
+            'roles'
         )
 
 
