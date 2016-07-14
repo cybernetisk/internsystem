@@ -7,7 +7,7 @@ from members.models import Member
 
 # Create your models here.
 class AccessLevel(models.Model):
-    name = models.CharField(max_length=20)
+    name = models.CharField(max_length=20, unique=True)
     uio_name = models.CharField(max_length=50)
     description = models.TextField()
 
@@ -16,7 +16,7 @@ class AccessLevel(models.Model):
 
 
 class InternGroup(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     leader = models.ForeignKey(User)
     description = models.CharField(max_length=300, null=True, blank=True)
 
@@ -25,7 +25,7 @@ class InternGroup(models.Model):
 
 
 class Role(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     description = models.CharField(max_length=300, null=True, blank=True)
     groups = models.ManyToManyField(InternGroup, related_name='roles')
     access_levels = models.ManyToManyField(AccessLevel)

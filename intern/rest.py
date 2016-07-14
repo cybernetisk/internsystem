@@ -65,8 +65,9 @@ class InternRoleViewSet(viewsets.ModelViewSet):
         role = Role.objects.get(pk=serializer.data['role'])
 
         internrole = InternRole(intern=intern, role=role)
-        internrole.semester_start = get_semester()
 
         internrole.save()
+
+        internrole.semesters.add(get_semester())
 
         return Response(InternRoleFullSerializer(internrole).data, status=status.HTTP_201_CREATED)
