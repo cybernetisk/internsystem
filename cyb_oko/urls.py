@@ -15,6 +15,7 @@ import cal.urls  # do not remove, needed to load API-urls
 import members.urls  # do not remove, needed to load API-urls
 import varer.urls  # do not remove, needed to load API-urls
 import voucher.urls  # do not remove, needed to load API-urls
+import intern.urls  # do not remove, needed to load API-urls
 
 from core.utils import SharedAPIRootRouter
 

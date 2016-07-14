@@ -12,6 +12,12 @@ class UserSimpleSerializer(UserSimpleGuestSerializer):
     pass
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'username', 'realname', 'email')
+
+
 class UserExtendedSerializer(serializers.ModelSerializer):
     class Meta:
         model = User

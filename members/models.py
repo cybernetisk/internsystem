@@ -39,24 +39,3 @@ class Member(models.Model):
     class Meta:
         unique_together = ("name", "email", "semester")
 
-
-class InternGroup(models.Model):
-    name = models.CharField(max_length=50)
-    leader = models.ForeignKey(User)
-    description = models.CharField(max_length=300)
-
-
-class InternRole(models.Model):
-    name = models.CharField(max_length=50)
-    description = models.CharField(max_length=300)
-    role_groups = models.ManyToManyField(InternGroup, related_name='groups')
-
-
-class InternMember(models.Model):
-    user = models.ForeignKey(User)
-    member = models.ForeignKey(Member)
-    semester = models.ForeignKey(Semester)
-    recivedCard = models.BooleanField(default=False)
-    active = models.BooleanField(default=True)
-    comments = models.CharField(max_length=300)
-    roles = models.ManyToManyField(InternRole, related_name='roles')
