@@ -10,7 +10,7 @@ from core.utils import get_semester
 
 from intern.models import *
 from intern.serializers import InternRoleFullSerializer, InternSerializer, AccessLevelSerializer, InternGroupSerializer, \
-    RoleSerializer, AddInternRoleSerializer
+    RoleSerializer, AddInternRoleSerializer, InternCardSerializer, AddInternCardSerializer
 
 
 class InternViewSet(viewsets.ModelViewSet):
@@ -37,6 +37,18 @@ class RoleViewSet(viewsets.ModelViewSet):
     filter_fields = ('groups',)
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
+
+class InternCardViewSet(viewsets.ModelViewSet):
+    permission_classes = (DjangoModelPermissions,)
+    filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    filter_field = ('intern', 'semester')
+    ordering_fields = ('intern', )
+    queryset = InternCard.objects.all()
+
+    def get_serializer_class(self):
+        if self.action in ['create']:
+            return AddInternCardSerializer
+        return InternCardSerializer
 
 
 class InternRoleViewSet(viewsets.ModelViewSet):

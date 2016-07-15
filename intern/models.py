@@ -46,7 +46,6 @@ class Intern(models.Model):
         return str(self.user)
 
 
-
 class InternRole(models.Model):
     intern = models.ForeignKey(Intern, related_name='roles')
     role = models.ForeignKey(Role, related_name='intern')
@@ -59,8 +58,21 @@ class InternRole(models.Model):
     date_access_given = models.DateField(null=True, blank=True)
     date_access_revoked = models.DateField(null=True, blank=True)
 
+    recieved_interncard = models.BooleanField(default=False)
+
     def __str__(self):
         return '%s %s' % (self.role, self.intern)
 
     class Meta:
         unique_together = ("intern", "role")
+
+class InternCard(models.Model):
+    intern = models.ForeignKey(Intern)
+    internrole = models.ManyToManyField(InternRole)
+    semester = models.ForeignKey(Semester)
+
+    date_made = models.DateField(null=True)
+    made_by = models.ForeignKey(User)
+
+    class Meta:
+        unique_together = ('intern', 'semester')
