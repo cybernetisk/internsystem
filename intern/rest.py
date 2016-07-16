@@ -1,4 +1,5 @@
 from django.utils import timezone
+from django.db import IntegrityError
 
 from rest_framework import filters
 from rest_framework import viewsets
@@ -21,15 +22,18 @@ class InternViewSet(viewsets.ModelViewSet):
     serializer_class = InternSerializer
     queryset = Intern.objects.all()
 
+
 class InternGroupViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
     serializer_class = InternGroupSerializer
     queryset = InternGroup.objects.all()
 
+
 class AccessLevelViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = (DjangoModelPermissions,)
     serializer_class = AccessLevelSerializer
     queryset = AccessLevel.objects.all()
+
 
 class RoleViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
@@ -38,11 +42,12 @@ class RoleViewSet(viewsets.ModelViewSet):
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
 
+
 class InternCardViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_field = ('intern', 'semester')
-    ordering_fields = ('intern', )
+    ordering_fields = ('intern',)
     queryset = InternCard.objects.all()
 
     def get_serializer_class(self):
@@ -67,7 +72,6 @@ class InternRoleViewSet(viewsets.ModelViewSet):
             return AddInternRoleSerializer
         return InternRoleFullSerializer
 
-
     def create(self, request, *args, **kwargs):
         serializer = AddInternRoleSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -78,8 +82,13 @@ class InternRoleViewSet(viewsets.ModelViewSet):
         role = Role.objects.get(pk=serializer.data['role'])
 
         internrole = InternRole(intern=intern, role=role)
-
-        internrole.save()
+        try:
+            internrole.save()
+        except IntegrityError:
+            return Response(
+                {'error': ('Error when adding internrole: %s %s. It already exist' % (role.name, user.username))
+                 }, status=status.HTTP_406_NOT_ACCEPTABLE
+            )
 
         internrole.semesters.add(get_semester())
 
