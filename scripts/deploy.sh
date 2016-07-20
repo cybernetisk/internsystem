@@ -15,12 +15,10 @@ if [ ! -z "$TRAVIS" ]; then
 fi
 
 echo "Running remote SSH-script"
-ssh -o StrictHostKeyChecking=no django@internt.cyb.no /bin/bash << EOF
+ssh -o StrictHostKeyChecking=no root@in.cyb.no /bin/bash << EOF
   set -e
-  cd ~/django_project
-
-  git pull origin master
-  scripts/update_production.sh
+  cd ~/drift/internsystem
+  ./update.sh
 EOF
 
 echo "Deploy finished"
