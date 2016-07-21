@@ -14,7 +14,7 @@ deploy:
   provider: script
   script: scripts/deploy.sh
   on:
-    branch: master
+    branch: master test
 cache:
   directories:
     - /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages
