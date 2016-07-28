@@ -24,7 +24,9 @@
 
 ./manage.py dumpdata --format json voucher >voucher/fixtures/voucher.json
 
-./manage.py dumpdata --format json intern.accesslevel >intern/fixtures/accesslevel.json
+./manage.py dumpdata --format json intern.accesslevel >intern/fixtures/accesslevels.json
+./manage.py dumpdata --format json intern.role >intern/fixtures/roles.json
+./manage.py dumpdata --format json intern.interngroup >intern/fixtures/groups.json
 
 # reformat the json so its fields are ordered
 for file in */fixtures/*.json; do

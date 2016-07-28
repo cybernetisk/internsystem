@@ -1,29 +1,29 @@
 [
-  {
-    "model": "intern.accesslevel",
-    "pk": 1,
-    "fields": {
-      "name": "Drift",
-      "uio_name": "150500X IFI, Escape driftsniv\u00e5",
-      "description": "GA06S-K1-12 Varelev./Kant.lager\r\n    GA06S-K1-13 Renholdsvognrom\r\n    GA06S-K1-16 Garasje/Kant.lager\r\n    GA06S-K1-17 Garasje/Heis H1\r\n    GA06S-K1-18 Heis H1/Garasje\r\n    GA06S-K1-19 Heis H1/Trapp\r\n    GA06S-K1-21 Korridor/Studentkj.\r\n    GA06S-K1-22 Korr./Kantinelager\r\n    GA06S-K1-23 Studentkjeller\r\n    GA06S-K1-24 Trapp/Heis H1\r\n    GA06S-01-05 Ytterd\u00f8r lille aud.\r\n    GA06S-01-07 Heisleser H1"
+    {
+        "model": "intern.accesslevel",
+        "pk": 1,
+        "fields": {
+            "name": "Drift",
+            "uio_name": "150500X IFI, Escape driftsniv\u00e5",
+            "description": "GA06S-K1-12 Varelev./Kant.lager\r\n    GA06S-K1-13 Renholdsvognrom\r\n    GA06S-K1-16 Garasje/Kant.lager\r\n    GA06S-K1-17 Garasje/Heis H1\r\n    GA06S-K1-18 Heis H1/Garasje\r\n    GA06S-K1-19 Heis H1/Trapp\r\n    GA06S-K1-21 Korridor/Studentkj.\r\n    GA06S-K1-22 Korr./Kantinelager\r\n    GA06S-K1-23 Studentkjeller\r\n    GA06S-K1-24 Trapp/Heis H1\r\n    GA06S-01-05 Ytterd\u00f8r lille aud.\r\n    GA06S-01-07 Heisleser H1"
+        }
+    },
+    {
+        "model": "intern.accesslevel",
+        "pk": 2,
+        "fields": {
+            "name": "Aktiv",
+            "uio_name": "150500X IFI, Escape aktivniv\u00e5",
+            "description": "GA06S-K1-19 Heis H1/Trapp\r\n    GA06S-K1-23 Studentkjeller\r\n    GA06S-K1-24 Trapp/Heis H1\r\n    GA06S-01-05 Ytterd\u00f8r lille aud."
+        }
+    },
+    {
+        "model": "intern.accesslevel",
+        "pk": 3,
+        "fields": {
+            "name": "Studentforening",
+            "uio_name": "150500X IFI, Studentforening",
+            "description": "GA06M-02-08 Korr.N/Korr.M 2. Etg.\r\n    GA06M-02-09 Korr.M/Korr.N 2. Etg.\r\n    GA06S-01-01 Inn Hovedinngang 1. Etg.\r\n    GA06S-01-02 Ut Hovedinngang 1. Etg.\r\n    GA05S-03-01 Heis1/Vrimle 3. Etg.\r\n    GA06S-03-05 Datakl. Rom 3403\r\n    GS06S-03-07 Studorg"
+        }
     }
-  },
-  {
-    "model": "intern.accesslevel",
-    "pk": 2,
-    "fields": {
-      "name": "Aktiv",
-      "uio_name": "150500X IFI, Escape aktivniv\u00e5",
-      "description": "GA06S-K1-19 Heis H1/Trapp\r\n    GA06S-K1-23 Studentkjeller\r\n    GA06S-K1-24 Trapp/Heis H1\r\n    GA06S-01-05 Ytterd\u00f8r lille aud."
-    }
-  },
-  {
-    "model": "intern.accesslevel",
-    "pk": 3,
-    "fields": {
-      "name": "Studentforening",
-      "uio_name": "150500X IFI, Studentforening",
-      "description": "GA06M-02-08 Korr.N/Korr.M 2. Etg.\r\n    GA06M-02-09 Korr.M/Korr.N 2. Etg.\r\n    GA06S-01-01 Inn Hovedinngang 1. Etg.\r\n    GA06S-01-02 Ut Hovedinngang 1. Etg.\r\n    GA05S-03-01 Heis1/Vrimle 3. Etg.\r\n    GA06S-03-05 Datakl. Rom 3403\r\n    GS06S-03-07 Studorg"
-    }
-  }
 ]

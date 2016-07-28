@@ -1,0 +1,92 @@
+[
+    {
+        "model": "intern.interngroup",
+        "pk": 1,
+        "fields": {
+            "name": "Hovedstyret",
+            "leader": 1,
+            "description": "HS sitt ansvar er \u00e5 drive foreningen"
+        }
+    },
+    {
+        "model": "intern.interngroup",
+        "pk": 2,
+        "fields": {
+            "name": "Kjellerstyret",
+            "leader": 2,
+            "description": "Kjellerstyret styrer Escape"
+        }
+    },
+    {
+        "model": "intern.interngroup",
+        "pk": 3,
+        "fields": {
+            "name": "\u00d8konomi",
+            "leader": 1,
+            "description": ""
+        }
+    },
+    {
+        "model": "intern.interngroup",
+        "pk": 4,
+        "fields": {
+            "name": "Arrangementsgruppen",
+            "leader": 1,
+            "description": ""
+        }
+    },
+    {
+        "model": "intern.interngroup",
+        "pk": 5,
+        "fields": {
+            "name": "Promotering",
+            "leader": 1,
+            "description": ""
+        }
+    },
+    {
+        "model": "intern.interngroup",
+        "pk": 6,
+        "fields": {
+            "name": "Bar",
+            "leader": 1,
+            "description": ""
+        }
+    },
+    {
+        "model": "intern.interngroup",
+        "pk": 7,
+        "fields": {
+            "name": "Kaf\u00e9",
+            "leader": 1,
+            "description": ""
+        }
+    },
+    {
+        "model": "intern.interngroup",
+        "pk": 8,
+        "fields": {
+            "name": "DJ",
+            "leader": 1,
+            "description": ""
+        }
+    },
+    {
+        "model": "intern.interngroup",
+        "pk": 9,
+        "fields": {
+            "name": "Arkivgruppen",
+            "leader": 1,
+            "description": ""
+        }
+    },
+    {
+        "model": "intern.interngroup",
+        "pk": 10,
+        "fields": {
+            "name": "Webgruppa",
+            "leader": 1,
+            "description": ""
+        }
+    }
+]

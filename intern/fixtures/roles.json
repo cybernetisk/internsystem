@@ -1,0 +1,364 @@
+[
+    {
+        "model": "intern.role",
+        "pk": 1,
+        "fields": {
+            "name": "Kjellermogul",
+            "description": "Kjellermogul leder Kjellerstyret og sitter Hovedstyret",
+            "groups": [
+                1,
+                2
+            ],
+            "access_levels": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 2,
+        "fields": {
+            "name": "Leder",
+            "description": "",
+            "groups": [
+                1
+            ],
+            "access_levels": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 3,
+        "fields": {
+            "name": "Nestleder",
+            "description": "",
+            "groups": [
+                1
+            ],
+            "access_levels": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 4,
+        "fields": {
+            "name": "Kasserer",
+            "description": "Kasserer leder \u00f8konomigruppen og sitter hovedstyret",
+            "groups": [
+                1,
+                3
+            ],
+            "access_levels": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 5,
+        "fields": {
+            "name": "Arrangementssjef",
+            "description": "Leder Arrgruppa og sitter i Hovedstyret",
+            "groups": [
+                4
+            ],
+            "access_levels": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 6,
+        "fields": {
+            "name": "PR-ansvarlig",
+            "description": "",
+            "groups": [
+                1,
+                5
+            ],
+            "access_levels": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 7,
+        "fields": {
+            "name": "Internansvarlig",
+            "description": "Ansvarlig for internmilj\u00f8et i foreningen.",
+            "groups": [
+                1
+            ],
+            "access_levels": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 8,
+        "fields": {
+            "name": "Rekrutteringsasvarlig",
+            "description": "",
+            "groups": [
+                1
+            ],
+            "access_levels": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 9,
+        "fields": {
+            "name": "Barsjef",
+            "description": "Leder bargruppen og sitter i KS",
+            "groups": [
+                2,
+                6
+            ],
+            "access_levels": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 10,
+        "fields": {
+            "name": "Kaf\u00e9sjef",
+            "description": "Leder kaf\u00e9gruppen",
+            "groups": [
+                7
+            ],
+            "access_levels": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 11,
+        "fields": {
+            "name": "DJ-Sjef",
+            "description": "Leder DJ-gruppen",
+            "groups": [
+                2,
+                8
+            ],
+            "access_levels": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 12,
+        "fields": {
+            "name": "\u00d8konomiansvarlig",
+            "description": "Nestleder i \u00f8konomigruppen og sitter i Kjellerstyret",
+            "groups": [
+                2,
+                3
+            ],
+            "access_levels": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 13,
+        "fields": {
+            "name": "Innkj\u00f8psansvarlig",
+            "description": "Ansvarlig for innkj\u00f8p",
+            "groups": [
+                2
+            ],
+            "access_levels": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 14,
+        "fields": {
+            "name": "Tekniskansvarlig",
+            "description": "Ansvarlig for det tekniske anlegget i Escape",
+            "groups": [
+                2
+            ],
+            "access_levels": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 15,
+        "fields": {
+            "name": "Skjenkemester",
+            "description": "Ansvarlig for kveldene i Escape",
+            "groups": [
+                6
+            ],
+            "access_levels": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 16,
+        "fields": {
+            "name": "Kaffemester",
+            "description": "Ansvarlig for kaf\u00e9dager i Escape",
+            "groups": [
+                7
+            ],
+            "access_levels": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 17,
+        "fields": {
+            "name": "Arrangementsmester",
+            "description": "Ansvarlig for forskjellige arr",
+            "groups": [
+                4
+            ],
+            "access_levels": [
+                1,
+                3
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 18,
+        "fields": {
+            "name": "Barfunk",
+            "description": "Bartenderene i Escape",
+            "groups": [
+                6
+            ],
+            "access_levels": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 19,
+        "fields": {
+            "name": "Kaf\u00e9funk",
+            "description": "Baristane i Escape",
+            "groups": [
+                7
+            ],
+            "access_levels": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 20,
+        "fields": {
+            "name": "DJ",
+            "description": "DJs",
+            "groups": [
+                8
+            ],
+            "access_levels": [
+                2
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 21,
+        "fields": {
+            "name": "Arkivar",
+            "description": "Ansvar for CYBs arkiv.",
+            "groups": [
+                9
+            ],
+            "access_levels": [
+                3
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 22,
+        "fields": {
+            "name": "Websjef",
+            "description": "Leder for webgruppen",
+            "groups": [
+                10
+            ],
+            "access_levels": [
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 23,
+        "fields": {
+            "name": "Webfunk",
+            "description": "Programmere og webdesignere i webgruppen",
+            "groups": [
+                10
+            ],
+            "access_levels": [
+                2,
+                3
+            ]
+        }
+    },
+    {
+        "model": "intern.role",
+        "pk": 24,
+        "fields": {
+            "name": "PR-funk",
+            "description": "Designere og folk som liker \u00e5 gj\u00f8re PR ting",
+            "groups": [
+                5
+            ],
+            "access_levels": [
+                2,
+                3
+            ]
+        }
+    }
+]
