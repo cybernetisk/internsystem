@@ -24,6 +24,8 @@
 
 ./manage.py dumpdata --format json voucher >voucher/fixtures/voucher.json
 
+./manage.py dumpdata --format json intern.accesslevel >intern/fixtures/accesslevel.json
+
 # reformat the json so its fields are ordered
 for file in */fixtures/*.json; do
     OUT=$(python -m json.tool "$file")

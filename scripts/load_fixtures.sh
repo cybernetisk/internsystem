@@ -10,3 +10,4 @@
 ./manage.py loaddata --app members members
 ./manage.py loaddata --app varer varer
 ./manage.py loaddata --app voucher voucher
+./manage.py loaddata --app intern accesslevels

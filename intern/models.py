@@ -45,6 +45,14 @@ class Intern(models.Model):
     def __str__(self):
         return str(self.user)
 
+    def update_left(self):
+        left = True
+        for role in self.roles:
+            if role.date_removed is None:
+                left = False
+        if left:
+            self.left = timezone.now()
+
 
 class InternRole(models.Model):
     intern = models.ForeignKey(Intern, related_name='roles')

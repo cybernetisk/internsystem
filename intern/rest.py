@@ -103,4 +103,6 @@ class InternRoleViewSet(viewsets.ModelViewSet):
         internrole.date_removed = timezone.now()
         internrole.save()
 
+        internrole.intern.update_left()
+
         return Response(InternRoleFullSerializer(internrole).data, status=status.HTTP_200_OK)
