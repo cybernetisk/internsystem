@@ -360,5 +360,20 @@
                 3
             ]
         }
+    },
+    {
+        "model": "intern.role",
+        "pk": 25,
+        "fields": {
+            "name": "Utl\u00e5nsansvarlig",
+            "description": "Ansvarlig for \u00e5 l\u00e5ne ut Escape.",
+            "groups": [
+                2
+            ],
+            "access_levels": [
+                1,
+                3
+            ]
+        }
     }
 ]
