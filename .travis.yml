@@ -1,5 +1,5 @@
 language: python
-python: '3.4'
+python: '3.5.2'
 sudo: false
 env:
 - LOCAL_SETTINGS=settings_local_travis
@@ -12,9 +12,11 @@ notifications:
     secure: qThWSSDhhcLDyYXmGuHYR/5P7eHNsU/xAumx85U4JoiTBP2+KcAVfhdziO0SWg18+3odXrhMQEEmj2inONj7+Ug12HGJEpNO7GdgJCnvlTI5/QnsH6vlqDjVEapRPCZpenW3oxqsBLl/wjaez1NvHtfJIUIPVNivvbjvWVvFGyk=
 deploy:
   provider: script
-  script: scripts/deploy.sh
+  script: scripts/deploy-wrap.sh
   on:
-    branch: master
+    branch:
+    - master
+    - test
 cache:
   directories:
-    - /home/travis/virtualenv/python3.4.2/lib/python3.4/site-packages
+    - /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages

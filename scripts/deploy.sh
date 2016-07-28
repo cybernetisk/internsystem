@@ -14,13 +14,21 @@ if [ ! -z "$TRAVIS" ]; then
   ssh-add travis-key
 fi
 
-echo "Running remote SSH-script"
-ssh -o StrictHostKeyChecking=no django@internt.cyb.no /bin/bash << EOF
-  set -e
-  cd ~/django_project
+env=''
+if [ "$TRAVIS_BRANCH" == "test" ]; then
+    env=test
+elif [ "$TRAVIS_BRANCH" == "master" ]; then
+    env=prod
+else
+    >&2 echo "Unkown branch '$TRAVIS_BRANCH'"
+    exit 1
+fi
 
-  git pull origin master
-  scripts/update_production.sh
+echo "Running remote SSH-script"
+ssh -o StrictHostKeyChecking=no root@in.cyb.no /bin/bash << EOF
+  set -e
+  cd ~/drift/internsystem-backend
+  ENV=$env ./update.sh
 EOF
 
 echo "Deploy finished"
