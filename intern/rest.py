@@ -70,8 +70,6 @@ class InternRoleViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action in ['create']:
             return AddInternRoleSerializer
-        if self.action in ['update']:
-            return InternRoleFullSerializer
         return InternRoleFullSerializer
 
     def create(self, request, *args, **kwargs):
@@ -97,35 +95,36 @@ class InternRoleViewSet(viewsets.ModelViewSet):
                  }, status=status.HTTP_406_NOT_ACCEPTABLE
             )
 
-
-
         return Response(InternRoleFullSerializer(internrole).data, status=status.HTTP_201_CREATED)
 
     def update(self, request, *args, **kwargs):
-        serializer = self.get_serializer_class()
-        serializer.data = request.data
-        serializer.is_valid()
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
         internrole = self.get_object()
-        internrole.last_editor = User.objects.get(request.user)
-        internrole.date_edited = timezone.now()
-        internrole.semesters = serializer.semesters
-        internrole.comments = serializer.comments
-        internrole.recieved_interncard = serializer.recieved_interncard
+        internrole.last_editor = User.objects.get(username=request.user)
+        internrole.date_edited = timezone.now().date()
+        internrole.comments = serializer.data['comments']
+        internrole.recieved_interncard = serializer.data['recieved_interncard']
 
-        if serializer.access_given and internrole.access_given is False:
+
+        if serializer.data['access_given'] and internrole.access_given == False:
             internrole.access_given = True
             internrole.date_access_given = timezone.now()
+            internrole.date_access_revoked = None
+
+        if serializer.data['access_given'] is False and internrole.access_given is True:
+            internrole.access_given = False
+            internrole.date_access_revoked = timezone.now()
 
         internrole.save()
 
         return Response(InternRoleFullSerializer(internrole).data, status=status.HTTP_200_OK)
 
-
     def destroy(self, request, *args, **kwargs):
         serializer = self.get_serializer_class()
         serializer.data = request.data
-        serializer.is_valid()
+        serializer.is_valid(raise_exception=True)
 
         internrole = self.get_object()
         internrole.date_removed = timezone.now()

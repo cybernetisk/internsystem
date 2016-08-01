@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from core.serializers import UserSerializer, CardSerializer, SemesterSerializer
-from intern.models import AccessLevel, Intern, InternCard, InternGroup, InternRole,  Role
+from intern.models import AccessLevel, Intern, InternCard, InternGroup, InternRole, Role
 
 
 class AccessLevelSerializer(serializers.ModelSerializer):
@@ -76,13 +76,15 @@ class InternRoleFullSerializer(InternRoleSerializer):
     date_edited = serializers.DateField(read_only=True)
     date_removed = serializers.DateField(read_only=True)
     access_given = serializers.BooleanField()
+    date_access_given = serializers.DateTimeField(read_only=True)
+    date_access_revoked = serializers.DateTimeField(read_only=True)
 
     class Meta:
         model = InternRole
         fields = (
-            'id', 'intern', 'role', 'semesters','access_given', 'date_access_given', 'date_access_revoked',
+            'id', 'intern', 'role', 'semesters', 'access_given', 'date_access_given', 'date_access_revoked',
             'date_added', 'date_removed', 'date_edited', 'comments', 'created_by', 'last_editor',
-            'removed_by', 'recieved_interncard'
+            'removed_by', 'recieved_interncard',
         )
 
 
@@ -95,6 +97,7 @@ class AddInternRoleSerializer(serializers.ModelSerializer):
             'username', 'role'
         )
 
+
 class InternCardSerializer(serializers.ModelSerializer):
     intern = InternSerializer()
     internroles = InternRoleSerializer(many=True)
@@ -103,6 +106,7 @@ class InternCardSerializer(serializers.ModelSerializer):
     class Meta:
         model = InternCard
         fields = ('intern', 'internroles', 'semester', 'date_made', 'made_by')
+
 
 class AddInternCardSerializer(serializers.ModelSerializer):
     class Meta:
