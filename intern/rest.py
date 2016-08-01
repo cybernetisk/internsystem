@@ -16,7 +16,7 @@ from intern.serializers import InternRoleFullSerializer, InternSerializer, Acces
 
 class InternViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
-    search_fields = ('user__username', 'user__realname')
+    search_fields = ('user__username',)
     filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
     filter_fields = ('user', 'user__username')
     serializer_class = InternSerializer
@@ -70,6 +70,8 @@ class InternRoleViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action in ['create']:
             return AddInternRoleSerializer
+        if self.action in ['update']:
+            return InternRoleFullSerializer
         return InternRoleFullSerializer
 
     def create(self, request, *args, **kwargs):
@@ -82,6 +84,11 @@ class InternRoleViewSet(viewsets.ModelViewSet):
         role = Role.objects.get(pk=serializer.data['role'])
 
         internrole = InternRole(intern=intern, role=role)
+        creator = User.objects.get(username=request.user)
+        internrole.created_by = creator
+        internrole.last_editor = creator
+        intern.update_left()
+        internrole.semesters.add(get_semester())
         try:
             internrole.save()
         except IntegrityError:
@@ -90,9 +97,30 @@ class InternRoleViewSet(viewsets.ModelViewSet):
                  }, status=status.HTTP_406_NOT_ACCEPTABLE
             )
 
-        internrole.semesters.add(get_semester())
+
 
         return Response(InternRoleFullSerializer(internrole).data, status=status.HTTP_201_CREATED)
+
+    def update(self, request, *args, **kwargs):
+        serializer = self.get_serializer_class()
+        serializer.data = request.data
+        serializer.is_valid()
+
+        internrole = self.get_object()
+        internrole.last_editor = User.objects.get(request.user)
+        internrole.date_edited = timezone.now()
+        internrole.semesters = serializer.semesters
+        internrole.comments = serializer.comments
+        internrole.recieved_interncard = serializer.recieved_interncard
+
+        if serializer.access_given and internrole.access_given is False:
+            internrole.access_given = True
+            internrole.date_access_given = timezone.now()
+
+        internrole.save()
+
+        return Response(InternRoleFullSerializer(internrole).data, status=status.HTTP_200_OK)
+
 
     def destroy(self, request, *args, **kwargs):
         serializer = self.get_serializer_class()
@@ -101,6 +129,7 @@ class InternRoleViewSet(viewsets.ModelViewSet):
 
         internrole = self.get_object()
         internrole.date_removed = timezone.now()
+        internrole.removed_by = User.objects.get(username=request.user)
         internrole.save()
 
         internrole.intern.update_left()

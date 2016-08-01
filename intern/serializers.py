@@ -66,15 +66,23 @@ class SimpleInternSerializer(serializers.ModelSerializer):
 
 
 class InternRoleFullSerializer(InternRoleSerializer):
-    role = RoleSerializer()
-    intern = SimpleInternSerializer()
+    role = RoleSerializer(read_only=True)
+    intern = SimpleInternSerializer(read_only=True)
     semesters = SemesterSerializer(many=True)
+    created_by = UserSerializer(read_only=True)
+    last_editor = UserSerializer(read_only=True)
+    removed_by = UserSerializer(read_only=True)
+    date_added = serializers.DateField(read_only=True)
+    date_edited = serializers.DateField(read_only=True)
+    date_removed = serializers.DateField(read_only=True)
+    access_given = serializers.BooleanField()
 
     class Meta:
         model = InternRole
         fields = (
-            'id', 'intern', 'role', 'semesters', 'date_access_given', 'date_access_revoked',
-            'date_added', 'date_removed'
+            'id', 'intern', 'role', 'semesters','access_given', 'date_access_given', 'date_access_revoked',
+            'date_added', 'date_removed', 'date_edited', 'comments', 'created_by', 'last_editor',
+            'removed_by', 'recieved_interncard'
         )
 
 
