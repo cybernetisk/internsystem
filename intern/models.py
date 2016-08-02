@@ -39,9 +39,22 @@ class Intern(models.Model):
     comments = models.CharField(max_length=300, null=True, blank=True)
     registered = models.DateField(auto_now_add=True)
     left = models.DateField(null=True)
+    journal = models.TextField(default='')
 
     def __str__(self):
         return str(User.objects.prefetch_related().all()[0])
+
+    def add_journal(self, entry):
+        """
+        Adds the entry to the journal field
+        :param entry: text that is appended to the journal
+
+        """
+        if self.journal is '':
+            self.journal = entry
+        else:
+            self.journal = '%s\n%s' % (self.journal, entry)
+        self.save()
 
     def update_left(self):
         """
@@ -73,8 +86,8 @@ class InternRole(models.Model):
     semesters = models.ManyToManyField(Semester, related_name='internroles')
     comments = models.CharField(max_length=1300, null=True, blank=True)
 
-    created_by = models.ForeignKey(User, related_name='internroles_created')
-    last_editor = models.ForeignKey(User, related_name='internroles_edited')
+    created_by = models.ForeignKey(User, related_name='internroles_created', null=True)
+    last_editor = models.ForeignKey(User, related_name='internroles_edited', null=True)
     removed_by = models.ForeignKey(User, related_name='internroles_removed', null=True, blank=True)
 
     date_added = models.DateField(auto_now_add=True)

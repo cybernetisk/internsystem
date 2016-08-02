@@ -46,12 +46,12 @@ class InternRoleSerializer(serializers.ModelSerializer):
 class InternSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     roles = InternRoleSerializer(many=True, allow_null=True)
-
+    journal = serializers.CharField(read_only=True)
     class Meta:
         model = Intern
         fields = (
             'id', 'user', 'active', 'comments',
-            'roles', 'registered', 'left'
+            'roles', 'registered', 'left', 'journal'
         )
 
 

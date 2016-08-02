@@ -88,9 +88,10 @@ class InternRoleViewSet(viewsets.ModelViewSet):
         if internrole.date_removed is not None:
             internrole.date_removed = None
             internrole.removed_by = None
-            internrole.comments = ' %s\nRecreated by %s' % (internrole.comments, creator)
+            intern.add_journal('[%s] Recreated by %s' % (internrole, creator))
         else:
             internrole.created_by = creator
+            intern.add_journal('[%s] Added by %s' % (internrole, creator))
 
         internrole.last_editor = creator
         intern.update_left()
@@ -120,14 +121,14 @@ class InternRoleViewSet(viewsets.ModelViewSet):
             internrole.access_given = True
             internrole.date_access_given = timezone.now()
             internrole.date_access_revoked = None
-            internrole.comments = '%s\n%s gave access for role %s' % (
-                internrole.comments, internrole.last_editor, internrole.role)
+            internrole.intern.add_journal('[%s] %s gave access for role %s' % (
+                internrole, internrole.last_editor, internrole.role))
 
         if serializer.data['access_given'] is False and internrole.access_given is True:
             internrole.access_given = False
             internrole.date_access_revoked = timezone.now()
-            internrole.comments = '%s\n%s revoked access for role %s' % (
-                internrole.comments, internrole.last_editor, internrole.role)
+            internrole.intern.add_journal('[%s] %s revoked access for role %s' % (
+                internrole, internrole.last_editor, internrole.role))
 
         internrole.save()
 
@@ -141,7 +142,7 @@ def destroy(self, request, *args, **kwargs):
     internrole = self.get_object()
     internrole.date_removed = timezone.now()
     internrole.removed_by = User.objects.get(username=request.user)
-    internrole.comments = '%s\nRemoved by: %s' % (internrole.comments, internrole.removed_by)
+    internrole.intern.add_journal('[%s] Removed by %s' % (internrole, internrole.removed_by))
     internrole.save()
 
     internrole.intern.update_left()
