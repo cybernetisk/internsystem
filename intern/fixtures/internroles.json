@@ -1,0 +1,24 @@
+[
+    {
+        "model": "intern.internrole",
+        "pk": 1,
+        "fields": {
+            "intern": 1,
+            "role": 2,
+            "comments": null,
+            "created_by": 1,
+            "last_editor": 1,
+            "removed_by": null,
+            "date_added": "2016-08-03",
+            "date_edited": "2016-08-03",
+            "date_removed": null,
+            "access_given": false,
+            "date_access_given": null,
+            "date_access_revoked": null,
+            "recieved_interncard": false,
+            "semesters": [
+                6
+            ]
+        }
+    }
+]
