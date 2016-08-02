@@ -81,12 +81,21 @@ class InternRoleViewSet(viewsets.ModelViewSet):
         intern = Intern.objects.get_or_create(user=user)[0]
         role = Role.objects.get(pk=serializer.data['role'])
 
-        internrole = InternRole(intern=intern, role=role)
+        internrole = InternRole.objects.get_or_create(intern=intern, role=role)[0]
         creator = User.objects.get(username=request.user)
-        internrole.created_by = creator
+
+        # if the user have been active before we remove the old date_removed and add a comment
+        if internrole.date_removed is not None:
+            internrole.date_removed = None
+            internrole.removed_by = None
+            internrole.comments = ' %s\nRecreated by %s' % (internrole.comments, creator)
+        else:
+            internrole.created_by = creator
+
         internrole.last_editor = creator
         intern.update_left()
         internrole.semesters.add(get_semester())
+
         try:
             internrole.save()
         except IntegrityError:
@@ -104,33 +113,37 @@ class InternRoleViewSet(viewsets.ModelViewSet):
         internrole = self.get_object()
         internrole.last_editor = User.objects.get(username=request.user)
         internrole.date_edited = timezone.now().date()
-        internrole.comments = serializer.data['comments']
+        internrole.comments = '%s\n%s' % (internrole.comments, serializer.data['comments'])
         internrole.recieved_interncard = serializer.data['recieved_interncard']
-
 
         if serializer.data['access_given'] and internrole.access_given == False:
             internrole.access_given = True
             internrole.date_access_given = timezone.now()
             internrole.date_access_revoked = None
+            internrole.comments = '%s\n%s gave access for role %s' % (
+                internrole.comments, internrole.last_editor, internrole.role)
 
         if serializer.data['access_given'] is False and internrole.access_given is True:
             internrole.access_given = False
             internrole.date_access_revoked = timezone.now()
+            internrole.comments = '%s\n%s revoked access for role %s' % (
+                internrole.comments, internrole.last_editor, internrole.role)
 
         internrole.save()
 
         return Response(InternRoleFullSerializer(internrole).data, status=status.HTTP_200_OK)
 
-    def destroy(self, request, *args, **kwargs):
-        serializer = self.get_serializer_class()
-        serializer.data = request.data
-        serializer.is_valid(raise_exception=True)
 
-        internrole = self.get_object()
-        internrole.date_removed = timezone.now()
-        internrole.removed_by = User.objects.get(username=request.user)
-        internrole.save()
+def destroy(self, request, *args, **kwargs):
+    serializer = self.get_serializer(data=request.data)
+    serializer.is_valid(raise_exception=True)
 
-        internrole.intern.update_left()
+    internrole = self.get_object()
+    internrole.date_removed = timezone.now()
+    internrole.removed_by = User.objects.get(username=request.user)
+    internrole.comments = '%s\nRemoved by: %s' % (internrole.comments, internrole.removed_by)
+    internrole.save()
 
-        return Response(InternRoleFullSerializer(internrole).data, status=status.HTTP_200_OK)
+    internrole.intern.update_left()
+
+    return Response(InternRoleFullSerializer(internrole).data, status=status.HTTP_200_OK)

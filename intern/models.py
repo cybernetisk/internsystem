@@ -71,7 +71,7 @@ class InternRole(models.Model):
     intern = models.ForeignKey(Intern, related_name='roles')
     role = models.ForeignKey(Role, related_name='intern')
     semesters = models.ManyToManyField(Semester, related_name='internroles')
-    comments = models.CharField(max_length=300, null=True, blank=True)
+    comments = models.CharField(max_length=1300, null=True, blank=True)
 
     created_by = models.ForeignKey(User, related_name='internroles_created')
     last_editor = models.ForeignKey(User, related_name='internroles_edited')
