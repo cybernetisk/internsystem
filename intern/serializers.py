@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
 from core.serializers import UserSerializer, CardSerializer, SemesterSerializer
-from intern.models import AccessLevel, Intern, InternCard, InternGroup, InternRole, Role
+from intern.models import AccessLevel, Intern, InternCard, InternGroup, InternRole, Role, InternLogEntry
 
 
 class AccessLevelSerializer(serializers.ModelSerializer):
@@ -42,16 +42,25 @@ class InternRoleSerializer(serializers.ModelSerializer):
             'id', 'role', 'date_added'
         )
 
+class InternLogEntrySerializer(serializers.ModelSerializer):
+    changed_by = UserSerializer()
+    time = serializers.DateTimeField()
+    description = serializers.CharField()
+    class Meta:
+        model = InternLogEntry
+        fields = (
+            'id', 'changed_by', 'time', 'description'
+        )
 
 class InternSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     roles = InternRoleSerializer(many=True, allow_null=True)
-    journal = serializers.CharField(read_only=True)
+    log = InternLogEntrySerializer(many=True, read_only=True)
     class Meta:
         model = Intern
         fields = (
             'id', 'user', 'active', 'comments',
-            'roles', 'registered', 'left', 'journal'
+            'roles', 'registered', 'left', 'log'
         )
 
 

@@ -5,6 +5,7 @@ from core.models import User, Semester, Card
 from core.utils import get_semester
 from members.models import Member
 
+
 # Create your models here.
 class AccessLevel(models.Model):
     name = models.CharField(max_length=20, unique=True)
@@ -39,22 +40,18 @@ class Intern(models.Model):
     comments = models.CharField(max_length=300, null=True, blank=True)
     registered = models.DateField(auto_now_add=True)
     left = models.DateField(null=True)
-    journal = models.TextField(default='')
 
     def __str__(self):
         return str(User.objects.prefetch_related().all()[0])
 
-    def add_journal(self, entry):
+    def add_log_entry(self, changed_by, description):
         """
-        Adds the entry to the journal field
+        Adds the entry to the journal field and saves it.
         :param entry: text that is appended to the journal
 
         """
-        if self.journal is '':
-            self.journal = entry
-        else:
-            self.journal = '%s\n%s' % (self.journal, entry)
-        self.save()
+        InternLogEntry(changed_by=changed_by, description=description, intern=self).save()
+
 
     def update_left(self):
         """
@@ -76,8 +73,8 @@ class Intern(models.Model):
             if role.date_removed is None:
                 return True
         return False
-    active = property(_active)
 
+    active = property(_active)
 
 
 class InternRole(models.Model):
@@ -117,3 +114,12 @@ class InternCard(models.Model):
 
     class Meta:
         unique_together = ('intern', 'semester')
+
+class InternLogEntry(models.Model):
+    intern = models.ForeignKey(Intern, related_name='log')
+    changed_by = models.ForeignKey(User)
+    time = models.DateTimeField(auto_now=True)
+    description = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.description
