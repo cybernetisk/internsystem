@@ -1,0 +1,12 @@
+[
+    {
+        "model": "intern.intern",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "comments": null,
+            "registered": "2016-08-03",
+            "left": null
+        }
+    }
+]
