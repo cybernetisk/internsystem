@@ -121,7 +121,9 @@ class UserViewSet(viewsets.GenericViewSet):
     @detail_route(methods=['post'])
     def use_vouchers(self, request, username=None):
         user = self.get_object()
-        wallets = VoucherWallet.objects.filter(user=user, semester__in=get_valid_semesters()).order_by('semester')
+        # default ordering of semesters is descending in time, we need to be ascending
+        # (see Meta-class of Semester)
+        wallets = VoucherWallet.objects.filter(user=user, semester__in=get_valid_semesters()).order_by('-semester')
         pending_transactions = []
 
         data = UseVouchersSerializer(data=request.data, context=self)
