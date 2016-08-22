@@ -1,4 +1,9 @@
 # CYBs internsystem (backend)
+
+| Master | Test |
+| --- | --- |
+| [![Build Status](https://travis-ci.org/cybrairai/internsystem.svg?branch=master)](https://travis-ci.org/cybrairai/internsystem) | [![Build Status](https://travis-ci.org/cybrairai/internsystem.svg?branch=test)](https://travis-ci.org/cybrairai/internsystem) |
+
 Dette prosjektet tilbyr en rekke tjenester til hjelp for Cybernetisk Selskab. I hovedsak tilbyr dette prosjektet kun et API, som brukes av blant annet https://github.com/cybrairai/internsystem-frontend.
 
 Tjenester prosjektet tilbyr i dag:
