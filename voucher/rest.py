@@ -10,6 +10,7 @@ from rest_framework.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import Sum, Count
 from decimal import Decimal
+from math import floor
 
 from voucher.serializers import *
 from voucher.models import VoucherWallet, CoffeeWallet, WorkLog, VoucherUseLog, CoffeeRegisterLog, CoffeeUseLog
@@ -139,14 +140,15 @@ class UserViewSet(viewsets.GenericViewSet):
             if vouchers_to_spend == 0:
                 break
 
-            if wallet.calculate_balance() <= 0:
+            # balance is a decimal field, might be between 0 and 1
+            if wallet.calculate_balance() < 1:
                 continue
 
-            available_vouchers += wallet.cached_balance
+            available_vouchers += floor(wallet.cached_balance)
             new_log_entry = VoucherUseLog(issuing_user=request.user,
                                    wallet=wallet,
                                    comment=data.data['comment'],
-                                   vouchers=min(vouchers_to_spend, wallet.cached_balance))
+                                   vouchers=min(vouchers_to_spend, floor(wallet.cached_balance)))
 
             vouchers_to_spend -= new_log_entry.vouchers
             pending_transactions.append(new_log_entry)
