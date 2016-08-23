@@ -122,14 +122,15 @@ andre ord inn i systemet som bruker API-et.
 Dersom `client type` settes til `public` er ikke `client_secret` nødvendig.
 
 ## Produksjonsserver
-Vi har en [droplet hos Digital Ocean](https://confluence.cyb.no/display/AKTIV/Servere) som kjører systemet i produksjon. Den kjører `gunicorn` i kombinasjon med `nginx` for å kjøre Django-applikasjonen over port 80.
+Produksjon oppdateres automatisk ved push til `master`, samt test-instans
+oppdateres ved push til `test`. Se `.travis.yml`.
 
-https://internt.cyb.no/
+Se https://github.com/cybrairai/drift/tree/master/internsystem-backend
+for detaljer om oppsett i produksjon.
 
-Prosjektet ligger i `~django/django_project`. For å komme inn på serveren brukes SSH-nøkler, så har du ikke tilgang ta kontakt med en som har. Dersom det logges inn med root, husk å bytte til django-brukeren: `su django`.
+https://in.cyb.no/
 
-### Oppdatere produksjonsserver
-Dette skjer automatisk ved push til master. Se `.travis.yml` og `scripts/deploy.sh` for detaljer.
+https://test.in.cyb.no/
 
 ## Dependencies on Mac OS X
 
