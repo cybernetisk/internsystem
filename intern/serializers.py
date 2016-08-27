@@ -56,6 +56,7 @@ class InternSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     roles = InternRoleSerializer(many=True, allow_null=True)
     log = InternLogEntrySerializer(many=True, read_only=True)
+
     class Meta:
         model = Intern
         fields = (

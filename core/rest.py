@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+
 from core.serializers import CardCreateSerializer, CardSerializer, UserExtendedSerializer, NfcCardCreateSerializer, \
     NfcCardSerializer
 from core.models import Card, User, NfcCard
@@ -13,8 +14,10 @@ from core.permissions import CardPermission
 class CardViewSet(viewsets.ModelViewSet):
     permission_classes = (CardPermission,)
     filter_class = CardFilter
+    filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter)
     queryset = Card.objects.all()
     ordering_fields = ('id', 'user__username', 'card_number', 'disabled')
+    filter_fields = ('id', 'user__id', 'card_number', 'user__intern__id')
 
     def get_serializer_class(self):
         if self.action in ['create']:
