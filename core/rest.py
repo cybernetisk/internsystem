@@ -7,10 +7,11 @@ from core.serializers import CardCreateSerializer, CardSerializer, UserExtendedS
     NfcCardSerializer
 from core.models import Card, User, NfcCard
 from core.filters import CardFilter, UserFilter, NfcCardFilter
+from core.permissions import CardPermission
 
 
-class CardViewSet(viewsets.ReadOnlyModelViewSet):
-    permission_classes = (IsAuthenticated,)
+class CardViewSet(viewsets.ModelViewSet):
+    permission_classes = (CardPermission,)
     filter_class = CardFilter
     queryset = Card.objects.all()
     ordering_fields = ('id', 'user__username', 'card_number', 'disabled')
