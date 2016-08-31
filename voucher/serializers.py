@@ -101,9 +101,18 @@ class RegisterLogSerializer(serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
 
-class WorkLogSerializer(RegisterLogSerializer):
+class WorkLogSerializer(serializers.ModelSerializer):
     wallet = VoucherWalletSerializer(read_only=True)
     date_worked = serializers.DateField(validators=[valid_date_worked])
+    issuing_user = UserSimpleSerializer(read_only=True)
+    can_edit = serializers.SerializerMethodField('_can_edit')
+    can_delete = serializers.SerializerMethodField('_can_delete')
+
+    def _can_edit(self, instance):
+        return register_log_has_perm(self.context['request'], instance, 'change')
+
+    def _can_delete(self, instance):
+        return register_log_has_perm(self.context['request'], instance, 'delete')
 
     class Meta:
         model = WorkLog
@@ -119,7 +128,7 @@ class WorkLogSerializer(RegisterLogSerializer):
 
         if 'date_worked' in validated_data:
             date = validated_data['date_worked']
-            wallet = Wallet.objects.get_or_create(user=instance.wallet.user, semester=get_semester_of_date(date))[0]
+            wallet = VoucherWallet.objects.get_or_create(user=instance.wallet.user, semester=get_semester_of_date(date))[0]
             instance.wallet = wallet
 
         return super().update(instance, validated_data)
