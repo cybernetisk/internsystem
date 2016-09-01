@@ -33,7 +33,8 @@ class CardViewSet(viewsets.ModelViewSet):
             if not request.user.has_perm('%s.add_%s' % (Card._meta.app_label, Card._meta.model_name)):
                 self.permission_denied(request)
 
-        card = serializer.save()
+        card = Card(user=user, card_number=serializer.data['card_number'])
+        card.save()
         return Response(CardSerializer(card).data, status=status.HTTP_201_CREATED)
 
     def destroy(self, request):
