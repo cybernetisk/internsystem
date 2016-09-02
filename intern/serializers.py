@@ -54,14 +54,19 @@ class InternLogEntrySerializer(serializers.ModelSerializer):
 
 class InternSerializer(serializers.ModelSerializer):
     user = UserSerializer()
-    roles = InternRoleSerializer(many=True, allow_null=True)
+    roles = InternRoleSerializer(many=True, allow_null=True, read_only=True)
     log = InternLogEntrySerializer(many=True, read_only=True)
+    comments = serializers.CharField(max_length=300, allow_blank=True, required=False)
     class Meta:
         model = Intern
         fields = (
             'id', 'user', 'active', 'comments',
             'roles', 'registered', 'left', 'log'
         )
+    def update(self, instance, validated_data):
+        instance.comments = validated_data.get('comments', instance.comments)
+        instance.save()
+        return instance
 
 
 class SimpleInternSerializer(serializers.ModelSerializer):
