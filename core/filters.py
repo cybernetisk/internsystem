@@ -7,7 +7,7 @@ class CardFilter(django_filters.FilterSet):
 
     class Meta:
         model = Card
-        fields = ['user', 'card_number', 'disabled']
+        fields = ['user', 'card_number', 'disabled', 'user__id', 'user__intern__id']
 
 
 class NfcCardFilter(django_filters.FilterSet):

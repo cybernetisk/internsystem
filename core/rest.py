@@ -3,17 +3,21 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+
 from core.serializers import CardCreateSerializer, CardSerializer, UserExtendedSerializer, NfcCardCreateSerializer, \
     NfcCardSerializer
 from core.models import Card, User, NfcCard
 from core.filters import CardFilter, UserFilter, NfcCardFilter
+from core.permissions import CardPermission
 
 
-class CardViewSet(viewsets.ReadOnlyModelViewSet):
-    permission_classes = (IsAuthenticated,)
+class CardViewSet(viewsets.ModelViewSet):
+    permission_classes = (CardPermission,)
     filter_class = CardFilter
+    filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter)
     queryset = Card.objects.all()
     ordering_fields = ('id', 'user__username', 'card_number', 'disabled')
+    filter_fields = ('id', 'user__id', 'card_number', 'user__intern__id')
 
     def get_serializer_class(self):
         if self.action in ['create']:
@@ -29,7 +33,8 @@ class CardViewSet(viewsets.ReadOnlyModelViewSet):
             if not request.user.has_perm('%s.add_%s' % (Card._meta.app_label, Card._meta.model_name)):
                 self.permission_denied(request)
 
-        card = serializer.save()
+        card = Card(user=user, card_number=serializer.data['card_number'])
+        card.save()
         return Response(CardSerializer(card).data, status=status.HTTP_201_CREATED)
 
     def destroy(self, request):

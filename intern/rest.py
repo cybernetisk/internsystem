@@ -91,7 +91,7 @@ class InternRoleViewSet(viewsets.ModelViewSet):
             intern.add_log_entry(creator, '[%s] Recreated' % internrole)
         else:
             internrole.created_by = creator
-            intern.add_log_entry(creator, 'Created')
+            intern.add_log_entry(creator, '%s by %s' % (internrole, creator))
 
         internrole.last_editor = creator
         intern.update_left()
@@ -134,16 +134,16 @@ class InternRoleViewSet(viewsets.ModelViewSet):
         return Response(InternRoleFullSerializer(internrole).data, status=status.HTTP_200_OK)
 
 
-def destroy(self, request, *args, **kwargs):
-    serializer = self.get_serializer(data=request.data)
-    serializer.is_valid(raise_exception=True)
+    def destroy(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
 
-    internrole = self.get_object()
-    internrole.date_removed = timezone.now()
-    internrole.removed_by = User.objects.get(username=request.user)
-    internrole.intern.add_log_entry(internrole.removed_by, 'Removed %s' % (internrole))
-    internrole.save()
+        internrole = self.get_object()
+        internrole.date_removed = timezone.now()
+        internrole.removed_by = User.objects.get(username=request.user)
+        internrole.intern.add_log_entry(internrole.removed_by, 'Removed %s' % (internrole))
+        internrole.save()
 
-    internrole.intern.update_left()
+        internrole.intern.update_left()
 
-    return Response(InternRoleFullSerializer(internrole).data, status=status.HTTP_200_OK)
+        return Response(InternRoleFullSerializer(internrole).data, status=status.HTTP_200_OK)
