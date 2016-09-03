@@ -54,7 +54,7 @@ class InternLogEntrySerializer(serializers.ModelSerializer):
 
 class InternSerializer(serializers.ModelSerializer):
     user = UserSerializer()
-    roles = InternRoleSerializer(many=True, allow_null=True, read_only=True)
+    roles = serializers.SerializerMethodField()
     log = InternLogEntrySerializer(many=True, read_only=True)
     comments = serializers.CharField(max_length=300, allow_blank=True, required=False)
     class Meta:
@@ -68,6 +68,10 @@ class InternSerializer(serializers.ModelSerializer):
         instance.save()
         return instance
 
+    def get_roles(self, obj):
+        roles = InternRole.objects.filter(intern=obj, date_removed__isnull=True)
+        serializer = InternRoleSerializer(instance=roles, many=True)
+        return serializer.data
 
 class SimpleInternSerializer(serializers.ModelSerializer):
     user = UserSerializer()
