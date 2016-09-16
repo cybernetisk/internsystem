@@ -42,7 +42,7 @@ class Intern(models.Model):
     left = models.DateField(null=True)
 
     def __str__(self):
-        return str(User.objects.prefetch_related().all()[0])
+        return str(self.user)
 
     def add_log_entry(self, changed_by, description):
         """
