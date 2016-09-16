@@ -42,7 +42,7 @@ class Intern(models.Model):
     left = models.DateField(null=True)
 
     def __str__(self):
-        return str(self.user)
+        return self.user.get_username()
 
     def add_log_entry(self, changed_by, description):
         """
