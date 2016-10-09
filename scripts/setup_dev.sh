@@ -13,7 +13,12 @@ deativate 2>/dev/null || true
 
 # Install needed packages for the system
 # (the second line is for packages used by python3-saml:)
-sudo apt-get install virtualenv virtualenvwrapper python3
+if command -v apt-get > /dev/null; then
+    sudo apt-get install virtualenv virtualenvwrapper python3
+elif command -v dnf > /dev/null; then
+    sudo dnf install python3 python3-virtualenv python3-virtualenvwrapper
+fi
+
 
 # Set up virtualenv for Python
 # This will let us install Python-packages for this project only
