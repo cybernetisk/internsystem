@@ -10,7 +10,7 @@ class WalletAdmin(admin.ModelAdmin):
 class WorkLogAdmin(admin.ModelAdmin):
     model = WorkLog
     list_filter = ('wallet__user', 'work_group')
-    list_display = ('wallet', 'hours', 'work_group')
+    list_display = ('wallet', 'hours', 'work_group', 'date_worked')
     search_fields = ('wallet__user__username',)
 
 
