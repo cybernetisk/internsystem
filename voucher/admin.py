@@ -9,7 +9,9 @@ class WalletAdmin(admin.ModelAdmin):
 
 class WorkLogAdmin(admin.ModelAdmin):
     model = WorkLog
-    list_filter = ('wallet', 'work_group')
+    list_filter = ('wallet__user', 'work_group')
+    list_display = ('wallet', 'hours', 'work_group')
+    search_fields = ('wallet__user__username',)
 
 
 admin.site.register(VoucherWallet, WalletAdmin)
