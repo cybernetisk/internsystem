@@ -4,7 +4,7 @@ django-cors-headers==1.2.2
 django-filter==0.15.3
 django-oauth-toolkit==0.10.0
 django-phonenumber-field==1.1.0
-djangorestframework==3.4.7
+djangorestframework==3.5.0
 gunicorn==19.6.0
 icalendar==3.10
 ipython==5.1.0
