@@ -30,8 +30,9 @@ class MemberViewSet(viewsets.ModelViewSet):
         return MemberSerializer
 
     def get_queryset(self):
-        return Member.objects.filter(Q(semester=get_semester_of_date(datetime.datetime.now())) |
-                                     Q(lifetime=True) | Q(honorary=True))
+        members = Member.objects.select_related('semester', 'seller', 'user')
+        return members.filter(Q(semester=get_semester_of_date(datetime.datetime.now())) |
+                              Q(lifetime=True) | Q(honorary=True))
 
     def create(self, request, **kwargs):
         serializer = AddMemberSerializer(data=request.data)
