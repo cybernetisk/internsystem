@@ -23,8 +23,8 @@ def apply_date_filter(queryset, value, field, lte):
 
 class UseLogFilter(django_filters.FilterSet):
     semester = django_filters.CharFilter(name='wallet__semester')
-    date_from = django_filters.MethodFilter(action='filter_date_from')
-    date_to = django_filters.MethodFilter(action='filter_date_to')
+    date_from = django_filters.DateFilter(method='filter_date_from')
+    date_to = django_filters.DateFilter(method='filter_date_to')
 
     def filter_date_from(self, queryset, value):
         return apply_date_filter(queryset, value, 'date_spent', lte=False)
@@ -50,7 +50,7 @@ class CoffeeUseLogFilter(UseLogFilter):
 
 
 class WalletFilter(django_filters.FilterSet):
-    valid = django_filters.MethodFilter(action='filter_active')
+    valid = django_filters.BooleanFilter(method='filter_active')
 
     def filter_active(self, queryset, value):
         return queryset.filter(semester__in=get_valid_semesters())
@@ -87,8 +87,8 @@ class CoffeeRegisterLogFilter(RegisterLogFilter):
 
 class WorkLogFilter(RegisterLogFilter):
     user = django_filters.CharFilter(name='wallet__user__username')
-    date_from = django_filters.MethodFilter(action='filter_date_from')
-    date_to = django_filters.MethodFilter(action='filter_date_to')
+    date_from = django_filters.DateFilter(method='filter_date_from')
+    date_to = django_filters.DateFilter(method='filter_date_to')
 
     class Meta:
         model = WorkLog
