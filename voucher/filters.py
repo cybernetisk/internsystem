@@ -23,13 +23,13 @@ def apply_date_filter(queryset, value, field, lte):
 
 class UseLogFilter(django_filters.FilterSet):
     semester = django_filters.CharFilter(name='wallet__semester')
-    date_from = django_filters.DateFilter(method='filter_date_from')
-    date_to = django_filters.DateFilter(method='filter_date_to')
+    date_from = django_filters.CharFilter(method='filter_date_from')
+    date_to = django_filters.CharFilter(method='filter_date_to')
 
-    def filter_date_from(self, queryset, value):
+    def filter_date_from(self, queryset, name, value):
         return apply_date_filter(queryset, value, 'date_spent', lte=False)
 
-    def filter_date_to(self, queryset, value):
+    def filter_date_to(self, queryset, name, value):
         return apply_date_filter(queryset, value, 'date_spent', lte=True)
 
 
