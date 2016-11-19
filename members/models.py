@@ -39,3 +39,13 @@ class Member(models.Model):
     class Meta:
         unique_together = ("name", "email", "semester")
 
+class GeneralAssembly(models.Model):
+    time = models.DateTimeField()
+    attendees = models.ManyToManyField(Member, blank=True)
+    semester = models.ForeignKey(Semester)
+    extraordinary = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = ("time", "semester")
+
+

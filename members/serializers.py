@@ -1,8 +1,9 @@
 from rest_framework import serializers
 
+from core.models import Semester
 from core.serializers import SemesterSerializer
 from core.serializers import UserSimpleSerializer
-from members.models import Member
+from members.models import Member, GeneralAssembly
 
 
 class MemberSerializer(serializers.ModelSerializer):
@@ -39,3 +40,27 @@ class MemberSemesterSerializer(serializers.Serializer):
     lifetime = serializers.IntegerField(help_text='Number of lifetimemembers sold that semester')
     normal = serializers.IntegerField(help_text='Number of normal semester members that semester')
     honorary = serializers.IntegerField(help_text='Number of honnorary memberships givenout that semester')
+
+
+class GeneralAssemblySerializer(serializers.ModelSerializer):
+    semester = SemesterSerializer()
+    time = serializers.DateTimeField()
+    extraordinary = serializers.BooleanField()
+
+    def create(self, validated_data):
+        semester = Semester.objects.get_or_create(year=validated_data['semester']['year'],
+                                                  semester=validated_data['semester']['semester'])
+        return GeneralAssembly.objects.create(time=validated_data['time'], semester=semester,
+                                              extraordinary=validated_data['extraordinary'])
+
+    class Meta:
+        model = GeneralAssembly
+        fields = ('id', 'time', 'semester', 'extraordinary')
+
+
+class GeneralAssemblyFullSeralizer(GeneralAssemblySerializer):
+    attendees = MemberSerializer(many=True)
+
+    class Meta:
+        model = GeneralAssembly
+        fields = ('id', 'time', 'semester', 'extraordinary', 'attendees')

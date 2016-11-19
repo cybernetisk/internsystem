@@ -13,7 +13,17 @@ from rest_framework.response import Response
 from core.models import User, Semester
 from core.utils import get_semester_of_date
 from members.filters import MemberFilter
+from members.models import Member, GeneralAssembly
 from members.serializers import *
+
+class GeneralAssemblyViewSet(viewsets.ModelViewSet):
+    permission_classes = (DjangoModelPermissions,)
+    queryset = GeneralAssembly.objects.all()
+
+    def get_serializer_class(self):
+        if self.action in ['list']:
+            return GeneralAssemblySerializer
+        return GeneralAssemblyFullSeralizer
 
 
 class MemberViewSet(viewsets.ModelViewSet):

@@ -6,3 +6,4 @@ router = SharedAPIRootRouter()
 
 router.register(r'member/members', MemberViewSet, base_name='member-members')
 router.register(r'member/stats', MemberStatsViewSet, base_name='member-stats')
+router.register(r'member/assembly', GeneralAssemblyViewSet, base_name='member-gf')
