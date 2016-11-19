@@ -30,9 +30,9 @@ class MemberViewSet(viewsets.ModelViewSet):
         return MemberSerializer
 
     def get_queryset(self):
+        members = Member.objects.all()
         members = Member.objects.select_related('semester', 'seller', 'user')
-        return members.filter(Q(semester=get_semester_of_date(datetime.datetime.now())) |
-                              Q(lifetime=True) | Q(honorary=True))
+        return members
 
     def create(self, request, **kwargs):
         serializer = AddMemberSerializer(data=request.data)
@@ -117,11 +117,3 @@ class MemberStatsViewSet(viewsets.ViewSet):
             'honorary': honorary, 'normal': normal,
             'semester': semester}
         return semdict
-
-
-class SemesterMemberViewSet(viewsets.ReadOnlyModelViewSet):
-    serializer_class = MemberSerializer
-    queryset = Member.objects.all()
-    permission_classes = (DjangoModelPermissions,)
-    filter_class = MemberFilter
-    search_fields = ('semester')
