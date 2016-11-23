@@ -40,10 +40,12 @@ class Member(models.Model):
         unique_together = ("name", "email", "semester")
 
 class GeneralAssembly(models.Model):
+    name = models.CharField(max_length=50)
     time = models.DateTimeField()
     attendees = models.ManyToManyField(Member, blank=True)
     semester = models.ForeignKey(Semester)
     extraordinary = models.BooleanField(default=False)
+    minutes = models.URLField(default=None, null=True)
 
     class Meta:
         unique_together = ("time", "semester")

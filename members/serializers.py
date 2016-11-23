@@ -43,6 +43,7 @@ class MemberSemesterSerializer(serializers.Serializer):
 
 
 class GeneralAssemblySerializer(serializers.ModelSerializer):
+    name = serializers.CharField()
     semester = SemesterSerializer()
     time = serializers.DateTimeField()
     extraordinary = serializers.BooleanField()
@@ -55,7 +56,7 @@ class GeneralAssemblySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = GeneralAssembly
-        fields = ('id', 'time', 'semester', 'extraordinary')
+        fields = ('id', 'name', 'time', 'semester', 'extraordinary')
 
 
 class GeneralAssemblyFullSeralizer(GeneralAssemblySerializer):
@@ -63,4 +64,9 @@ class GeneralAssemblyFullSeralizer(GeneralAssemblySerializer):
 
     class Meta:
         model = GeneralAssembly
-        fields = ('id', 'time', 'semester', 'extraordinary', 'attendees')
+        fields = ('id', 'time', 'name', 'semester', 'extraordinary', 'attendees')
+
+class AddGeneralAssemblySerializer(serializers.Serializer):
+    name = serializers.CharField(max_length=50)
+    time = serializers.DateTimeField()
+    extraordinary = serializers.BooleanField()

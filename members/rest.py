@@ -1,4 +1,5 @@
 import datetime
+from dateutil import parser
 from collections import OrderedDict
 
 from django.db.models import Q
@@ -23,8 +24,26 @@ class GeneralAssemblyViewSet(viewsets.ModelViewSet):
     def get_serializer_class(self):
         if self.action in ['list']:
             return GeneralAssemblySerializer
+        elif self.action in ['create']:
+            return AddGeneralAssemblySerializer
         return GeneralAssemblyFullSeralizer
 
+    def create(self, request, *args, **kwargs):
+        serializer = AddGeneralAssemblySerializer(data=request.data)
+        serializer.is_valid()
+        time = parser.parse(serializer.data['time'])
+        semester = get_semester_of_date(time)
+
+        generalassembly = GeneralAssembly(
+            name=serializer.data['name'],
+            time = time,
+            semester=semester,
+            extraordinary=serializer.data['extraordinary']
+        )
+
+        generalassembly.save()
+
+        return Response(GeneralAssemblyFullSeralizer(generalassembly).data, status=status.HTTP_201_CREATED)
 
 class MemberViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
