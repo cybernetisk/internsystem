@@ -87,6 +87,6 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
         return UserExtendedSerializer
 
 class GroupViewSet(viewsets.ModelViewSet):
-    permission_classes = (permissions.DjangoModelPermissions)
+    permission_classes = (permissions.DjangoModelPermissions,)
     serializer_class = GroupSerializer
     queryset = Group.objects.all()
