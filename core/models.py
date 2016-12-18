@@ -114,3 +114,11 @@ class NfcCard(models.Model):
         if not self.user:
             return self.card_uid
         return "%s (%s)" % (self.card_uid, self.user)
+
+class Group(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    leader = models.ForeignKey(User)
+    description = models.CharField(max_length=300, null=True, blank=True)
+
+    def __str__(self):
+        return self.name

@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-from core.models import User, Semester, Card
+from core.models import User, Semester, Card, Group
 from core.utils import get_semester
 from members.models import Member
 
@@ -15,20 +15,10 @@ class AccessLevel(models.Model):
     def __str__(self):
         return self.name
 
-
-class InternGroup(models.Model):
-    name = models.CharField(max_length=50, unique=True)
-    leader = models.ForeignKey(User)
-    description = models.CharField(max_length=300, null=True, blank=True)
-
-    def __str__(self):
-        return self.name
-
-
 class Role(models.Model):
     name = models.CharField(max_length=50, unique=True)
     description = models.CharField(max_length=300, null=True, blank=True)
-    groups = models.ManyToManyField(InternGroup, related_name='roles')
+    groups = models.ManyToManyField(Group, related_name='roles')
     access_levels = models.ManyToManyField(AccessLevel)
 
     def __str__(self):

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from core.models import User, Semester, Card, NfcCard
+from core.models import Group, User, Semester, Card, NfcCard
 
 
 class UserSimpleGuestSerializer(serializers.ModelSerializer):
@@ -60,3 +60,13 @@ class NfcCardCreateSerializer(serializers.ModelSerializer):
         model = NfcCard
         fields = ('card_uid', 'user', 'intern', 'comment')
         extra_kwargs = {'user': {'default': None}, 'intern': {'default': False}, 'comment': {'default': None}}
+
+
+class GroupSerializer(serializers.ModelSerializer):
+    leader = UserSerializer()
+
+    class Meta:
+        model = Group
+        fields = (
+            'id', 'name', 'leader', 'description'
+        )

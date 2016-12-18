@@ -1,7 +1,7 @@
 from rest_framework import serializers
 
-from core.serializers import UserSerializer, CardSerializer, SemesterSerializer
-from intern.models import AccessLevel, Intern, InternCard, InternGroup, InternRole, Role, InternLogEntry
+from core.serializers import UserSerializer, CardSerializer, SemesterSerializer, GroupSerializer
+from intern.models import AccessLevel, Intern, InternCard, InternRole, Role, Intern, InternLogEntry
 
 
 class AccessLevelSerializer(serializers.ModelSerializer):
@@ -12,18 +12,8 @@ class AccessLevelSerializer(serializers.ModelSerializer):
         )
 
 
-class InternGroupSerializer(serializers.ModelSerializer):
-    leader = UserSerializer()
-
-    class Meta:
-        model = InternGroup
-        fields = (
-            'id', 'name', 'leader', 'description'
-        )
-
-
 class RoleSerializer(serializers.ModelSerializer):
-    groups = InternGroupSerializer(many=True)
+    groups = GroupSerializer(many=True)
     access_levels = AccessLevelSerializer(many=True)
 
     class Meta:
