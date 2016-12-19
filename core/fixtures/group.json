@@ -1,1 +1,92 @@
-[{"model": "core.group", "pk": 1, "fields": {"name": "Hovedstyret", "leader": 1, "description": "HS sitt ansvar er \u00e5 drive foreningen"}}, {"model": "core.group", "pk": 2, "fields": {"name": "Kjellerstyret", "leader": 2, "description": "Kjellerstyret styrer Escape"}}, {"model": "core.group", "pk": 3, "fields": {"name": "\u00d8konomi", "leader": 1, "description": ""}}, {"model": "core.group", "pk": 4, "fields": {"name": "Arrangementsgruppen", "leader": 1, "description": ""}}, {"model": "core.group", "pk": 5, "fields": {"name": "Promotering", "leader": 1, "description": ""}}, {"model": "core.group", "pk": 6, "fields": {"name": "Bar", "leader": 1, "description": ""}}, {"model": "core.group", "pk": 7, "fields": {"name": "Kaf\u00e9", "leader": 1, "description": ""}}, {"model": "core.group", "pk": 8, "fields": {"name": "DJ", "leader": 1, "description": ""}}, {"model": "core.group", "pk": 9, "fields": {"name": "Arkivgruppen", "leader": 1, "description": ""}}, {"model": "core.group", "pk": 10, "fields": {"name": "Webgruppa", "leader": 1, "description": ""}}]
+[
+  {
+    "model": "core.group",
+    "pk": 1,
+    "fields": {
+      "name": "Hovedstyret",
+      "leader": 1,
+      "description": "HS sitt ansvar er \u00e5 drive foreningen"
+    }
+  },
+  {
+    "model": "core.group",
+    "pk": 2,
+    "fields": {
+      "name": "Kjellerstyret",
+      "leader": 2,
+      "description": "Kjellerstyret styrer Escape"
+    }
+  },
+  {
+    "model": "core.group",
+    "pk": 3,
+    "fields": {
+      "name": "\u00d8konomi",
+      "leader": 1,
+      "description": ""
+    }
+  },
+  {
+    "model": "core.group",
+    "pk": 4,
+    "fields": {
+      "name": "Arrangementsgruppen",
+      "leader": 1,
+      "description": ""
+    }
+  },
+  {
+    "model": "core.group",
+    "pk": 5,
+    "fields": {
+      "name": "Promotering",
+      "leader": 1,
+      "description": ""
+    }
+  },
+  {
+    "model": "core.group",
+    "pk": 6,
+    "fields": {
+      "name": "Bar",
+      "leader": 1,
+      "description": ""
+    }
+  },
+  {
+    "model": "core.group",
+    "pk": 7,
+    "fields": {
+      "name": "Kaf\u00e9",
+      "leader": 1,
+      "description": ""
+    }
+  },
+  {
+    "model": "core.group",
+    "pk": 8,
+    "fields": {
+      "name": "DJ",
+      "leader": 1,
+      "description": ""
+    }
+  },
+  {
+    "model": "core.group",
+    "pk": 9,
+    "fields": {
+      "name": "Arkivgruppen",
+      "leader": 1,
+      "description": ""
+    }
+  },
+  {
+    "model": "core.group",
+    "pk": 10,
+    "fields": {
+      "name": "Webgruppa",
+      "leader": 1,
+      "description": ""
+    }
+  }
+]
