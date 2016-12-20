@@ -8,9 +8,11 @@ from rest_framework.permissions import DjangoModelPermissions
 from rest_framework.response import Response
 
 from core.utils import get_semester
+from core.models import Group
+from core.serializers import GroupSerializer
 
 from intern.models import *
-from intern.serializers import InternRoleFullSerializer, InternSerializer, AccessLevelSerializer, InternGroupSerializer, \
+from intern.serializers import InternRoleFullSerializer, InternSerializer, AccessLevelSerializer, \
     RoleSerializer, AddInternRoleSerializer, InternCardSerializer, AddInternCardSerializer
 
 
@@ -24,9 +26,10 @@ class InternViewSet(viewsets.ModelViewSet):
 
 
 class InternGroupViewSet(viewsets.ModelViewSet):
+    """Deprecated. You should use api/core/groups instead"""
     permission_classes = (DjangoModelPermissions,)
-    serializer_class = InternGroupSerializer
-    queryset = InternGroup.objects.all()
+    serializer_class = GroupSerializer
+    queryset = Group.objects.all()
 
 
 class AccessLevelViewSet(viewsets.ReadOnlyModelViewSet):

@@ -15,6 +15,7 @@
 ./manage.py dumpdata --format json core.user >core/fixtures/user.json
 ./manage.py dumpdata --format json core.semester >core/fixtures/semester.json
 ./manage.py dumpdata --format json core.nfccard >core/fixtures/nfccard.json
+./manage.py dumpdata --format json core.group >core/fixtures/group.json
 
 ./manage.py dumpdata --format json cal.event >cal/fixtures/event.json
 
@@ -26,7 +27,6 @@
 
 ./manage.py dumpdata --format json intern.accesslevel >intern/fixtures/accesslevels.json
 ./manage.py dumpdata --format json intern.role >intern/fixtures/roles.json
-./manage.py dumpdata --format json intern.interngroup >intern/fixtures/groups.json
 ./manage.py dumpdata --format json intern.intern >intern/fixtures/interns.json
 ./manage.py dumpdata --format json intern.internlogentry >intern/fixtures/internlogs.json
 ./manage.py dumpdata --format json intern.internrole >intern/fixtures/internroles.json

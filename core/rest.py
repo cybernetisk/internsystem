@@ -5,8 +5,8 @@ from rest_framework.response import Response
 
 
 from core.serializers import CardCreateSerializer, CardSerializer, UserExtendedSerializer, NfcCardCreateSerializer, \
-    NfcCardSerializer
-from core.models import Card, User, NfcCard
+    NfcCardSerializer, GroupSerializer
+from core.models import Card, User, NfcCard, Group
 from core.filters import CardFilter, UserFilter, NfcCardFilter
 from core.permissions import CardPermission
 
@@ -85,3 +85,8 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
 
     def get_serializer_class(self):
         return UserExtendedSerializer
+
+class GroupViewSet(viewsets.ModelViewSet):
+    permission_classes = (permissions.DjangoModelPermissions,)
+    serializer_class = GroupSerializer
+    queryset = Group.objects.all()

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as _UserAdmin
-from core.models import User, Semester, Card, NfcCard
+from core.models import User, Semester, Card, NfcCard, Group
 
 from django.utils.translation import ugettext_lazy as _
 
@@ -46,3 +46,4 @@ admin.site.register(User, UserAdmin)
 admin.site.register(Semester)
 admin.site.register(Card)
 admin.site.register(NfcCard)
+admin.site.register(Group)

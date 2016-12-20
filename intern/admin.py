@@ -1,5 +1,5 @@
 from django.contrib import admin
-from intern.models import Intern, InternCard, InternGroup, Role, AccessLevel, InternRole, InternLogEntry
+from intern.models import Intern, InternCard, Role, AccessLevel, InternRole, InternLogEntry
 
 
 class InternAdmin(admin.ModelAdmin):
@@ -9,9 +9,6 @@ class InternAdmin(admin.ModelAdmin):
 class RoleAdmin(admin.ModelAdmin):
     list_display = ('name', 'description')
 
-
-class InternGroupAdmin(admin.ModelAdmin):
-    list_display = ('name', 'leader', 'description')
 
 
 class AccessLevelAdmin(admin.ModelAdmin):
@@ -33,7 +30,6 @@ class InternLogEntryAdmin(admin.ModelAdmin):
 # Register your models here.
 admin.site.register(Intern, InternAdmin)
 admin.site.register(Role, RoleAdmin)
-admin.site.register(InternGroup, InternGroupAdmin)
 admin.site.register(AccessLevel, AccessLevelAdmin)
 admin.site.register(InternRole)
 admin.site.register(InternCard, InternCardAdmin)
