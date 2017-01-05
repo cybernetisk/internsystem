@@ -67,4 +67,4 @@ travis_jigger() {
   kill -9 $cmd_pid
 }
 
-travis_wait scripts/deploy.sh
+travis_wait 30 scripts/deploy.sh
