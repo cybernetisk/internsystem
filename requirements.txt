@@ -7,7 +7,7 @@ django-phonenumber-field==1.1.0
 djangorestframework==3.5.3
 gunicorn==19.6.0
 icalendar==3.11
-ipython==5.2.0
+ipython==5.2.1
 isodate==0.5.4
 psycopg2==2.6.2
 python-dateutil==2.6.0
