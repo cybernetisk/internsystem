@@ -14,9 +14,9 @@ deativate 2>/dev/null || true
 # Install needed packages for the system
 # (the second line is for packages used by python3-saml:)
 if command -v apt-get > /dev/null; then
-    sudo apt-get install virtualenv virtualenvwrapper python3
+    sudo apt-get install virtualenv virtualenvwrapper python3 libpq-dev
 elif command -v dnf > /dev/null; then
-    sudo dnf install python3 python3-virtualenv python3-virtualenvwrapper
+    sudo dnf install python3 python3-virtualenv python3-virtualenvwrapper postgresql-devel
 fi
 
 
