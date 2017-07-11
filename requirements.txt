@@ -10,7 +10,7 @@ icalendar==3.11
 ipython==6.1.0
 isodate==0.5.4
 psycopg2==2.7
-python-dateutil==2.6.0
+python-dateutil==2.6.1
 pytz==2017.2
 requests==2.18.1
 six==1.10.0
