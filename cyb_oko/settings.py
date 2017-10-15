@@ -37,6 +37,7 @@ INSTALLED_APPS = (
     'z',
     'members',
     'intern',
+    'django_filters',
 )
 
 MIDDLEWARE_CLASSES = (
