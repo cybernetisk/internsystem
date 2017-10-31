@@ -43,7 +43,7 @@ Scriptet gjør følgende:
 * Setter opp virtualenv ved hjelp av virtuelenvwrapper
 * Installerer Python-pakker
 * Setter opp lokale innstillinger for applikasjonen
-* Migrerer databasen (standard vil bruke lokal sqqlite-database)
+* Migrerer databasen (standard vil bruke lokal sqlite-database)
 * Installerer fixtures (demodata)
 * Starter utviklerserveren for backend (Ctrl+C for å avslutte)
 
