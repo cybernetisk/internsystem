@@ -240,7 +240,7 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
 
         return events
 
-    def _update_cache(self):
+    def _update_confluence_cache(self):
         data = {}
 
         for calendar in self._calendars:
@@ -253,7 +253,7 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
 
             data[calendar] = events
 
-        cache.set('cal_remote_events', data, 300)
+        cache.set('cal_remote_events', data, 3000)
         return data
 
     def _get_data(self, use_cache=True):
@@ -261,12 +261,20 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
         if use_cache:
             data = cache.get('cal_remote_events')
         if data is None:
-            data = self._update_cache()
+            data = self._update_confluence_cache()
         return data
 
     def list(self, request):
+
+        cached = 'nocache' not in request.GET
+
+        if cached:
+            out = cache.get('cal_remote_response')
+            if out is not None:
+                return Response(out)
+
         out = {}
-        data = self._get_data(use_cache='nocache' not in request.GET)
+        data = self._get_data(use_cache=cached)
         now = datetime.datetime.now(pytz.utc)
         osl = pytz.timezone("Europe/Oslo")
 
@@ -292,4 +300,5 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
             events = sorted(events, key=get_start_time)[:15]
             out[calendar] = events
 
+        cache.set('cal_remote_response', out, 600)
         return Response(out)
