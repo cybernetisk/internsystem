@@ -15,6 +15,7 @@ import datetime
 import pytz
 from icalendar import Calendar, Event as CalEvent
 from django.core.cache import cache
+from django.conf import settings
 
 
 class EventFilter(django_filters.FilterSet):
@@ -110,14 +111,8 @@ class SemesterViewSet(viewsets.ViewSet):
 
 
 class UpcomingRemoteEventViewSet(viewsets.ViewSet):
-    _calendars = {
-        'intern': [
-            'https://confluence.cyb.no/rest/calendar-services/1.0/calendar/export/subcalendar/private/4f5af3ae5b9a67666c2ad001d21c7c453291844a.ics'
-        ],
-        'public': [
-            'https://confluence.cyb.no/rest/calendar-services/1.0/calendar/export/subcalendar/private/69e4d3450b6ba6e4a547882144bdedfc5182c40a.ics'
-        ]
-    }
+    _calendars = settings.CYB['CALENDAR']
+
 
     def _get_time(self, dt):
         if type(dt) == datetime.date:

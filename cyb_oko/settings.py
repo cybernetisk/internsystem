@@ -135,6 +135,18 @@ REST_FRAMEWORK = {
     )
 }
 
+CYB = {
+    'CALENDAR': {
+        'public': [
+            'https://wiki.cyb.no/rest/calendar-services/1.0/calendar/export/subcalendar/private/69e4d3450b6ba6e4a547882144bdedfc5182c40a.ics'
+        ],
+        'intern': [
+            'https://wiki.cyb.no/rest/calendar-services/1.0/calendar/export/subcalendar/private/4f5af3ae5b9a67666c2ad001d21c7c453291844a.ics'
+        ]
+    }
+}
+
+
 # see https://docs.djangoproject.com/en/1.8/ref/settings/#secure-proxy-ssl-header
 # if using nginx, make sure to have 'proxy_set_header X-Forwarded-Proto $scheme;' in config
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
