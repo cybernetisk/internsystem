@@ -2,9 +2,9 @@
 
 | Master | Test |
 | --- | --- |
-| [![Build Status](https://travis-ci.org/cybrairai/internsystem.svg?branch=master)](https://travis-ci.org/cybrairai/internsystem) | [![Build Status](https://travis-ci.org/cybrairai/internsystem.svg?branch=test)](https://travis-ci.org/cybrairai/internsystem) |
+| [![Build Status](https://travis-ci.org/cybernetisk/internsystem.svg?branch=master)](https://travis-ci.org/cybernetisk/internsystem) | [![Build Status](https://travis-ci.org/cybernetisk/internsystem.svg?branch=test)](https://travis-ci.org/cybernetisk/internsystem) |
 
-Dette prosjektet tilbyr en rekke tjenester til hjelp for Cybernetisk Selskab. I hovedsak tilbyr dette prosjektet kun et API, som brukes av blant annet https://github.com/cybrairai/internsystem-frontend.
+Dette prosjektet tilbyr en rekke tjenester til hjelp for Cybernetisk Selskab. I hovedsak tilbyr dette prosjektet kun et API, som brukes av blant annet https://github.com/cybernetisk/internsystem-frontend.
 
 Tjenester prosjektet tilbyr i dag:
 * Påloggingsløsning mot Universitet i Oslo med Weblogin
@@ -23,7 +23,7 @@ Tjenester det jobbes med/planlegges:
   * Django tilbyr også en innebygget admin-modul vi bruker en del.
 * Tilbyr et REST-API til bruk av andre tjenester
 * I produksjon benyttes Postgres som database
-* For frontend-detaljer, se https://github.com/cybrairai/internsystem-frontend
+* For frontend-detaljer, se https://github.com/cybernetisk/internsystem-frontend
 
 Hvert "underprosjekt" har sin egen mappe. Et spesialprosjekt `core` har felles modeller som brukes av flere prosjekter.
 
@@ -34,7 +34,7 @@ For å forenkle oppsett er det laget et eget script som gjør alle nødvendige o
 
 ```bash
 mkdir internsystem && cd internsystem # endre mappe om ønskelig
-git clone git@github.com:cybrairai/internsystem.git .
+git clone git@github.com:cybernetisk/internsystem.git .
 ./scripts/setup_dev.sh
 ```
 
@@ -125,7 +125,7 @@ Dersom `client type` settes til `public` er ikke `client_secret` nødvendig.
 Produksjon oppdateres automatisk ved push til `master`, samt test-instans
 oppdateres ved push til `test`. Se `.travis.yml`.
 
-Se https://github.com/cybrairai/drift/tree/master/internsystem-backend
+Se https://github.com/cybernetisk/drift/tree/master/internsystem-backend
 for detaljer om oppsett i produksjon.
 
 https://in.cyb.no/
