@@ -153,7 +153,14 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
         rruleset = self._get_rruleset(component)
         is_day = type(component['DTSTART'].dt) == datetime.date
 
+        latest_event_time = datetime.datetime.now() + datetime.timedelta(days=365)
+
         for d in rruleset:
+            # limit recurring rules without end dates
+            # (we expect not to show events more than one year in the future)
+            if d > latest_event_time:
+                break
+
             # the rrule parsing don't respect dst, so by removing timezone and adding it again
             # it will receive the correct timezone
             d = pytz.timezone("Europe/Oslo").localize(d.replace(tzinfo=None))
