@@ -22,7 +22,7 @@ class Event(models.Model):
     comment = models.TextField('Non-public comment', blank=True)
     link = models.CharField(max_length=256, null=True, blank=True)
 
-    organizer = models.ForeignKey(User, null=True, blank=True)
+    organizer = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
 
     is_published = models.BooleanField('Event is published (specially shown on intern, never public)', default=False)
     is_public = models.BooleanField('Public (event will be visible on cyb.no)', default=False)
