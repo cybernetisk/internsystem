@@ -11,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class Wallet(models.Model):
-    semester = models.ForeignKey(Semester)
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
     cached_balance = models.DecimalField(default=0, max_digits=8, decimal_places=2, editable=False)
     cached_vouchers = models.DecimalField(default=0, max_digits=8, decimal_places=2, editable=False)
     cached_vouchers_used = models.IntegerField(default=0, editable=False)
@@ -42,7 +42,7 @@ class Wallet(models.Model):
 
 
 class VoucherWallet(Wallet):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     cached_hours = models.DecimalField(default=0, max_digits=8, decimal_places=2, editable=False)
 
     class Meta:
@@ -61,7 +61,7 @@ class VoucherWallet(Wallet):
 
 
 class CoffeeWallet(Wallet):
-    card = models.ForeignKey(NfcCard)
+    card = models.ForeignKey(NfcCard, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ("card", "semester")
@@ -81,7 +81,7 @@ class RegisterLog(models.Model):
     LOCKED_FOR_EDITING_AFTER_DAYS = 2
 
     date_issued = models.DateTimeField(auto_now_add=True)
-    issuing_user = models.ForeignKey(User)
+    issuing_user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.CharField(max_length=100, null=True, blank=True)
 
     class Meta:
@@ -103,7 +103,7 @@ class RegisterLog(models.Model):
 
 
 class CoffeeRegisterLog(RegisterLog):
-    wallet = models.ForeignKey(CoffeeWallet, related_name='registerlogs')
+    wallet = models.ForeignKey(CoffeeWallet, related_name='registerlogs', on_delete=models.CASCADE)
     vouchers = models.DecimalField(max_digits=8, decimal_places=2)
 
     def __str__(self):
@@ -113,7 +113,7 @@ class CoffeeRegisterLog(RegisterLog):
 class WorkLog(RegisterLog):
     DEFAULT_VOUCHERS_PER_HOUR = 0.5
 
-    wallet = models.ForeignKey(VoucherWallet, related_name='worklogs')
+    wallet = models.ForeignKey(VoucherWallet, related_name='worklogs', on_delete=models.CASCADE)
     date_worked = models.DateField()
     work_group = models.CharField(max_length=20)
     hours = models.DecimalField(max_digits=8, decimal_places=2)
@@ -134,7 +134,7 @@ class WorkLog(RegisterLog):
 
 class UseLog(models.Model):
     date_spent = models.DateTimeField(auto_now_add=True)
-    issuing_user = models.ForeignKey(User)
+    issuing_user = models.ForeignKey(User, on_delete=models.CASCADE)
     comment = models.CharField(max_length=100, null=True, blank=True)
     vouchers = models.IntegerField()
 
@@ -157,8 +157,8 @@ class UseLog(models.Model):
 
 
 class VoucherUseLog(UseLog):
-    wallet = models.ForeignKey(VoucherWallet, related_name='uselogs')
+    wallet = models.ForeignKey(VoucherWallet, related_name='uselogs', on_delete=models.CASCADE)
 
 
 class CoffeeUseLog(UseLog):
-    wallet = models.ForeignKey(CoffeeWallet, related_name='uselogs')
+    wallet = models.ForeignKey(CoffeeWallet, related_name='uselogs', on_delete=models.CASCADE)

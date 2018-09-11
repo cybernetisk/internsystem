@@ -29,7 +29,7 @@ class User(AbstractBaseUser, PermissionsMixin):
                                 ])
     realname = models.CharField(_('real name'), max_length=60, blank=True)
     email = models.EmailField(_('email address'), blank=True)
-    is_staff = models.BooleanField(_('staff status'), default=False,
+    is_staff = models.BooleanField(_('staff status'), default=False, 
                                    help_text=_('Designates whether the user can log into this admin '
                                                'site.'))
     is_active = models.BooleanField(_('active'), default=True,
@@ -86,7 +86,7 @@ class Semester(models.Model):
 
 class Card(models.Model):
     CARD_NUMBER_REGEX = r'^\d{6}\.\d{2}\.\d{7}(\.\d)?$'
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE) 
     comment = models.CharField(max_length=20, blank=True)
     disabled = models.BooleanField(default=False)
     card_number = models.CharField(max_length=20, unique=True,
@@ -106,7 +106,7 @@ class NfcCard(models.Model):
                                 validators=[
                                     validators.RegexValidator(CARD_UID_REGEX, _('Enter valid card uid.'), 'invalid')
                                 ])
-    user = models.ForeignKey(User, blank=True, null=True)
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE)
     intern = models.BooleanField(default=False)
     comment = models.CharField(max_length=20, blank=True)
 
@@ -118,7 +118,7 @@ class NfcCard(models.Model):
 
 class Group(models.Model):
     name = models.CharField(max_length=50, unique=True)
-    leader = models.ForeignKey(User)
+    leader = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.CharField(max_length=300, null=True, blank=True)
 
     def __str__(self):
