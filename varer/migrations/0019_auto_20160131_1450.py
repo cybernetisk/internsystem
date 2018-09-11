@@ -24,6 +24,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='varetellingvare',
             name='added_by',
-            field=models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL, help_text='Brukeren som registrerte oppføringen', null=True),
+            field=models.ForeignKey(editable=False, to=settings.AUTH_USER_MODEL, help_text='Brukeren som registrerte oppføringen', null=True, on_delete=models.CASCADE),
         ),
     ]

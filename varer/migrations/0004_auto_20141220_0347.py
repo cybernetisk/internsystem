@@ -83,7 +83,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='råvare',
             name='innkjøpskonto',
-            field=models.ForeignKey(to='varer.Konto', related_name='råvarer'),
+            field=models.ForeignKey(to='varer.Konto', related_name='råvarer', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AlterField(
@@ -95,25 +95,25 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='salgskalkylevare',
             name='kalkyle',
-            field=models.ForeignKey(to='varer.Salgskalkyle'),
+            field=models.ForeignKey(to='varer.Salgskalkyle', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AlterField(
             model_name='salgskalkylevare',
             name='salgsvare',
-            field=models.ForeignKey(to='varer.Salgsvare'),
+            field=models.ForeignKey(to='varer.Salgsvare', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AlterField(
             model_name='salgsvare',
             name='salgskonto',
-            field=models.ForeignKey(to='varer.Konto', related_name='salgsvarer'),
+            field=models.ForeignKey(to='varer.Konto', related_name='salgsvarer', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AlterField(
             model_name='varetellingvare',
             name='varetelling',
-            field=models.ForeignKey(to='varer.Varetelling'),
+            field=models.ForeignKey(to='varer.Varetelling', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]
