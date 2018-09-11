@@ -15,6 +15,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='member',
             name='last_edited_by',
-            field=models.ForeignKey(null=True, to=settings.AUTH_USER_MODEL, related_name='modifier'),
+            field=models.ForeignKey(null=True, to=settings.AUTH_USER_MODEL, related_name='modifier', on_delete=models.CASCADE),
         ),
     ]

@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='varetellingvare',
             name='added_by',
-            field=models.ForeignKey(help_text='Brukeren som registrerte oppføringen', null=True, to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(help_text='Brukeren som registrerte oppføringen', null=True, to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='varetellingvare',

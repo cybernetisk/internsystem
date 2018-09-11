@@ -44,8 +44,8 @@ class Migration(migrations.Migration):
                 ('bestillingskode', models.CharField(max_length=30)),
                 ('pris', models.FloatField(help_text='Pris eks mva')),
                 ('dato', models.DateField()),
-                ('leverandør', models.ForeignKey(to='varer.Leverandør', related_name='priser')),
-                ('råvare', models.ForeignKey(to='varer.Råvare', related_name='priser')),
+                ('leverandør', models.ForeignKey(to='varer.Leverandør', related_name='priser', on_delete=models.CASCADE)),
+                ('råvare', models.ForeignKey(to='varer.Råvare', related_name='priser', on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -69,7 +69,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
                 ('interngrad', models.FloatField(null=True)),
                 ('antall', models.PositiveIntegerField()),
-                ('kalkyle', models.ForeignKey(to='varer.Salgskalkyle', related_name='varer')),
+                ('kalkyle', models.ForeignKey(to='varer.Salgskalkyle', related_name='varer', on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -98,7 +98,7 @@ class Migration(migrations.Migration):
                 ('kassenr', models.PositiveSmallIntegerField(help_text='Nr i varekatalog i kassa')),
                 ('pris_intern', models.PositiveSmallIntegerField(help_text='Internpris INK mva')),
                 ('pris_ekstern', models.PositiveSmallIntegerField(help_text='Eksternpris INK mva')),
-                ('salgsvare', models.ForeignKey(to='varer.Salgsvare')),
+                ('salgsvare', models.ForeignKey(to='varer.Salgsvare', on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -109,8 +109,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', primary_key=True, serialize=False, auto_created=True)),
                 ('mengde', models.FloatField()),
-                ('råvare', models.ForeignKey(to='varer.Råvare')),
-                ('salgsvare', models.ForeignKey(to='varer.Salgsvare')),
+                ('råvare', models.ForeignKey(to='varer.Råvare', on_delete=models.CASCADE)),
+                ('salgsvare', models.ForeignKey(to='varer.Salgsvare', on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -136,8 +136,8 @@ class Migration(migrations.Migration):
                 ('sted', models.CharField(max_length=50)),
                 ('antall', models.FloatField()),
                 ('kommentar', models.CharField(max_length=150)),
-                ('råvare', models.ForeignKey(to='varer.Råvare')),
-                ('varetelling', models.ForeignKey(to='varer.Varetelling', related_name='varer')),
+                ('råvare', models.ForeignKey(to='varer.Råvare', on_delete=models.CASCADE)),
+                ('varetelling', models.ForeignKey(to='varer.Varetelling', related_name='varer', on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -146,7 +146,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='salgskalkylevare',
             name='salgsvare',
-            field=models.ForeignKey(to='varer.Salgsvare', related_name='kalkyler'),
+            field=models.ForeignKey(to='varer.Salgsvare', related_name='kalkyler', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]

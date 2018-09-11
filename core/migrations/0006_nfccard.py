@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('card_uid', models.CharField(validators=[django.core.validators.RegexValidator('^[a-z0-9]{8}$', 'Enter valid card uid.', 'invalid')], max_length=8, unique=True)),
                 ('intern', models.BooleanField(default=False)),
                 ('comment', models.CharField(max_length=20, blank=True)),
-                ('user', models.ForeignKey(null=True, blank=True, to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(null=True, blank=True, to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
         ),
     ]
