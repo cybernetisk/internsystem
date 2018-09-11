@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='råvarepris',
             name='leverandor',
-            field=models.ForeignKey(to='varer.Leverandør', related_name='priser', blank=True, null=True),
+            field=models.ForeignKey(to='varer.Leverandør', related_name='priser', blank=True, null=True, on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]

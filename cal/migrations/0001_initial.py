@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
                 ('is_external', models.BooleanField(default=False, verbose_name='External event, not associated with CYB')),
                 ('in_escape', models.BooleanField(default=True, verbose_name='Occupies Escape')),
                 ('is_cancelled', models.BooleanField(default=False, verbose_name='Event has been cancelled')),
-                ('organizer', models.ForeignKey(null=True, to=settings.AUTH_USER_MODEL, blank=True)),
+                ('organizer', models.ForeignKey(null=True, to=settings.AUTH_USER_MODEL, blank=True, on_delete=models.CASCADE)),
             ],
             options={
             },

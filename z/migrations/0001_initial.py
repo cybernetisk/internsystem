@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('nummer', models.PositiveSmallIntegerField(verbose_name='Nummer i kassa')),
                 ('navn', models.CharField(verbose_name='Navn i kassa', max_length=15)),
-                ('salgsvare', models.ForeignKey(related_name='kassenavn_mappinger', to='varer.Salgsvare')),
+                ('salgsvare', models.ForeignKey(related_name='kassenavn_mappinger', to='varer.Salgsvare', on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Kassetransaksjon',
             fields=[
-                ('varetransaksjon_ptr', models.OneToOneField(to='z.Varetransaksjon', auto_created=True, serialize=False, primary_key=True, parent_link=True)),
+                ('varetransaksjon_ptr', models.OneToOneField(to='z.Varetransaksjon', auto_created=True, serialize=False, primary_key=True, parent_link=True, on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -57,7 +57,7 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Varetuttaktransaksjon',
             fields=[
-                ('varetransaksjon_ptr', models.OneToOneField(to='z.Varetransaksjon', auto_created=True, serialize=False, primary_key=True, parent_link=True)),
+                ('varetransaksjon_ptr', models.OneToOneField(to='z.Varetransaksjon', auto_created=True, serialize=False, primary_key=True, parent_link=True, on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -88,25 +88,25 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='varetuttaktransaksjon',
             name='vareuttak',
-            field=models.ForeignKey(related_name='transaksjoner', to='z.Vareuttak'),
+            field=models.ForeignKey(related_name='transaksjoner', to='z.Vareuttak', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='varetransaksjon',
             name='salgsvare',
-            field=models.ForeignKey(related_name='transaksjoner', to='varer.Salgsvare'),
+            field=models.ForeignKey(related_name='transaksjoner', to='varer.Salgsvare', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='kvittering',
             name='zrapport',
-            field=models.ForeignKey(related_name='kvitteringer', to='z.Zrapport'),
+            field=models.ForeignKey(related_name='kvitteringer', to='z.Zrapport', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.AddField(
             model_name='kassetransaksjon',
             name='kvittering',
-            field=models.ForeignKey(related_name='transaksjoner', to='z.Kvittering'),
+            field=models.ForeignKey(related_name='transaksjoner', to='z.Kvittering', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]

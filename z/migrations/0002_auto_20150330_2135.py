@@ -38,8 +38,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='KasseBetalingstransaksjon',
             fields=[
-                ('betalingstransaksjon_ptr', models.OneToOneField(parent_link=True, primary_key=True, to='z.Betalingstransaksjon', serialize=False, auto_created=True)),
-                ('kvittering', models.ForeignKey(to='z.Kvittering', related_name='betalinger')),
+                ('betalingstransaksjon_ptr', models.OneToOneField(parent_link=True, primary_key=True, to='z.Betalingstransaksjon', serialize=False, auto_created=True, on_delete=models.CASCADE)),
+                ('kvittering', models.ForeignKey(to='z.Kvittering', related_name='betalinger', on_delete=models.CASCADE)),
             ],
             options={
             },
@@ -48,7 +48,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='betalingstransaksjon',
             name='betalingskonto',
-            field=models.ForeignKey(to='z.Betalingskonto', related_name='transaksjoner'),
+            field=models.ForeignKey(to='z.Betalingskonto', related_name='transaksjoner', on_delete=models.CASCADE),
             preserve_default=True,
         ),
         migrations.RenameField(
@@ -65,7 +65,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='varetuttaktransaksjon',
             name='vareuttak',
-            field=models.ForeignKey(to='z.Vareuttak', related_name='varer'),
+            field=models.ForeignKey(to='z.Vareuttak', related_name='varer', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]
