@@ -9,6 +9,8 @@ from core.serializers import SemesterSerializer
 from core.models import Semester
 from core.utils import get_semester_details_from_date
 
+from django_filters.rest_framework import DjangoFilterBackend
+
 import requests
 import dateutil.rrule
 import datetime
@@ -29,7 +31,7 @@ class EventFilter(django_filters.FilterSet):
 
 
 class EventViewSet(viewsets.ModelViewSet):
-    filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter)
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter)
     filter_class = EventFilter
     search_fields = ('title',)
     renderer_classes = (
@@ -70,7 +72,7 @@ class EventViewSet(viewsets.ModelViewSet):
 class EscapeOccupiedViewSet(viewsets.GenericViewSet):
     queryset = Event.objects.filter(is_cancelled=False, in_escape=True).order_by('start')
 
-    filter_backends = (filters.DjangoFilterBackend,)
+    filter_backends = (DjangoFilterBackend,)
     filter_class = EventFilter
 
     serializer_class = EscapeOccupiedEventSerializer

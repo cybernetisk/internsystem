@@ -15,11 +15,13 @@ from intern.models import *
 from intern.serializers import InternRoleFullSerializer, InternSerializer, AccessLevelSerializer, \
     RoleSerializer, AddInternRoleSerializer, InternCardSerializer, AddInternCardSerializer
 
+from django_filters.rest_framework import DjangoFilterBackend
+
 
 class InternViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
     search_fields = ('user__username',)
-    filter_backends = (filters.SearchFilter, filters.DjangoFilterBackend)
+    filter_backends = (filters.SearchFilter, DjangoFilterBackend)
     filter_fields = ('user', 'user__username')
     serializer_class = InternSerializer
     queryset = Intern.objects.all()
@@ -40,7 +42,7 @@ class AccessLevelViewSet(viewsets.ReadOnlyModelViewSet):
 
 class RoleViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
-    filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_fields = ('groups',)
     queryset = Role.objects.all()
     serializer_class = RoleSerializer
@@ -48,7 +50,7 @@ class RoleViewSet(viewsets.ModelViewSet):
 
 class InternCardViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
-    filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_field = ('intern', 'semester')
     ordering_fields = ('intern',)
     queryset = InternCard.objects.all()
@@ -61,7 +63,7 @@ class InternCardViewSet(viewsets.ModelViewSet):
 
 class InternRoleViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
-    filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_fields = ('intern', 'role', 'semesters',
                      'role__groups', 'role__id')
     search_fields = ('intern__user__username', 'role__name')
