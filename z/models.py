@@ -23,7 +23,7 @@ class Kvittering(models.Model):
     """
     En kvittering, tilhører en Z-rapport og inneholder flere varetransaksjoner
     """
-    zrapport = models.ForeignKey(Zrapport, related_name='kvitteringer', null=False, blank=False)
+    zrapport = models.ForeignKey(Zrapport, related_name='kvitteringer', null=False, blank=False, on_delete=models.CASCADE)
     nummer = models.PositiveIntegerField('Kvitteringsnummer', null=False)
     tidspunkt = models.DateTimeField('Tidspunkt', null=False)
     #varetransaksjoner = models.ForeignKey('Kassetransaksjon', null=False, blank=False)
@@ -40,31 +40,31 @@ class Varetransaksjon(models.Model):
     """
     En varetransaksjon er et uttak av et antall av en salgsvare.
     """
-    salgsvare = models.ForeignKey(Salgsvare, related_name='transaksjoner', null=False, blank=False)
+    salgsvare = models.ForeignKey(Salgsvare, related_name='transaksjoner', null=False, blank=False, on_delete=models.CASCADE)
     antall = models.IntegerField('Antall varer', null=False)
     pris = models.FloatField(help_text='Salgspris inkl. mva')
-    tidspunkt = models.DateTimeField('Tidspunkt for transaksjon', null=False)
+    tidspunkt = models.DateTimeField('Tidspunkt for transaksjon')
 
 class Kassetransaksjon(Varetransaksjon):
     """
     En kassetransaksjon er en varetransaksjon med en kobling mot en kvittering
     og derfra videre til en z-rapport.
     """
-    kvittering = models.ForeignKey(Kvittering, related_name='transaksjoner', null=False, blank=False)
+    kvittering = models.ForeignKey(Kvittering, related_name='transaksjoner', null=False, blank=False, on_delete=models.CASCADE)
 
 class Varetuttaktransaksjon(Varetransaksjon):
     """
     En vareuttaktransaksjon er en varetransaksjon knyttet til et vareuttak.
     """
-    vareuttak = models.ForeignKey(Vareuttak, related_name='varer', null=False, blank=False)
+    vareuttak = models.ForeignKey(Vareuttak, related_name='varer', null=False, blank=False, on_delete=models.CASCADE)
 
 class Betalingstransaksjon(models.Model):
-    betalingskonto = models.ForeignKey(Betalingskonto, related_name='transaksjoner', null=False, blank=False)
+    betalingskonto = models.ForeignKey(Betalingskonto, related_name='transaksjoner', null=False, blank=False, on_delete=models.CASCADE)
     beløp = models.FloatField('Beløp betalt', null=False)
     tidspunkt = models.DateTimeField('Tidspunkt for transaksjon', null=False)
 
 class KasseBetalingstransaksjon(Betalingstransaksjon):
-    kvittering = models.ForeignKey(Kvittering, related_name='betalinger', null=False, blank=False)
+    kvittering = models.ForeignKey(Kvittering, related_name='betalinger', null=False, blank=False, on_delete=models.CASCADE)
 
 
 # Select salgsvare, COUNT(*) varetransaksjon where date >= (SELECT MAX(date) FROM varetelling) GROUP BY salgsvare;
@@ -72,4 +72,4 @@ class KasseBetalingstransaksjon(Betalingstransaksjon):
 class KassenavnMapping(models.Model):
     nummer = models.PositiveSmallIntegerField('Nummer i kassa', null=False)
     navn = models.CharField('Navn i kassa', max_length=15, null=False)
-    salgsvare = models.ForeignKey(Salgsvare, related_name='kassenavn_mappinger', null=False, blank=False)
+    salgsvare = models.ForeignKey(Salgsvare, related_name='kassenavn_mappinger', null=False, blank=False, on_delete=models.CASCADE)
