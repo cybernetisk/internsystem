@@ -10,13 +10,3 @@ charset = utf-8
 # PEP8 for Python.
 [**.py]
 indent_size = 4
-
-# Scripts
-[**.sh]
-
-
-# Other files
-[**.json,**.html]
-
-# Deploy/Build
-[{.travis.yml}]
