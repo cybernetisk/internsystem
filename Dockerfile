@@ -14,7 +14,8 @@ RUN set -eux; \
     mkdir -p /app; \
     mkdir -p /usr/src/static; \
     addgroup -g 1000 app; \
-    adduser -D -G app -u 1000 app
+    adduser -D -G app -u 1000 app; \
+    chown app:app /app /usr/src/static
 
 WORKDIR /app
 USER app
