@@ -1,10 +1,5 @@
 #!/bin/bash
-
-# set working directory to the directory if this script
-cd "$(dirname "$0")"
-
-# exit on errors
-set -e
+set -eu
 
 if [ ! -z "$TRAVIS" ]; then
   echo "Decrypting ssh-key and adding"
@@ -24,11 +19,14 @@ else
     exit 1
 fi
 
+repo=$(cat .dockerrepo)
+tag=$(cat .dockertag)
+
 echo "Running remote SSH-script"
 ssh -o StrictHostKeyChecking=no root@in.cyb.no /bin/bash << EOF
   set -e
   cd ~/drift/internsystem-backend
-  ENV=$env ./update.sh
+  ENV=$env ./deploy.sh $repo:$tag
 EOF
 
 echo "Deploy finished"

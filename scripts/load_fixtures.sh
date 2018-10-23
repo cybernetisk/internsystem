@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Fixtures must often be updated when changing a model
 # see dump_fixtures.sh

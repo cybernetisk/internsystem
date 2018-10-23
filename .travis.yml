@@ -1,12 +1,14 @@
-language: python
-python: '3.5.2'
-sudo: false
-env:
-- LOCAL_SETTINGS=settings_local_travis
+sudo: required
+services:
+  - docker
+before_install:
+  - ./scripts/travis-docker-auth.sh
 install:
-- pip install -r requirements.txt
+  - ./scripts/travis-build-image.sh
 script:
-- python manage.py test
+  - ./scripts/travis-test-image.sh
+after_success:
+  - ./scripts/travis-push-image.sh
 notifications:
   slack:
     secure: qThWSSDhhcLDyYXmGuHYR/5P7eHNsU/xAumx85U4JoiTBP2+KcAVfhdziO0SWg18+3odXrhMQEEmj2inONj7+Ug12HGJEpNO7GdgJCnvlTI5/QnsH6vlqDjVEapRPCZpenW3oxqsBLl/wjaez1NvHtfJIUIPVNivvbjvWVvFGyk=
@@ -17,6 +19,3 @@ deploy:
     branch:
     - master
     - test
-cache:
-  directories:
-    - /home/travis/virtualenv/python3.5.2/lib/python3.5/site-packages
