@@ -13,8 +13,6 @@ gid=$(stat -c %g /entrypoint.sh)
 user=app
 
 if [ $(id -u) -ne $uid ]; then
-  #time chown -R $uid:$gid /usr/local/lib/python*/site-packages/
-
   deluser app 2>/dev/null || :
   delgroup app 2>/dev/null || :
 
@@ -35,7 +33,11 @@ if [ $(id -u) -ne $uid ]; then
     adduser -D -G app -u $uid app #2>/dev/null
   fi
 
-  chown -R $user:$user /home/$user
+  if [ $(stat -c %u /home/$user/.local) -ne $uid ]; then
+    echo -n "Fixing uid/gid of /home/$user ..."
+    chown -R $user:$user /home/$user
+    echo " done"
+  fi
 
   exec su-exec $user "$@"
   exit
