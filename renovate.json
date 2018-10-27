@@ -1,5 +1,11 @@
 {
   "extends": [
     "config:base"
-  ]
+  ],
+  "pip_requirements": {
+    "fileMatch": [
+      "^requirements.txt$",
+      "^requirements_saml.txt$"
+    ]
+  }
 }
