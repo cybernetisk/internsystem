@@ -83,6 +83,14 @@ i stedet for å laste det ned. Dette tar ca. 10 minutter.
 docker-compose build api
 ```
 
+## Kjøre tester tilsvarende som i CI
+
+```bash
+TRAVIS_BUILD_NUMBER=dev ./scripts/travis-build-image.sh
+./scripts/travis-test-app.sh
+./scripts/travis-test-image.sh
+```
+
 ## Pålogging mot UiO-weblogin
 
 Hvis man ikke vil knote med weblogin, kan man også logge inn i Django-admin

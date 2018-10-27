@@ -6,6 +6,7 @@ before_install:
 install:
   - ./scripts/travis-build-image.sh
 script:
+  - ./scripts/travis-test-app.sh
   - ./scripts/travis-test-image.sh
 after_success:
   - ./scripts/travis-push-image.sh
