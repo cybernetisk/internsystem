@@ -16,6 +16,7 @@ notifications:
 deploy:
   provider: script
   script: scripts/deploy-wrap.sh
+  skip_cleanup: true
   on:
     branch:
     - master
