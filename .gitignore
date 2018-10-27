@@ -63,3 +63,6 @@ webpack-stats.json
 db.sqlite3*
 cyb_oko/settings_local.py
 backups/
+
+.dockerrepo
+.dockertag
