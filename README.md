@@ -27,6 +27,7 @@ Tjenester det jobbes med/planlegges:
 
 * Django (Python 3) er backend for systemet
   * Django tilbyr også en innebygget admin-modul vi bruker en del.
+* Django-applikasjonen pakkes i et Docker-image som vi kjører i miljøene
 * Tilbyr et REST-API til bruk av andre tjenester
 * I produksjon benyttes Postgres som database
 * For frontend-detaljer, se https://github.com/cybernetisk/internsystem-frontend
@@ -38,63 +39,51 @@ Det brukes en del hjelpeprogrammer/verktøy, se resten av README for mer info.
 
 ## Sette opp systemet
 
-For å forenkle oppsett er det laget et eget script som gjør alle nødvendige
-operasjoner. Man må først hente ned filene fra Git.
+Under utvikling er det kun behov for å ha Docker installert lokalt. Vi hadde
+et tidligere oppsett før hvor man måtte sette opp masse ulike pakker lokalt,
+men dette er erstattet med Docker under utvikling. Dersom man får behov for å
+installere ting utenfor Docker, f.eks. for spesiell IDE-støtte, se
+[setup_dev.sh](https://github.com/cybernetisk/internsystem/blob/45d7da9d5591a3e85ba12fdcdbba19ababfb22e5/scripts/setup_dev.sh)
+og [setup_dev_mac.sh](https://github.com/cybernetisk/internsystem/blob/45d7da9d5591a3e85ba12fdcdbba19ababfb22e5/scripts/setup_dev_mac.sh)
+fra tidligere versjon. Se også `Dockerfile` for hva vi setter opp i dag.
+
+Du må også ha Docker Compose installert.
 
 ```bash
-mkdir internsystem && cd internsystem # endre mappe om ønskelig
-git clone git@github.com:cybernetisk/internsystem.git .
-./scripts/setup_dev.sh
+# Hent ned siste bygget Docker-image fra Docker Hub slik at vi slipper å
+# bruke tid på å bygge nytt kjøremiljø.
+docker-compose pull
+
+# Sett opp nødvendig konfigurasjon.
+docker-compose run --rm api ./scripts/setup_settings.sh
+
+# Sørg for å ha korrekte pakker installert, migrer database og last inn
+# fixtures.
+docker-compose run --rm api ./scripts/update-dev.sh
+
+# Start applikasjonen lokalt ved hjelp av applikasjonsfilene som ligger i
+# denne mappa.
+docker-compose up api
 ```
 
-Scriptet gjør følgende:
-
-* Installerer systempakker (virtualenv, python, m.v.) - derfor den spør om
-  sudo passord
-* Setter opp virtualenv ved hjelp av virtuelenvwrapper
-* Installerer Python-pakker
-* Setter opp lokale innstillinger for applikasjonen
-* Migrerer databasen (standard vil bruke lokal sqlite-database)
-* Installerer fixtures (demodata)
-* Starter utviklerserveren for backend (Ctrl+C for å avslutte)
+Gå til http://localhost:8000/api/
 
 Du skal kunne logge inn med brukeren `cyb` og passord `cyb`. De andre brukerne
 som opprettes har også passord `cyb`.
 
-### Bruke virtualenv
+Konfigurasjon kan endres i `cyb_oko/settings_local.py`.
 
-Pakken `virtualenvwrapper` installeres globalt, noe som gjør bruk av virtualenv
-veldig enkelt. Som standard settes det opp et miljø som heter `internsystem`.
+### Endringer i Docker-oppsettet
 
-For å aktivere virtualenv og få tilgang til Python-pakkene for internsystemet
-skrives følgende:
-
-```bash
-workon internsystem
-```
-
-Det skal da stå `(internsystem)` i terminalen.
-
-### Avanserte innstillinger
-
-For å f.eks. sette opp en annen database (f.eks. Postgres), må dette settes opp
-i `cyb_oko/settings_local.py`.
-
-### Utvikling
-
-#### Kjøre testserver
+Dersom du endrer hvordan applikasjonen kjører, eller andre ting som innebærer
+en endring i oppsettet til applikasjonen, kan du bygge Docker-imaget lokalt
+i stedet for å laste det ned. Dette tar ca. 10 minutter.
 
 ```bash
-workon internsystem
-# migrer database (trenger kun kjøres hvis det er gjort endringer i
-# databaseskjemaer)
-./manage.py migrate
-./manage.py runserver
-# example for allowing connections from others than local
-#./manage.py runserver 0.0.0.0:8000
+docker-compose build api
 ```
 
-#### Pålogging mot UiO-weblogin
+## Pålogging mot UiO-weblogin
 
 Hvis man ikke vil knote med weblogin, kan man også logge inn i Django-admin
 (`/admin/`). Da blir man logget inn på resten av siden.
@@ -170,24 +159,3 @@ for detaljer om oppsett i produksjon.
 https://in.cyb.no/
 
 https://test.in.cyb.no/
-
-## Dependencies on Mac OS X
-
-```bash
-# Install libxml and libxmlsec
-brew install libxml2 libxmlsec1
-```
-
-Fix virtualenv (somehow) …
-
-```bash
-# Set include path to include libxmlsec
-export C_INCLUDE_PATH=/usr/local/Cellar/libxmlsec1/1.2.20/include/xmlsec1/
-
-# Install manual dependency not in pip
-pip install git+https://github.com/bgaifullin/python3-saml.git
-
-# Install Python dependencies from pip
-pip install -r requirements.txt
-```
-Do other stuff …
