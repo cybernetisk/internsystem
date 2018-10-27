@@ -27,7 +27,7 @@ echo "Running remote SSH-script"
 ssh -o StrictHostKeyChecking=no root@in.cyb.no /bin/bash << EOF
   set -e
   cd ~/drift/internsystem-backend
-  ENV=$env ./deploy.sh $repo:$tag
+  ENV=$env ./deploy.sh $tag
 EOF
 
 echo "Deploy finished"
