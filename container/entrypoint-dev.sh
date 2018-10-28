@@ -41,6 +41,26 @@ if [ $(id -u) -ne $uid ]; then
 
   exec su-exec $user "$@"
   exit
+elif [ $uid -eq 0 ]; then
+  # Running on mac with osxfs driver makes the files being owned by
+  # the USER running the container as, instead of actually binding
+  # the same UID/GID as the host system.
+  # See: https://docs.docker.com/docker-for-mac/osxfs/#ownership
+  # See: https://stackoverflow.com/a/43213455
+  #
+  # To handle systems that bind the UID/GID, we need to run as root
+  # and switch in this entrypoint to the correct UID/GID.
+  #
+  # To handle this on mac, we continue as root, but copy in files from
+  # the user we really wanted to run as. This way we preseve user settings.
+  #
+  # (Include hidden files in the copy.)
+  # (Don't copy files if we have done this in a previous run.)
+  if [ ! -d /root/.local ]; then
+    cp -Rf /home/app/. /root
+  fi
+
+  export PATH="/root/.local/bin:$PATH"
 fi
 
 exec "$@"
