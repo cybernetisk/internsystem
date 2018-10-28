@@ -64,7 +64,7 @@ class InternRoleViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_fields = ('intern', 'role', 'semesters',
                      'role__groups', 'role__id')
-    search_fields = ('intern', 'role')
+    search_fields = ('intern__user__username', 'role__name')
     ordering_fields = ('intern',)
 
     def get_queryset(self):

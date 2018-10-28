@@ -15,6 +15,7 @@ import datetime
 import pytz
 from icalendar import Calendar, Event as CalEvent
 from django.core.cache import cache
+from django.conf import settings
 
 
 class EventFilter(django_filters.FilterSet):
@@ -110,14 +111,8 @@ class SemesterViewSet(viewsets.ViewSet):
 
 
 class UpcomingRemoteEventViewSet(viewsets.ViewSet):
-    _calendars = {
-        'intern': [
-            'https://confluence.cyb.no/rest/calendar-services/1.0/calendar/export/subcalendar/private/4f5af3ae5b9a67666c2ad001d21c7c453291844a.ics'
-        ],
-        'public': [
-            'https://confluence.cyb.no/rest/calendar-services/1.0/calendar/export/subcalendar/private/69e4d3450b6ba6e4a547882144bdedfc5182c40a.ics'
-        ]
-    }
+    _calendars = settings.CYB['CALENDAR']
+
 
     def _get_time(self, dt):
         if type(dt) == datetime.date:
@@ -158,7 +153,14 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
         rruleset = self._get_rruleset(component)
         is_day = type(component['DTSTART'].dt) == datetime.date
 
+        latest_event_time = datetime.datetime.now() + datetime.timedelta(days=365)
+
         for d in rruleset:
+            # limit recurring rules without end dates
+            # (we expect not to show events more than one year in the future)
+            if d > latest_event_time:
+                break
+
             # the rrule parsing don't respect dst, so by removing timezone and adding it again
             # it will receive the correct timezone
             d = pytz.timezone("Europe/Oslo").localize(d.replace(tzinfo=None))
@@ -240,7 +242,7 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
 
         return events
 
-    def _update_cache(self):
+    def _update_confluence_cache(self):
         data = {}
 
         for calendar in self._calendars:
@@ -253,7 +255,7 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
 
             data[calendar] = events
 
-        cache.set('cal_remote_events', data, 300)
+        cache.set('cal_remote_events', data, 3000)
         return data
 
     def _get_data(self, use_cache=True):
@@ -261,12 +263,20 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
         if use_cache:
             data = cache.get('cal_remote_events')
         if data is None:
-            data = self._update_cache()
+            data = self._update_confluence_cache()
         return data
 
     def list(self, request):
+
+        cached = 'nocache' not in request.GET
+
+        if cached:
+            out = cache.get('cal_remote_response')
+            if out is not None:
+                return Response(out)
+
         out = {}
-        data = self._get_data(use_cache='nocache' not in request.GET)
+        data = self._get_data(use_cache=cached)
         now = datetime.datetime.now(pytz.utc)
         osl = pytz.timezone("Europe/Oslo")
 
@@ -292,4 +302,5 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
             events = sorted(events, key=get_start_time)[:15]
             out[calendar] = events
 
+        cache.set('cal_remote_response', out, 600)
         return Response(out)
