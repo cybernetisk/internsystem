@@ -1,4 +1,4 @@
-Django==1.11.16
+Django==1.11.17
 PyYAML==3.13
 django-cors-headers==2.4.0
 django-filter==1.1.0
