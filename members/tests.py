@@ -18,7 +18,7 @@ class FixturesTestCase(TestCase):
 
 class MemberRestTestCase(APITestCase):
 
-    new_member = {'name': 'Test Testeren', 'email': 'text@example.com', 'lifetime': False}
+    new_member = {'name': 'Test Testeren', 'email': 'text@example.com', 'lifetime': False, 'gdpr_approval': True,}
 
     def test_add_member(self):
         url = reverse('member-members-list')
@@ -32,6 +32,7 @@ class MemberRestTestCase(APITestCase):
         self.assertEqual(member.name, self.new_member.get('name'))
         self.assertEqual(member.email, self.new_member.get('email'))
         self.assertEqual(member.lifetime, self.new_member.get('lifetime'))
+        self.assertEqual(members.gdpr_approved, self.new_member.get('gdpr_approval'))
 
     def test_add_member_not_logged_in(self):
         url = reverse('member-members-list')

@@ -12,7 +12,8 @@
             "seller": 1,
             "semester": 6,
             "uio_username": null,
-            "user": null
+            "user": null,
+	    "gdpr_approval": false
         },
         "model": "members.member",
         "pk": 1
@@ -30,7 +31,8 @@
             "seller": 1,
             "semester": 6,
             "uio_username": null,
-            "user": null
+            "user": null,
+	    "gdpr_approval": true
         },
         "model": "members.member",
         "pk": 2
@@ -48,7 +50,8 @@
             "seller": 1,
             "semester": 6,
             "uio_username": null,
-            "user": null
+            "user": null,
+	    "gdpr_approval": true
         },
         "model": "members.member",
         "pk": 3
@@ -66,7 +69,8 @@
             "seller": 1,
             "semester": 6,
             "uio_username": null,
-            "user": null
+            "user": null,
+	    "gdpr_approval": true
         },
         "model": "members.member",
         "pk": 4
@@ -84,7 +88,8 @@
             "seller": 1,
             "semester": 6,
             "uio_username": null,
-            "user": null
+            "user": null,
+	    "gdpr_approval": true
         },
         "model": "members.member",
         "pk": 5

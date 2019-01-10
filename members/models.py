@@ -17,6 +17,7 @@ class Member(models.Model):
         -name of the member
         -email address that can be blank
         -uio username that can be blank.
+        -if member have approved privacy policy
 
     Can only be one member with the same name and email address per semester.
     """
@@ -32,6 +33,7 @@ class Member(models.Model):
     uio_username = models.CharField(max_length=15, null=True, blank=True)
     comments = models.TextField(null=True, blank=True)
     last_edited_by = models.ForeignKey(User, related_name='modifier', null=True)
+    gdpr_approval = models.BooleanField(default=False, help_text='Privacy policy agreement')
 
     def __str__(self):
         return self.name
