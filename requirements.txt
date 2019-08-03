@@ -1,5 +1,5 @@
 Django==1.11.22
-PyYAML==5.1.1
+PyYAML==5.1.2
 django-cors-headers==2.5.3
 django-filter==1.1.0
 django-oauth-toolkit==1.0.0
