@@ -11,7 +11,7 @@ ipython==7.8.0
 isodate==0.6.0
 psycopg2==2.8.3
 python-dateutil==2.8.0
-pytz==2019.2
+pytz==2019.3
 requests==2.22.0
 six==1.12.0
 sqlparse==0.3.0
