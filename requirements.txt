@@ -13,6 +13,6 @@ psycopg2==2.8.4
 python-dateutil==2.8.1
 pytz==2019.3
 requests==2.22.0
-six==1.12.0
+six==1.13.0
 sqlparse==0.3.0
 oauth2_provider
