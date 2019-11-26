@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 PyYAML==3.13
 django-cors-headers==2.4.0
 Django==2.1
