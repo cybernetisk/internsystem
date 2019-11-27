@@ -84,6 +84,7 @@ CORS_ORIGIN_WHITELIST = (
     'https://internt.cyb.no',
     'https://cyb.no',
     'https://dev.internt.cyb.no',
+    'https://test.in.cyb.no',
 )
 CORS_ALLOW_CREDENTIALS = True
 
