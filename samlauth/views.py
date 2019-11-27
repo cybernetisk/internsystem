@@ -2,7 +2,7 @@ from django.conf import settings
 #from django.core.urlresolvers import reverse
 from django.http import (HttpResponse, HttpResponseRedirect,
                          HttpResponseServerError)
-from django.shortcuts import render_to_response
+from django.shortcuts import render
 from django.template import RequestContext
 
 from onelogin.saml2.auth import OneLogin_Saml2_Auth
@@ -129,12 +129,11 @@ def draw_page(request, data):
         if len(request.session['samlUserdata']) > 0:
             attributes = request.session['samlUserdata'].items()
 
-    return render_to_response('index.html',
-                              {'errors': data['errors'],
-                               'not_auth_warn': data['not_auth_warn'],
-                               'attributes': attributes,
-                               'paint_logout': paint_logout},
-                              context_instance=RequestContext(request))
+    return render(request,'index.html',
+                  {'errors': data['errors'],
+                   'not_auth_warn': data['not_auth_warn'],
+                   'attributes': attributes,
+                   'paint_logout': paint_logout},)
 
 
 # Metadata for the SAML2-service
