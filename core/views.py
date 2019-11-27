@@ -4,7 +4,7 @@ from django.middleware.csrf import get_token
 
 @api_view()
 def me(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         # prepare data from SAML
         metadata = None
         if 'samlUserdata' in request.session and len(request.session['samlUserdata']) > 0:
