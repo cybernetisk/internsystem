@@ -40,16 +40,15 @@ INSTALLED_APPS = (
     'django_filters',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'corsheaders.middleware.CorsMiddleware',
-    'cyb_oko.querydebug.QueryCountDebugMiddleware',
+    #'cyb_oko.querydebug.QueryCountDebugMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
-    'oauth2_provider.middleware.OAuth2TokenMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'oauth2_provider.middleware.OAuth2TokenMiddleware',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -65,6 +64,7 @@ TEMPLATES = [
         'OPTIONS': {
             'context_processors': [
                 'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages'
             ],
             # debug option is set later in this settings file
         }
@@ -79,11 +79,11 @@ WSGI_APPLICATION = 'cyb_oko.wsgi.application'
 AUTH_USER_MODEL = 'core.User'
 
 CORS_ORIGIN_WHITELIST = (
-    'localhost:3000',
-    '127.0.0.1:3000',
-    'internt.cyb.no',
-    'cyb.no',
-    'dev.internt.cyb.no',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'https://internt.cyb.no',
+    'https://cyb.no',
+    'https://dev.internt.cyb.no',
 )
 CORS_ALLOW_CREDENTIALS = True
 
