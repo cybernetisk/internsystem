@@ -9,7 +9,7 @@
             "is_superuser": true,
             "last_login": null,
             "password": "pbkdf2_sha256$20000$SyTeoq28RUcG$W1vGA28u0ISSQTo7U6rDcvEPiMfYW3PmQnF1hJa8xns=",
-            "phone_number": "22843004",
+            "phone_number": "+4722843004",
             "realname": "Cybernetisk Selskab",
             "user_permissions": [],
             "username": "cyb"
