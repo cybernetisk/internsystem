@@ -114,7 +114,7 @@ def sso(request):
 
     # Ensure the user-originating redirection url is safe.
     redirect_to = request.POST.get('next', request.GET.get('next', ''))
-    if not is_safe_url(url=redirect_to, allowed_host=request.get_host()):
+    if not is_safe_url(url=redirect_to, allowed_hosts=request.get_host()):
         redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
 
     return HttpResponseRedirect(auth.login(redirect_to))
