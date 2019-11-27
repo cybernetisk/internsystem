@@ -7,7 +7,7 @@ from members.models import Member
 
 
 class MemberFilter(django_filters.FilterSet):
-    user = django_filters.CharFilter(name='user__username')
+    user = django_filters.CharFilter(field_name='user__username')
     valid = django_filters.Filter(method='filter_valid')
 
     def filter_valid(self, queryset, name, value):

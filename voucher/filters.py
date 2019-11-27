@@ -22,7 +22,7 @@ def apply_date_filter(queryset, value, field, lte):
 
 
 class UseLogFilter(django_filters.FilterSet):
-    semester = django_filters.CharFilter(name='wallet__semester')
+    semester = django_filters.CharFilter(field_name='wallet__semester')
     date_from = django_filters.CharFilter(method='filter_date_from')
     date_to = django_filters.CharFilter(method='filter_date_to')
 
@@ -34,7 +34,7 @@ class UseLogFilter(django_filters.FilterSet):
 
 
 class VoucherUseLogFilter(UseLogFilter):
-    user = django_filters.CharFilter(name='wallet__user__username')
+    user = django_filters.CharFilter(field_name='wallet__user__username')
 
     class Meta:
         model = VoucherUseLog
@@ -42,7 +42,7 @@ class VoucherUseLogFilter(UseLogFilter):
 
 
 class CoffeeUseLogFilter(UseLogFilter):
-    card = django_filters.CharFilter(name='wallet__card__card_uid')
+    card = django_filters.CharFilter(field_name='wallet__card__card_uid')
 
     class Meta:
         model = CoffeeUseLog
@@ -57,7 +57,8 @@ class WalletFilter(django_filters.FilterSet):
 
 
 class VoucherWalletFilter(WalletFilter):
-    user = django_filters.CharFilter(name='user__username')
+    #user = django_filters.CharFilter(field_name='user__username')
+    user = django_filters.CharFilter(field_name='user__username')
 
     class Meta:
         model = VoucherWallet
@@ -65,7 +66,7 @@ class VoucherWalletFilter(WalletFilter):
 
 
 class CoffeeWalletFilter(WalletFilter):
-    card = django_filters.CharFilter(name='nfccard__card_uid')
+    card = django_filters.CharFilter(field_name='nfccard__card_uid')
 
     class Meta:
         model = CoffeeWallet
@@ -73,12 +74,12 @@ class CoffeeWalletFilter(WalletFilter):
 
 
 class RegisterLogFilter(django_filters.FilterSet):
-    issuing_user = django_filters.CharFilter(name='issuing_user__username')
-    semester = django_filters.CharFilter(name='wallet__semester')
+    issuing_user = django_filters.CharFilter(field_name='issuing_user__username')
+    semester = django_filters.CharFilter(field_name='wallet__semester')
 
 
 class CoffeeRegisterLogFilter(RegisterLogFilter):
-    card = django_filters.CharFilter(name='wallet__card__card_uid')
+    card = django_filters.CharFilter(field_name='wallet__card__card_uid')
 
     class Meta:
         model = CoffeeRegisterLog
@@ -86,7 +87,7 @@ class CoffeeRegisterLogFilter(RegisterLogFilter):
 
 
 class WorkLogFilter(RegisterLogFilter):
-    user = django_filters.CharFilter(name='wallet__user__username')
+    user = django_filters.CharFilter(field_name='wallet__user__username')
     date_from = django_filters.DateFilter(method='filter_date_from')
     date_to = django_filters.DateFilter(method='filter_date_to')
 
