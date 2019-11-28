@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='member',
-            name='last_edited_by',
+            name='gdpr_approval',
             field=models.ForeignKey(null=True, to=settings.AUTH_USER_MODEL, related_name='modifier'),
         ),
     ]

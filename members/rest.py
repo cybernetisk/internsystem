@@ -20,7 +20,7 @@ class MemberViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
     filter_class = MemberFilter
     filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
-    filter_fields = ('lifetime',)
+    filter_fields = ('lifetime', 'gdpr_approval',)
     search_fields = ('name',)
     ordering_fields = ('date_joined', 'name')
 
@@ -53,6 +53,7 @@ class MemberViewSet(viewsets.ModelViewSet):
             lifetime=serializer.data['lifetime'],
             email=serializer.data['email'],
             honorary=False,
+            gdpr_approval=serializer.data['gdpr_approval'],
         )
         if 'uio_username' in serializer.data:
             member.uio_username = serializer.data['uio_username']

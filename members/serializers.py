@@ -14,7 +14,7 @@ class MemberSerializer(serializers.ModelSerializer):
         model = Member
         fields = (
             'id', 'name', 'email', 'date_joined', 'semester', 'lifetime', 'honorary', 'date_lifetime', 'uio_username',
-            'seller', 'comments', 'last_edited_by')
+            'seller', 'comments', 'last_edited_by', 'gdpr_approval',)
 
 
 class AddMemberSerializer(serializers.Serializer):
@@ -23,6 +23,8 @@ class AddMemberSerializer(serializers.Serializer):
     lifetime = serializers.BooleanField(help_text='Is the member a lifetime member?')
     uio_username = serializers.CharField(max_length=15, allow_blank=True, required=False,
                                          help_text='Your Uio username. Is optional.')
+    gdpr_approval = serializers.BooleanField(help_text='Is the privacy policy approved?')
+
 
 
 class MemberSimpleSerializer(serializers.Serializer):
@@ -30,7 +32,7 @@ class MemberSimpleSerializer(serializers.Serializer):
         model = Member
         fields = (
             'id', 'name', 'email', 'date_joined', 'semester', 'lifetime', 'honorary', 'date_lifetime', 'uio_username',
-            'seller', 'comments', 'last_edited_by')
+            'seller', 'comments', 'last_edited_by', 'gdpr_approval')
 
 
 class MemberSemesterSerializer(serializers.Serializer):

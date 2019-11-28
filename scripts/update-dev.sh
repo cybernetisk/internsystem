@@ -8,5 +8,6 @@ fi
 
 pip install -r requirements.txt
 pip install -r requirements_saml.txt
+./manage.py makemigrations
 ./manage.py migrate
 scripts/load_fixtures.sh
