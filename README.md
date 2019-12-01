@@ -106,8 +106,9 @@ tunnell til lokal devinstans. På `dev.internt.cyb.no` blir port 443 redirected
 til `localhost:8000` uten TLS på samme server.
 
 Som standard er ikke weblogin aktivert i internsystemet. Dette aktiveres ved
-å kjøre `scripts/setup_saml.sh`-scriptet og aktivere SAML-støtte i den lokale
-innstilingsfilen (`settings_local.py`).
+å aktivere SAML-støtte i den lokale innstillingsfilen (`settings_local.py`).
+Adressene i `samlauth/dev/settings.json` må også oppdateres til å peke til
+`dev.internt.cyb.no`.
 
 ## Autentisering mot API
 

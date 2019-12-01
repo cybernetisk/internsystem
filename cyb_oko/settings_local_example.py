@@ -8,7 +8,6 @@ SECRET_KEY = 'edit-me'
 DEBUG = True
 
 # enable SAML if wanted
-# see setup_saml.sh
 ENABLE_SAML = True
 #SAML_FOLDER = os.path.join(BASE_DIR, 'samlauth', 'prod')
 

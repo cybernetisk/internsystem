@@ -2,7 +2,7 @@ from core.models import User
 
 class SAMLServiceProviderBackend(object):
 
-    def authenticate(self, saml_authentication=None):
+    def authenticate(self, request, saml_authentication=None):
         if not saml_authentication:  # Using another authentication method
             return None
 
