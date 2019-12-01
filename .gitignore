@@ -60,6 +60,7 @@ webpack-stats.json
 
 *.iml
 .idea/
+.vscode/
 db.sqlite3*
 cyb_oko/settings_local.py
 backups/
