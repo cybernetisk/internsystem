@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('comment', models.CharField(blank=True, max_length=20)),
                 ('disabled', models.BooleanField(default=False)),
                 ('card_number', models.CharField(unique=True, max_length=20, validators=[django.core.validators.RegexValidator('^\\d{6}\\.\\d{2}\\.\\d{7}(\\.\\d)?$', 'Enter a valid card number.', 'invalid')])),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
         ),
     ]

@@ -15,11 +15,13 @@ from core.utils import get_semester_of_date
 from members.filters import MemberFilter
 from members.serializers import *
 
+from django_filters.rest_framework import DjangoFilterBackend
+
 
 class MemberViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
     filter_class = MemberFilter
-    filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_fields = ('lifetime',)
     search_fields = ('name',)
     ordering_fields = ('date_joined', 'name')

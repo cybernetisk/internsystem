@@ -3,7 +3,7 @@ from core.models import Card, User, NfcCard
 
 
 class CardFilter(django_filters.FilterSet):
-    user = django_filters.CharFilter(name='user__username')
+    user = django_filters.CharFilter(field_name='user__username')
 
     class Meta:
         model = Card
@@ -11,7 +11,7 @@ class CardFilter(django_filters.FilterSet):
 
 
 class NfcCardFilter(django_filters.FilterSet):
-    user = django_filters.CharFilter(name='user__username')
+    user = django_filters.CharFilter(field_name='user__username')
 
     class Meta:
         model = NfcCard

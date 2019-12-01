@@ -22,11 +22,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='voucheruselog',
             name='wallet',
-            field=models.ForeignKey(related_name='uselogs', to='voucher.VoucherWallet'),
+            field=models.ForeignKey(related_name='uselogs', to='voucher.VoucherWallet', on_delete=models.CASCADE),
         ),
         migrations.AlterField(
             model_name='worklog',
             name='wallet',
-            field=models.ForeignKey(related_name='worklogs', to='voucher.VoucherWallet'),
+            field=models.ForeignKey(related_name='worklogs', to='voucher.VoucherWallet', on_delete=models.CASCADE),
         ),
     ]

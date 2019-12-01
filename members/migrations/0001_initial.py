@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
                 ('name', models.CharField(max_length=50)),
                 ('description', models.CharField(max_length=300)),
-                ('leader', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('leader', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -48,15 +48,15 @@ class Migration(migrations.Migration):
                 ('date_joined', models.DateTimeField()),
                 ('name', models.CharField(max_length=50)),
                 ('email', models.EmailField(blank=True, max_length=254)),
-                ('seller', models.ForeignKey(related_name='seller', to=settings.AUTH_USER_MODEL)),
-                ('semester', models.ForeignKey(to='core.Semester')),
-                ('user', models.ForeignKey(related_name='user', blank=True, to=settings.AUTH_USER_MODEL)),
+                ('seller', models.ForeignKey(related_name='seller', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
+                ('semester', models.ForeignKey(to='core.Semester', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(related_name='user', blank=True, to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
         ),
         migrations.AddField(
             model_name='internmember',
             name='member',
-            field=models.ForeignKey(to='members.Member'),
+            field=models.ForeignKey(to='members.Member', on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='internmember',
@@ -66,12 +66,12 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='internmember',
             name='semester',
-            field=models.ForeignKey(to='core.Semester'),
+            field=models.ForeignKey(to='core.Semester', on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='internmember',
             name='user',
-            field=models.ForeignKey(to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE),
         ),
         migrations.AlterUniqueTogether(
             name='member',

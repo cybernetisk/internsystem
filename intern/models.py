@@ -26,7 +26,7 @@ class Role(models.Model):
 
 
 class Intern(models.Model):
-    user = models.OneToOneField(User, unique=True, related_name='intern')
+    user = models.OneToOneField(User, unique=True, related_name='intern', on_delete=models.CASCADE)
     comments = models.CharField(max_length=300, null=True, blank=True)
     registered = models.DateField(auto_now_add=True)
     left = models.DateField(null=True)
@@ -68,14 +68,14 @@ class Intern(models.Model):
 
 
 class InternRole(models.Model):
-    intern = models.ForeignKey(Intern, related_name='roles')
-    role = models.ForeignKey(Role, related_name='intern')
+    intern = models.ForeignKey(Intern, related_name='roles', on_delete=models.CASCADE)
+    role = models.ForeignKey(Role, related_name='intern', on_delete=models.CASCADE)
     semesters = models.ManyToManyField(Semester, related_name='internroles')
     comments = models.CharField(max_length=1300, null=True, blank=True)
 
-    created_by = models.ForeignKey(User, related_name='internroles_created', null=True)
-    last_editor = models.ForeignKey(User, related_name='internroles_edited', null=True)
-    removed_by = models.ForeignKey(User, related_name='internroles_removed', null=True, blank=True)
+    created_by = models.ForeignKey(User, related_name='internroles_created', null=True, on_delete=models.CASCADE)
+    last_editor = models.ForeignKey(User, related_name='internroles_edited', null=True, on_delete=models.CASCADE)
+    removed_by = models.ForeignKey(User, related_name='internroles_removed', null=True, blank=True, on_delete=models.CASCADE)
 
     date_added = models.DateField(auto_now_add=True)
     date_edited = models.DateField(auto_now_add=True)
@@ -95,19 +95,19 @@ class InternRole(models.Model):
 
 
 class InternCard(models.Model):
-    intern = models.ForeignKey(Intern)
+    intern = models.ForeignKey(Intern, on_delete=models.CASCADE)
     internrole = models.ManyToManyField(InternRole)
-    semester = models.ForeignKey(Semester)
+    semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
 
     date_made = models.DateField(null=True)
-    made_by = models.ForeignKey(User)
+    made_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
         unique_together = ('intern', 'semester')
 
 class InternLogEntry(models.Model):
-    intern = models.ForeignKey(Intern, related_name='log')
-    changed_by = models.ForeignKey(User)
+    intern = models.ForeignKey(Intern, related_name='log', on_delete=models.CASCADE)
+    changed_by = models.ForeignKey(User, on_delete=models.CASCADE)
     time = models.DateTimeField(auto_now=True)
     description = models.CharField(max_length=100)
 

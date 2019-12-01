@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='råvare',
             name='lenket_salgsvare',
-            field=models.ForeignKey(blank=True, null=True, to='varer.Råvarepris', related_name='lenkede_raavarer'),
+            field=models.ForeignKey(blank=True, null=True, to='varer.Råvarepris', related_name='lenkede_raavarer', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]

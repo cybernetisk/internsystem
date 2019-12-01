@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='råvare',
             name='innkjopskonto',
-            field=models.ForeignKey(to='varer.Konto', related_name='raavarer'),
+            field=models.ForeignKey(to='varer.Konto', related_name='raavarer', on_delete=models.CASCADE),
             preserve_default=True,
         ),
     ]

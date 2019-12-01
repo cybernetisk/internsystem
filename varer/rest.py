@@ -9,7 +9,6 @@ from varer.serializers import *
 from varer.models import *
 from varer.permissions import *
 
-
 class BaseVarerViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissionsOrAnonReadOnly,)
 

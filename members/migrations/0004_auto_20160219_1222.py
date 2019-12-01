@@ -24,6 +24,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='member',
             name='user',
-            field=models.ForeignKey(null=True, related_name='member', to=settings.AUTH_USER_MODEL, blank=True),
+            field=models.ForeignKey(null=True, related_name='member', to=settings.AUTH_USER_MODEL, blank=True, on_delete=models.CASCADE),
         ),
     ]

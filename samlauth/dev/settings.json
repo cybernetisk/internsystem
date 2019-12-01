@@ -2,13 +2,13 @@
   "strict": true,
   "debug": true,
   "sp": {
-    "entityId": "https://dev.internt.cyb.no/saml/metadata/",
+    "entityId": "https://test.in.cyb.no/saml/metadata/",
     "assertionConsumerService": {
-      "url": "https://dev.internt.cyb.no/saml/acs/",
+      "url": "https://test.in.cyb.no/saml/acs/",
       "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
     },
     "singleLogoutService": {
-      "url": "https://dev.internt.cyb.no/saml/sls/",
+      "url": "https://test.in.cyb.no/saml/sls/",
       "binding": "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
     },
     "NameIDFormat": "urn:oasis:names:tc:SAML:2.0:nameid-format:transient",

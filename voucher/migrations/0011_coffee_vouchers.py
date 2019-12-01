@@ -21,7 +21,7 @@ class Migration(migrations.Migration):
                 ('date_spent', models.DateTimeField(auto_now_add=True)),
                 ('comment', models.CharField(blank=True, max_length=100, null=True)),
                 ('vouchers', models.IntegerField()),
-                ('issuing_user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
+                ('issuing_user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['-date_spent'],
@@ -35,8 +35,8 @@ class Migration(migrations.Migration):
                 ('cached_balance', models.DecimalField(max_digits=8, decimal_places=2, editable=False, default=0)),
                 ('cached_vouchers', models.DecimalField(max_digits=8, decimal_places=2, editable=False, default=0)),
                 ('cached_vouchers_used', models.IntegerField(editable=False, default=0)),
-                ('card', models.ForeignKey(to='core.NfcCard')),
-                ('semester', models.ForeignKey(to='core.Semester')),
+                ('card', models.ForeignKey(to='core.NfcCard', on_delete=models.CASCADE)),
+                ('semester', models.ForeignKey(to='core.Semester', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['card__card_uid'],
@@ -49,8 +49,8 @@ class Migration(migrations.Migration):
                 ('date_issued', models.DateTimeField(auto_now_add=True)),
                 ('comment', models.CharField(blank=True, max_length=100, null=True)),
                 ('vouchers', models.DecimalField(decimal_places=2, max_digits=8)),
-                ('issuing_user', models.ForeignKey(to=settings.AUTH_USER_MODEL)),
-                ('wallet', models.ForeignKey(to='voucher.CoffeeWallet', related_name='registerlogs')),
+                ('issuing_user', models.ForeignKey(to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
+                ('wallet', models.ForeignKey(to='voucher.CoffeeWallet', related_name='registerlogs', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ['-date_issued'],
@@ -60,7 +60,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='coffeeuselog',
             name='wallet',
-            field=models.ForeignKey(to='voucher.CoffeeWallet', related_name='uselogs'),
+            field=models.ForeignKey(to='voucher.CoffeeWallet', related_name='uselogs', on_delete=models.CASCADE),
         ),
         migrations.AlterUniqueTogether(
             name='coffeewallet',

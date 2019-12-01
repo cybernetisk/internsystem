@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
+from django_filters.rest_framework import DjangoFilterBackend
 
 from core.serializers import CardCreateSerializer, CardSerializer, UserExtendedSerializer, NfcCardCreateSerializer, \
     NfcCardSerializer, GroupSerializer
@@ -14,7 +15,7 @@ from core.permissions import CardPermission
 class CardViewSet(viewsets.ModelViewSet):
     permission_classes = (CardPermission,)
     filter_class = CardFilter
-    filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter)
+    filter_backends = (DjangoFilterBackend, filters.OrderingFilter)
     queryset = Card.objects.all()
     ordering_fields = ('id', 'user__username', 'card_number', 'disabled')
     filter_fields = ('id', 'user__id', 'card_number', 'user__intern__id')
@@ -76,7 +77,7 @@ class NfcCardViewSet(viewsets.ReadOnlyModelViewSet):
 
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
-    filter_backends = (filters.DjangoFilterBackend, filters.SearchFilter)
+    filter_backends = (DjangoFilterBackend, filters.SearchFilter)
     filter_class = UserFilter
     search_fields = ('username', 'realname', 'email')
     permission_classes = (permissions.IsAuthenticated,)

@@ -3,7 +3,7 @@ from collections import OrderedDict
 from rest_framework import viewsets
 from rest_framework import mixins
 from rest_framework import status
-from rest_framework.decorators import detail_route, list_route
+from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.exceptions import ValidationError
@@ -32,7 +32,7 @@ class VoucherWalletViewSet(viewsets.ReadOnlyModelViewSet):
             return queryset.order_by()
         return queryset.prefetch_related('user', 'semester')
 
-    @list_route(methods=['get'])
+    @action(detail=False, methods=['get'])
     def stats(self, request):
         # pull stuff from main table
         wallets1 = self.get_queryset() \
@@ -81,7 +81,7 @@ class CoffeeWalletViewSet(viewsets.ReadOnlyModelViewSet):
             return queryset
         return queryset.prefetch_related('card', 'semester')
 
-    @list_route(methods=['get'])
+    @action(detail=False, methods=['get'])
     def stats(self, request):
         # pull stuff from main table
         wallets1 = self.get_queryset() \
@@ -119,7 +119,7 @@ class UserViewSet(viewsets.GenericViewSet):
     def get_serializer_class(self):
         return UseVouchersSerializer
 
-    @detail_route(methods=['post'])
+    @action(detail=True, methods=['post'])
     def use_vouchers(self, request, username=None):
         user = self.get_object()
         # default ordering of semesters is descending in time, we need to be ascending
@@ -171,7 +171,7 @@ class CardViewSet(viewsets.GenericViewSet):
     permission_classes = (IsAuthenticatedOrReadOnly,)
     serializer_class = UseVouchersSerializer
 
-    @detail_route(methods=['post'])
+    @action(detail=True, methods=['post'])
     def use_vouchers(self, request, card_uid):
         card = self.get_object()
         wallets = CoffeeWallet.objects.filter(card=card, semester__in=get_valid_semesters()).order_by('semester')

@@ -6,6 +6,7 @@ from django.conf import settings
 
 
 class Migration(migrations.Migration):
+    atomic = False
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
@@ -19,12 +20,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='worklog',
             name='wallet',
-            field=models.ForeignKey(to='voucher.VoucherWallet', related_name='worklogs'),
+            field=models.ForeignKey(to='voucher.VoucherWallet', related_name='worklogs', on_delete=models.CASCADE),
         ),
         migrations.AlterField(
             model_name='voucheruselog',
             name='wallet',
-            field=models.ForeignKey(to='voucher.VoucherWallet', related_name='uselogs'),
+            field=models.ForeignKey(to='voucher.VoucherWallet', related_name='uselogs', on_delete=models.CASCADE),
         ),
         migrations.AlterUniqueTogether(
             name='voucherwallet',

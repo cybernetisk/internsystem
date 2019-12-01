@@ -30,10 +30,10 @@ class Råvare(models.Model):
     enhet = models.CharField(max_length=20)
     mengde_svinn = models.FloatField(default=0)
     antall = models.FloatField(default=1, help_text='Antall salgsbare enheter 1 stk gir')
-    innkjopskonto = models.ForeignKey(Konto, related_name='raavarer')
+    innkjopskonto = models.ForeignKey(Konto, related_name='raavarer', on_delete=models.CASCADE)
 
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='OK')
-    lenket_salgsvare = models.ForeignKey('Salgsvare', related_name='lenkede_raavarer', null=True, blank=True)
+    lenket_salgsvare = models.ForeignKey('Salgsvare', related_name='lenkede_raavarer', null=True, blank=True, on_delete=models.CASCADE)
 
     objects = RåvareManager()
 
@@ -62,8 +62,8 @@ class Råvarepris(models.Model):
         ('UKJENT', 'Ukjent opprinnelse')
     )
 
-    raavare = models.ForeignKey(Råvare, related_name='priser')
-    leverandor = models.ForeignKey(Leverandør, related_name='priser', null=True, blank=True)
+    raavare = models.ForeignKey(Råvare, related_name='priser', on_delete=models.CASCADE)
+    leverandor = models.ForeignKey(Leverandør, related_name='priser', null=True, blank=True, on_delete=models.CASCADE)
     bestillingskode = models.CharField(max_length=30, null=True, blank=True)
     pris = models.FloatField(help_text="Pris eks mva")
     pant = models.FloatField(help_text="Pant per stk", default=0)
@@ -81,7 +81,7 @@ class Råvarepris(models.Model):
 class Salgsvare(models.Model):
     kategori = models.CharField(max_length=50, null=True, blank=True)
     navn = models.CharField(max_length=100)
-    salgskonto = models.ForeignKey(Konto, related_name='salgsvarer')
+    salgskonto = models.ForeignKey(Konto, related_name='salgsvarer', on_delete=models.CASCADE)
     status = models.CharField(max_length=10, choices=Råvare.STATUS_CHOICES, default='OK')
     kassenr = models.PositiveSmallIntegerField(help_text="Nr i varekatalog i kassa", null=True, blank=True)
     kassenavn = models.CharField(max_length=15, help_text="Navn i varekatalog i kassa", null=True, blank=True)
@@ -95,8 +95,8 @@ class Salgsvare(models.Model):
         return (self.kategori + ': ' if self.kategori else '') + self.navn
 
 class SalgsvareRåvare(models.Model):
-    salgsvare = models.ForeignKey(Salgsvare)
-    raavare = models.ForeignKey(Råvare)
+    salgsvare = models.ForeignKey(Salgsvare, on_delete=models.CASCADE)
+    raavare = models.ForeignKey(Råvare, on_delete=models.CASCADE)
     mengde = models.FloatField()
 
     def __str__(self):
@@ -109,7 +109,7 @@ class SalgsvarePris(models.Model):
         ('KAS', 'Registrert i kasse')
     )
 
-    salgsvare = models.ForeignKey(Salgsvare, related_name='priser')
+    salgsvare = models.ForeignKey(Salgsvare, related_name='priser', on_delete=models.CASCADE)
     status = models.CharField(max_length=3, choices=STATUS_CHOICES, default='FOR')
     dato = models.DateField()
     mva = models.PositiveSmallIntegerField(default='25')
@@ -139,8 +139,8 @@ class Salgskalkyle(models.Model):
         return '%s (%s)' % (self.navn, self.dato.isoformat())
 
 class SalgskalkyleVare(models.Model):
-    kalkyle = models.ForeignKey(Salgskalkyle)
-    salgsvare = models.ForeignKey(Salgsvare)
+    kalkyle = models.ForeignKey(Salgskalkyle, on_delete=models.CASCADE)
+    salgsvare = models.ForeignKey(Salgsvare, on_delete=models.CASCADE)
     interngrad = models.FloatField(null=True, blank=True, help_text="Prosent andel (antall enheter) solgt til internpris")
     antall = models.PositiveIntegerField()
 
@@ -167,10 +167,10 @@ class Varetelling(models.Model):
         return '%s (%s)' % (self.tittel, str(self.tid.isoformat()))
 
 class VaretellingVare(models.Model):
-    varetelling = models.ForeignKey(Varetelling)
-    raavare = models.ForeignKey(Råvare)
+    varetelling = models.ForeignKey(Varetelling, on_delete=models.CASCADE)
+    raavare = models.ForeignKey(Råvare, on_delete=models.CASCADE)
     time_price = models.DateField(null=True, blank=True, help_text="Overstyring av tidspunkt varen skal prises")
-    added_by = models.ForeignKey(User, editable=False, null=True, help_text="Brukeren som registrerte oppføringen")
+    added_by = models.ForeignKey(User, editable=False, null=True, help_text="Brukeren som registrerte oppføringen", on_delete=models.CASCADE)
     time_added = models.DateTimeField(auto_now_add=True)
     sted = models.CharField(max_length=50, null=True, blank=True)
     antall = models.FloatField()
