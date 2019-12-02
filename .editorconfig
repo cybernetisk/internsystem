@@ -10,3 +10,7 @@ charset = utf-8
 # PEP8 for Python.
 [**.py]
 indent_size = 4
+
+[Makefile]
+indent_style = tab
+indent_size = 4
