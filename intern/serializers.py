@@ -1,15 +1,24 @@
 from rest_framework import serializers
 
-from core.serializers import UserSerializer, CardSerializer, SemesterSerializer, GroupSerializer
-from intern.models import AccessLevel, Intern, InternCard, InternRole, Role, Intern, InternLogEntry
+from core.serializers import (
+    UserSerializer,
+    SemesterSerializer,
+    GroupSerializer,
+)
+from intern.models import (
+    AccessLevel,
+    Intern,
+    InternCard,
+    InternRole,
+    Role,
+    InternLogEntry,
+)
 
 
 class AccessLevelSerializer(serializers.ModelSerializer):
     class Meta:
         model = AccessLevel
-        fields = (
-            'id', 'name', 'uio_name', 'description'
-        )
+        fields = ("id", "name", "uio_name", "description")
 
 
 class RoleSerializer(serializers.ModelSerializer):
@@ -18,9 +27,7 @@ class RoleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Role
-        fields = (
-            'id', 'name', 'description', 'groups', 'access_levels'
-        )
+        fields = ("id", "name", "description", "groups", "access_levels")
 
 
 class InternRoleSerializer(serializers.ModelSerializer):
@@ -28,33 +35,40 @@ class InternRoleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = InternRole
-        fields = (
-            'id', 'role', 'date_added'
-        )
+        fields = ("id", "role", "date_added")
+
 
 class InternLogEntrySerializer(serializers.ModelSerializer):
     changed_by = UserSerializer()
     time = serializers.DateTimeField()
     description = serializers.CharField()
+
     class Meta:
         model = InternLogEntry
-        fields = (
-            'id', 'changed_by', 'time', 'description'
-        )
+        fields = ("id", "changed_by", "time", "description")
+
 
 class InternSerializer(serializers.ModelSerializer):
     user = UserSerializer()
     roles = serializers.SerializerMethodField()
     log = InternLogEntrySerializer(many=True, read_only=True)
     comments = serializers.CharField(max_length=300, allow_blank=True, required=False)
+
     class Meta:
         model = Intern
         fields = (
-            'id', 'user', 'active', 'comments',
-            'roles', 'registered', 'left', 'log'
+            "id",
+            "user",
+            "active",
+            "comments",
+            "roles",
+            "registered",
+            "left",
+            "log",
         )
+
     def update(self, instance, validated_data):
-        instance.comments = validated_data.get('comments', instance.comments)
+        instance.comments = validated_data.get("comments", instance.comments)
         instance.save()
         return instance
 
@@ -63,14 +77,13 @@ class InternSerializer(serializers.ModelSerializer):
         serializer = InternRoleSerializer(instance=roles, many=True)
         return serializer.data
 
+
 class SimpleInternSerializer(serializers.ModelSerializer):
     user = UserSerializer()
 
     class Meta:
         model = Intern
-        fields = (
-            'id', 'user', 'comments'
-        )
+        fields = ("id", "user", "comments")
 
 
 class InternRoleFullSerializer(InternRoleSerializer):
@@ -90,9 +103,21 @@ class InternRoleFullSerializer(InternRoleSerializer):
     class Meta:
         model = InternRole
         fields = (
-            'id', 'intern', 'role', 'semesters', 'access_given', 'date_access_given', 'date_access_revoked',
-            'date_added', 'date_removed', 'date_edited', 'comments', 'created_by', 'last_editor',
-            'removed_by', 'recieved_interncard',
+            "id",
+            "intern",
+            "role",
+            "semesters",
+            "access_given",
+            "date_access_given",
+            "date_access_revoked",
+            "date_added",
+            "date_removed",
+            "date_edited",
+            "comments",
+            "created_by",
+            "last_editor",
+            "removed_by",
+            "recieved_interncard",
         )
 
 
@@ -101,9 +126,7 @@ class AddInternRoleSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = InternRole
-        fields = (
-            'username', 'role'
-        )
+        fields = ("username", "role")
 
 
 class InternCardSerializer(serializers.ModelSerializer):
@@ -113,10 +136,10 @@ class InternCardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = InternCard
-        fields = ('intern', 'internroles', 'semester', 'date_made', 'made_by')
+        fields = ("intern", "internroles", "semester", "date_made", "made_by")
 
 
 class AddInternCardSerializer(serializers.ModelSerializer):
     class Meta:
         model = InternCard
-        fields = ('intern', 'internroles')
+        fields = ("intern", "internroles")

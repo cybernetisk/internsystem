@@ -12,23 +12,29 @@ class Event(models.Model):
 
     # if is_allday is True: start and end should have correct expected naive date when formatted as UTC
     #                       (the time-details should be considered discarded)
-    start = models.DateTimeField('Start time of the event', blank=False)
-    end = models.DateTimeField('End time of the event', blank=False)
+    start = models.DateTimeField("Start time of the event", blank=False)
+    end = models.DateTimeField("End time of the event", blank=False)
 
-    is_allday = models.BooleanField('Is this an all-day event?', default=False)
+    is_allday = models.BooleanField("Is this an all-day event?", default=False)
 
     title = models.CharField(max_length=128)
     description = models.TextField(blank=True)
-    comment = models.TextField('Non-public comment', blank=True)
+    comment = models.TextField("Non-public comment", blank=True)
     link = models.CharField(max_length=256, null=True, blank=True)
 
     organizer = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
 
-    is_published = models.BooleanField('Event is published (specially shown on intern, never public)', default=False)
-    is_public = models.BooleanField('Public (event will be visible on cyb.no)', default=False)
-    is_external = models.BooleanField('External event, not associated with CYB', default=False)
-    in_escape = models.BooleanField('Occupies Escape', default=True)
-    is_cancelled = models.BooleanField('Event has been cancelled', default=False)
+    is_published = models.BooleanField(
+        "Event is published (specially shown on intern, never public)", default=False
+    )
+    is_public = models.BooleanField(
+        "Public (event will be visible on cyb.no)", default=False
+    )
+    is_external = models.BooleanField(
+        "External event, not associated with CYB", default=False
+    )
+    in_escape = models.BooleanField("Occupies Escape", default=True)
+    is_cancelled = models.BooleanField("Event has been cancelled", default=False)
 
     def clean(self):
         """
@@ -37,7 +43,7 @@ class Event(models.Model):
         super(Event, self).clean()
 
         if self.start and self.end and self.end < self.start:
-            raise ValidationError({'start': "Start time must be before end time"})
+            raise ValidationError({"start": "Start time must be before end time"})
 
     def start_localtime(self):
         return timezone.localtime(self.start)
@@ -54,4 +60,4 @@ class Event(models.Model):
         return timezone.localtime(self.end, tz).date()
 
     def __str__(self):
-        return 'Event at %s: %s' % (self.start, self.title)
+        return "Event at %s: %s" % (self.start, self.title)

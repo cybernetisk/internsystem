@@ -1,9 +1,7 @@
 from django.db import models
 from django.utils import timezone
 
-from core.models import User, Semester, Card, Group
-from core.utils import get_semester
-from members.models import Member
+from core.models import User, Semester, Group
 
 
 # Create your models here.
@@ -15,10 +13,11 @@ class AccessLevel(models.Model):
     def __str__(self):
         return self.name
 
+
 class Role(models.Model):
     name = models.CharField(max_length=50, unique=True)
     description = models.CharField(max_length=300, null=True, blank=True)
-    groups = models.ManyToManyField(Group, related_name='roles')
+    groups = models.ManyToManyField(Group, related_name="roles")
     access_levels = models.ManyToManyField(AccessLevel)
 
     def __str__(self):
@@ -26,7 +25,9 @@ class Role(models.Model):
 
 
 class Intern(models.Model):
-    user = models.OneToOneField(User, unique=True, related_name='intern', on_delete=models.CASCADE)
+    user = models.OneToOneField(
+        User, unique=True, related_name="intern", on_delete=models.CASCADE
+    )
     comments = models.CharField(max_length=300, null=True, blank=True)
     registered = models.DateField(auto_now_add=True)
     left = models.DateField(null=True)
@@ -40,8 +41,9 @@ class Intern(models.Model):
         :param entry: text that is appended to the journal
 
         """
-        InternLogEntry(changed_by=changed_by, description=description, intern=self).save()
-
+        InternLogEntry(
+            changed_by=changed_by, description=description, intern=self
+        ).save()
 
     def update_left(self):
         """
@@ -68,14 +70,24 @@ class Intern(models.Model):
 
 
 class InternRole(models.Model):
-    intern = models.ForeignKey(Intern, related_name='roles', on_delete=models.CASCADE)
-    role = models.ForeignKey(Role, related_name='intern', on_delete=models.CASCADE)
-    semesters = models.ManyToManyField(Semester, related_name='internroles')
+    intern = models.ForeignKey(Intern, related_name="roles", on_delete=models.CASCADE)
+    role = models.ForeignKey(Role, related_name="intern", on_delete=models.CASCADE)
+    semesters = models.ManyToManyField(Semester, related_name="internroles")
     comments = models.CharField(max_length=1300, null=True, blank=True)
 
-    created_by = models.ForeignKey(User, related_name='internroles_created', null=True, on_delete=models.CASCADE)
-    last_editor = models.ForeignKey(User, related_name='internroles_edited', null=True, on_delete=models.CASCADE)
-    removed_by = models.ForeignKey(User, related_name='internroles_removed', null=True, blank=True, on_delete=models.CASCADE)
+    created_by = models.ForeignKey(
+        User, related_name="internroles_created", null=True, on_delete=models.CASCADE
+    )
+    last_editor = models.ForeignKey(
+        User, related_name="internroles_edited", null=True, on_delete=models.CASCADE
+    )
+    removed_by = models.ForeignKey(
+        User,
+        related_name="internroles_removed",
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE,
+    )
 
     date_added = models.DateField(auto_now_add=True)
     date_edited = models.DateField(auto_now_add=True)
@@ -88,7 +100,7 @@ class InternRole(models.Model):
     recieved_interncard = models.BooleanField(default=False)
 
     def __str__(self):
-        return '%s %s' % (self.role, self.intern)
+        return "%s %s" % (self.role, self.intern)
 
     class Meta:
         unique_together = ("intern", "role")
@@ -103,10 +115,11 @@ class InternCard(models.Model):
     made_by = models.ForeignKey(User, on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('intern', 'semester')
+        unique_together = ("intern", "semester")
+
 
 class InternLogEntry(models.Model):
-    intern = models.ForeignKey(Intern, related_name='log', on_delete=models.CASCADE)
+    intern = models.ForeignKey(Intern, related_name="log", on_delete=models.CASCADE)
     changed_by = models.ForeignKey(User, on_delete=models.CASCADE)
     time = models.DateTimeField(auto_now=True)
     description = models.CharField(max_length=100)

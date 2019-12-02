@@ -30,8 +30,20 @@ class EventGuestSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         depth = 0
-        fields = ('id', 'start', 'end', 'is_allday', 'title', 'description', 'link',
-                  'is_published', 'is_public', 'is_external', 'in_escape', 'is_cancelled')
+        fields = (
+            "id",
+            "start",
+            "end",
+            "is_allday",
+            "title",
+            "description",
+            "link",
+            "is_published",
+            "is_public",
+            "is_external",
+            "in_escape",
+            "is_cancelled",
+        )
 
 
 class EventSerializer(serializers.ModelSerializer):
@@ -42,16 +54,44 @@ class EventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         depth = 1
-        fields = ('id', 'start', 'end', 'is_allday', 'title', 'description', 'comment', 'link',
-                  'is_published', 'is_public', 'is_external', 'in_escape', 'is_cancelled', 'organizer')
+        fields = (
+            "id",
+            "start",
+            "end",
+            "is_allday",
+            "title",
+            "description",
+            "comment",
+            "link",
+            "is_published",
+            "is_public",
+            "is_external",
+            "in_escape",
+            "is_cancelled",
+            "organizer",
+        )
 
 
 class EventWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         depth = 0
-        fields = ('id', 'start', 'end', 'is_allday', 'title', 'description', 'comment', 'link',
-                  'is_published', 'is_public', 'is_external', 'in_escape', 'is_cancelled', 'organizer')
+        fields = (
+            "id",
+            "start",
+            "end",
+            "is_allday",
+            "title",
+            "description",
+            "comment",
+            "link",
+            "is_published",
+            "is_public",
+            "is_external",
+            "in_escape",
+            "is_cancelled",
+            "organizer",
+        )
 
 
 class EscapeOccupiedEventSerializer(serializers.ModelSerializer):
@@ -61,4 +101,4 @@ class EscapeOccupiedEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Event
         depth = 0
-        fields = ('start', 'end', 'is_allday')
+        fields = ("start", "end", "is_allday")

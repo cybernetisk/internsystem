@@ -8,4 +8,4 @@ docker run \
   --rm \
   -e LOCAL_SETTINGS=settings_local_travis \
   $repo:$tag \
-  python manage.py test
+  ./scripts/test.sh

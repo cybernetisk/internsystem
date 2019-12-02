@@ -15,8 +15,8 @@ from varer.models import Salgsvare, Konto
 
 
 class Command(BaseCommand):
-    args = '<file or directories ...>'
-    help = 'Load the given z-report files into the database'
+    args = "<file or directories ...>"
+    help = "Load the given z-report files into the database"
 
     #
     # Timezone stuff
@@ -30,7 +30,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         self.parser = ZSimpleParser()
 
-        print('Parsing in timezone: %s' % TIME_ZONE)
+        print("Parsing in timezone: %s" % TIME_ZONE)
 
         for arg in args:
             self.parse_files(arg)
@@ -54,28 +54,34 @@ class Command(BaseCommand):
         for product in z.product_totals:
             try:
                 try:
-                    obj = Salgsvare.objects.select_related('salgskonto').get(kassenr=product.id)
+                    obj = Salgsvare.objects.select_related("salgskonto").get(
+                        kassenr=product.id
+                    )
                 except MultipleObjectsReturned:
-                    obj = Salgsvare.objects.select_related('salgskonto').filter(kassenavn=product.title).get(kassenr=product.id)
+                    obj = (
+                        Salgsvare.objects.select_related("salgskonto")
+                        .filter(kassenavn=product.title)
+                        .get(kassenr=product.id)
+                    )
                 product.reference_product = obj
                 product.account = obj.salgskonto
             except ObjectDoesNotExist:
                 accounts = Konto.objects.all()
 
                 print()
-                print('Unknown product: %s (number %d)' % (product.title, product.id))
-                print('Account list:')
+                print("Unknown product: %s (number %d)" % (product.title, product.id))
+                print("Account list:")
 
                 for idx, account in enumerate(accounts):
-                    print(' [%d] %s' % (idx, account))
+                    print(" [%d] %s" % (idx, account))
 
                 while True:
                     try:
-                        action = int(input('Select the account this product belongs: '))
+                        action = int(input("Select the account this product belongs: "))
                         product.account = accounts[action]
                         break
                     except Exception:
-                        print('Unknown account')
+                        print("Unknown account")
 
     def generate_report(self, z):
         class Group(object):
@@ -103,37 +109,41 @@ class Command(BaseCommand):
 
         groups = sorted(groups.values(), key=lambda x: x.title)
 
-        print('Z %d' % z.number)
+        print("Z %d" % z.number)
         print()
-        print('First transaction: %s' % z.time_first)
-        print('Last transaction: %s' % z.time_last)
+        print("First transaction: %s" % z.time_first)
+        print("Last transaction: %s" % z.time_last)
         print()
 
-        print('Sales:')
+        print("Sales:")
 
         for group in groups:
             print()
-            print('  %-25s %10.2f' % (group.title, group.sum_amount()))
+            print("  %-25s %10.2f" % (group.title, group.sum_amount()))
             for product in sorted(group.products, key=lambda x: x.title):
-                print('    %-18s %4d %10.2f' % (product.title, product.count, product.amount))
+                print(
+                    "    %-18s %4d %10.2f"
+                    % (product.title, product.count, product.amount)
+                )
 
         print()
-        print('  %-25s %10.2f' % ('TOTAL SALES: ', z.total_amount()))
+        print("  %-25s %10.2f" % ("TOTAL SALES: ", z.total_amount()))
 
         print()
-        print('Payment methods:')
+        print("Payment methods:")
 
         for payment in z.payment_totals:
-            print('  %-25s %10.2f' % (payment.title, payment.amount))
+            print("  %-25s %10.2f" % (payment.title, payment.amount))
 
         print()
-        print('Report generated from DTT file')
+        print("Report generated from DTT file")
 
 
 class UnknownLineException(Exception):
     """
     Thrown when we find a linetype we do not support
     """
+
     pass
 
 
@@ -141,19 +151,20 @@ class IgnoredLineException(Exception):
     """
     An exception to throw when a line should be ignored
     """
+
     pass
 
 
 class ZSimpleParser(object):
     # Match the receipt date line
-    receipt_date = re.compile('^ <(\d{2}-\d{2}-\d{2} \d{2}:\d{2})(\d{6})')
+    receipt_date = re.compile(r"^ <(\d{2}-\d{2}-\d{2} \d{2}:\d{2})(\d{6})")
 
     # Match the z-report date line
-    z_number = re.compile('^\s+(Z READING NR |RAZ EFFECTUEE No )(\d+)')
+    z_number = re.compile(r"^\s+(Z READING NR |RAZ EFFECTUEE No )(\d+)")
 
     # Match the various "totals" lines
     # 1T 534 Mohawk Snowmelt        10     625.003520P
-    total_line = re.compile('^(1.) \s?\s?(\d+) (.{18}) (.{6}) (.{10})')
+    total_line = re.compile(r"^(1.) \s?\s?(\d+) (.{18}) (.{6}) (.{10})")
 
     """
     :type Z
@@ -164,7 +175,7 @@ class ZSimpleParser(object):
         # Create models
         self.z = Z()
 
-        with open(file, 'rt', encoding='iso8859-1') as f:
+        with open(file, "rt", encoding="iso8859-1") as f:
             # Skip the first line
             f.readline()
 
@@ -175,9 +186,9 @@ class ZSimpleParser(object):
         return self.z
 
     def parse_line(self, line):
-        if line[0:2] == '1T':
+        if line[0:2] == "1T":
             self.parse_product_total(line)
-        elif line[0:2] == '1R':
+        elif line[0:2] == "1R":
             self.parse_payment_total(line)
         elif self.receipt_date_line(line):
             return
@@ -190,7 +201,7 @@ class ZSimpleParser(object):
             raise UnknownLineException()
 
         # skip sum row
-        if m.group(2) == '0':
+        if m.group(2) == "0":
             return
 
         elm = ProductTotal()
@@ -207,7 +218,7 @@ class ZSimpleParser(object):
             raise UnknownLineException()
 
         # skip sum row
-        if m.group(2) == '0':
+        if m.group(2) == "0":
             return
 
         elm = PaymentTotal()
@@ -221,7 +232,7 @@ class ZSimpleParser(object):
     def receipt_date_line(self, line):
         m = self.receipt_date.search(line)
         if m:
-            time = Command.tz.localize(datetime.strptime(m.group(1), '%d-%m-%y %H:%M'))
+            time = Command.tz.localize(datetime.strptime(m.group(1), "%d-%m-%y %H:%M"))
             if not self.z.time_first:
                 self.z.time_first = time
             else:
@@ -243,6 +254,7 @@ class Z(object):
     """
     :type [ProductTotal]
     """
+
     product_totals = []
 
     """
@@ -255,8 +267,11 @@ class Z(object):
     time_last = None
 
     def __repr__(self):
-        return 'Z nr %d with %d products and %d payment types' % (
-            self.number or -1, len(self.product_totals), len(self.payment_totals))
+        return "Z nr %d with %d products and %d payment types" % (
+            self.number or -1,
+            len(self.product_totals),
+            len(self.payment_totals),
+        )
 
     def total_amount(self):
         amount = 0

@@ -1,7 +1,8 @@
-from core.models import *
+from django.db import models
+
+from core.models import User, Semester
 
 
-# Create your models here.
 class Member(models.Model):
     """
     The member model.
@@ -20,22 +21,24 @@ class Member(models.Model):
 
     Can only be one member with the same name and email address per semester.
     """
+
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
-    lifetime = models.BooleanField(default=False, help_text='Lifetime member')
-    honorary = models.BooleanField(default=False, help_text='Honorary member')
+    lifetime = models.BooleanField(default=False, help_text="Lifetime member")
+    honorary = models.BooleanField(default=False, help_text="Honorary member")
     date_joined = models.DateTimeField(auto_now_add=True)
     date_lifetime = models.DateTimeField(null=True)
-    seller = models.ForeignKey(User, related_name='seller', on_delete=models.CASCADE)
+    seller = models.ForeignKey(User, related_name="seller", on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     email = models.EmailField(blank=True)
     uio_username = models.CharField(max_length=15, null=True, blank=True)
     comments = models.TextField(null=True, blank=True)
-    last_edited_by = models.ForeignKey(User, related_name='modifier', null=True, on_delete=models.CASCADE)
+    last_edited_by = models.ForeignKey(
+        User, related_name="modifier", null=True, on_delete=models.CASCADE
+    )
 
     def __str__(self):
         return self.name
 
     class Meta:
         unique_together = ("name", "email", "semester")
-

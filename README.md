@@ -71,6 +71,18 @@ aktiveres slik før manuell kjøring av Python-kommandoer:
 . .venv/bin/activate
 ```
 
+Sjekk om ting er i tråd med kodestil:
+
+```bash
+make lint
+```
+
+Formatter kode automatisk:
+
+```bash
+make format
+```
+
 ### Bruk av lokalt miljø
 
 Gå til http://localhost:8000/api/
