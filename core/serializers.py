@@ -5,7 +5,7 @@ from core.models import Group, User, Semester, Card, NfcCard
 class UserSimpleGuestSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'realname')
+        fields = ("id", "username", "realname")
 
 
 class UserSimpleSerializer(UserSimpleGuestSerializer):
@@ -15,21 +15,32 @@ class UserSimpleSerializer(UserSimpleGuestSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'realname', 'email')
+        fields = ("id", "username", "realname", "email")
 
 
 class UserExtendedSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ('id', 'username', 'realname', 'email', 'is_superuser', 'is_staff', 'is_active', 'date_joined',
-                  'groups', 'user_permissions', 'phone_number',)
+        fields = (
+            "id",
+            "username",
+            "realname",
+            "email",
+            "is_superuser",
+            "is_staff",
+            "is_active",
+            "date_joined",
+            "groups",
+            "user_permissions",
+            "phone_number",
+        )
         depth = 1
 
 
 class SemesterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Semester
-        fields = ('id', 'year', 'semester')
+        fields = ("id", "year", "semester")
 
 
 class CardSerializer(serializers.ModelSerializer):
@@ -37,14 +48,14 @@ class CardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Card
-        fields = ('id', 'user', 'card_number', 'disabled', 'comment')
+        fields = ("id", "user", "card_number", "disabled", "comment")
 
 
 class CardCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Card
-        fields = ('user', 'card_number', 'comment')
-        extra_kwargs = {'comment': {'default': None}}
+        fields = ("user", "card_number", "comment")
+        extra_kwargs = {"comment": {"default": None}}
 
 
 class NfcCardSerializer(serializers.ModelSerializer):
@@ -52,14 +63,18 @@ class NfcCardSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = NfcCard
-        fields = ('card_uid', 'user', 'intern')
+        fields = ("card_uid", "user", "intern")
 
 
 class NfcCardCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = NfcCard
-        fields = ('card_uid', 'user', 'intern', 'comment')
-        extra_kwargs = {'user': {'default': None}, 'intern': {'default': False}, 'comment': {'default': None}}
+        fields = ("card_uid", "user", "intern", "comment")
+        extra_kwargs = {
+            "user": {"default": None},
+            "intern": {"default": False},
+            "comment": {"default": None},
+        }
 
 
 class GroupSerializer(serializers.ModelSerializer):
@@ -67,6 +82,4 @@ class GroupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Group
-        fields = (
-            'id', 'name', 'leader', 'description'
-        )
+        fields = ("id", "name", "leader", "description")

@@ -1,42 +1,43 @@
+import re
 from datetime import datetime
 from io import open
 from os import walk
 from os.path import isdir, isfile, join
-from optparse import make_option
-from pprint import pprint
 
-import re
 import pytz
-
-from django.core.management.base import BaseCommand, CommandError
 from django.core.exceptions import ObjectDoesNotExist
-from django.utils import timezone as tz
+from django.core.management.base import BaseCommand
 
 from cyb_oko.settings import TIME_ZONE
-from z.models import Zrapport, Kvittering, Kassetransaksjon, KassenavnMapping, Salgsvare
+from z.models import Kassetransaksjon, Kvittering, Salgsvare, Zrapport
+
 
 class Command(BaseCommand):
-    args = '<file or directories ...>'
-    help = 'Load the given z-report files into the database'
+    args = "<file or directories ...>"
+    help = "Load the given z-report files into the database"
 
     #
     # Compiled regexes used to parse the input file
     #
 
     # Match all lines that we skip
-    skip_lines = re.compile('^(\s$|\d[A-Z\/]|JOURNAL DES VENTES|FIN DE LECTURE|-D|B\s+\d+\s(TIROIR|TA|AT))')
+    skip_lines = re.compile(
+        r"^(\s$|\d[A-Z\/]|JOURNAL DES VENTES|FIN DE LECTURE|-D|B\s+\d+\s(TIROIR|TA|AT))"
+    )
 
     # Match the start date lines
-    start_date = re.compile('^\/(\d{2}-\d{2}-\d{4} \d{2}:\d{2})')
+    start_date = re.compile(r"^\/(\d{2}-\d{2}-\d{4} \d{2}:\d{2})")
 
     # Match the receipt transaction lines
-    receipt_transaction = re.compile('^([a-zA-Z])\s+(\d+)\s(.{15})\s+(-?\d+)\s+(-?\d+\.\d{2})')
+    receipt_transaction = re.compile(
+        r"^([a-zA-Z])\s+(\d+)\s(.{15})\s+(-?\d+)\s+(-?\d+\.\d{2})"
+    )
 
     # Match the receipt date line
-    receipt_date = re.compile('^ <(\d{2}-\d{2}-\d{2} \d{2}:\d{2})(\d{6})')
+    receipt_date = re.compile(r"^ <(\d{2}-\d{2}-\d{2} \d{2}:\d{2})(\d{6})")
 
     # Match the z-report date line
-    z_number = re.compile('^\s+Z READING NR (\d+)')
+    z_number = re.compile(r"^\s+Z READING NR (\d+)")
 
     #
     # Timezone stuff
@@ -46,7 +47,7 @@ class Command(BaseCommand):
     tz = pytz.timezone(TIME_ZONE)
 
     def handle(self, *args, **options):
-        print('Parsing in timezone: %s' % TIME_ZONE)
+        print("Parsing in timezone: %s" % TIME_ZONE)
 
         for arg in args:
             self.parse_files(arg)
@@ -60,7 +61,7 @@ class Command(BaseCommand):
             self.parse_file(path)
 
     def parse_file(self, file):
-        with open(file, 'rt', encoding='iso8859-1') as f:
+        with open(file, "rt", encoding="iso8859-1") as f:
             # Skip the first line
             f.readline()
 
@@ -74,11 +75,11 @@ class Command(BaseCommand):
             for line in f:
                 self.parse_line(line)
 
-            #self.save_z()
+            # self.save_z()
 
     def new_receipt(self):
         # Store the previous receipt, if needed
-        if hasattr(self, 'kvittering'):
+        if hasattr(self, "kvittering"):
             self.kvitteringer.append(self.kvittering)
 
         # Create a new one
@@ -108,12 +109,14 @@ class Command(BaseCommand):
         elif self.start_date_line(line):
             return
         else:
-            raise Exception('Unknown line: %s' % line)
+            raise Exception("Unknown line: %s" % line)
 
     def receipt_date_line(self, line):
         m = self.receipt_date.search(line)
         if m:
-            self.kvittering.tidspunkt = self.tz.localize(datetime.strptime(m.group(1), '%d-%m-%y %H:%M'))
+            self.kvittering.tidspunkt = self.tz.localize(
+                datetime.strptime(m.group(1), "%d-%m-%y %H:%M")
+            )
             self.kvittering.nummer = int(m.group(2), base=10)
             return True
         else:
@@ -123,8 +126,15 @@ class Command(BaseCommand):
         m = self.receipt_transaction.search(line)
         if m:
             try:
-                self.kvittering.linjer.append(self.to_line(
-                    m.group(1), m.group(2), m.group(3).strip(), m.group(4), m.group(5)))
+                self.kvittering.linjer.append(
+                    self.to_line(
+                        m.group(1),
+                        m.group(2),
+                        m.group(3).strip(),
+                        m.group(4),
+                        m.group(5),
+                    )
+                )
             except IgnoredLineException:
                 pass
             return True
@@ -143,32 +153,34 @@ class Command(BaseCommand):
         m = self.start_date.search(line)
         if m:
             if not self.z.tidspunkt:
-                self.z.tidspunkt = self.tz.localize(datetime.strptime(m.group(1), '%d-%m-%Y %H:%M'))
+                self.z.tidspunkt = self.tz.localize(
+                    datetime.strptime(m.group(1), "%d-%m-%Y %H:%M")
+                )
             return True
         else:
             return False
-
 
     def to_line(self, code, number, name, count, sum):
         t = self.type(code)
         nummer = int(number, base=10)
 
-        if t == 'sale' or t == 'refund':
+        if t == "sale" or t == "refund":
             try:
                 vare = Salgsvare.objects.get(kassenr=nummer)
                 if vare.kassenavn == name:
                     return Kassetransaksjon(
-                            kvittering=self.kvittering,
-                            salgsvare=vare,
-                            antall=int(count, base=10))
+                        kvittering=self.kvittering,
+                        salgsvare=vare,
+                        antall=int(count, base=10),
+                    )
                 else:
                     self.name_mismatch(vare, name)
             except ObjectDoesNotExist:
-                print('Fant ingen match for: %s %d %s' % (t, nummer, name))
-                print('Hva vil du gjøre?')
-                print('Lag ny salgsvare [1]')
-                print('Lag ny mapping til eksisterende salgsvare [2]')
-                action = int(input('Velg kommando: '))
+                print("Fant ingen match for: %s %d %s" % (t, nummer, name))
+                print("Hva vil du gjøre?")
+                print("Lag ny salgsvare [1]")
+                print("Lag ny mapping til eksisterende salgsvare [2]")
+                action = int(input("Velg kommando: "))
                 if action == 1:
                     self.create_salgsvare(number)
                 elif action == 2:
@@ -176,77 +188,81 @@ class Command(BaseCommand):
         raise IgnoredLineException()
 
     def type(self, code):
-        if code == 'A':
-            return 'sale'
-        elif code == 'R':
-            return 'payment'
-        elif code == 'x':
-            return 'tax'
-        elif code == 'K':
-            return 'refund'
-        elif code == 'L':
-            #return 'cancelled_sale'
+        if code == "A":
+            return "sale"
+        elif code == "R":
+            return "payment"
+        elif code == "x":
+            return "tax"
+        elif code == "K":
+            return "refund"
+        elif code == "L":
+            # return 'cancelled_sale'
             # Ignore canelled sales
             raise IgnoredLineException()
-        elif code == 'c' or code == 'h':
+        elif code == "c" or code == "h":
             raise IgnoredLineException()
         else:
-            raise UnknownLineException('Unknown line code: %s' % code)
+            raise UnknownLineException("Unknown line code: %s" % code)
 
     def name_mismatch(self, vare, name):
         """
         Handler for mismatch between the name stored in the database and the
         name stored in the pos system.
         """
-        print('Kassenavn for vare #%d ("%s") matcher ikke ("%s" != "%s")' % (vare.kassenr, vare.navn, vare.kassenavn, name))
-        print('Oppdater navn på salgsvare [1]')
-        print('Map til annen vare [2]')
-        action = int(input('Velg kommando: '))
+        print(
+            'Kassenavn for vare #%d ("%s") matcher ikke ("%s" != "%s")'
+            % (vare.kassenr, vare.navn, vare.kassenavn, name)
+        )
+        print("Oppdater navn på salgsvare [1]")
+        print("Map til annen vare [2]")
+        action = int(input("Velg kommando: "))
         if action == 1:
             vare.kassenavn = name
             vare.save()
         elif action == 2:
             self.find_salgsvare()
-            #self.create_mapping(vare.kassenr, name)
+            # self.create_mapping(vare.kassenr, name)
 
     def create_salgsvare(self, number):
-        category = input('Kategori: ')
-        name = input('Navn: ')
-        account = input('Salgskonto: ')
-        status = input('Status: ')
-        print('%s %s %s %s %s' % (category, name, account, status, number))
+        category = input("Kategori: ")
+        name = input("Navn: ")
+        account = input("Salgskonto: ")
+        status = input("Status: ")
+        print("%s %s %s %s %s" % (category, name, account, status, number))
 
     def create_mapping(self, num, name):
-        target = int(input('Kassenummer: '))
+        target = int(input("Kassenummer: "))
         vare = Salgsvare.objects.get(kassenr=target)
-        print('Ny map fra %d:%s til %d:%s' % (num, name, vare.kassenr, vare.navn))
+        print("Ny map fra %d:%s til %d:%s" % (num, name, vare.kassenr, vare.navn))
 
     def find_salgsvare(self):
         while True:
-            name = input('Søk etter vare: ')
+            name = input("Søk etter vare: ")
             varer = Salgsvare.objects.filter(navn__icontains=name)[:10]
             if len(varer) == 0:
-                print('Fant ingen varer som matcher')
+                print("Fant ingen varer som matcher")
             else:
                 for vare in varer:
-                    print('#%d %s' % (vare.pk, vare.navn))
+                    print("#%d %s" % (vare.pk, vare.navn))
                 try:
-                    action = int(input('Velg en vare (ctrl-c for å søke på nytt): '))
+                    int(input("Velg en vare (ctrl-c for å søke på nytt): "))
                     return True
                 except KeyboardInterrupt:
-                    print('')
-
-
+                    print("")
 
 
 class UnknownLineException(Exception):
     """
     Thrown when we find a linetype we do not support
     """
+
     pass
+
 
 class IgnoredLineException(Exception):
     """
     An exception to throw when a line should be ignored
     """
+
     pass

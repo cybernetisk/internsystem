@@ -1,6 +1,6 @@
 from django.db import models, transaction
 from django.db.models import Sum
-from core.models import User, Card, Semester, NfcCard
+from core.models import User, Semester, NfcCard
 from decimal import Decimal
 
 import calendar
@@ -12,8 +12,12 @@ from django.utils.translation import ugettext_lazy as _
 
 class Wallet(models.Model):
     semester = models.ForeignKey(Semester, on_delete=models.CASCADE)
-    cached_balance = models.DecimalField(default=0, max_digits=8, decimal_places=2, editable=False)
-    cached_vouchers = models.DecimalField(default=0, max_digits=8, decimal_places=2, editable=False)
+    cached_balance = models.DecimalField(
+        default=0, max_digits=8, decimal_places=2, editable=False
+    )
+    cached_vouchers = models.DecimalField(
+        default=0, max_digits=8, decimal_places=2, editable=False
+    )
     cached_vouchers_used = models.IntegerField(default=0, editable=False)
 
     class Meta:
@@ -43,16 +47,24 @@ class Wallet(models.Model):
 
 class VoucherWallet(Wallet):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    cached_hours = models.DecimalField(default=0, max_digits=8, decimal_places=2, editable=False)
+    cached_hours = models.DecimalField(
+        default=0, max_digits=8, decimal_places=2, editable=False
+    )
 
     class Meta:
         unique_together = ("user", "semester")
         ordering = ["user__username"]
 
     def calculate_balance(self):
-        vouchers_earned = WorkLog.objects.filter(wallet=self).aggregate(sum=Sum('vouchers'))['sum'] or Decimal(0)
-        vouchers_used = VoucherUseLog.objects.filter(wallet=self).aggregate(sum=Sum('vouchers'))['sum'] or Decimal(0)
-        hours = WorkLog.objects.filter(wallet=self).aggregate(sum=Sum('hours'))['sum'] or Decimal(0)
+        vouchers_earned = WorkLog.objects.filter(wallet=self).aggregate(
+            sum=Sum("vouchers")
+        )["sum"] or Decimal(0)
+        vouchers_used = VoucherUseLog.objects.filter(wallet=self).aggregate(
+            sum=Sum("vouchers")
+        )["sum"] or Decimal(0)
+        hours = WorkLog.objects.filter(wallet=self).aggregate(sum=Sum("hours"))[
+            "sum"
+        ] or Decimal(0)
         self.cached_hours = hours
         return super()._calculate_balance(vouchers_earned, vouchers_used)
 
@@ -68,8 +80,12 @@ class CoffeeWallet(Wallet):
         ordering = ["card__card_uid"]
 
     def calculate_balance(self):
-        vouchers_earned = CoffeeRegisterLog.objects.filter(wallet=self).aggregate(sum=Sum('vouchers'))['sum'] or Decimal(0)
-        vouchers_used = CoffeeUseLog.objects.filter(wallet=self).aggregate(sum=Sum('vouchers'))['sum'] or Decimal(0)
+        vouchers_earned = CoffeeRegisterLog.objects.filter(wallet=self).aggregate(
+            sum=Sum("vouchers")
+        )["sum"] or Decimal(0)
+        vouchers_used = CoffeeUseLog.objects.filter(wallet=self).aggregate(
+            sum=Sum("vouchers")
+        )["sum"] or Decimal(0)
 
         return super()._calculate_balance(vouchers_earned, vouchers_used)
 
@@ -86,11 +102,11 @@ class RegisterLog(models.Model):
 
     class Meta:
         abstract = True
-        ordering = ['-date_issued']
+        ordering = ["-date_issued"]
 
     def clean(self):
         if self.vouchers <= 0:
-            raise ValidationError({'vouchers': _("Vouchers must be positive")})
+            raise ValidationError({"vouchers": _("Vouchers must be positive")})
 
     def save(self, *args, **kwargs):
         with transaction.atomic():
@@ -103,30 +119,34 @@ class RegisterLog(models.Model):
 
 
 class CoffeeRegisterLog(RegisterLog):
-    wallet = models.ForeignKey(CoffeeWallet, related_name='registerlogs', on_delete=models.CASCADE)
+    wallet = models.ForeignKey(
+        CoffeeWallet, related_name="registerlogs", on_delete=models.CASCADE
+    )
     vouchers = models.DecimalField(max_digits=8, decimal_places=2)
 
     def __str__(self):
-        return '%s %s vouchers' % (self.wallet, self.vouchers)
+        return "%s %s vouchers" % (self.wallet, self.vouchers)
 
 
 class WorkLog(RegisterLog):
     DEFAULT_VOUCHERS_PER_HOUR = 0.5
 
-    wallet = models.ForeignKey(VoucherWallet, related_name='worklogs', on_delete=models.CASCADE)
+    wallet = models.ForeignKey(
+        VoucherWallet, related_name="worklogs", on_delete=models.CASCADE
+    )
     date_worked = models.DateField()
     work_group = models.CharField(max_length=20)
     hours = models.DecimalField(max_digits=8, decimal_places=2)
     vouchers = models.DecimalField(max_digits=8, decimal_places=2, blank=True)
 
     def __str__(self):
-        return '%s %s %s hours' % (self.wallet, self.date_worked, self.hours)
+        return "%s %s %s hours" % (self.wallet, self.date_worked, self.hours)
 
     def clean(self):
         if self.vouchers is None:
             self.vouchers = self.calculate_vouchers(self.hours)
         elif self.hours <= 0:
-            raise ValidationError({'hours': _("Hours must be positive")})
+            raise ValidationError({"hours": _("Hours must be positive")})
 
     def calculate_vouchers(self, hours):
         return round(float(hours) * self.DEFAULT_VOUCHERS_PER_HOUR, 2)
@@ -140,7 +160,7 @@ class UseLog(models.Model):
 
     class Meta:
         abstract = True
-        ordering = ['-date_spent']
+        ordering = ["-date_spent"]
 
     def save(self, *args, **kwargs):
         with transaction.atomic():
@@ -149,16 +169,27 @@ class UseLog(models.Model):
 
     def clean(self):
         if self.vouchers is None or self.vouchers <= 0 or (self.vouchers % 1) != 0:
-            raise ValidationError({'vouchers': _('Vouchers must be a positive whole number')})
+            raise ValidationError(
+                {"vouchers": _("Vouchers must be a positive whole number")}
+            )
 
     def __str__(self):
-        comment = ' (%s)' % self.comment if self.comment else ''
-        return "%s - %s at %s%s" % (self.wallet, self.vouchers, self.date_spent.strftime('%Y-%m-%d %H:%M'), comment)
+        comment = " (%s)" % self.comment if self.comment else ""
+        return "%s - %s at %s%s" % (
+            self.wallet,
+            self.vouchers,
+            self.date_spent.strftime("%Y-%m-%d %H:%M"),
+            comment,
+        )
 
 
 class VoucherUseLog(UseLog):
-    wallet = models.ForeignKey(VoucherWallet, related_name='uselogs', on_delete=models.CASCADE)
+    wallet = models.ForeignKey(
+        VoucherWallet, related_name="uselogs", on_delete=models.CASCADE
+    )
 
 
 class CoffeeUseLog(UseLog):
-    wallet = models.ForeignKey(CoffeeWallet, related_name='uselogs', on_delete=models.CASCADE)
+    wallet = models.ForeignKey(
+        CoffeeWallet, related_name="uselogs", on_delete=models.CASCADE
+    )

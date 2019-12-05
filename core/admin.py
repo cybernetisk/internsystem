@@ -20,23 +20,28 @@ class UserCreationForm(forms.ModelForm):
 
 class UserAdmin(_UserAdmin):
     fieldsets = (
-        (None, {'fields': ('username', 'password')}),
-        (_('Personal info'), {'fields': ('realname', 'email', 'phone_number')}),
-        (_('Permissions'), {'fields': ('is_active', 'is_staff', 'is_superuser',
-                                       'groups', 'user_permissions')}),
-        (_('Important dates'), {'fields': ('last_login', 'date_joined')}),
+        (None, {"fields": ("username", "password")}),
+        (_("Personal info"), {"fields": ("realname", "email", "phone_number")}),
+        (
+            _("Permissions"),
+            {
+                "fields": (
+                    "is_active",
+                    "is_staff",
+                    "is_superuser",
+                    "groups",
+                    "user_permissions",
+                )
+            },
+        ),
+        (_("Important dates"), {"fields": ("last_login", "date_joined")}),
     )
-    add_fieldsets = (
-        (None, {
-            'classes': ('wide',),
-            'fields': ('username',),
-        }),
-    )
+    add_fieldsets = (None, {"classes": ("wide",), "fields": ("username",)})
 
-    list_display = ('username', 'email', 'realname', 'is_staff')
-    list_filter = ('is_staff', 'is_superuser', 'is_active', 'groups')
+    list_display = ("username", "email", "realname", "is_staff")
+    list_filter = ("is_staff", "is_superuser", "is_active", "groups")
 
-    search_fields = ('username', 'realname', 'email')
+    search_fields = ("username", "realname", "email")
 
     add_form = UserCreationForm
     add_form_template = None

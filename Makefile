@@ -26,6 +26,15 @@ migrate: venv
 .PHONY: init
 init: Makefile.venv venv install init-settings migrate
 
+.PHONY: lint
+lint: venv
+	$(VENV)/flake8
+	$(VENV)/black --check .
+
+.PHONY: format
+format: venv
+	$(VENV)/black .
+
 .PHONY: run
 run: venv
 	$(VENV)/python ./manage.py runserver $(DEVSERVER_PORT)
