@@ -60,10 +60,12 @@ webpack-stats.json
 
 *.iml
 .idea/
+.venv/
 .vscode/
 db.sqlite3*
 cyb_oko/settings_local.py
 backups/
+Makefile.venv
 
 .dockerrepo
 .dockertag

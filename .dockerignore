@@ -1,0 +1,6 @@
+**/.venv
+**/.vscode
+**/*.sqlite3
+**/settings_local.py
+**/*.egg-info
+Makefile.venv

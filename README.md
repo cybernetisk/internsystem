@@ -37,34 +37,41 @@ modeller som brukes av flere prosjekter.
 
 Det brukes en del hjelpeprogrammer/verktøy, se resten av README for mer info.
 
-## Sette opp systemet
+## Sette opp systemet lokalt
 
-Under utvikling er det kun behov for å ha Docker installert lokalt. Vi hadde
-et tidligere oppsett før hvor man måtte sette opp masse ulike pakker lokalt,
-men dette er erstattet med Docker under utvikling. Dersom man får behov for å
-installere ting utenfor Docker, f.eks. for spesiell IDE-støtte, se
-[setup_dev.sh](https://github.com/cybernetisk/internsystem/blob/45d7da9d5591a3e85ba12fdcdbba19ababfb22e5/scripts/setup_dev.sh)
-og [setup_dev_mac.sh](https://github.com/cybernetisk/internsystem/blob/45d7da9d5591a3e85ba12fdcdbba19ababfb22e5/scripts/setup_dev_mac.sh)
-fra tidligere versjon. Se også `Dockerfile` for hva vi setter opp i dag.
+Applikasjonen kan kjøres lokalt på to måter:
 
-Du må også ha Docker Compose installert.
+1) Som et produksjonsbygg. For små endringer er dette praktisk da man
+   kun er avhengig av å ha Docker og Docker Compose installert.
+2) Fullt utviklingsmiljø. Dette krever at man har Python 3 installert,
+   avhengigheter for SAML etc. Dette gir mulighet for integrasjon med
+   IDE-er og mulighet til å kjøre lint-verktøy etc. lokalt.
+
+Gamle oppsett som kan gi noe inspirasjon for pakker som må installeres:
+
+* [setup_dev.sh](https://github.com/cybernetisk/internsystem/blob/45d7da9d5591a3e85ba12fdcdbba19ababfb22e5/scripts/setup_dev.sh)
+* [setup_dev_mac.sh](https://github.com/cybernetisk/internsystem/blob/45d7da9d5591a3e85ba12fdcdbba19ababfb22e5/scripts/setup_dev_mac.sh)
+
+### Som et produksjonsbygg
 
 ```bash
-# Hent ned siste bygget Docker-image fra Docker Hub slik at vi slipper å
-# bruke tid på å bygge nytt kjøremiljø.
-docker-compose pull
-
-# Sett opp nødvendig konfigurasjon.
-docker-compose run --rm api ./scripts/setup_settings.sh
-
-# Sørg for å ha korrekte pakker installert, migrer database og last inn
-# fixtures.
-docker-compose run --rm api ./scripts/update-dev.sh
-
-# Start applikasjonen lokalt ved hjelp av applikasjonsfilene som ligger i
-# denne mappa.
-docker-compose up api
+make docker-init docker-run
 ```
+
+### Fullt utviklingsmiljø
+
+```bash
+make init run
+```
+
+Det opprettes et virtual env i mappen `.venv` ved dette oppsettet, som kan
+aktiveres slik før manuell kjøring av Python-kommandoer:
+
+```bash
+. .venv/bin/activate
+```
+
+### Bruk av lokalt miljø
 
 Gå til http://localhost:8000/api/
 
@@ -72,16 +79,6 @@ Du skal kunne logge inn med brukeren `cyb` og passord `cyb`. De andre brukerne
 som opprettes har også passord `cyb`.
 
 Konfigurasjon kan endres i `cyb_oko/settings_local.py`.
-
-### Endringer i Docker-oppsettet
-
-Dersom du endrer hvordan applikasjonen kjører, eller andre ting som innebærer
-en endring i oppsettet til applikasjonen, kan du bygge Docker-imaget lokalt
-i stedet for å laste det ned. Dette tar ca. 10 minutter.
-
-```bash
-docker-compose build api
-```
 
 ## Kjøre tester tilsvarende som i CI
 
