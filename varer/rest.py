@@ -62,8 +62,21 @@ class RåvareViewSet(BaseVarerViewSet):
         .all()
     )
 
-    filter_fields = ("navn", "type", "kategori", "status", "innkjopskonto__innkjopskonto")
-    search_fields = ["kategori", "navn", "type", "mengde", "innkjopskonto__gruppe", "innkjopskonto__navn"]
+    filter_fields = (
+        "navn",
+        "type",
+        "kategori",
+        "status",
+        "innkjopskonto__innkjopskonto",
+    )
+    search_fields = [
+        "kategori",
+        "navn",
+        "type",
+        "mengde",
+        "innkjopskonto__gruppe",
+        "innkjopskonto__navn",
+    ]
     ordering_fields = (
         "navn",
         "kategori",
