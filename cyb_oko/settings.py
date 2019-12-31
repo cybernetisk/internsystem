@@ -86,10 +86,12 @@ CORS_ORIGIN_WHITELIST = (
 )
 CORS_ALLOW_CREDENTIALS = True
 
-# Disable SameSite for session cookie as we need this
+# Disable SameSite for session and csrf cookie as we need this
 # for auth to work when using local development server
 # of frontend.
 SESSION_COOKIE_SAMESITE = None
+CSRF_COOKIE_SAMESITE = None
+
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
