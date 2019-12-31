@@ -49,8 +49,13 @@ class RåvareprisInline(admin.TabularInline):
     verbose_name_plural = "Priser"
 
 
+class SalgsvareRåvareInline(admin.TabularInline):
+    model = Salgsvare.raavarer.through
+    extra = 0
+
+
 class RåvareAdmin(admin.ModelAdmin):
-    inlines = [RåvareprisInline]
+    inlines = [RåvareprisInline, SalgsvareRåvareInline]
     search_fields = ["kategori", "navn", "innkjopskonto__id"]
     list_display = ("__str__", "status", "mengde", "enhet", "antall", "innkjopskonto")
     list_filter = (
@@ -63,11 +68,6 @@ class RåvareAdmin(admin.ModelAdmin):
 
 class LeverandørAdmin(admin.ModelAdmin):
     list_display = ("navn", "kommentar")
-
-
-class SalgsvareRåvareInline(admin.TabularInline):
-    model = Salgsvare.raavarer.through
-    extra = 0
 
 
 class SalgsvarePrisInline(admin.TabularInline):

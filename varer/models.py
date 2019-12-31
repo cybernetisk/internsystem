@@ -1,4 +1,7 @@
+from django.contrib.humanize.templatetags.humanize import intcomma
+from django.core.validators import MinValueValidator
 from django.db import models
+
 from core.models import User
 from varer.managers import RåvareManager
 
@@ -25,8 +28,16 @@ class Råvare(models.Model):
 
     kategori = models.CharField(max_length=50, null=True, blank=True)
     navn = models.CharField(max_length=100)
+    type = models.CharField(
+        max_length=20,
+        help_text="Type innpakning, f.eks. boks eller fat",
+        null=True,
+        blank=True,
+    )
     mengde = models.FloatField()
-    enhet = models.CharField(max_length=20)
+    enhet = models.CharField(
+        max_length=20, help_text="Foretrukket enhet for væske er l"
+    )
     mengde_svinn = models.FloatField(default=0)
     antall = models.FloatField(
         default=1, help_text="Antall salgsbare enheter 1 stk gir"
@@ -51,7 +62,15 @@ class Råvare(models.Model):
         verbose_name_plural = "råvarer"
 
     def __str__(self):
-        return (self.kategori + ": " if self.kategori else "") + self.navn
+        mengde = intcomma(self.mengde)
+        if mengde.endswith(",0") or mengde.endswith(".0"):
+            mengde = mengde[:-2]
+
+        return (
+            (self.kategori + ": " if self.kategori else "")
+            + f"{self.navn} {mengde}"
+            + (f" {self.type}" if self.type is not None else "")
+        )
 
 
 class Leverandør(models.Model):
@@ -82,8 +101,13 @@ class Råvarepris(models.Model):
         on_delete=models.CASCADE,
     )
     bestillingskode = models.CharField(max_length=30, null=True, blank=True)
+    antall = models.PositiveIntegerField(
+        help_text="Antall dette gir hvor ting kjøpes som pakker, f.eks. six-pack",
+        default=1,
+        validators=[MinValueValidator(1)],
+    )
     pris = models.FloatField(help_text="Pris eks mva")
-    pant = models.FloatField(help_text="Pant per stk", default=0)
+    pant = models.FloatField(default=0)
     dato = models.DateField()
     type = models.CharField(max_length=10, choices=TYPE_CHOICES, default="UKJENT")
     aktiv = models.BooleanField(
@@ -99,7 +123,7 @@ class Råvarepris(models.Model):
             self.raavare,
             self.dato.isoformat(),
             self.leverandor,
-            self.pris,
+            self.pris / self.antall,
         )
 
 

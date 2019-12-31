@@ -35,6 +35,7 @@ class RåvareWriteSerializer(serializers.ModelSerializer):
         fields = (
             "kategori",
             "navn",
+            "type",
             "mengde",
             "enhet",
             "mengde_svinn",
@@ -53,6 +54,7 @@ class RåvareReadSerializer(serializers.ModelSerializer):
             fields = (
                 "id",
                 "bestillingskode",
+                "antall",
                 "pris",
                 "pant",
                 "dato",
@@ -85,6 +87,7 @@ class RåvareReadSerializer(serializers.ModelSerializer):
             "id",
             "kategori",
             "navn",
+            "type",
             "mengde",
             "enhet",
             "mengde_svinn",
@@ -134,6 +137,7 @@ class SalgsvareReadSerializer(serializers.ModelSerializer):
                     fields = (
                         "id",
                         "bestillingskode",
+                        "antall",
                         "pris",
                         "pant",
                         "dato",
@@ -151,6 +155,7 @@ class SalgsvareReadSerializer(serializers.ModelSerializer):
                     "id",
                     "kategori",
                     "navn",
+                    "type",
                     "mengde",
                     "enhet",
                     "mengde_svinn",
@@ -284,7 +289,7 @@ class VaretellingVareExpandedSerializer(serializers.ModelSerializer):
         class Priser(serializers.ModelSerializer):
             class Meta:
                 model = Råvarepris
-                fields = ("pris", "pant", "dato", "aktiv")
+                fields = ("antall", "pris", "pant", "dato", "aktiv")
                 depth = 1
 
         innkjopskonto = KontoSimpleSerializer()
@@ -296,6 +301,7 @@ class VaretellingVareExpandedSerializer(serializers.ModelSerializer):
                 "id",
                 "kategori",
                 "navn",
+                "type",
                 "mengde",
                 "enhet",
                 "mengde_svinn",
