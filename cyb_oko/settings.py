@@ -92,6 +92,11 @@ CORS_ALLOW_CREDENTIALS = True
 SESSION_COOKIE_SAMESITE = None
 CSRF_COOKIE_SAMESITE = None
 
+CSRF_TRUSTED_ORIGINS = [
+    "dev.internt.cyb.no",
+    "test.in.cyb.no",
+]
+
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
