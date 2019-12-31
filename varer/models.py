@@ -68,7 +68,7 @@ class Råvare(models.Model):
 
         return (
             (self.kategori + ": " if self.kategori else "")
-            + f"{self.navn} {mengde}"
+            + f"{self.navn} {mengde} {self.enhet}"
             + (f" {self.type}" if self.type is not None else "")
         )
 
