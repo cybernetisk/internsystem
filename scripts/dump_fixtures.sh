@@ -17,8 +17,6 @@
 ./manage.py dumpdata --format json core.nfccard >core/fixtures/nfccard.json
 ./manage.py dumpdata --format json core.group >core/fixtures/group.json
 
-./manage.py dumpdata --format json cal.event >cal/fixtures/event.json
-
 ./manage.py dumpdata --format json members >members/fixtures/members.json
 
 ./manage.py dumpdata --format json varer >varer/fixtures/varer.json
