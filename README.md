@@ -52,6 +52,13 @@ Gamle oppsett som kan gi noe inspirasjon for pakker som må installeres:
 * [setup_dev.sh](https://github.com/cybernetisk/internsystem/blob/45d7da9d5591a3e85ba12fdcdbba19ababfb22e5/scripts/setup_dev.sh)
 * [setup_dev_mac.sh](https://github.com/cybernetisk/internsystem/blob/45d7da9d5591a3e85ba12fdcdbba19ababfb22e5/scripts/setup_dev_mac.sh)
 
+### (Kun for Mac OS) Installer de følgende pakkene først
+```
+brew install coreutils
+brew install Libxmlsec1
+brew install pkg-config
+```
+
 ### Som et produksjonsbygg
 
 ```bash
