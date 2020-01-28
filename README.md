@@ -54,9 +54,7 @@ Gamle oppsett som kan gi noe inspirasjon for pakker som må installeres:
 
 ### (Kun for Mac OS) Installer de følgende pakkene først
 ```
-brew install coreutils
-brew install Libxmlsec1
-brew install pkg-config
+brew install coreutils Libxmlsec1 pkg-config
 ```
 
 ### Som et produksjonsbygg
