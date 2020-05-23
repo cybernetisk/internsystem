@@ -1,5 +1,5 @@
 black==19.10b0
-django-cors-headers==3.2.1
+django-cors-headers==3.3.0
 django-filter==2.2.0
 django-filters
 django-oauth-toolkit==1.3.2
