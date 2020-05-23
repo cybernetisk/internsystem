@@ -92,9 +92,9 @@ class Command(BaseCommand):
 
         for k in self.kvitteringer:
             if len(k.linjer) > 0:
-                for l in k.linjer:
-                    l.tidspunkt = k.tidspunkt
-                    k.transaksjoner.add(l)
+                for linje in k.linjer:
+                    linje.tidspunkt = k.tidspunkt
+                    k.transaksjoner.add(linje)
 
     def parse_line(self, line):
         if self.skip_lines.search(line):
