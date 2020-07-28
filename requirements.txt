@@ -10,7 +10,7 @@ gunicorn==20.0.4
 icalendar==4.0.6
 ipython==7.16.1
 isodate==0.6.0
-phonenumbers==8.12.6
+phonenumbers==8.12.7
 psycopg2==2.8.5
 python-dateutil==2.8.1
 pytz==2020.1
