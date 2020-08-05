@@ -1,4 +1,4 @@
-FROM python:3.8-alpine@sha256:fe0078e736930e4b8fabc4095745c7e689dd8f96d3181c758a18f21334aa9dc0
+FROM python:3.8-alpine@sha256:025a9e6c3d818dfc008cb89f03507d65f2a59d3fcabe44b9a8b7dbd3738eb4fe
 
 # postgresql-dev required to build psycopg2 with pip
 RUN set -eux; \
