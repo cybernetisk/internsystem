@@ -33,6 +33,11 @@ class Wallet(models.Model):
     def _is_valid(self):
         start_month = 1 if self.semester.semester == Semester.SPRING else 7
         end_month = 8 if self.semester.semester == Semester.SPRING else 1
+
+        # Corona-exception in 2020.
+        if self.semester.semester == Semester.SPRING and self.semester.year == 2020:
+            end_month = 9
+
         end_year_offset = 0 if self.semester.semester == Semester.SPRING else 1
         end_day = calendar.monthrange(self.semester.year, end_month)[1]
 
