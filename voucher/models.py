@@ -38,6 +38,10 @@ class Wallet(models.Model):
         if self.semester.semester == Semester.SPRING and self.semester.year == 2020:
             end_month = 9
 
+        # Corona-exception in 2021
+        if self.semester.semester == Semester.FALL and self.semester.year == 2020:
+            end_month = 7
+
         end_year_offset = 0 if self.semester.semester == Semester.SPRING else 1
         end_day = calendar.monthrange(self.semester.year, end_month)[1]
 

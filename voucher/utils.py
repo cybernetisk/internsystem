@@ -11,6 +11,14 @@ def get_valid_semesters():
     # Corona-exception in 2020.
     elif now.year == 2020 and now.month == 9:
         semesters.append(get_semester(-1))
+
+    # Corona-exception in 2021
+    elif now.year == 2021 and now.month == 6:
+        semesters.append(get_semester(-1))
+    # Corona-exception in 2021 continued
+    elif now.year == 2021 and now.month == 7:
+        semesters.append(get_semester(-2))
+
     semesters.append(get_semester())
     return semesters
 
@@ -26,6 +34,10 @@ def get_first_valid_work_log_date():
     # Corona-exception in 2020.
     elif valid.year == 2020 and valid.month == 9:
         valid = valid.replace(month=1)
+
+    # Corona-exception in 2021
+    elif valid.year == 2021 and (valid.month == 6 or valid.month == 7):
+        valid = valid.replace(year=2020, month=8)
     else:
         valid = valid.replace(month=7)
 
