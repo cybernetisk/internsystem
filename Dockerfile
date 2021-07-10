@@ -10,6 +10,7 @@ RUN set -eux; \
       postgresql-dev \
       su-exec \
       xmlsec-dev \
+      libffi \
     ; \
     mkdir -p /app; \
     mkdir -p /usr/src/static; \
