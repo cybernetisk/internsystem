@@ -13,6 +13,8 @@ RUN set -eux; \
       libffi-dev \
       libressl-dev \
       musl-dev \
+      cargo \
+      rust \
     ; \
     mkdir -p /app; \
     mkdir -p /usr/src/static; \
