@@ -1,6 +1,6 @@
 import datetime
 
-from core.utils import get_semester
+from core.utils import get_semester, get_semester_of_date
 
 
 def get_valid_semesters():
@@ -13,11 +13,8 @@ def get_valid_semesters():
         semesters.append(get_semester(-1))
 
     # Corona-exception in 2021
-    elif now.year == 2021 and now.month == 6:
-        semesters.append(get_semester(-1))
-    # Corona-exception in 2021 continued
-    elif now.year == 2021 and now.month == 7:
-        semesters.append(get_semester(-2))
+    elif now.year == 2021 and now.month in [6, 7]:
+        semesters.append(get_semester_of_date(datetime.date(2020, 12, 1)))
 
     semesters.append(get_semester())
     return semesters
