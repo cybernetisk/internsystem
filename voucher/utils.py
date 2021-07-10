@@ -9,11 +9,11 @@ def get_valid_semesters():
     if now.month == 7 or now.month == 8 or now.month == 1:
         semesters.append(get_semester(-1))
     # Corona-exception in 2020.
-    elif now.year == 2020 and now.month == 9:
+    if now.year == 2020 and now.month == 9:
         semesters.append(get_semester(-1))
 
     # Corona-exception in 2021
-    elif now.year == 2021 and now.month in [6, 7]:
+    if now.year == 2021 and now.month in [6, 7]:
         semesters.append(get_semester_of_date(datetime.date(2020, 12, 1)))
 
     semesters.append(get_semester())
