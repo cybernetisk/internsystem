@@ -150,10 +150,10 @@ REST_FRAMEWORK = {
 CYB = {
     "CALENDAR": {
         "public": [
-            "https://wiki.cyb.no/rest/calendar-services/1.0/calendar/export/subcalendar/private/69e4d3450b6ba6e4a547882144bdedfc5182c40a.ics"
+            "https://wiki.cyb.no/rest/calendar-services/1.0/calendar/export/subcalendar/private/ffb4f4ef5c35da9b4cfaa276a3a842051848632b.ics"
         ],
         "intern": [
-            "https://wiki.cyb.no/rest/calendar-services/1.0/calendar/export/subcalendar/private/4f5af3ae5b9a67666c2ad001d21c7c453291844a.ics"
+            "https://wiki.cyb.no/rest/calendar-services/1.0/calendar/export/subcalendar/private/6e360b4215ee97862fecec0d4319d86a8feb364d.ics"
         ],
     }
 }
