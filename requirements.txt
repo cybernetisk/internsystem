@@ -9,7 +9,7 @@ flake8==3.9.2
 gunicorn==20.1.0
 icalendar==4.0.9
 ipython==7.30.1
-isodate==0.6.0
+isodate==0.6.1
 phonenumbers==8.12.39
 psycopg2==2.8.6
 python-dateutil==2.8.2
