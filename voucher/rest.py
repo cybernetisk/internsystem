@@ -51,7 +51,7 @@ from voucher.utils import get_valid_semesters
 
 class VoucherWalletViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = VoucherWalletSerializer
-    filter_class = VoucherWalletFilter
+    filterset_class = VoucherWalletFilter
 
     def get_queryset(self):
         queryset = VoucherWallet.objects.all()
@@ -109,7 +109,7 @@ class VoucherWalletViewSet(viewsets.ReadOnlyModelViewSet):
 
 class CoffeeWalletViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = CoffeeWalletSerializer
-    filter_class = CoffeeWalletFilter
+    filterset_class = CoffeeWalletFilter
 
     def get_queryset(self):
         queryset = CoffeeWallet.objects.all()
@@ -288,7 +288,7 @@ class CoffeeRegisterLogViewSet(viewsets.ModelViewSet):
         IsAuthenticatedOrReadOnly,
         RegisterLogPermissions,
     )
-    filter_class = CoffeeRegisterLogFilter
+    filterset_class = CoffeeRegisterLogFilter
     ordering_fields = (
         "id",
         "wallet",
@@ -344,7 +344,7 @@ class WorkLogViewSet(viewsets.ModelViewSet):
         IsAuthenticatedOrReadOnly,
         RegisterLogPermissions,
     )
-    filter_class = WorkLogFilter
+    filterset_class = WorkLogFilter
     ordering_fields = ("date_issued", "date_worked", "work_group", "hours", "vouchers")
 
     def get_serializer_class(self):
@@ -391,7 +391,7 @@ class VoucherUseLogViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = VoucherUseLog.objects.prefetch_related(
         "wallet__user", "wallet__semester"
     ).all()
-    filter_class = VoucherUseLogFilter
+    filterset_class = VoucherUseLogFilter
 
 
 class CoffeeUseLogViewSet(viewsets.ReadOnlyModelViewSet):
@@ -399,7 +399,7 @@ class CoffeeUseLogViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = CoffeeUseLog.objects.prefetch_related(
         "wallet__card", "wallet__semester"
     ).all()
-    filter_class = CoffeeUseLogFilter
+    filterset_class = CoffeeUseLogFilter
 
 
 class WorkGroupsViewSet(viewsets.ReadOnlyModelViewSet):
