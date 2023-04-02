@@ -6,6 +6,6 @@ tag=$(cat .dockertag)
 
 docker run \
   --rm \
-  -e LOCAL_SETTINGS=settings_local_travis \
+  -e LOCAL_SETTINGS=settings_local_ci \
   $repo:$tag \
   ./scripts/test.sh

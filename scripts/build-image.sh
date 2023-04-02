@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 set -eu
 
 docker --version
 
 repo="cybernetisk/in-backend"
-tag=$(date -u +%Y%m%d-%H%M)-$TRAVIS_BUILD_NUMBER
+tag=$(date -u +%Y%m%d-%H%M)-${GITHUB_SHA:0:8}
 echo $repo >.dockerrepo
 echo $tag >.dockertag
 

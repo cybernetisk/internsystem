@@ -18,7 +18,7 @@ container_id=$(
   docker run \
     --rm \
     -d \
-    -e LOCAL_SETTINGS=settings_local_travis \
+    -e LOCAL_SETTINGS=settings_local_ci \
     --network-alias=service \
     --network $network_id \
     "$image_id"
