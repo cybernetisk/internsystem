@@ -18,14 +18,10 @@ jobs:
       - run: ./scripts/push-image.sh
         if: github.ref == 'refs/heads/master'
 
-      - name: Install SSH key
+      - uses: webfactory/ssh-agent@v0.8.0
         if: github.ref == 'refs/heads/master'
-        env:
-          SSH_KEY: ${{ secrets.SSH_KEY }}
-        run: |
-          mkdir -p ~/.ssh
-          echo "$CYB_SSH_KEY" >~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
+        with:
+            ssh-private-key: ${{ secrets.SSH_KEY }}
 
       - name: Setup known hosts
         if: github.ref == 'refs/heads/master'
