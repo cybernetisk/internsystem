@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import re_path
 from core.views import me
 
 from core.rest import CardViewSet, UserViewSet, NfcCardViewSet, GroupViewSet
@@ -12,5 +12,5 @@ router.register(r"core/nfc", NfcCardViewSet)
 router.register(r"core/groups", GroupViewSet)
 
 urlpatterns = [
-    url(r"^api/me$", me, name="me"),
+    re_path(r"^api/me$", me, name="me"),
 ]

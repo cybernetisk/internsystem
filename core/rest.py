@@ -20,11 +20,11 @@ from core.permissions import CardPermission
 
 class CardViewSet(viewsets.ModelViewSet):
     permission_classes = (CardPermission,)
-    filter_class = CardFilter
+    filterset_class = CardFilter
     filter_backends = (DjangoFilterBackend, filters.OrderingFilter)
     queryset = Card.objects.all()
     ordering_fields = ("id", "user__username", "card_number", "disabled")
-    filter_fields = ("id", "user__id", "card_number", "user__intern__id")
+    filterset_fields = ("id", "user__id", "card_number", "user__intern__id")
 
     def get_serializer_class(self):
         if self.action in ["create"]:
@@ -61,7 +61,7 @@ class CardViewSet(viewsets.ModelViewSet):
 
 class NfcCardViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = (IsAuthenticated,)
-    filter_class = NfcCardFilter
+    filterset_class = NfcCardFilter
     queryset = NfcCard.objects.all()
     ordering_fields = ("card_uid", "user", "intern")
 
@@ -90,7 +90,7 @@ class NfcCardViewSet(viewsets.ReadOnlyModelViewSet):
 
 class UserViewSet(viewsets.ReadOnlyModelViewSet):
     filter_backends = (DjangoFilterBackend, filters.SearchFilter)
-    filter_class = UserFilter
+    filterset_class = UserFilter
     search_fields = ("username", "realname", "email")
     permission_classes = (permissions.IsAuthenticated,)
     queryset = User.objects.all().order_by("username")

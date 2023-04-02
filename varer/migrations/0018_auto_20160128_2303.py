@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 from django.db import models, migrations
 from django.conf import settings
-from django.utils.timezone import utc
 import datetime
 
 
@@ -23,7 +22,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='varetellingvare',
             name='time_added',
-            field=models.DateTimeField(auto_now_add=True, default=datetime.datetime(2016, 1, 28, 22, 3, 18, 828239, tzinfo=utc)),
+            field=models.DateTimeField(auto_now_add=True, default=datetime.datetime(2016, 1, 28, 22, 3, 18, 828239, tzinfo=datetime.timezone.utc)),
             preserve_default=False,
         ),
         migrations.AddField(

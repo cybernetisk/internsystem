@@ -1,9 +1,5 @@
 # CYBs internsystem (backend)
 
-| Master | Test |
-| --- | --- |
-| [![Build Status](https://travis-ci.org/cybernetisk/internsystem.svg?branch=master)](https://travis-ci.org/cybernetisk/internsystem) | [![Build Status](https://travis-ci.org/cybernetisk/internsystem.svg?branch=test)](https://travis-ci.org/cybernetisk/internsystem) |
-
 Dette prosjektet tilbyr en rekke tjenester til hjelp for Cybernetisk Selskab.
 I hovedsak tilbyr dette prosjektet kun et API, som brukes av blant annet
 https://github.com/cybernetisk/internsystem-frontend.
@@ -19,7 +15,6 @@ Tjenester det jobbes med/planlegges:
 
 * Kaffebonger
 * Internliste (i stedet for tabeller i wikien/GARM-systemet)
-* Z-rapport-statistikk
 * Sentral brukerdatabase for CYB (kunne koble andre tjenester som wiki m.v. mot
   dette systemet, med pålogging videresendt mot UiO)
 
@@ -100,9 +95,9 @@ Konfigurasjon kan endres i `cyb_oko/settings_local.py`.
 ## Kjøre tester tilsvarende som i CI
 
 ```bash
-TRAVIS_BUILD_NUMBER=dev ./scripts/travis-build-image.sh
-./scripts/travis-test-app.sh
-./scripts/travis-test-image.sh
+GITHUB_SHA=zzzzzzzz ./scripts/build-image.sh
+./scripts/test-app.sh
+./scripts/test-image.sh
 ```
 
 ## Pålogging mot UiO-weblogin
@@ -173,8 +168,7 @@ Dersom `client type` settes til `public` er ikke `client_secret` nødvendig.
 
 ## Produksjonsserver
 
-Produksjon oppdateres automatisk ved push til `master`, samt test-instans
-oppdateres ved push til `test`. Se `.travis.yml`.
+Produksjon oppdateres automatisk ved push til `master`.
 
 Se https://github.com/cybernetisk/drift/tree/master/internsystem-backend
 for detaljer om oppsett i produksjon.

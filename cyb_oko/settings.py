@@ -32,7 +32,6 @@ INSTALLED_APPS = (
     "varer",
     "cal",
     "voucher",
-    "z",
     "members",
     "intern",
     "django_filters",
@@ -63,11 +62,14 @@ TEMPLATES = [
             "context_processors": [
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
+                "django.template.context_processors.request",
             ],
             # debug option is set later in this settings file
         },
     },
 ]
+
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 ROOT_URLCONF = "cyb_oko.urls"
 
@@ -93,8 +95,9 @@ SESSION_COOKIE_SAMESITE = None
 CSRF_COOKIE_SAMESITE = None
 
 CSRF_TRUSTED_ORIGINS = [
-    "dev.internt.cyb.no",
-    "test.in.cyb.no",
+    "https://dev.internt.cyb.no",
+    "https://test.in.cyb.no",
+    "http://localhost:3000",
 ]
 
 
@@ -116,8 +119,6 @@ LANGUAGE_CODE = "nb"
 TIME_ZONE = "Europe/Oslo"
 
 USE_I18N = True
-
-USE_L10N = True
 
 USE_TZ = True
 

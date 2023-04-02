@@ -1,6 +1,6 @@
 import datetime
 from rest_framework import serializers
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from voucher.models import WorkLog
 from voucher.utils import get_first_valid_work_log_date

@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseServerError
 from django.shortcuts import render, resolve_url
-from django.utils.http import is_safe_url
+from django.utils.http import url_has_allowed_host_and_scheme
 from onelogin.saml2.auth import OneLogin_Saml2_Auth
 from onelogin.saml2.utils import OneLogin_Saml2_Utils
 
@@ -111,7 +111,9 @@ def sso(request):
 
     # Ensure the user-originating redirection url is safe.
     redirect_to = request.POST.get("next", request.GET.get("next", ""))
-    if not is_safe_url(url=redirect_to, allowed_hosts=request.get_host()):
+    if not url_has_allowed_host_and_scheme(
+        url=redirect_to, allowed_hosts=request.get_host()
+    ):
         redirect_to = resolve_url(settings.LOGIN_REDIRECT_URL)
 
     return HttpResponseRedirect(auth.login(redirect_to))

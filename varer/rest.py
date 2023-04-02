@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.exceptions import PermissionDenied
@@ -62,7 +62,7 @@ class RåvareViewSet(BaseVarerViewSet):
         .all()
     )
 
-    filter_fields = (
+    filterset_fields = (
         "navn",
         "type",
         "kategori",
@@ -101,7 +101,7 @@ class RåvareprisViewSet(BaseVarerViewSet):
     queryset = Råvarepris.objects.prefetch_related("leverandor").order_by("-dato").all()
     serializer_class = RåvareprisSerializer
 
-    filter_fields = ("bestillingskode", "leverandor", "aktiv", "raavare")
+    filterset_fields = ("bestillingskode", "leverandor", "aktiv", "raavare")
 
 
 class SalgsvareViewSet(BaseVarerViewSet):
@@ -113,7 +113,7 @@ class SalgsvareViewSet(BaseVarerViewSet):
         .all()
     )
 
-    filter_fields = ("navn", "kategori", "status", "kassenr")
+    filterset_fields = ("navn", "kategori", "status", "kassenr")
     ordering_fields = ("navn", "kategori", "status", "kassenr")
 
     def get_serializer_class(self):
@@ -207,7 +207,7 @@ class VaretellingVareViewSet(BaseVarerViewSet):
         "time_price",
         "time_added",
     )
-    filter_fields = ("varetelling",)
+    filterset_fields = ("varetelling",)
     permission_classes = (
         IsAuthenticatedOrReadOnly,
         VaretellingVarePermissions,

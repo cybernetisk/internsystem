@@ -23,13 +23,13 @@ from members.serializers import (
 
 class MemberViewSet(viewsets.ModelViewSet):
     permission_classes = (DjangoModelPermissions,)
-    filter_class = MemberFilter
+    filterset_class = MemberFilter
     filter_backends = (
         DjangoFilterBackend,
         filters.SearchFilter,
         filters.OrderingFilter,
     )
-    filter_fields = ("lifetime",)
+    filterset_fields = ("lifetime",)
     search_fields = ("name",)
     ordering_fields = ("date_joined", "name")
 

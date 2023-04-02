@@ -27,7 +27,6 @@ class FixturesTestCase(TestCase):
 
 
 class MemberRestTestCase(APITestCase):
-
     new_member = {
         "name": "Test Testeren",
         "email": "text@example.com",

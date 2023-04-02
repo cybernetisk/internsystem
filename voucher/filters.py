@@ -2,7 +2,7 @@ from datetime import datetime, timedelta
 
 import django_filters
 from django.utils.timezone import get_current_timezone
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from rest_framework.exceptions import ValidationError
 
 from voucher.models import (
