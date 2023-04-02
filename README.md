@@ -19,7 +19,6 @@ Tjenester det jobbes med/planlegges:
 
 * Kaffebonger
 * Internliste (i stedet for tabeller i wikien/GARM-systemet)
-* Z-rapport-statistikk
 * Sentral brukerdatabase for CYB (kunne koble andre tjenester som wiki m.v. mot
   dette systemet, med pålogging videresendt mot UiO)
 

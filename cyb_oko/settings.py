@@ -32,7 +32,6 @@ INSTALLED_APPS = (
     "varer",
     "cal",
     "voucher",
-    "z",
     "members",
     "intern",
     "django_filters",
