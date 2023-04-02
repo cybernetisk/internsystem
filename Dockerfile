@@ -1,4 +1,4 @@
-FROM python:3.9-alpine@sha256:02311d686cd35b0f838854d6035c679acde2767a4fd09904e65355fbd9780f8a
+FROM python:3.10-alpine3.17@sha256:737b1ed39555d3a888238348cb5acebd5a695a07afacf7dead8610a157fdc6af
 
 # postgresql-dev required to build psycopg2 with pip
 RUN set -eux; \
@@ -11,7 +11,6 @@ RUN set -eux; \
       su-exec \
       xmlsec-dev \
       libffi-dev \
-      libressl-dev \
       musl-dev \
       cargo \
       rust \
