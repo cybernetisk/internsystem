@@ -70,6 +70,8 @@ TEMPLATES = [
     },
 ]
 
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
 ROOT_URLCONF = "cyb_oko.urls"
 
 WSGI_APPLICATION = "cyb_oko.wsgi.application"
