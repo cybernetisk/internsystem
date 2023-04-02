@@ -96,8 +96,9 @@ SESSION_COOKIE_SAMESITE = None
 CSRF_COOKIE_SAMESITE = None
 
 CSRF_TRUSTED_ORIGINS = [
-    "dev.internt.cyb.no",
-    "test.in.cyb.no",
+    "https://dev.internt.cyb.no",
+    "https://test.in.cyb.no",
+    "http://localhost:3000",
 ]
 
 
@@ -119,8 +120,6 @@ LANGUAGE_CODE = "nb"
 TIME_ZONE = "Europe/Oslo"
 
 USE_I18N = True
-
-USE_L10N = True
 
 USE_TZ = True
 
