@@ -1,7 +1,7 @@
 import datetime
+from zoneinfo import ZoneInfo
 
 import dateutil.rrule
-import pytz
 import requests
 from django.conf import settings
 from django.core.cache import cache
@@ -19,8 +19,8 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
             return dt
         if dt.tzinfo is None or dt.tzinfo.utcoffset(dt) is None:
             # assume this timezone
-            return dt.replace(tzinfo=pytz.timezone("Europe/Oslo"))
-        return dt.astimezone(pytz.timezone("Europe/Oslo"))
+            return dt.replace(tzinfo=ZoneInfo("Europe/Oslo"))
+        return dt.astimezone(ZoneInfo("Europe/Oslo"))
 
     def _force_naive_datetime(self, dt):
         if type(dt) == datetime.date:
@@ -67,7 +67,7 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
 
             # the rrule parsing don't respect dst, so by removing timezone and adding it again
             # it will receive the correct timezone
-            d = pytz.timezone("Europe/Oslo").localize(d.replace(tzinfo=None))
+            d = d.replace(tzinfo=None).replace(tzinfo=ZoneInfo("Europe/Oslo"))
 
             if is_day:
                 d = d.date()
@@ -185,14 +185,14 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
 
         out = {}
         data = self._get_data(use_cache=cached)
-        now = datetime.datetime.now(pytz.utc)
-        osl = pytz.timezone("Europe/Oslo")
+        now = datetime.datetime.now(datetime.timezone.utc)
+        osl = ZoneInfo("Europe/Oslo")
 
         def get_aware_date(dt):
             if type(dt) is datetime.date:
                 dt = datetime.datetime.combine(dt, datetime.time.min)
             if dt.tzinfo is None or dt.tzinfo.utcoffset(dt) is None:
-                dt = osl.localize(dt)
+                dt = dt.replace(tzinfo=osl)
             return dt
 
         def is_future(ev):
