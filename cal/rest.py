@@ -175,7 +175,6 @@ class UpcomingRemoteEventViewSet(viewsets.ViewSet):
         return data
 
     def list(self, request):
-
         cached = "nocache" not in request.GET
 
         if cached:
