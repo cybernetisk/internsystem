@@ -8,7 +8,7 @@ djangorestframework==3.14.0
 flake8==6.0.0
 gunicorn==20.1.0
 icalendar==5.0.10
-ipython==8.17.1
+ipython==8.17.2
 isodate==0.6.1
 phonenumbers==8.13.23
 psycopg2==2.9.5
