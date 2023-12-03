@@ -9,7 +9,7 @@ jobs:
       - run: ./scripts/test-app.sh
       - run: ./scripts/test-image.sh
 
-      - uses: docker/login-action@v2
+      - uses: docker/login-action@v3
         if: github.ref == 'refs/heads/master'
         with:
           username: ${{ vars.DOCKER_LOGIN }}
