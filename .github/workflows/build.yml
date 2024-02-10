@@ -18,7 +18,7 @@ jobs:
       - run: ./scripts/push-image.sh
         if: github.ref == 'refs/heads/master'
 
-      - uses: webfactory/ssh-agent@v0.8.0
+      - uses: webfactory/ssh-agent@v0.9.0
         if: github.ref == 'refs/heads/master'
         with:
             ssh-private-key: ${{ secrets.SSH_KEY }}
