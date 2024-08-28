@@ -1,4 +1,4 @@
-black==23.12.1
+black==24.3.0
 django-cors-headers==3.14.0
 django-filter==23.5
 django-oauth-toolkit==2.3.0
